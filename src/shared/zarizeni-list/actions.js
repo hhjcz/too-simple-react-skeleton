@@ -26,7 +26,7 @@ export function receiveList(json) {
   }
 }
 
-export function fetchPosts() {
+export function fetchList() {
   const parseQueryParams = (getState) => {
     console.log(getState())
     const {page, perPage} = getState().get('pagination').toObject()

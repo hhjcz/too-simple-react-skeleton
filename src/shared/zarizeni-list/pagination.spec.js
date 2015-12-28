@@ -38,4 +38,3 @@ describe('pagination', () => {
     expect(nextState === state).to.equal(true)
   })
 })
-

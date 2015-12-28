@@ -1,4 +1,9 @@
-{ "extends": "eslint-config-airbnb",
+{
+  "parser": "babel-eslint",
+  "extends": "eslint-config-airbnb",
+  "plugins": [
+    "react", "import"
+  ],
   "env": {
     "browser": true,
     "node": true,
@@ -17,15 +22,15 @@
     // Temporarily disabled for test/* until babel/babel-eslint#33 is resolved
     "padded-blocks": 0,
     "comma-dangle": 0,  // not sure why airbnb turned this on. gross!
-    "indent": [2, 2, {"SwitchCase": 1}],
+    "indent": [1, 2, {"SwitchCase": 1}],
     "no-console": 0,
     "no-alert": 0,
     "semi": 0,
-    "new-cap": 0
+    "new-cap": 0,
+    "object-curly-spacing": [1, "never"],
+    "object-shorthand": 1,
+    "no-unused-vars": 2
   },
-  "plugins": [
-    "react", "import"
-  ],
   "settings": {
     "import/parser": "babel-eslint",
     "import/resolve": {

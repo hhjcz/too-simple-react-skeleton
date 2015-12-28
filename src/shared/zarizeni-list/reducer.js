@@ -5,10 +5,11 @@ import {List, Map} from 'immutable'
 import * as actions from './actions'
 import {setList} from './core'
 import {Pagination, nextPage, previousPage} from './pagination'
+import {Zarizeni} from '../zarizeni/core'
 
 export const initialState = Map({
   pagination: new Pagination({page: 1, perPage: 10, totalPages: 1}),
-  seznamZarizeni: List.of()
+  seznamZarizeni: List.of(new Zarizeni({id: 1, name: 'prvni'}), new Zarizeni({id: 6, name: 'seste'}))
 })
 
 export default function reducer(state = initialState, action) {
@@ -29,6 +30,9 @@ export default function reducer(state = initialState, action) {
 
     case actions.NEXT_PAGE:
       return state.update('pagination', (pagination) => nextPage(pagination))
+
+    default:
+      return state
   }
 
   return state

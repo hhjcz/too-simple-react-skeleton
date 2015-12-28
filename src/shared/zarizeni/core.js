@@ -11,4 +11,3 @@ export const Zarizeni = Record({
   updatedAt: '',
   deletedAt: '',
 })
-

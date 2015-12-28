@@ -3,12 +3,15 @@
  */
 
 import React from 'react'
+import {Link} from 'react-router'
 
 export default class AppView extends React.Component {
   render() {
     return (
       <div id="app-view">
         <h1>Dohlestr</h1>
+        <Link to="/">Home</Link>
+        <Link to="zarizeni-list">List</Link>
 
         <hr />
 
