@@ -8,8 +8,9 @@ import { Router } from 'react-router'
 import createBrowserHistory from 'history/lib/createBrowserHistory'
 import {Provider} from 'react-redux'
 import {fromJS} from 'immutable'
-import routes from '../shared/routes'
-import createStore from '../redux'
+
+import routes from '../shared/app/routes'
+import createStore from '../shared/app/createStore'
 
 const history = createBrowserHistory();
 // server has put the state here (see server.jsx):

@@ -8,8 +8,9 @@ import React from 'react'
 import {renderToString} from 'react-dom/server'
 import {RoutingContext, match, Link} from 'react-router'
 import {Provider} from 'react-redux'
-import routes from './shared/routes'
-import createStore from './redux'
+
+import routes from './shared/app/routes'
+import createStore from './shared/app/createStore'
 
 const app = express()
 

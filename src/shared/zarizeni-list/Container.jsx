@@ -4,8 +4,9 @@
 
 import React, {PropTypes} from 'react'
 import {connect} from 'react-redux'
-import createMapStateToProps from '../createMapStateToProps'
-import createMapDispatchToProps from '../createMapDispatchToProps'
+
+import createMapStateToProps from '../app/createMapStateToProps'
+import createMapDispatchToProps from '../app/createMapDispatchToProps'
 import * as listActions from './actions'
 import Tabulka from './Tabulka.jsx'
 import Paginator from './Paginator'
@@ -13,7 +14,7 @@ import Paginator from './Paginator'
 class Container extends React.Component {
 
   static propTypes = {
-    fetching: PropTypes.boolean,
+    fetching: PropTypes.bool,
     seznamZarizeni: PropTypes.object,
     pagination: PropTypes.object,
     actions: PropTypes.object

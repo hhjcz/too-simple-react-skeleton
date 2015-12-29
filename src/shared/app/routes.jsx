@@ -4,9 +4,9 @@
 
 import React from 'react'
 import {Route} from 'react-router'
-import ZarizeniList from './zarizeni-list/Container.jsx'
 
-import App from './app'
+import ZarizeniList from '../zarizeni-list/Container.jsx'
+import App from './index'
 
 export default (
   <Route name="app" component={App} path="/">

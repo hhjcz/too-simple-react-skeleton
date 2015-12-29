@@ -2,10 +2,17 @@
  * Created by hhj on 12/23/15.
  */
 
-import React from 'react'
+import React, {PropTypes} from 'react'
 import {Link} from 'react-router'
 
-export default class AppView extends React.Component {
+import DevTools from './DevTools.jsx'
+
+export default class App extends React.Component {
+
+  static propTypes = {
+    children: PropTypes.object
+  }
+
   render() {
     return (
       <div id="app-view">
@@ -19,10 +26,12 @@ export default class AppView extends React.Component {
 
         <hr />
 
-        <div>hhj - based on <a href="https://medium.com/front-end-developers/handcrafting-an-isomorphic-redux-application-with-love-40ada4468af4#.dyjo0n2px">
+        <div>hhj - based on
+          <a href="https://medium.com/front-end-developers/handcrafting-an-isomorphic-redux-application-with-love-40ada4468af4#.dyjo0n2px">
             tutorial
           </a>
         </div>
+        <DevTools />
       </div>
     )
   }
