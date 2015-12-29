@@ -46,9 +46,11 @@ export function fetchList() {
 
     const queryParams = parseQueryParams(getState)
     return fetch(`http://netvision-test:8089/api/zarizeni?${queryParams}`)
-      .then(response => response.json(), error => {
-        console.log(error)
-      })
+      .then(
+        response => response.json(),
+        error => {
+          console.log(error)
+        })
       .then(json => dispatch(receiveList(json)))
   }
 }

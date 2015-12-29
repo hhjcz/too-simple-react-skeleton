@@ -4,10 +4,9 @@
 
 import React, {PropTypes} from 'react'
 import {connect} from 'react-redux'
-import {Map} from 'immutable'
 import createMapStateToProps from '../createMapStateToProps'
 import createMapDispatchToProps from '../createMapDispatchToProps'
-import * as actions from './actions'
+import * as listActions from './actions'
 import Tabulka from './Tabulka.jsx'
 import Paginator from './Paginator'
 
@@ -19,17 +18,13 @@ class Container extends React.Component {
     actions: PropTypes.object
   }
 
-  onPageChange(page) {
-    this.props.actions.gotoPage(page)
-  }
-
   render() {
-
+    const {actions, pagination, seznamZarizeni} = this.props
     return (
       <div id="zarizeni-list">
         <h2>Seznam zarizeni</h2>
-        <Tabulka seznamZarizeni={this.props.seznamZarizeni.toList()} />
-        <Paginator pagination={this.props.pagination} onPageChange={this.onPageChange.bind(this)} />
+        <Tabulka seznamZarizeni={seznamZarizeni.toList()} />
+        <Paginator pagination={pagination} onPageChange={(page) => actions.gotoPage(page)} />
       </div>
     )
   }
@@ -37,6 +32,5 @@ class Container extends React.Component {
 
 export default connect(
   createMapStateToProps('zarizeniList'),
-  createMapDispatchToProps(actions)
+  createMapDispatchToProps(listActions)
 )(Container)
-

@@ -13,6 +13,8 @@ import createStore from './redux'
 
 const app = express()
 
+app.use('/', express.static('dist', {maxAge: '200d'}));
+
 app.use((req, res) => {
   const location = createLocation(req.url)
   const store = createStore()
