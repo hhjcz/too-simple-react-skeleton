@@ -2,9 +2,17 @@
  * Created by hhj on 12/18/15.
  */
 import {expect} from 'chai'
-import {Pagination, nextPage, previousPage} from './pagination'
+import {Pagination, nextPage, previousPage, gotoPage} from './pagination'
 
 describe('pagination', () => {
+
+  it('should go to page', () => {
+    const state = new Pagination({page: 1, perPage: 666, total: 6666, totalPages: 6})
+    const nextState = gotoPage(state, 6)
+
+    expect(nextState).to.equal(new Pagination({page: 6, perPage: 666, total: 6666, totalPages: 6}))
+    expect(state).to.equal(new Pagination({page: 1, perPage: 666, total: 6666, totalPages: 6}))
+  })
 
   it('should set next page', () => {
     const state = new Pagination({page: 1, perPage: 666, total: 6666, totalPages: 3})

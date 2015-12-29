@@ -4,6 +4,7 @@
 import fetch from 'isomorphic-fetch'
 
 export const SET_PAGINATION = 'SET_PAGINATION'
+export const GOTO_PAGE = 'GOTO_PAGE'
 export const NEXT_PAGE = 'NEXT_PAGE'
 export const PREVIOUS_PAGE = 'PREVIOUS_PAGE'
 
@@ -11,6 +12,13 @@ export const SET_LIST = 'SET_LIST'
 export const FETCH_LIST_REQUEST = 'FETCH_LIST_REQUEST'
 export const FETCH_LIST_SUCCESS = 'FETCH_LIST_SUCCESS'
 export const FETCH_LIST_ERROR = 'FETCH_LIST_ERROR'
+
+export function gotoPage(page) {
+  return {
+    type: GOTO_PAGE,
+    page: page
+  }
+}
 
 export function requestList() {
   return {

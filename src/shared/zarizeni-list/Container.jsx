@@ -9,6 +9,7 @@ import createMapStateToProps from '../createMapStateToProps'
 import createMapDispatchToProps from '../createMapDispatchToProps'
 import * as actions from './actions'
 import Tabulka from './Tabulka.jsx'
+import Paginator from './Paginator'
 
 class Container extends React.Component {
 
@@ -18,12 +19,17 @@ class Container extends React.Component {
     actions: PropTypes.object
   }
 
+  onPageChange(page) {
+    this.props.actions.gotoPage(page)
+  }
+
   render() {
 
     return (
       <div id="zarizeni-list">
         <h2>Seznam zarizeni</h2>
-        <Tabulka seznamZarizeni={this.props.seznamZarizeni} />
+        <Tabulka seznamZarizeni={this.props.seznamZarizeni.toList()} />
+        <Paginator pagination={this.props.pagination} onPageChange={this.onPageChange.bind(this)} />
       </div>
     )
   }

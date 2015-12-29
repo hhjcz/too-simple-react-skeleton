@@ -1,18 +1,29 @@
 /**
  * Created by hhj on 20.12.15.
  */
-import {List, Map} from 'immutable'
+import {List, Map, Record} from 'immutable'
 import * as actions from './actions'
 import {setList} from './core'
-import {Pagination, nextPage, previousPage} from './pagination'
+import {Pagination, nextPage, previousPage, gotoPage} from './pagination'
 import {Zarizeni} from '../zarizeni/core'
 
-export const initialState = Map({
-  pagination: new Pagination({page: 1, perPage: 10, totalPages: 1}),
-  seznamZarizeni: List.of(new Zarizeni({id: 1, name: 'prvni'}), new Zarizeni({id: 6, name: 'seste'}))
+export const InitialState = Record({
+  fetching: false,
+  seznamZarizeni: List(),
+  pagination: new Pagination(),
 })
+const initialState = new InitialState
+
+// Note how JSON from server is revived to immutable record.
+const revive = ({fetching, map, pagination}) => initialState.merge({
+  fetching: fetching,
+  seznamZarizeni: Map(map).map(z => new Zarizeni(z)),
+  pagination: new Pagination(pagination),
+});
 
 export default function reducer(state = initialState, action) {
+  if (!(state instanceof InitialState)) return revive(state)
+
   switch (action.type) {
     case actions.FETCH_LIST_SUCCESS:
       return setList(state, action.seznamZarizeni).update('pagination', () => (new Pagination({
@@ -27,6 +38,10 @@ export default function reducer(state = initialState, action) {
 
     case actions.SET_PAGINATION:
       return state.update('pagination', () => action.pagination)
+
+    case actions.GOTO_PAGE:
+      console.log('Go to page: ', action.page)
+      return state.update('pagination', (pagination) => gotoPage(pagination, action.page))
 
     case actions.NEXT_PAGE:
       return state.update('pagination', (pagination) => nextPage(pagination))

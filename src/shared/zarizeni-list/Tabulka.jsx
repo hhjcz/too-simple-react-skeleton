@@ -10,9 +10,9 @@ export default class Tabulka extends React.Component {
   }
 
   render() {
-    console.log(this.props)
+    // console.log(this.props)
     const {seznamZarizeni} = this.props
-    console.log(seznamZarizeni.toObject())
+    // console.log(seznamZarizeni.toObject())
 
     return (
       <div>
