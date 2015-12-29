@@ -4,7 +4,7 @@
 import {List, Map, Record} from 'immutable'
 import * as actions from './actions'
 import {setList} from './core'
-import {Pagination, nextPage, previousPage, gotoPage} from './pagination'
+import {Pagination, nextPage, gotoPage} from './pagination'
 import {Zarizeni} from '../zarizeni/core'
 
 export const InitialState = Record({
@@ -25,13 +25,18 @@ export default function reducer(state = initialState, action) {
   if (!(state instanceof InitialState)) return revive(state)
 
   switch (action.type) {
+    case actions.FETCH_LIST_REQUEST:
+      return state.update('fetching', () => true)
+
     case actions.FETCH_LIST_SUCCESS:
-      return setList(state, action.seznamZarizeni).update('pagination', () => (new Pagination({
-        page: action.pagination.current_page,
-        perPage: action.pagination.per_page,
-        total: action.pagination.total,
-        totalPages: action.pagination.total_pages
-      })))
+      return setList(state, action.seznamZarizeni)
+        .update('fetching', () => false)
+        .update('pagination', () => (new Pagination({
+          page: action.pagination.current_page,
+          perPage: action.pagination.per_page,
+          total: action.pagination.total,
+          totalPages: action.pagination.total_pages
+        })))
 
     case actions.SET_LIST:
       return setList(state, action.seznamZarizeni)

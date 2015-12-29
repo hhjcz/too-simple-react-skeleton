@@ -13,12 +13,7 @@ export const FETCH_LIST_REQUEST = 'FETCH_LIST_REQUEST'
 export const FETCH_LIST_SUCCESS = 'FETCH_LIST_SUCCESS'
 export const FETCH_LIST_ERROR = 'FETCH_LIST_ERROR'
 
-export function gotoPage(page) {
-  return {
-    type: GOTO_PAGE,
-    page: page
-  }
-}
+const getSubState = (getState) => getState().zarizeniList
 
 export function requestList() {
   return {
@@ -36,8 +31,7 @@ export function receiveList(json) {
 
 export function fetchList() {
   const parseQueryParams = (getState) => {
-    console.log(getState())
-    const {page, perPage} = getState().get('pagination').toObject()
+    const {page, perPage} = getSubState(getState).get('pagination').toObject()
     return `page=${page}&per_page=${perPage}`
   }
 
@@ -52,5 +46,17 @@ export function fetchList() {
           console.log(error)
         })
       .then(json => dispatch(receiveList(json)))
+  }
+}
+
+export function gotoPage(page) {
+  return (dispatch) => {
+
+    dispatch({
+      type: GOTO_PAGE,
+      page: page
+    })
+
+    dispatch(fetchList())
   }
 }

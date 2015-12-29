@@ -13,18 +13,20 @@ import Paginator from './Paginator'
 class Container extends React.Component {
 
   static propTypes = {
+    fetching: PropTypes.boolean,
     seznamZarizeni: PropTypes.object,
     pagination: PropTypes.object,
     actions: PropTypes.object
   }
 
   render() {
-    const {actions, pagination, seznamZarizeni} = this.props
+    const {actions, pagination, seznamZarizeni, fetching} = this.props
     return (
       <div id="zarizeni-list">
         <h2>Seznam zarizeni</h2>
         <Tabulka seznamZarizeni={seznamZarizeni.toList()} />
         <Paginator pagination={pagination} onPageChange={(page) => actions.gotoPage(page)} />
+        {fetching ? 'Fetching...' : ''}
       </div>
     )
   }

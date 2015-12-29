@@ -5,6 +5,9 @@
 var path = require('path')
 var webpack = require('webpack')
 
+// hhj workaround:
+const isDevelopment = true
+
 module.exports = {
   entry: [
     'webpack-dev-server/client?http://127.0.0.1:8080/',
@@ -31,7 +34,13 @@ module.exports = {
   },
   plugins: [
     new webpack.HotModuleReplacementPlugin(),
-    new webpack.NoErrorsPlugin()
+    new webpack.NoErrorsPlugin(),
+    new webpack.DefinePlugin({
+      'process.env': {
+        NODE_ENV: JSON.stringify(isDevelopment ? 'development' : 'production'),
+        IS_BROWSER: true
+      }
+    })
   ],
   devtool: 'inline-source-map',
   devServer: {

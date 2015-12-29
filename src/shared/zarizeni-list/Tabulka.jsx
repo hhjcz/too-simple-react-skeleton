@@ -19,8 +19,8 @@ export default class Tabulka extends React.Component {
         <ul>
           {
             seznamZarizeni.map(zarizeni => {
-              console.log(zarizeni.get('id'))
-              return <li key={zarizeni.get('id')}>{zarizeni.get('name')}</li>
+              //console.log(zarizeni)
+              return <li key={zarizeni.id}>{zarizeni.id} - {zarizeni.name}</li>
             })
           }
         </ul>

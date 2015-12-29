@@ -5,4 +5,3 @@
 const createMapStateToProps = subStateName => state => state[subStateName].toObject()
 
 export default createMapStateToProps
-

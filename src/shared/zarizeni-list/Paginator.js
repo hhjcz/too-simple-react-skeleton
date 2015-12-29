@@ -18,6 +18,12 @@ export default class Paginator extends React.Component {
       <div>
         <Pagination
           bsSize="medium"
+          prev
+          next
+          first
+          last
+          ellipsis
+          maxButtons={9}
           items={pagination.totalPages}
           activePage={pagination.page}
           onSelect={(event, selectedEvent) => onPageChange(selectedEvent.eventKey)}
