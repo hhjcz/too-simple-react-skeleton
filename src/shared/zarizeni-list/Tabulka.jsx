@@ -4,6 +4,8 @@
 
 import React, {PropTypes} from 'react'
 
+import Radka from './Radka.jsx'
+
 export default class Tabulka extends React.Component {
   static propTypes = {
     seznamZarizeni: PropTypes.object
@@ -19,7 +21,7 @@ export default class Tabulka extends React.Component {
         <ul>
           {
             seznamZarizeni.map(zarizeni => {
-              return <li key={zarizeni.id}>{zarizeni.id} - {zarizeni.name}</li>
+              return <Radka key={zarizeni.id} zarizeni={zarizeni} />
             })
           }
         </ul>

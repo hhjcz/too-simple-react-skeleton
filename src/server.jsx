@@ -15,13 +15,13 @@ import createStore from './shared/app/createStore'
 
 const app = express()
 
-app.use('/', express.static('dist', {maxAge: '200d'}));
+app.use('/', express.static('dist', { maxAge: '200d' }));
 
 app.use((req, res) => {
   const location = createLocation(req.url)
   const store = createStore()
 
-  match({routes, location}, async (err, redirectLocation, renderProps) => {
+  match({ routes, location }, async (err, redirectLocation, renderProps) => {
 
     if (err) {
       console.error(err)
@@ -53,7 +53,7 @@ app.use((req, res) => {
   <html>
     <head>
       <meta charset="utf-8">
-      <title>Isomorphic Redux Demo</title>
+      <title>Dohlestr using react/redux from scratch by hhj</title>
       <!-- Bootstrap: latest compiled and minified CSS -->
       <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
       <script>
@@ -73,11 +73,14 @@ app.use((req, res) => {
   })
 })
 
-async function fetchAsyncData(dispatch, {components}) { // eslint-disable-line no-unused-vars
+async function fetchAsyncData(dispatch, {components, location, params}) { // eslint-disable-line no-unused-vars
   const fetchActions = components.reduce((actions, component) => {
-    return actions.concat(component.fetchActions || [])
+    if (!component) return actions
+    return actions
+      .concat(component.fetchActions || [])
+      // .concat(component.WrappedComponent ? component.WrappedComponent.fetchActions || [] : [])
   }, [])
-  const promises = fetchActions.map(action => dispatch(action()))
+  const promises = fetchActions.map(action => dispatch(action({ location, params })))
 
   await Promise.all(promises)
 }

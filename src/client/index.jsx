@@ -5,24 +5,18 @@
 import React from 'react'
 import { render } from 'react-dom'
 import { Router } from 'react-router'
-import createBrowserHistory from 'history/lib/createBrowserHistory'
+import {createHistory, useQueries} from 'history'
 import {Provider} from 'react-redux'
 import {fromJS} from 'immutable'
 
 import routes from '../shared/app/routes'
 import createStore from '../shared/app/createStore'
 
-const history = createBrowserHistory();
-// server has put the state here (see server.jsx):
-const initialState = window.__INITIAL_STATE__;
+// history library with query parsing support:
+const history = useQueries(createHistory)()
 
-// Transform into Immutable.js collections,
-// but leave top level keys untouched for Redux
-//Object
-//  .keys(initialState)
-//  .forEach(key => {
-//    initialState[key] = fromJS(initialState[key]);
-//  });
+// server has put the state here (see server.jsx):
+const initialState = window.__INITIAL_STATE__
 
 const store = createStore(initialState)
 

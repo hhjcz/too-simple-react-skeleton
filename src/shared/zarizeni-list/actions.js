@@ -49,12 +49,28 @@ export function fetchList() {
   }
 }
 
+export function fetchListByUrl({location, params}) {  // eslint-disable-line no-unused-vars
+  return (dispatch, getState) => {   // eslint-disable-line no-unused-vars
+    // dispatch({type: GOTO_PAGE, page: location.query.page})
+    dispatch(requestList())
+
+    const queryParams = location.search
+    return fetch(`http://netvision-test:8089/api/zarizeni${queryParams}`)
+      .then(
+        response => response.json(),
+        error => {
+          console.log(error)
+        })
+      .then(json => dispatch(receiveList(json)))
+  }
+}
+
 export function gotoPage(page) {
   return (dispatch) => {
 
     dispatch({
       type: GOTO_PAGE,
-      page: page
+      page
     })
 
     dispatch(fetchList())

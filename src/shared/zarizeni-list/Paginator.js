@@ -9,24 +9,28 @@ export default class Paginator extends React.Component {
 
   static propTypes = {
     pagination: PropTypes.object.isRequired,
-    onPageChange: PropTypes.func.isRequired
+    onPageChange: PropTypes.func.isRequired,
+    bsSize: PropTypes.number,
+    maxButtons: PropTypes.string
   }
 
   render() {
-    const {pagination, onPageChange} = this.props
+    const {pagination, onPageChange, bsSize, maxButtons} = this.props
     return (
       <div>
         <Pagination
-          bsSize="medium"
+          bsSize={bsSize || 'medium'}
           prev
           next
           first
           last
           ellipsis
-          maxButtons={9}
+          maxButtons={maxButtons || 9}
           items={pagination.totalPages}
           activePage={pagination.page}
-          onSelect={(event, selectedEvent) => onPageChange(selectedEvent.eventKey)}
+          onSelect={(event, selectedEvent) => {
+            if (pagination.page !== selectedEvent.eventKey) onPageChange(selectedEvent.eventKey)
+          }}
         />
         Current: {pagination.page}, page size: {pagination.perPage}, total pages: {pagination.totalPages}
       </div>

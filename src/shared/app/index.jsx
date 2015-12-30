@@ -20,7 +20,7 @@ export default class App extends React.Component {
       <div id="app-view">
         <h1>Dohlestr</h1>
         <Link to="/">Home</Link>
-        <Link to="zarizeni-list">List</Link>
+        <Link to="/zarizeni">List</Link>
 
         <hr />
 

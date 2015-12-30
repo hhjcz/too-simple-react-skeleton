@@ -12,7 +12,7 @@ export class Pagination extends Record({
 }
 
 export const gotoPage = (pagination, page) => {
-  return new Pagination({...pagination.toObject(), page: page})
+  return new Pagination({...pagination.toObject(), page})
 }
 
 export const nextPage = (pagination) => {

@@ -25,7 +25,7 @@ describe('reducer', () => {
 
   it('should handle SET_LIST', () => {
     const seznamZarizeni = List.of(new Zarizeni({id: 1}), new Zarizeni({id: 2}))
-    const nextState = reducer(initialState, {type: actions.SET_LIST, seznamZarizeni: seznamZarizeni})
+    const nextState = reducer(initialState, {type: actions.SET_LIST, seznamZarizeni})
 
     expect(nextState.get('seznamZarizeni')).to.equal(
       List.of(new Zarizeni({id: 1}), new Zarizeni({id: 2}))
@@ -53,7 +53,7 @@ describe('reducer', () => {
 
   it('should handle SET_PAGINATION', () => {
     const pagination = new Pagination({page: 6, perPage: 66, total: 6666, totalPages: 666})
-    const nextState = reducer(undefined, {type: actions.SET_PAGINATION, pagination: pagination})
+    const nextState = reducer(undefined, {type: actions.SET_PAGINATION, pagination})
     expect(nextState.get('pagination')).to.equal(pagination)
   })
 

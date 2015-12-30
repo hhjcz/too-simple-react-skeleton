@@ -1,7 +1,7 @@
 /**
  * Created by hhj on 20.12.15.
  */
-import {List, Map, Record} from 'immutable'
+import {List, Record} from 'immutable'
 
 import * as actions from './actions'
 import {setList} from './core'
@@ -17,7 +17,7 @@ const initialState = new InitialState
 
 // Note how JSON from server is revived to immutable record.
 const revive = ({fetching, seznamZarizeni, pagination}) => initialState.merge({
-  fetching: fetching,
+  fetching,
   seznamZarizeni: List(seznamZarizeni).map(z => new Zarizeni(z)),
   pagination: new Pagination(pagination),
 });
