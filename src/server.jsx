@@ -6,8 +6,9 @@ import express from 'express'
 import createLocation from 'history/lib/createLocation'
 import React from 'react'
 import {renderToString} from 'react-dom/server'
-import {RoutingContext, match, Link} from 'react-router'
+import {RoutingContext, match} from 'react-router'
 import {Provider} from 'react-redux'
+import Promise from 'bluebird'
 
 import routes from './shared/app/routes'
 import createStore from './shared/app/createStore'
@@ -20,7 +21,7 @@ app.use((req, res) => {
   const location = createLocation(req.url)
   const store = createStore()
 
-  match({routes, location}, (err, redirectLocation, renderProps) => {
+  match({routes, location}, async (err, redirectLocation, renderProps) => {
 
     if (err) {
       console.error(err)
@@ -28,6 +29,14 @@ app.use((req, res) => {
     }
 
     if (!renderProps) return res.status(400).end('Ajvaj, Not fouuunddd')
+
+    // TODO - server side async data fetch - how to retrieve static fetchActions from FetchWrapper?
+    try {
+      await fetchAsyncData(store.dispatch, renderProps)
+    } catch (e) {
+      console.log(e)
+      // next(e)
+    }
 
     const InitialComponent = (
       <Provider store={store}>
@@ -55,6 +64,7 @@ app.use((req, res) => {
     <div>
       <div id="react-view">${componentHtml}</div>
       <script type="application/javascript" src="/bundle.js"></script>
+    </div>
     </body>
   </html>
   `;
@@ -62,5 +72,14 @@ app.use((req, res) => {
     res.end(HTML)
   })
 })
+
+async function fetchAsyncData(dispatch, {components}) { // eslint-disable-line no-unused-vars
+  const fetchActions = components.reduce((actions, component) => {
+    return actions.concat(component.fetchActions || [])
+  }, [])
+  const promises = fetchActions.map(action => dispatch(action()))
+
+  await Promise.all(promises)
+}
 
 export default app

@@ -2,6 +2,7 @@
  * Created by hhj on 20.12.15.
  */
 import {List, Map, Record} from 'immutable'
+
 import * as actions from './actions'
 import {setList} from './core'
 import {Pagination, nextPage, gotoPage} from './pagination'
@@ -15,9 +16,9 @@ export const InitialState = Record({
 const initialState = new InitialState
 
 // Note how JSON from server is revived to immutable record.
-const revive = ({fetching, map, pagination}) => initialState.merge({
+const revive = ({fetching, seznamZarizeni, pagination}) => initialState.merge({
   fetching: fetching,
-  seznamZarizeni: Map(map).map(z => new Zarizeni(z)),
+  seznamZarizeni: List(seznamZarizeni).map(z => new Zarizeni(z)),
   pagination: new Pagination(pagination),
 });
 

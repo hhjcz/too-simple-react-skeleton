@@ -7,11 +7,13 @@ import {Link} from 'react-router'
 
 import DevTools from './DevTools.jsx'
 
+
 export default class App extends React.Component {
 
   static propTypes = {
     children: PropTypes.object
   }
+
 
   render() {
     return (
