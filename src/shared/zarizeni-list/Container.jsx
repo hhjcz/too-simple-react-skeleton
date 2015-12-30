@@ -18,7 +18,6 @@ class Container extends React.Component {
     fetching: PropTypes.bool,
     seznamZarizeni: PropTypes.object,
     pagination: PropTypes.object.isRequired,
-    actions: PropTypes.object.isRequired,
     dispatch: PropTypes.func,
     history: PropTypes.object,
     location: PropTypes.object,
@@ -27,26 +26,25 @@ class Container extends React.Component {
 
   // browser fetching:
   componentDidMount() {
-    // [listActions.fetchList].forEach((action) => this.props.dispatch(action()))
+    const {dispatch, location, params} = this.props
+    Container.fetchActions.forEach((action) => dispatch(action({ location, params })))
   }
 
   componentDidUpdate(prevProps) {
     if (prevProps.location !== this.props.location) {
-      const {actions, location, params} = this.props
-      // console.log('Location in did update: ', location)
-      // console.log('Previous location in did update: ', prevProps.location)
-      actions.fetchListByUrl({ location, params })
+      const {dispatch, location, params} = this.props
+      Container.fetchActions.forEach((action) => dispatch(action({ location, params })))
     }
   }
 
   onPageChange(page) {
     const {history, location} = this.props
     if (location.query.page === '' + page) return
-    history.push({ ...location, query: {...location.query, page} })
+    history.push({ ...location, query: { ...location.query, page } })
   }
 
-  // server side fetching (see server.jsx):
-  static fetchActions = listActions.fetchListByUrl
+  // server and client side fetch actions (see server.jsx & componentDidMount):
+  static fetchActions = [listActions.fetchListByUrl]
 
   render() {
     const {pagination, seznamZarizeni, fetching} = this.props
@@ -61,7 +59,7 @@ class Container extends React.Component {
   }
 }
 
-// TODO - not used for now
+// TODO - not used for now, does not work
 const WrappedContainer = createFetchWrapper(listActions.fetchList)(Container) // eslint-disable-line no-unused-vars
 
 export default connect(

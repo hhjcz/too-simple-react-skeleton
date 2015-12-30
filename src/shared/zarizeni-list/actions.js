@@ -21,11 +21,12 @@ export function requestList() {
   }
 }
 
-export function receiveList(json) {
+export function receiveList({response, queryParams}) {
   return {
     type: FETCH_LIST_SUCCESS,
-    seznamZarizeni: json.data,
-    pagination: json.meta.pagination
+    seznamZarizeni: response.data,
+    pagination: response.meta.pagination,
+    queryParams
   }
 }
 
@@ -51,17 +52,21 @@ export function fetchList() {
 
 export function fetchListByUrl({location, params}) {  // eslint-disable-line no-unused-vars
   return (dispatch, getState) => {   // eslint-disable-line no-unused-vars
+    const previousQueryParams = getSubState(getState).queryParams
+    const queryParams = location.search
+    // need to refetch?
+    if (previousQueryParams === queryParams) return null
+
     // dispatch({type: GOTO_PAGE, page: location.query.page})
     dispatch(requestList())
 
-    const queryParams = location.search
     return fetch(`http://netvision-test:8089/api/zarizeni${queryParams}`)
       .then(
         response => response.json(),
         error => {
           console.log(error)
         })
-      .then(json => dispatch(receiveList(json)))
+      .then(json => dispatch(receiveList({ response: json, queryParams })))
   }
 }
 

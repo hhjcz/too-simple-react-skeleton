@@ -10,14 +10,16 @@ import {Zarizeni} from '../zarizeni/core'
 
 export const InitialState = Record({
   fetching: false,
+  queryParams: null,
   seznamZarizeni: List(),
   pagination: new Pagination(),
 })
 const initialState = new InitialState
 
 // Note how JSON from server is revived to immutable record.
-const revive = ({fetching, seznamZarizeni, pagination}) => initialState.merge({
+const revive = ({fetching, queryParams, seznamZarizeni, pagination}) => initialState.merge({
   fetching,
+  queryParams,
   seznamZarizeni: List(seznamZarizeni).map(z => new Zarizeni(z)),
   pagination: new Pagination(pagination),
 });
@@ -32,6 +34,7 @@ export default function reducer(state = initialState, action) {
     case actions.FETCH_LIST_SUCCESS:
       return setList(state, action.seznamZarizeni)
         .update('fetching', () => false)
+        .update('queryParams', () => action.queryParams)
         .update('pagination', () => (new Pagination({
           page: action.pagination.current_page,
           perPage: action.pagination.per_page,
