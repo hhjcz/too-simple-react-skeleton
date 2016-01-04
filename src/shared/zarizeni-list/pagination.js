@@ -1,7 +1,7 @@
 /**
  * Created by hhj on 12/18/15.
  */
-import {Record} from 'immutable'
+import { Record } from 'immutable'
 
 export class Pagination extends Record({
   page: 1,
@@ -12,17 +12,17 @@ export class Pagination extends Record({
 }
 
 export const gotoPage = (pagination, page) => {
-  return new Pagination({...pagination.toObject(), page})
+  return new Pagination({ ...pagination.toObject(), page })
 }
 
 export const nextPage = (pagination) => {
   if (pagination.page >= pagination.totalPages) return pagination;
-  return new Pagination({...pagination.toObject(), page: pagination.page + 1})
+  return new Pagination({ ...pagination.toObject(), page: pagination.page + 1 })
 }
 
 export const previousPage = (pagination) => {
   if (pagination.page <= 1) return pagination;
-  return new Pagination({...pagination.toObject(), page: pagination.page - 1})
+  return new Pagination({ ...pagination.toObject(), page: pagination.page - 1 })
 }
 
 export default Pagination

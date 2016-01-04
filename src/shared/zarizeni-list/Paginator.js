@@ -2,8 +2,8 @@
  * Created by hhj on 12/29/15.
  */
 
-import React, {PropTypes} from 'react'
-import {Pagination} from 'react-bootstrap'
+import React, { PropTypes } from 'react'
+import { Pagination } from 'react-bootstrap'
 
 export default class Paginator extends React.Component {
 
@@ -15,7 +15,7 @@ export default class Paginator extends React.Component {
   }
 
   render() {
-    const {pagination, onPageChange, bsSize, maxButtons} = this.props
+    const { pagination, onPageChange, bsSize, maxButtons } = this.props
     return (
       <div>
         <Pagination

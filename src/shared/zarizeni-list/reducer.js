@@ -1,12 +1,12 @@
 /**
  * Created by hhj on 20.12.15.
  */
-import {List, Record} from 'immutable'
+import { List, Record } from 'immutable'
 
 import * as actions from './actions'
-import {setList} from './core'
-import {Pagination, nextPage, gotoPage} from './pagination'
-import {Zarizeni} from '../zarizeni/core'
+import { setList } from './core'
+import { Pagination, nextPage, gotoPage } from './pagination'
+import { Zarizeni } from '../zarizeni/core'
 
 export const InitialState = Record({
   fetching: false,
@@ -17,7 +17,7 @@ export const InitialState = Record({
 const initialState = new InitialState
 
 // Note how JSON from server is revived to immutable record.
-const revive = ({fetching, queryParams, seznamZarizeni, pagination}) => initialState.merge({
+const revive = ({ fetching, queryParams, seznamZarizeni, pagination }) => initialState.merge({
   fetching,
   queryParams,
   seznamZarizeni: List(seznamZarizeni).map(z => new Zarizeni(z)),

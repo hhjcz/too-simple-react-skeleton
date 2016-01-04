@@ -1,7 +1,7 @@
 /**
  * Created by hhj on 12/28/15.
  */
-import {combineReducers} from 'redux'
+import { combineReducers } from 'redux'
 
 import zarizeniList from '../zarizeni-list/reducer'
 

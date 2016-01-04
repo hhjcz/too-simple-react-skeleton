@@ -2,7 +2,7 @@
  * Created by hhj on 12/28/15.
  */
 import thunkMiddleware from 'redux-thunk'
-import {createStore as _createStore, applyMiddleware, compose} from 'redux'
+import { createStore as _createStore, applyMiddleware, compose } from 'redux'
 import createLogger from 'redux-logger'
 import DevTools from './DevTools'
 
@@ -16,7 +16,7 @@ export default function createStore(initialState = {}) {
     middlewares.push(createLogger({
       collapsed: true,
       // convert immutable => json => object
-      stateTransformer: (state) => JSON.parse(JSON.stringify(state))
+      stateTransformer: (state) => JSON.parse(JSON.stringify(state)),
     }))
   }
 

@@ -2,8 +2,8 @@
  * Created by hhj on 12/28/15.
  */
 
-import {bindActionCreators} from 'redux'
-import {Map} from 'immutable'
+import { bindActionCreators } from 'redux'
+import { Map } from 'immutable'
 
 const createMapDispatchToProps = actions => dispatch => {
   const creators = Map()
