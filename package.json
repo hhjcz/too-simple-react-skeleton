@@ -8,7 +8,7 @@
     "start": "NODE_PATH=$NODE_PATH:./src/shared supervisor --harmony index.js",
     "dev": "npm run start & webpack-dev-server --progress --color",
     "build": "NODE_ENV=production webpack --progress --color -p --config webpack.prod.config.js",
-    "test": "mocha --compilers js:babel-register --require ./test_helper.js --recursive 'src/**/*.spec.js'",
+    "test": "mocha --compilers .:babel-register --require ./test_helper.js --recursive --watch-extensions jsx 'src/**/*.spec.js'",
     "test:watch": "npm run test -- --watch",
     "eslint": "eslint --ext=js --ext=jsx src || true"
   },
