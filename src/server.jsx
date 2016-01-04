@@ -5,9 +5,9 @@
 import express from 'express'
 import createLocation from 'history/lib/createLocation'
 import React from 'react'
-import {renderToString} from 'react-dom/server'
-import {RoutingContext, match} from 'react-router'
-import {Provider} from 'react-redux'
+import { renderToString } from 'react-dom/server'
+import { RoutingContext, match } from 'react-router'
+import { Provider } from 'react-redux'
 import Promise from 'bluebird'
 
 import routes from './shared/app/routes'
@@ -73,7 +73,7 @@ app.use((req, res) => {
   })
 })
 
-async function fetchAsyncData(dispatch, {components, location, params}) { // eslint-disable-line no-unused-vars
+async function fetchAsyncData(dispatch, { components, location, params }) { // eslint-disable-line no-unused-vars
   const fetchActions = components.reduce((actions, component) => {
     if (!component) return actions
     return actions

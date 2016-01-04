@@ -2,7 +2,7 @@
  * Created by hhj on 12/28/15.
  */
 
-import React, {PropTypes} from 'react'
+import React, { PropTypes } from 'react'
 
 import Radka from './Radka.jsx'
 
@@ -13,7 +13,7 @@ export default class Tabulka extends React.Component {
 
   render() {
     // console.log(this.props)
-    const {seznamZarizeni} = this.props
+    const { seznamZarizeni } = this.props
     // console.log(seznamZarizeni.toObject())
 
     return (

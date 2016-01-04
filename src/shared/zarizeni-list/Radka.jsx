@@ -1,7 +1,7 @@
 /** Created by hhj on 12/30/15. */
 
-import React, {PropTypes} from 'react'
-import {Link} from 'react-router'
+import React, { PropTypes } from 'react'
+import { Link } from 'react-router'
 
 import Zarizeni from '../zarizeni/Zarizeni.jsx'
 

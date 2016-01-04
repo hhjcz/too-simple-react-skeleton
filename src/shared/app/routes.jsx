@@ -3,7 +3,7 @@
  */
 
 import React from 'react'
-import {Route, IndexRoute} from 'react-router'
+import { Route, IndexRoute } from 'react-router'
 
 import ZarizeniList from '../zarizeni-list/Container.jsx'
 import Zarizeni from '../zarizeni/Zarizeni.jsx'
