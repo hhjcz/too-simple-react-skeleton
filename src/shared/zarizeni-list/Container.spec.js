@@ -9,7 +9,7 @@ import Container from './Container.jsx'
 
 describe('zarizeni-list Container component', () => {
   let vdom
-  let instance
+  let instance  // eslint-disable-line no-unused-vars
 
   beforeEach(() => {
     const store = createStore()
@@ -17,7 +17,7 @@ describe('zarizeni-list Container component', () => {
 
     instance = tree.getMountedInstance()
     vdom = tree.getRenderOutput()
-    //console.log(instance)
+    // console.log(instance)
   })
 
   it('should connect to redux', () => {

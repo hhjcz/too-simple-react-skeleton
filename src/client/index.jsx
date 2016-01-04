@@ -7,7 +7,6 @@ import { render } from 'react-dom'
 import { Router } from 'react-router'
 import { createHistory, useQueries } from 'history'
 import { Provider } from 'react-redux'
-import { fromJS } from 'immutable'
 
 import routes from '../shared/app/routes'
 import createStore from '../shared/app/createStore'

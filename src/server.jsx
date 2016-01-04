@@ -32,7 +32,7 @@ app.use((req, res) => {
 
     // TODO - server side async data fetch - how to retrieve static fetchActions from FetchWrapper?
     try {
-      await fetchAsyncData(store.dispatch, renderProps)
+      await fetchAsyncData(store.dispatch, renderProps)  // eslint-disable-line no-use-before-define
     } catch (e) {
       console.log(e)
       // next(e)

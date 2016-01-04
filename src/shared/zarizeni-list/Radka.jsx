@@ -7,7 +7,7 @@ import Zarizeni from '../zarizeni/Zarizeni.jsx'
 
 export default class Radka extends React.Component {
   static propTypes = {
-    zarizeni: PropTypes.object
+    zarizeni: PropTypes.instanceOf(Zarizeni)
   }
 
   render() {
@@ -17,4 +17,3 @@ export default class Radka extends React.Component {
     )
   }
 }
-

@@ -18,4 +18,3 @@ export default class Zarizeni extends React.Component {
     )
   }
 }
-
