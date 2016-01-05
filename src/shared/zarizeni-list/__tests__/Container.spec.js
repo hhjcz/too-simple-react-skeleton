@@ -1,5 +1,4 @@
 /** Created by hhj on 1/4/16. */
-
 import { expect } from 'chai'
 import React from 'react'
 import sd from 'skin-deep'

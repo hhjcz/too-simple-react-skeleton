@@ -1,7 +1,4 @@
-/**
- * Created by hhj on 12/23/15.
- */
-
+/** Created by hhj on 12/23/15. */
 import React from 'react'
 import { Route, IndexRoute } from 'react-router'
 

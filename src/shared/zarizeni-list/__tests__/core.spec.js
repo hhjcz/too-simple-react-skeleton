@@ -1,6 +1,4 @@
-/**
- * Created by hhj on 12/18/15.
- */
+/** Created by hhj on 12/18/15. */
 import { expect } from 'chai'
 import { List, Map } from 'immutable'
 import { setList } from './../core'

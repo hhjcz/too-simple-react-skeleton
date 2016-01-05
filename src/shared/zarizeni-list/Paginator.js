@@ -1,7 +1,4 @@
-/**
- * Created by hhj on 12/29/15.
- */
-
+/** Created by hhj on 12/29/15. */
 import React, { PropTypes } from 'react'
 import { Pagination } from 'react-bootstrap'
 

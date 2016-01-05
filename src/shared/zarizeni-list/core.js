@@ -1,6 +1,4 @@
-/**
- * Created by hhj on 12/18/15.
- */
+/** Created by hhj on 12/18/15. */
 import { List } from 'immutable'
 
 import { Zarizeni } from '../zarizeni/core'

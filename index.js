@@ -1,6 +1,4 @@
-/**
- * Created by hhj on 12/23/15.
- */
+/** Created by hhj on 12/23/15. */
 'use strict'
 
 require('babel-core/register')({})

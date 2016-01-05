@@ -1,7 +1,4 @@
-/**
- * Created by hhj on 12/29/15.
- */
-
+/** Created by hhj on 12/29/15. */
 import React from 'react'
 import { createDevTools } from 'redux-devtools'
 import LogMonitor from 'redux-devtools-log-monitor'

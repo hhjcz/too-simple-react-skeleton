@@ -1,6 +1,4 @@
-/**
- * Created by hhj on 20.12.15.
- */
+/** Created by hhj on 20.12.15. */
 import fetch from 'isomorphic-fetch'
 
 export const SET_PAGINATION = 'SET_PAGINATION'

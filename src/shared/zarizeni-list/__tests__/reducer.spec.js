@@ -1,6 +1,4 @@
-/**
- * Created by hhj on 20.12.15.
- */
+/** Created by hhj on 20.12.15. */
 import { expect } from 'chai'
 import { List } from 'immutable'
 import { Zarizeni } from '../../zarizeni/core'

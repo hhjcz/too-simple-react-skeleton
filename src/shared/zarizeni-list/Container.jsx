@@ -1,7 +1,4 @@
-/**
- * Created by hhj on 12/28/15.
- */
-
+/** Created by hhj on 12/28/15. */
 import React, { PropTypes } from 'react'
 import { connect } from 'react-redux'
 

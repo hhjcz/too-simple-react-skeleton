@@ -1,6 +1,4 @@
-/**
- * Created by hhj on 12/18/15.
- */
+/** Created by hhj on 12/18/15. */
 import { Record } from 'immutable'
 
 export class Pagination extends Record({

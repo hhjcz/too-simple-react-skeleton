@@ -1,7 +1,4 @@
 /** Created by hhj on 1/4/16. */
-
-/** Created by hhj on 1/4/16. */
-
 import { expect } from 'chai'
 import React from 'react'
 import { List } from 'immutable'

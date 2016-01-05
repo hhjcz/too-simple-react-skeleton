@@ -1,6 +1,4 @@
-/**
- * Created by hhj on 20.12.15.
- */
+/** Created by hhj on 20.12.15. */
 import { List, Record } from 'immutable'
 
 import * as actions from './actions'
