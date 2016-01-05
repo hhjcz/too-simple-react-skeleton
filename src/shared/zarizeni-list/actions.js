@@ -48,8 +48,6 @@ export function fetchList() {
   }
 }
 
-// FIXME - the problem with storing state in url is that it does not get rewinded when redux actions are rewinded
-//       - how to fix this? get the url params into state?
 export function fetchListByUrl({ location, params }) {  // eslint-disable-line no-unused-vars
   return (dispatch, getState) => {   // eslint-disable-line no-unused-vars
     const previousQueryParams = getSubState(getState).queryParams

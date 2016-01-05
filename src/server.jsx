@@ -5,6 +5,7 @@ import React from 'react'
 import { renderToString } from 'react-dom/server'
 import { RoutingContext, match } from 'react-router'
 import { Provider } from 'react-redux'
+import { replacePath } from 'redux-simple-router'
 import Promise from 'bluebird'
 
 import routes from './shared/app/routes'
@@ -17,6 +18,8 @@ app.use('/', express.static('dist', { maxAge: '200d' }));
 app.use('/', (req, res) => {
   const location = createLocation(req.url)
   const store = createStore()
+  // initial location for redux-simple-router
+  store.dispatch(replacePath(req.url))
 
   match({ routes, location }, async (err, redirectLocation, renderProps) => {
 
@@ -75,7 +78,7 @@ async function fetchAsyncData(dispatch, { components, location, params }) { // e
     if (!component) return actions
     return actions
       .concat(component.fetchActions || [])
-      // .concat(component.WrappedComponent ? component.WrappedComponent.fetchActions || [] : [])
+    // .concat(component.WrappedComponent ? component.WrappedComponent.fetchActions || [] : [])
   }, [])
   const promises = fetchActions.map(action => dispatch(action({ location, params })))
 

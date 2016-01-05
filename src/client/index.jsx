@@ -4,6 +4,7 @@ import { render } from 'react-dom'
 import { Router } from 'react-router'
 import { createHistory, useQueries } from 'history'
 import { Provider } from 'react-redux'
+import { syncReduxAndRouter } from 'redux-simple-router'
 
 import routes from '../shared/app/routes'
 import createStore from '../shared/app/createStore'
@@ -15,6 +16,8 @@ const history = useQueries(createHistory)()
 const initialState = window.__INITIAL_STATE__
 
 const store = createStore(initialState)
+
+syncReduxAndRouter(history, store)
 
 render(
   <Provider store={store}>
