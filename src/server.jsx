@@ -13,9 +13,14 @@ import createStore from './shared/app/createStore'
 
 const app = express()
 
+// add dev middleware to express in dev mode
+if (process.env.NODE_ENV !== 'production') {
+  require('../webpack.dev').default(app);
+}
+
 app.use('/', express.static('dist', { maxAge: '200d' }));
 
-app.use('/', (req, res) => {
+app.use('/', (req, res, next) => {
   const location = createLocation(req.url)
   const store = createStore()
   // initial location for redux-simple-router
@@ -35,7 +40,7 @@ app.use('/', (req, res) => {
       await fetchAsyncData(store.dispatch, renderProps)  // eslint-disable-line no-use-before-define
     } catch (e) {
       console.log(e)
-      // next(e)
+      next(e)
     }
 
     const InitialComponent = (
