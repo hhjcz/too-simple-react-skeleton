@@ -2,12 +2,11 @@
 
 import React, { PropTypes } from 'react'
 import { Link } from 'react-router'
-
-import Zarizeni from '../zarizeni/Zarizeni.jsx'
+import { Record } from 'immutable'
 
 export default class Radka extends React.Component {
   static propTypes = {
-    zarizeni: PropTypes.instanceOf(Zarizeni)
+    zarizeni: PropTypes.instanceOf(Record)
   }
 
   render() {

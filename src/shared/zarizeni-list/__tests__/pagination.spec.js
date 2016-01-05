@@ -2,7 +2,7 @@
  * Created by hhj on 12/18/15.
  */
 import { expect } from 'chai'
-import { Pagination, nextPage, previousPage, gotoPage } from './pagination'
+import { Pagination, nextPage, previousPage, gotoPage } from './../pagination'
 
 describe('pagination', () => {
 

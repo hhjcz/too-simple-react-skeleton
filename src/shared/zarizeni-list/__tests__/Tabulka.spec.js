@@ -4,16 +4,17 @@
 
 import { expect } from 'chai'
 import React from 'react'
+import { List } from 'immutable'
 import sd from 'skin-deep'
 
-import Tabulka from './Tabulka.jsx'
+import Tabulka from './../Tabulka.jsx'
 
 describe('zarizeni-list Tabulka component', () => {
   let vdom
   let instance   // eslint-disable-line no-unused-vars
 
   beforeEach(() => {
-    const tree = sd.shallowRender(React.createElement(Tabulka, { seznamZarizeni: [] }))
+    const tree = sd.shallowRender(React.createElement(Tabulka, { seznamZarizeni: List() }))
 
     instance = tree.getMountedInstance()
     vdom = tree.getRenderOutput()

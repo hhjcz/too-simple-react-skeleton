@@ -3,10 +3,10 @@
  */
 import { expect } from 'chai'
 import { List } from 'immutable'
-import { Zarizeni } from '../zarizeni/core'
-import { Pagination } from './pagination'
-import * as actions from './actions'
-import reducer, { InitialState } from './reducer'
+import { Zarizeni } from '../../zarizeni/core'
+import { Pagination } from './../pagination'
+import * as actions from './../actions'
+import reducer, { InitialState } from './../reducer'
 
 describe('reducer', () => {
 

@@ -3,8 +3,8 @@
  */
 import { expect } from 'chai'
 import { List, Map } from 'immutable'
-import { setList } from './core'
-import { Zarizeni } from '../zarizeni/core'
+import { setList } from './../core'
+import { Zarizeni } from '../../zarizeni/core'
 
 describe('zarizeni list logic', () => {
 

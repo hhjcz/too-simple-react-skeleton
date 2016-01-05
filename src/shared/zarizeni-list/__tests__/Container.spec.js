@@ -4,8 +4,8 @@ import { expect } from 'chai'
 import React from 'react'
 import sd from 'skin-deep'
 
-import createStore from '../app/createStore'
-import Container from './Container.jsx'
+import createStore from '../../app/createStore'
+import Container from './../Container.jsx'
 
 describe('zarizeni-list Container component', () => {
   let vdom
