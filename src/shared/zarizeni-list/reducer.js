@@ -47,7 +47,7 @@ export default function reducer(state = initialState, action) {
       return state.update('pagination', () => action.pagination)
 
     case actions.GOTO_PAGE:
-      console.log('Go to page: ', action.page)
+      // console.log('Go to page: ', action.page)
       return state.update('pagination', (pagination) => gotoPage(pagination, action.page))
 
     case actions.NEXT_PAGE:
