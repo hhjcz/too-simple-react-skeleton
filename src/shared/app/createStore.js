@@ -6,22 +6,28 @@ import DevTools from './DevTools'
 
 import reducer from './reducer'
 
-// defined in webpack dev configuration (via plugin)
-const BROWSER_DEVELOPMENT = process.env.NODE_ENV !== 'production' && process.env.IS_BROWSER === true
+// defined in webpack configuration or node runtime environment
+const DEVELOPMENT = process.env.NODE_ENV !== 'production'
+const BROWSER_DEVELOPMENT = DEVELOPMENT && process.env.IS_BROWSER === true
 
 export default function createStore(initialState = {}) {
-  const middlewares = [thunkMiddleware]
+  const middleware = [thunkMiddleware]
   if (BROWSER_DEVELOPMENT) {
-    middlewares.push(createLogger({
+    middleware.push(createLogger({
       collapsed: true,
       // convert immutable => json => object
       stateTransformer: (state) => JSON.parse(JSON.stringify(state)),
     }))
   }
 
+  let devToolsInstrument = (x) => x
+  if (DEVELOPMENT) {
+    devToolsInstrument = DevTools.instrument()
+  }
+
   const store = compose(
-    applyMiddleware(...middlewares),
-    DevTools.instrument()
+    applyMiddleware(...middleware),
+    devToolsInstrument
   )(_createStore)(reducer, initialState)
 
   return store

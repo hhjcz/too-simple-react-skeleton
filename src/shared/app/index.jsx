@@ -29,7 +29,10 @@ export default class App extends React.Component {
             tutorial
           </a>
         </div>
-        <DevTools />
+        {
+          // defined in webpack configuration or node runtime environment
+          (process.env.NODE_ENV !== 'production') ? <DevTools /> : null
+        }
       </div>
     )
   }

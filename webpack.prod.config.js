@@ -1,6 +1,7 @@
 /** Created by hhj on 1/5/16. */
 
 var path = require('path');
+var webpack = require('webpack');
 
 module.exports = {
   entry: [
@@ -15,6 +16,14 @@ module.exports = {
     filename: 'bundle.js',
     publicPath: '/'
   },
+  plugins: [
+    new webpack.DefinePlugin({
+      'process.env': {
+        NODE_ENV: JSON.stringify('production'),
+        IS_BROWSER: true
+      }
+    })
+  ],
   module: {
     loaders: [
       {
