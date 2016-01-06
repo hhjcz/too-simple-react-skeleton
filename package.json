@@ -5,11 +5,14 @@
   "description": "hhj - redux/react dohlestr from scratch based on https://medium.com/front-end-developers/handcrafting-an-isomorphic-redux-application-with-love-40ada4468af4#.dyjo0n2px",
   "main": "index.js",
   "scripts": {
-    "start": "NODE_ENV=production NODE_PATH=$NODE_PATH:./src/shared node --harmony index.js",
-    "dev": "NODE_PATH=$NODE_PATH:./src/shared node --harmony index.js",
+    "start": "NODE_ENV=production PORT=8080 NODE_PATH=$NODE_PATH:./src/shared node --harmony index.js",
+    "prestart": "npm run build",
     "build": "NODE_ENV=production webpack --progress --color -p --config webpack.prod.config.js",
+
+    "dev": "NODE_PATH=$NODE_PATH:./src/shared node --harmony index.js",
     "test": "mocha --compilers .:babel-register --require ./test_helper.js --recursive --watch-extensions jsx 'src/**/*.spec.js'",
     "test:watch": "npm run test -- --watch",
+    "pretest": "npm run eslint # (auto hook runs with npm run test)",
     "eslint": "eslint --ext=js --ext=jsx src || true"
   },
   "keywords": [],
@@ -35,10 +38,10 @@
   },
   "devDependencies": {
     "babel-core": "^6.3.26",
+    "babel-eslint": "^4.1.6",
     "babel-loader": "^6.2.0",
     "babel-plugin-react-transform": "^2.0.0",
     "babel-plugin-transform-runtime": "^6.3.13",
-    "babel-polyfill": "^6.3.14",
     "babel-preset-es2015": "^6.3.13",
     "babel-preset-es2015-node5": "^1.1.1",
     "babel-preset-react": "^6.3.13",

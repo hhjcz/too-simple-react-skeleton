@@ -8,10 +8,10 @@ import prodCfg from './webpack.prod.config.js';
 
 Object.assign = assign;
 
+// add hot reload feature in dev mode (using babel-plugin-react-transform & react-transform-hmr),
+// rest of babel config taken from .babelrc
 const BABEL_QUERY = {
-  presets: ['react', 'es2015', 'stage-1'],
   plugins: [
-    ['transform-runtime'],
     [
       'react-transform',
       {
@@ -48,7 +48,13 @@ export default function(app) {
     plugins: [
       new webpack.optimize.OccurenceOrderPlugin(),
       new webpack.HotModuleReplacementPlugin(),
-      new webpack.NoErrorsPlugin()
+      new webpack.NoErrorsPlugin(),
+      new webpack.DefinePlugin({
+        'process.env': {
+          NODE_ENV: JSON.stringify('development'),
+          IS_BROWSER: true
+        }
+      })
     ],
   });
 

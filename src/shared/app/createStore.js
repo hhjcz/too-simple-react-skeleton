@@ -6,7 +6,8 @@ import DevTools from './DevTools'
 
 import reducer from './reducer'
 
-const BROWSER_DEVELOPMENT = process.env.NODE_ENV === 'development' && process.env.IS_BROWSER === true
+// defined in webpack dev configuration (via plugin)
+const BROWSER_DEVELOPMENT = process.env.NODE_ENV !== 'production' && process.env.IS_BROWSER === true
 
 export default function createStore(initialState = {}) {
   const middlewares = [thunkMiddleware]
