@@ -60,6 +60,6 @@ class Container extends React.Component {
 const WrappedContainer = createFetchWrapper(listActions.fetchList)(Container) // eslint-disable-line no-unused-vars
 
 export default connect(
-  createMapStateToProps('zarizeniList'),
+  createMapStateToProps(state => state.zarizeniList),
   createMapDispatchToProps(listActions)
 )(Container)

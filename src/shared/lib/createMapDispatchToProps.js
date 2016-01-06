@@ -2,9 +2,13 @@
 import { bindActionCreators } from 'redux'
 import { Map } from 'immutable'
 
+/**
+ * @param actions
+ */
 const createMapDispatchToProps = actions => dispatch => {
   const creators = Map()
-    .merge(...[actions])
+    .merge(actions)  // when actions is an object
+    .merge(...actions) // when action is an array (called with [actions])
     .filter(value => typeof value === 'function')
     .toObject()
 
