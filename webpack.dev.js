@@ -4,6 +4,8 @@ import webpack from 'webpack';
 import assign from 'object-assign';
 import webpackDevMiddleware from 'webpack-dev-middleware';
 import webpackHotMiddleware from 'webpack-hot-middleware';
+import ExtractTextPlugin from 'extract-text-webpack-plugin';
+import path from 'path'
 import prodCfg from './webpack.prod.config.js';
 
 Object.assign = assign;
@@ -27,6 +29,12 @@ const BABEL_QUERY = {
   ]
 }
 
+const sassLoaders = [
+  'css-loader',
+  'postcss-loader',
+  'sass-loader?includePaths[]=' + path.resolve(__dirname, './src')
+]
+
 // consumed in src/server.jsx
 export default function(app) {
   const config = Object.assign(prodCfg, {
@@ -42,6 +50,10 @@ export default function(app) {
           exclude: /node_modules/,
           loader: 'babel',
           query: BABEL_QUERY
+        },
+        {
+          test: /\.scss$/,
+          loader: ExtractTextPlugin.extract('style-loader', sassLoaders.join('!'))
         }
       ]
     },
@@ -54,7 +66,8 @@ export default function(app) {
           NODE_ENV: JSON.stringify('development'),
           IS_BROWSER: true
         }
-      })
+      }),
+      new ExtractTextPlugin('[name].css')
     ],
   });
 

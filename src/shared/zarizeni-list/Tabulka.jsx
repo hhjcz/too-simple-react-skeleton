@@ -14,14 +14,12 @@ export default class Tabulka extends React.Component {
     // console.log(seznamZarizeni.toObject())
 
     return (
-      <div>
-        <ul>
+      <div className="container-fluid">
           {
             seznamZarizeni.map(zarizeni => {
               return <Radka key={zarizeni.id} zarizeni={zarizeni} />
             })
           }
-        </ul>
       </div>
     )
   }

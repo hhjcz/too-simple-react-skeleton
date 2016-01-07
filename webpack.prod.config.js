@@ -1,7 +1,14 @@
 /** Created by hhj on 1/5/16. */
+const path = require('path');
+const webpack = require('webpack');
+const autoprefixer = require('autoprefixer')
+const ExtractTextPlugin = require('extract-text-webpack-plugin')
 
-var path = require('path');
-var webpack = require('webpack');
+const sassLoaders = [
+  'css-loader',
+  'postcss-loader',
+  'sass-loader?includePaths[]=' + path.resolve(__dirname, './src')
+]
 
 module.exports = {
   entry: [
@@ -9,7 +16,7 @@ module.exports = {
   ],
   resolve: {
     modulesDirectories: ['node_modules', 'src/shared'],
-    extensions: ['', '.js', '.jsx']
+    extensions: ['', '.js', '.jsx', '.scss', '.sass']
   },
   output: {
     path: path.join(__dirname, 'dist'),
@@ -22,6 +29,12 @@ module.exports = {
         NODE_ENV: JSON.stringify('production'),
         IS_BROWSER: true
       }
+    }),
+    new ExtractTextPlugin('[name].css')
+  ],
+  postcss: [
+    autoprefixer({
+      browsers: ['last 2 versions']
     })
   ],
   module: {
@@ -30,6 +43,10 @@ module.exports = {
         test: /\.jsx?$/,
         exclude: /node_modules/,
         loaders: ['babel']
+      },
+      {
+        test: /\.scss$/,
+        loader: ExtractTextPlugin.extract('style-loader', sassLoaders.join('!'))
       }
     ]
   },

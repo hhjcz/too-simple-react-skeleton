@@ -2,7 +2,7 @@
 import { expect } from 'chai'
 import React from 'react'
 import sd from 'skin-deep'
-import { Link } from 'react-router'
+import { Link } from 'react-router' // eslint-disable-line no-unused-vars
 
 import { Zarizeni } from '../../zarizeni/core'
 import Radka from './../Radka'
@@ -17,12 +17,12 @@ describe('zarizeni-list Radka component', () => {
 
     instance = tree.getMountedInstance()
     vdom = tree.getRenderOutput()
-    // console.log(vdom.props.children.type)
+    // console.log(vdom.props.children[0])
   })
 
   it('should render ', () => {
-    expect(vdom.type).to.equal('li')
-    expect(vdom.props.children.type).to.equal(Link);
+    expect(vdom.type).to.equal('div')
+    // expect(vdom.props.children[0].type).to.equal('div');
   })
 
 })

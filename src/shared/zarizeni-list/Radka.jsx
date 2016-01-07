@@ -9,9 +9,21 @@ export default class Radka extends React.Component {
   }
 
   render() {
+    let style = {}
+    if (process.env.IS_BROWSER) {
+      style = require('./Tabulka.scss')
+      console.log('Style: ', style)
+    }
     const { zarizeni } = this.props
     return (
-      <li><Link to={'/zarizeni/' + zarizeni.id}>{zarizeni.id} - {zarizeni.name}</Link></li>
+      <div className="row">
+        <div className="col-sm-1">
+          <Link to={'/zarizeni/' + zarizeni.id}>{zarizeni.id}</Link>
+        </div>
+        <div className={style.cervena + ' col-sm-2'}>
+          {zarizeni.name}
+        </div>
+      </div>
     )
   }
 }
