@@ -5,8 +5,6 @@ import assign from 'object-assign';
 import webpackDevMiddleware from 'webpack-dev-middleware';
 import webpackHotMiddleware from 'webpack-hot-middleware';
 import ExtractTextPlugin from 'extract-text-webpack-plugin';
-import path from 'path'
-import glob from 'glob'
 import prodCfg from './webpack.prod.config.js';
 
 Object.assign = assign;
@@ -33,7 +31,7 @@ const BABEL_QUERY = {
 const sassLoaders = [
   'css-loader',
   'postcss-loader',
-  'sass-loader?includePaths[]=' + path.resolve(__dirname, './src')
+  'sass-loader'
 ]
 
 // consumed in src/server.jsx
@@ -42,8 +40,7 @@ export default function(app) {
     devtool: 'inline-source-map',
     entry: [
       'webpack-hot-middleware/client',
-      './src/client',
-      ...glob.sync('./src/**/*.scss')
+      './src/client'
     ],
     module: {
       loaders: [
@@ -55,7 +52,7 @@ export default function(app) {
         },
         {
           test: /\.scss$/,
-          loader: ExtractTextPlugin.extract('style-loader', sassLoaders.join('!'))
+          loader: 'style-loader!' + sassLoaders.join('!')
         }
       ]
     },

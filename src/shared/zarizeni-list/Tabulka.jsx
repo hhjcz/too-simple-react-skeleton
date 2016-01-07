@@ -14,7 +14,7 @@ export default class Tabulka extends React.Component {
     // console.log(seznamZarizeni.toObject())
 
     return (
-      <div className="container-fluid">
+      <div className="Table container-fluid">
           {
             seznamZarizeni.map(zarizeni => {
               return <Radka key={zarizeni.id} zarizeni={zarizeni} />

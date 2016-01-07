@@ -2,6 +2,7 @@
 import React, { PropTypes } from 'react'
 import { Link } from 'react-router'
 import { Record } from 'immutable'
+import './Tabulka.scss'
 
 export default class Radka extends React.Component {
   static propTypes = {
@@ -11,11 +12,11 @@ export default class Radka extends React.Component {
   render() {
     const { zarizeni } = this.props
     return (
-      <div className="row">
-        <div className="col-sm-1">
+      <div className="Table-row">
+        <div className="Table-row-item">
           <Link to={'/zarizeni/' + zarizeni.id}>{zarizeni.id}</Link>
         </div>
-        <div className="cervena col-sm-2">
+        <div className="Table-row-item">
           {zarizeni.name}
         </div>
       </div>

@@ -53,14 +53,15 @@ app.use('/', (req, res, next) => {
 
     const componentHtml = renderToString(InitialComponent)
 
+    // FIXME - add main.css only in production (inline in development mode so that it can be hot reloaded)
     const HTML = `
   <!DOCTYPE html>
   <html>
     <head>
       <meta charset="utf-8">
       <title>Dohlestr using react/redux from scratch by hhj</title>
+      <!--<link rel="stylesheet" href="/main.css">-->
       <!-- Bootstrap: latest compiled and minified CSS -->
-      <link rel="stylesheet" href="/main.css">
       <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
       <script>
         window.__INITIAL_STATE__ = ${JSON.stringify(initialState)};

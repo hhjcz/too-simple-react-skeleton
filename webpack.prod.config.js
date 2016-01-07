@@ -3,18 +3,16 @@ const path = require('path');
 const webpack = require('webpack');
 const autoprefixer = require('autoprefixer')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
-const glob = require('glob')
 
 const sassLoaders = [
   'css-loader',
   'postcss-loader',
-  'sass-loader?includePaths[]=' + path.resolve(__dirname, './src')
+  'sass-loader'
 ]
 
 module.exports = {
   entry: [
-    './src/client',
-    glob.sync('./src/**/*.scss').join()
+    './src/client'
   ],
   resolve: {
     modulesDirectories: ['node_modules', 'src/shared'],
@@ -39,6 +37,12 @@ module.exports = {
       browsers: ['last 2 versions']
     })
   ],
+  sassLoader: {
+    includePaths: [
+      path.resolve(__dirname, './src'),
+      path.resolve(__dirname, './node_modules/breakpoint-sass/stylesheets'),
+      require('bourbon').includePaths]
+  },
   module: {
     loaders: [
       {
