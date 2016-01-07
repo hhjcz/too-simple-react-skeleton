@@ -3,6 +3,7 @@ const path = require('path');
 const webpack = require('webpack');
 const autoprefixer = require('autoprefixer')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
+const glob = require('glob')
 
 const sassLoaders = [
   'css-loader',
@@ -12,7 +13,8 @@ const sassLoaders = [
 
 module.exports = {
   entry: [
-    './src/client'
+    './src/client',
+    glob.sync('./src/**/*.scss').join()
   ],
   resolve: {
     modulesDirectories: ['node_modules', 'src/shared'],

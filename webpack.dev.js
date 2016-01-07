@@ -6,6 +6,7 @@ import webpackDevMiddleware from 'webpack-dev-middleware';
 import webpackHotMiddleware from 'webpack-hot-middleware';
 import ExtractTextPlugin from 'extract-text-webpack-plugin';
 import path from 'path'
+import glob from 'glob'
 import prodCfg from './webpack.prod.config.js';
 
 Object.assign = assign;
@@ -41,7 +42,8 @@ export default function(app) {
     devtool: 'inline-source-map',
     entry: [
       'webpack-hot-middleware/client',
-      './src/client'
+      './src/client',
+      ...glob.sync('./src/**/*.scss')
     ],
     module: {
       loaders: [
