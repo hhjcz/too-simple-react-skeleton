@@ -41,7 +41,7 @@ module.exports = {
     includePaths: [
       path.resolve(__dirname, './src'),
       path.resolve(__dirname, './node_modules/breakpoint-sass/stylesheets'),
-      require('bourbon').includePaths]
+    ]
   },
   module: {
     loaders: [

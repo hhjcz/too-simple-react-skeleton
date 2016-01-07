@@ -1,4 +1,4 @@
-@import "bourbon";
+//noinspection CssUnknownTarget
 @import "breakpoint";
 
 .Table {
@@ -6,13 +6,13 @@
   $light-color: #ffffff;
   $md: 500px;
 
-  @include display(flex);
-  @include flex-flow(column nowrap);
-  @include justify-content(space-between);
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: space-between;
   border: 1px solid $dark-color;
   //font-size: 1rem;
   margin: 0.5rem;
-  line-height: 1.5;
+  //line-height: 1.5;
 
   // .Table-header
   &-header {
@@ -28,20 +28,19 @@
     &:nth-of-type(even) { background-color: $dark-color; }
     &:nth-of-type(odd) { background-color: $light-color; }
     @include breakpoint($md) {
-      @include display(flex);
-      @include flex-flow(row nowrap);
+      display: flex;
+      flex-flow: row nowrap;
       &:nth-of-type(even) { background-color: $light-color; }
       &:nth-of-type(odd) { background-color: $dark-color; }
     }
     // .Table-row-item
     &-item {
-      @include display(flex);
-      @include flex-flow(row nowrap);
-      @include flex-grow(1);
-      @include flex-basis(0);
-      @include word-wrap;
+      display: flex;
+      flex-flow: row nowrap;
+      flex-grow: 1;
+      flex-basis: 0;
       padding: 0.5em;
-      word-break: break-word;
+      word-break: break-all;
       &:before {
         content: attr(data-header);
         width: 30%;
