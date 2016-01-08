@@ -4,11 +4,7 @@ const webpack = require('webpack');
 const autoprefixer = require('autoprefixer')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
 
-const sassLoaders = [
-  'css-loader',
-  'postcss-loader',
-  'sass-loader'
-]
+const prefixLoaders = 'css-loader!postcss-loader'
 
 module.exports = {
   entry: [
@@ -43,6 +39,10 @@ module.exports = {
       path.resolve(__dirname, './node_modules/breakpoint-sass/stylesheets'),
     ]
   },
+  stylus: {
+    use: [require('rupture')()],
+    // import: ['~rupture/rupture/index.styl']
+  },
   module: {
     loaders: [
       {
@@ -52,7 +52,11 @@ module.exports = {
       },
       {
         test: /\.scss$/,
-        loader: ExtractTextPlugin.extract('style-loader', sassLoaders.join('!'))
+        loader: ExtractTextPlugin.extract('style-loader', prefixLoaders + '!sass-loader')
+      },
+      {
+        test: /\.styl$/,
+        loader: ExtractTextPlugin.extract('style-loader', prefixLoaders + '!stylus-loader')
       }
     ]
   },

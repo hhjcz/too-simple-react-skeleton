@@ -28,11 +28,7 @@ const BABEL_QUERY = {
   ]
 }
 
-const sassLoaders = [
-  'css-loader',
-  'postcss-loader',
-  'sass-loader'
-]
+const prefixLoaders = 'style-loader!css-loader!postcss-loader'
 
 // consumed in src/server.jsx
 export default function(app) {
@@ -52,7 +48,11 @@ export default function(app) {
         },
         {
           test: /\.scss$/,
-          loader: 'style-loader!' + sassLoaders.join('!')
+          loader: prefixLoaders + '!sass-loader'
+        },
+        {
+          test: /\.styl$/,
+          loader: prefixLoaders + '!stylus-loader'
         }
       ]
     },
