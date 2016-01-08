@@ -3,6 +3,10 @@
 /**
  * @param getSubStateFn Function that selects sub tree from state tree (e.g. state => state.mySubState)
  */
-const createMapStateToProps = getSubStateFn => state => getSubStateFn(state).toObject()
+const createMapStateToProps = getSubStateFn => state => {
+  let subState = getSubStateFn(state)
+  if (subState.toObject) return subState.toObject()
+  else return subState
+}
 
 export default createMapStateToProps

@@ -6,6 +6,7 @@ import DevTools from './DevTools'
 
 import reducer from './reducer'
 
+
 // defined in webpack configuration or node runtime environment
 const DEVELOPMENT = process.env.NODE_ENV !== 'production'
 const BROWSER_DEVELOPMENT = DEVELOPMENT && process.env.IS_BROWSER === true
@@ -30,5 +31,14 @@ export default function createStore(initialState = {}) {
     devToolsInstrument
   )(_createStore)(reducer, initialState)
 
+  // hot reload root reducer (enables hot reloading action creators modules as well)
+  if (module.hot) {
+    module.hot.accept('./reducer', () => {
+      console.log('Replacing store reducer')
+
+      const nextReducer = require('./reducer').default
+      store.replaceReducer(nextReducer)
+    })
+  }
   return store
 }
