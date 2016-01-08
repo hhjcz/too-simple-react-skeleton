@@ -1,8 +1,8 @@
 /** Created by hhj on 1/8/16. */
 
-import createLocation from '../../node_modules/history/lib/createLocation'
+import createLocation from 'history/lib/createLocation'
 import React from 'react'
-import { renderToString } from '../../node_modules/react-dom/server'
+import { renderToString } from 'react-dom/server'
 import { RoutingContext, match } from 'react-router'
 import { Provider } from 'react-redux'
 import { replacePath } from 'redux-simple-router'
