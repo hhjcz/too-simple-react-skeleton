@@ -15,6 +15,7 @@ export default class App extends React.Component {
     return (
       <div id="app-view" className="container-fluid">
         <h1>Dohlestr</h1>
+        <img alt="50x50 placeholder" src={require('./50x50.png')}/>
         <Link to="/">Home</Link>
         <Link to="/zarizeni">List</Link>
 

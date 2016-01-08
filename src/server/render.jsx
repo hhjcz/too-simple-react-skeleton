@@ -1,26 +1,17 @@
-/** Created by hhj on 12/23/15. */
-import express from 'express'
-import createLocation from 'history/lib/createLocation'
+/** Created by hhj on 1/8/16. */
+
+import createLocation from '../../node_modules/history/lib/createLocation'
 import React from 'react'
-import { renderToString } from 'react-dom/server'
+import { renderToString } from '../../node_modules/react-dom/server'
 import { RoutingContext, match } from 'react-router'
 import { Provider } from 'react-redux'
 import { replacePath } from 'redux-simple-router'
 import Promise from 'bluebird'
 
-import routes from './shared/app/routes'
-import createStore from './shared/app/createStore'
+import routes from './../shared/app/routes'
+import createStore from './../shared/app/createStore'
 
-const app = express()
-
-// add dev middleware to express in dev mode
-if (process.env.NODE_ENV !== 'production') {
-  require('../webpack.dev').default(app);
-}
-
-app.use('/', express.static('dist', { maxAge: '200d' }));
-
-app.use('/', (req, res, next) => {
+export default function render(req, res, next) {
   const location = createLocation(req.url)
   const store = createStore()
   // initial location for redux-simple-router
@@ -53,14 +44,22 @@ app.use('/', (req, res, next) => {
 
     const componentHtml = renderToString(InitialComponent)
 
-    // FIXME - add main.css only in production (inline in development mode so that it can be hot reloaded)
+    // webpackIsomorphicTools defined globally in index.js
+    const {
+      javascript: { main: mainJsFilename },
+      // style: { main: mainCssFilename }
+      } = webpackIsomorphicTools.assets()
+    const mainCssFilename = '/main.css'
+    const mainCssLink = process.env.NODE_ENV === 'production' ? `<link rel="stylesheet" href="${mainCssFilename}">` : ''
+
+    // TODO - extract HTML to react component
     const HTML = `
   <!DOCTYPE html>
   <html>
     <head>
       <meta charset="utf-8">
       <title>Dohlestr using react/redux from scratch by hhj</title>
-      <!--<link rel="stylesheet" href="/main.css">-->
+      ${mainCssLink}
       <!-- Bootstrap: latest compiled and minified CSS -->
       <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
       <script>
@@ -70,7 +69,7 @@ app.use('/', (req, res, next) => {
     <body>
     <div>
       <div id="react-view">${componentHtml}</div>
-      <script type="application/javascript" src="/bundle.js"></script>
+      <script type="application/javascript" src="${mainJsFilename}"></script>
     </div>
     </body>
   </html>
@@ -78,7 +77,7 @@ app.use('/', (req, res, next) => {
 
     res.end(HTML)
   })
-})
+}
 
 async function fetchAsyncData(dispatch, { components, location, params }) { // eslint-disable-line no-unused-vars
   const fetchActions = components.reduce((actions, component) => {
@@ -91,5 +90,3 @@ async function fetchAsyncData(dispatch, { components, location, params }) { // e
 
   await Promise.all(promises)
 }
-
-export default app

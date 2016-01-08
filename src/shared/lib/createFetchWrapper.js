@@ -3,14 +3,14 @@ import React from 'react'
 
 export default function createFetchWrapper(...actions) {
 
-  // FIXME - does not work this way - the static properties can't be seen in server.jsx
+  // FIXME - does not work this way - the static properties can't be seen in server.js
   return Wrapped => class FetchWrapper extends React.Component {
 
     static propTypes = {
       dispatch: React.PropTypes.func.isRequired
     }
 
-    // server side fetching (see server.jsx):
+    // server side fetching (see server.js):
     static fetchActions = actions
 
     // browser fetching:

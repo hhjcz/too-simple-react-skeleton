@@ -12,7 +12,7 @@ import createStore from '../shared/app/createStore'
 // history library with query parsing support:
 const history = useQueries(createHistory)()
 
-// server has put the state here (see server.jsx):
+// server has put the state here (see server.js):
 const initialState = window.__INITIAL_STATE__
 
 const store = createStore(initialState)

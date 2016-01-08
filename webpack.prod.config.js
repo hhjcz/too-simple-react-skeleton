@@ -3,13 +3,18 @@ const path = require('path');
 const webpack = require('webpack');
 const autoprefixer = require('autoprefixer')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
+const IsomorphicToolsPlugin = require('webpack-isomorphic-tools/plugin')
+const isomorphicToolsConfig = require('./webpack-isomorphic-tools.config.js')
 
+const isomorphicToolsPlugin = new IsomorphicToolsPlugin(isomorphicToolsConfig)
 const prefixLoaders = 'css-loader!postcss-loader'
 
 module.exports = {
-  entry: [
-    './src/client'
-  ],
+  entry: {
+    main: [
+      './src/client'
+    ]
+  },
   resolve: {
     modulesDirectories: ['node_modules', 'src/shared'],
     extensions: ['', '.js', '.jsx', '.scss', '.sass']
@@ -17,6 +22,7 @@ module.exports = {
   output: {
     path: path.join(__dirname, 'dist'),
     filename: 'bundle.js',
+    chunkFilename: 'bundle-[hash].js',
     publicPath: '/'
   },
   plugins: [
@@ -26,7 +32,8 @@ module.exports = {
         IS_BROWSER: true
       }
     }),
-    new ExtractTextPlugin('[name].css')
+    new ExtractTextPlugin('main.css'),
+    isomorphicToolsPlugin
   ],
   postcss: [
     autoprefixer({
@@ -49,6 +56,10 @@ module.exports = {
         test: /\.jsx?$/,
         exclude: /node_modules/,
         loaders: ['babel']
+      },
+      {
+        loader: 'url-loader?limit=100000',
+        test: /\.(gif|jpg|png|woff|woff2|eot|ttf|svg)$/
       },
       {
         test: /\.scss$/,

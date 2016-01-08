@@ -40,7 +40,7 @@ class Container extends React.Component {
     history.push({ ...location, query: { ...location.query, page } })
   }
 
-  // server and client side fetch actions (see server.jsx & componentDidMount):
+  // server and client side fetch actions (see server.js & componentDidMount):
   static fetchActions = [listActions.fetchListByUrl]
 
   render() {

@@ -4,8 +4,11 @@ import webpack from 'webpack';
 import assign from 'object-assign';
 import webpackDevMiddleware from 'webpack-dev-middleware';
 import webpackHotMiddleware from 'webpack-hot-middleware';
-import ExtractTextPlugin from 'extract-text-webpack-plugin';
 import prodCfg from './webpack.prod.config.js';
+import IsomorphicToolsPlugin from 'webpack-isomorphic-tools/plugin';
+import isomorphicToolsConfig from './webpack-isomorphic-tools.config.js';
+
+const isomorphicToolsPlugin = new IsomorphicToolsPlugin(isomorphicToolsConfig)
 
 Object.assign = assign;
 
@@ -30,14 +33,16 @@ const BABEL_QUERY = {
 
 const prefixLoaders = 'style-loader!css-loader!postcss-loader'
 
-// consumed in src/server.jsx
+// consumed in src/server.js
 export default function(app) {
   const config = Object.assign(prodCfg, {
     devtool: 'inline-source-map',
-    entry: [
-      'webpack-hot-middleware/client',
-      './src/client'
-    ],
+    entry: {
+      main: [
+        'webpack-hot-middleware/client',
+        './src/client'
+      ]
+    },
     module: {
       loaders: [
         {
@@ -45,6 +50,10 @@ export default function(app) {
           exclude: /node_modules/,
           loader: 'babel',
           query: BABEL_QUERY
+        },
+        {
+          loader: 'url-loader?limit=100000',
+          test: /\.(gif|jpg|png|woff|woff2|eot|ttf|svg)$/
         },
         {
           test: /\.scss$/,
@@ -66,9 +75,9 @@ export default function(app) {
           IS_BROWSER: true
         }
       }),
-      new ExtractTextPlugin('[name].css')
+      isomorphicToolsPlugin.development()
     ],
-  });
+  })
 
   const compiler = webpack(config);
 

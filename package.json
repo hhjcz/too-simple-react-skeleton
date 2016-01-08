@@ -5,10 +5,10 @@
   "description": "hhj - redux/react dohlestr from scratch based on https://medium.com/front-end-developers/handcrafting-an-isomorphic-redux-application-with-love-40ada4468af4#.dyjo0n2px",
   "main": "index.js",
   "scripts": {
-    "start": "NODE_ENV=production PORT=8080 NODE_PATH=$NODE_PATH:./src/shared node --harmony index.js",
+    "start": "NODE_ENV=production PORT=8080 NODE_PATH=$NODE_PATH:./src/shared node --harmony ./src/server/index.js",
     "prestart": "npm run build",
     "build": "NODE_ENV=production webpack --progress --color -p --config webpack.prod.config.js",
-    "dev": "NODE_PATH=$NODE_PATH:./src/shared node --harmony index.js",
+    "dev": "NODE_PATH=$NODE_PATH:./src/shared node --harmony ./src/server/index.js",
     "test": "mocha --compilers js:babel-register --require ./test_helper.js --recursive --watch-extensions jsx 'src/**/*.spec.js'",
     "test:watch": "npm run test -- --watch",
     "pretest": "npm run eslint # (auto hook runs with npm run test)",
@@ -33,7 +33,8 @@
     "redux": "^3.0.5",
     "redux-logger": "^2.3.1",
     "redux-simple-router": "^1.0.2",
-    "redux-thunk": "^1.0.2"
+    "redux-thunk": "^1.0.2",
+    "webpack-isomorphic-tools": "^2.2.24"
   },
   "devDependencies": {
     "autoprefixer": "^6.2.3",
@@ -67,6 +68,7 @@
     "skin-deep": "^0.13.0",
     "style-loader": "^0.13.0",
     "stylus-loader": "^1.4.3",
+    "url-loader": "^0.5.7",
     "webpack": "^1.12.9",
     "webpack-dev-middleware": "^1.4.0",
     "webpack-hot-middleware": "^2.6.0"

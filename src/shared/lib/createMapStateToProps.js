@@ -5,8 +5,9 @@
  */
 const createMapStateToProps = getSubStateFn => state => {
   let subState = getSubStateFn(state)
-  if (subState.toObject) return subState.toObject()
-  else return subState
+  if (subState.toObject) subState = subState.toObject()
+
+  return subState
 }
 
 export default createMapStateToProps
