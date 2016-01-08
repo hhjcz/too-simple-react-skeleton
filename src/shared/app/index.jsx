@@ -13,7 +13,7 @@ export default class App extends React.Component {
 
   render() {
     return (
-      <div id="app-view">
+      <div id="app-view" className="container-fluid">
         <h1>Dohlestr</h1>
         <Link to="/">Home</Link>
         <Link to="/zarizeni">List</Link>

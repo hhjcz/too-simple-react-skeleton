@@ -15,11 +15,15 @@ export default class Tabulka extends React.Component {
 
     return (
       <div className="Table">
-          {
-            seznamZarizeni.map(zarizeni => {
-              return <Radka key={zarizeni.id} zarizeni={zarizeni} />
-            })
-          }
+        <div className="Table-row Table-header">
+          <div className="Table-row-item">ID</div>
+          <div className="Table-row-item">Name</div>
+        </div>
+        {
+          seznamZarizeni.map(zarizeni => {
+            return <Radka key={zarizeni.id} zarizeni={zarizeni} />
+          })
+        }
       </div>
     )
   }
