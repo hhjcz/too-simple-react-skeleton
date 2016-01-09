@@ -7,7 +7,7 @@ import './Tabulka.styl'
 export default class Radka extends React.Component {
   static propTypes = {
     zarizeni: PropTypes.instanceOf(Record)
-  }
+  };
 
   render() {
     const { zarizeni } = this.props

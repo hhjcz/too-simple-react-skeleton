@@ -6,7 +6,7 @@ import Radka from './Radka.jsx'
 export default class Tabulka extends React.Component {
   static propTypes = {
     seznamZarizeni: PropTypes.object
-  }
+  };
 
   render() {
     // console.log(this.props)

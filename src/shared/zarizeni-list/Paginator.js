@@ -9,7 +9,7 @@ export default class Paginator extends React.Component {
     onPageChange: PropTypes.func.isRequired,
     bsSize: PropTypes.number,
     maxButtons: PropTypes.string
-  }
+  };
 
   render() {
     const { pagination, onPageChange, bsSize, maxButtons } = this.props

@@ -19,7 +19,7 @@ class Container extends React.Component {
     history: PropTypes.object,
     location: PropTypes.object,
     params: PropTypes.object,
-  }
+  };
 
   // browser fetching:
   componentDidMount() {
@@ -41,7 +41,7 @@ class Container extends React.Component {
   }
 
   // server and client side fetch actions (see server.js & componentDidMount):
-  static fetchActions = [listActions.fetchListByUrl]
+  static fetchActions = [listActions.fetchListByUrl];
 
   render() {
     const { pagination, seznamZarizeni, fetching } = this.props

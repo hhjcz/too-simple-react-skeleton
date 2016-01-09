@@ -8,10 +8,10 @@ export default function createFetchWrapper(...actions) {
 
     static propTypes = {
       dispatch: React.PropTypes.func.isRequired
-    }
+    };
 
     // server side fetching (see server.js):
-    static fetchActions = actions
+    static fetchActions = actions;
 
     // browser fetching:
     componentDidMount() {

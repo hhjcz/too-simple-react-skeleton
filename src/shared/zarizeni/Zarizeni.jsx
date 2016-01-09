@@ -4,7 +4,7 @@ import React, { PropTypes } from 'react'
 export default class Zarizeni extends React.Component {
   static propTypes = {
     params: PropTypes.object
-  }
+  };
 
   render() {
     console.log('Params: ', this.props.params)
