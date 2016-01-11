@@ -1,28 +1,27 @@
 /** Created by hhj on 12/30/15. */
 import React, { PropTypes } from 'react'
 import { Link } from 'react-router'
-import { Record, List } from 'immutable'
+import { Record } from 'immutable'
+
+import Bunka from './Bunka'
 import './Tabulka.styl'
 
 export default class Radka extends React.Component {
   static propTypes = {
-    zarizeni: PropTypes.instanceOf(Record),
-    columns: PropTypes.instanceOf(List)
+    zarizeni: PropTypes.instanceOf(Record).isRequired,
+    columns: PropTypes.object.isRequired
   };
 
   render() {
     const { zarizeni, columns } = this.props
     return (
       <div className="Table-row">
-        {
-          columns.map(col => {
-            return (
-              <div className="Table-row-item" key={col.name}>
-                <Link to={'/zarizeni/' + zarizeni[col.name]}>{zarizeni[col.name]}</Link>
-              </div>
-            )
-          })
-        }
+        <Bunka column={columns.id}>
+          <Link to={'/zarizeni/' + zarizeni[columns.id.name]}>{zarizeni[columns.id.name]}</Link>
+        </Bunka>
+        <Bunka column={columns.name}>
+          <Link to={'/zarizeni/' + zarizeni[columns.id.name]}>{zarizeni[columns.name.name]}</Link>
+        </Bunka>
       </div>
     )
   }

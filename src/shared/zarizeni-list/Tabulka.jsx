@@ -18,14 +18,14 @@ export default class Tabulka extends React.Component {
       <div className="Table">
         <div className="Table-row Table-header">
           {
-            columns.map(col => {
+            columns.toList().map(col => {
               return <div className="Table-row-item" key={col.name}>{col.caption}</div>
             })
           }
         </div>
         {
           seznamZarizeni.map(zarizeni => {
-            return <Radka key={zarizeni.id} zarizeni={zarizeni} columns={columns} />
+            return <Radka key={zarizeni.id} zarizeni={zarizeni} columns={columns.toObject()} />
           })
         }
       </div>

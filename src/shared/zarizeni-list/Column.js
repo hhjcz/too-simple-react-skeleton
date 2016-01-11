@@ -1,6 +1,6 @@
 /** Created by hhj on 1/11/16. */
 
-import { Record, List } from 'immutable'
+import { Record, Map } from 'immutable'
 
 export const columntValueTypes = {
   number: 'number',
@@ -18,17 +18,19 @@ export const Column = Record({
   visible: true
 })
 
-export const columns = List.of(
-  new Column({
-    name: 'id',
-    caption: 'ID',
-    valueType: columntValueTypes.number,
-    visible: true
-  }),
-  new Column({
-    name: 'name',
-    caption: 'Name',
-    valueType: columntValueTypes.number,
-    visible: true
-  })
+export const columns = Map(
+  {
+    id: new Column({
+      name: 'id',
+      caption: 'ID',
+      valueType: columntValueTypes.number,
+      visible: true
+    }),
+    name: Column({
+      name: 'name',
+      caption: 'Name',
+      valueType: columntValueTypes.number,
+      visible: true
+    })
+  }
 )
