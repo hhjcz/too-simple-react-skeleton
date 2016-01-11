@@ -25,7 +25,7 @@ export default class Tabulka extends React.Component {
         </div>
         {
           seznamZarizeni.map(zarizeni => {
-            return <Radka key={zarizeni.id} zarizeni={zarizeni} columns={columns.toObject()} />
+            return <Radka key={zarizeni.id} zarizeni={zarizeni} columns={columns.toList()} />
           })
         }
       </div>

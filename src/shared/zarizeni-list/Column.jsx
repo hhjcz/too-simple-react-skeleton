@@ -1,6 +1,7 @@
 /** Created by hhj on 1/11/16. */
-
+/* eslint-disable react/no-multi-comp */
 import React from 'react'
+import { Link } from 'react-router'
 import { Record, Map } from 'immutable'
 
 export const columntValueTypes = {
@@ -8,7 +9,7 @@ export const columntValueTypes = {
   string: 'string',
   boolean: 'boolean',
   date: 'date',
-  ipaddress: 'ipaddress',
+  ipAddress: 'ipAddress',
 }
 
 export const Column = Record({
@@ -26,14 +27,15 @@ export const columns = Map(
       name: 'id',
       caption: 'ID',
       valueType: columntValueTypes.number,
-      visible: true
+      visible: true,
+      render: zarizeni => <Link to={'/zarizeni/' + zarizeni.id}>{zarizeni.id}</Link>
     }),
     name: new Column({
       name: 'name',
       caption: 'Name',
       valueType: columntValueTypes.string,
       visible: true,
-      render: value => <div>{value}</div>
+      render: zarizeni => <Link to={'/zarizeni/' + zarizeni.id}>{zarizeni.name}</Link>,
     }),
     createdAt: new Column({
       name: 'createdAt',
@@ -52,6 +54,12 @@ export const columns = Map(
       caption: 'Deleted at',
       valueType: columntValueTypes.date,
       visible: true
-    })
+    }),
+    ipAddress: new Column({
+      name: 'ipAddress',
+      caption: 'IP address',
+      valueType: columntValueTypes.ipAddress,
+      visible: true
+    }),
   }
 )

@@ -16,21 +16,9 @@ export default class Radka extends React.Component {
     const { zarizeni, columns } = this.props
     return (
       <div className="Table-row">
-        <Bunka column={columns.id}>
-          <Link to={'/zarizeni/' + zarizeni.id}>{zarizeni.id}</Link>
-        </Bunka>
-        <Bunka column={columns.name}>
-          <Link to={'/zarizeni/' + zarizeni.id}>{zarizeni.name}</Link>
-        </Bunka>
-        <Bunka column={columns.createdAt}>
-          {zarizeni.createdAt}
-        </Bunka>
-        <Bunka column={columns.updatedAt}>
-          {zarizeni.updatedAt}
-        </Bunka>
-        <Bunka column={columns.deletedAt}>
-          {zarizeni.deletedAt}
-        </Bunka>
+        {
+          columns.map(col => <Bunka column={col} model={zarizeni} />)
+        }
       </div>
     )
   }
