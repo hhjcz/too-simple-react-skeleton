@@ -26,7 +26,6 @@ export default function render(req, res, next) {
 
     if (!renderProps) return res.status(400).end('Ajvaj, Not fouuunddd')
 
-    // TODO - server side async data fetch - how to retrieve static fetchActions from FetchWrapper?
     try {
       await fetchAsyncData(store.dispatch, renderProps)  // eslint-disable-line no-use-before-define
     } catch (e) {

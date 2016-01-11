@@ -2,10 +2,10 @@
 require('babel-register')({})
 
 const WebpackIsomorphicTools = require('webpack-isomorphic-tools');
-const webpackIsomorphicAssets = require('./../../webpack-isomorphic-tools.config.js');
+const webpackIsomorphicConfig = require('./../../webpack-isomorphic-tools.config.js');
 const rootDir = require('path').resolve(__dirname, '..', '..')
 
-global.webpackIsomorphicTools = new WebpackIsomorphicTools(webpackIsomorphicAssets)
+global.webpackIsomorphicTools = new WebpackIsomorphicTools(webpackIsomorphicConfig)
   .development(process.env.NODE_ENV !== 'production')
   .server(rootDir, () => {
     require('./server')
