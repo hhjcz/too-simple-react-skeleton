@@ -5,7 +5,8 @@ import sd from 'skin-deep'
 import { Link } from 'react-router' // eslint-disable-line no-unused-vars
 
 import { Zarizeni } from '../../zarizeni/core'
-import Radka from './../Radka'
+import Radka from '../Radka'
+import { columns } from '../Column'
 
 describe('zarizeni-list Radka component', () => {
   let vdom
@@ -13,7 +14,7 @@ describe('zarizeni-list Radka component', () => {
 
   beforeEach(() => {
     const zarizeni = new Zarizeni({ id: 666 })
-    const tree = sd.shallowRender(React.createElement(Radka, { zarizeni }))
+    const tree = sd.shallowRender(React.createElement(Radka, { zarizeni, columns }))
 
     instance = tree.getMountedInstance()
     vdom = tree.getRenderOutput()

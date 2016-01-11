@@ -2,6 +2,7 @@
 import React, { PropTypes } from 'react'
 
 import Radka from './Radka.jsx'
+import { columns } from './Column'
 
 export default class Tabulka extends React.Component {
   static propTypes = {
@@ -16,12 +17,15 @@ export default class Tabulka extends React.Component {
     return (
       <div className="Table">
         <div className="Table-row Table-header">
-          <div className="Table-row-item">ID</div>
-          <div className="Table-row-item">Name</div>
+          {
+            columns.map(col => {
+              return <div className="Table-row-item" key={col.name}>{col.caption}</div>
+            })
+          }
         </div>
         {
           seznamZarizeni.map(zarizeni => {
-            return <Radka key={zarizeni.id} zarizeni={zarizeni} />
+            return <Radka key={zarizeni.id} zarizeni={zarizeni} columns={columns} />
           })
         }
       </div>
