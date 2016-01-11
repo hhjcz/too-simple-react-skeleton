@@ -33,12 +33,7 @@ export default function reducer(state = initialState, action) {
       return setList(state, action.seznamZarizeni)
         .update('fetching', () => false)
         .update('queryParams', () => action.queryParams)
-        .update('pagination', () => (new Pagination({
-          page: action.pagination.current_page,
-          perPage: action.pagination.per_page,
-          total: action.pagination.total,
-          totalPages: action.pagination.total_pages
-        })))
+        .update('pagination', () => new Pagination({ ...action.pagination, page: action.pagination.currentPage }))
 
     case actions.SET_LIST:
       return setList(state, action.seznamZarizeni)

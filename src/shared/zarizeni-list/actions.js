@@ -1,5 +1,6 @@
 /** Created by hhj on 20.12.15. */
 import fetch from 'isomorphic-fetch'
+import humps from 'humps'
 
 export const SET_PAGINATION = 'SET_PAGINATION'
 export const GOTO_PAGE = 'GOTO_PAGE'
@@ -40,11 +41,11 @@ export function fetchList() {
     const queryParams = parseQueryParams(getState)
     return fetch(`http://netvision-test:8089/api/zarizeni?${queryParams}`)
       .then(
-        response => response.json(),
+        response => response.json(),  // parse json into object
         error => {
           console.log(error)
         })
-      .then(json => dispatch(receiveList(json)))
+      .then(response => dispatch(receiveList(response)))
   }
 }
 
@@ -60,11 +61,12 @@ export function fetchListByUrl({ location, params }) {  // eslint-disable-line n
 
     return fetch(`http://netvision-test:8089/api/zarizeni${queryParams}`)
       .then(
-        response => response.json(),
+        response => response.json(),  // parse json into object
         error => {
           console.log(error)
         })
-      .then(json => dispatch(receiveList({ response: json, queryParams })))
+      .then(response => dispatch(receiveList({ response: humps.camelizeKeys(response), queryParams }))
+      )
   }
 }
 

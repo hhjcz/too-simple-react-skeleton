@@ -22,6 +22,15 @@ export default class Radka extends React.Component {
         <Bunka column={columns.name}>
           <Link to={'/zarizeni/' + zarizeni.id}>{zarizeni.name}</Link>
         </Bunka>
+        <Bunka column={columns.createdAt}>
+          {zarizeni.createdAt}
+        </Bunka>
+        <Bunka column={columns.updatedAt}>
+          {zarizeni.updatedAt}
+        </Bunka>
+        <Bunka column={columns.deletedAt}>
+          {zarizeni.deletedAt}
+        </Bunka>
       </div>
     )
   }

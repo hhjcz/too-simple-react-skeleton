@@ -40,6 +40,12 @@ class Container extends React.Component {
     history.push({ ...location, query: { ...location.query, page } })
   }
 
+  onPerPageChange(perPage) {
+    const { history, location } = this.props
+    if (location.query.perPage === '' + perPage) return
+    history.push({ ...location, query: { ...location.query, perPage } })
+  }
+
   // server and client side fetch actions (see server.js & componentDidMount):
   static fetchActions = [listActions.fetchListByUrl];
 

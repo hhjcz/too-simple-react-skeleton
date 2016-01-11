@@ -5,7 +5,7 @@ import React, {PropTypes} from 'react'
 export default class Bunka extends React.Component {
   static propTypes = {
     column: PropTypes.object.isRequired,
-    children: PropTypes.object
+    children: PropTypes.oneOfType([PropTypes.object, PropTypes.string])
   };
 
   render() {
