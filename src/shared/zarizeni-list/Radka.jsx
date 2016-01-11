@@ -17,10 +17,10 @@ export default class Radka extends React.Component {
     return (
       <div className="Table-row">
         <Bunka column={columns.id}>
-          <Link to={'/zarizeni/' + zarizeni[columns.id.name]}>{zarizeni[columns.id.name]}</Link>
+          <Link to={'/zarizeni/' + zarizeni.id}>{zarizeni.id}</Link>
         </Bunka>
         <Bunka column={columns.name}>
-          <Link to={'/zarizeni/' + zarizeni[columns.id.name]}>{zarizeni[columns.name.name]}</Link>
+          <Link to={'/zarizeni/' + zarizeni.id}>{zarizeni.name}</Link>
         </Bunka>
       </div>
     )
