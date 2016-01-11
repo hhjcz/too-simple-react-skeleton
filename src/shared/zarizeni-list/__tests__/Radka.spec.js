@@ -14,7 +14,7 @@ describe('zarizeni-list Radka component', () => {
 
   beforeEach(() => {
     const zarizeni = new Zarizeni({ id: 666 })
-    const tree = sd.shallowRender(React.createElement(Radka, { zarizeni, columns: columns.toObject() }))
+    const tree = sd.shallowRender(React.createElement(Radka, { zarizeni, columns: columns.toList() }))
 
     instance = tree.getMountedInstance()
     vdom = tree.getRenderOutput()
