@@ -21,10 +21,11 @@ export function requestList() {
 }
 
 export function receiveList({ response, queryParams }) {
+  const camelResponse = humps.camelizeKeys(response)
   return {
     type: FETCH_LIST_SUCCESS,
-    seznamZarizeni: response.data,
-    pagination: response.meta.pagination,
+    seznamZarizeni: camelResponse.data,
+    pagination: camelResponse.meta.pagination,
     queryParams
   }
 }
@@ -41,7 +42,7 @@ export function fetchList() {
     const queryParams = parseQueryParams(getState)
     return fetch(`http://netvision-test:8089/api/zarizeni?${queryParams}`)
       .then(
-        response => response.json(),  // parse json into object
+        response => response.json(),  // parse json to object
         error => {
           console.log(error)
         })
@@ -61,11 +62,18 @@ export function fetchListByUrl({ location, params }) {  // eslint-disable-line n
 
     return fetch(`http://netvision-test:8089/api/zarizeni${queryParams}`)
       .then(
-        response => response.json(),  // parse json into object
+        response => response.json(),  // parse json to object
         error => {
           console.log(error)
+          throw new Error(error)
         })
-      .then(response => dispatch(receiveList({ response: humps.camelizeKeys(response), queryParams }))
+      .then(
+        response => {
+          dispatch(receiveList({ response, queryParams }))
+        },
+        error => {
+          console.log(error)
+        }
       )
   }
 }

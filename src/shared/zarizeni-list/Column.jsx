@@ -28,14 +28,14 @@ export const columns = Map(
       caption: 'ID',
       valueType: columntValueTypes.number,
       visible: true,
-      render: zarizeni => <Link to={'/zarizeni/' + zarizeni.id}>{zarizeni.id}</Link>
+      render: (zarizeni) => <Link to={'/zarizeni/' + zarizeni.id}>{zarizeni.id}</Link>
     }),
     name: new Column({
       name: 'name',
       caption: 'Name',
       valueType: columntValueTypes.string,
       visible: true,
-      render: zarizeni => <Link to={'/zarizeni/' + zarizeni.id}>{zarizeni.name}</Link>,
+      render: (zarizeni) => <Link to={'/zarizeni/' + zarizeni.id}>{zarizeni.name}</Link>,
     }),
     createdAt: new Column({
       name: 'createdAt',

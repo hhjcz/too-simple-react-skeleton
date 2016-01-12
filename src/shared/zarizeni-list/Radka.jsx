@@ -17,7 +17,7 @@ export default class Radka extends React.Component {
     return (
       <div className="Table-row">
         {
-          columns.map(col => <Bunka column={col} model={zarizeni} />)
+          columns.map(col => <Bunka column={col} model={zarizeni} key={col.name} />)
         }
       </div>
     )
