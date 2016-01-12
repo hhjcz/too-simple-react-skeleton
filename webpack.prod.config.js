@@ -62,6 +62,14 @@ module.exports = {
         test: /\.(gif|jpg|png|woff|woff2|eot|ttf|svg)$/
       },
       {
+        test: /\.css$/,
+        loader: ExtractTextPlugin.extract('style-loader', prefixLoaders)
+      },
+      {
+        test: /\.less$/,
+        loader: ExtractTextPlugin.extract('style-loader', prefixLoaders + '!less-loader')
+      },
+      {
         test: /\.scss$/,
         loader: ExtractTextPlugin.extract('style-loader', prefixLoaders + '!sass-loader')
       },

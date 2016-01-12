@@ -5,6 +5,7 @@ import { Router } from 'react-router'
 import { createHistory, useQueries } from 'history'
 import { Provider } from 'react-redux'
 import { syncReduxAndRouter } from 'redux-simple-router'
+import 'bootstrap/dist/css/bootstrap.min.css'
 
 import routes from '../shared/app/routes'
 import createStore from '../shared/app/createStore'

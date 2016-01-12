@@ -56,8 +56,16 @@ export default function(app) {
           test: /\.(gif|jpg|png|woff|woff2|eot|ttf|svg)$/
         },
         {
+          test: /\.css$/,
+          loader: prefixLoaders
+        },
+        {
           test: /\.scss$/,
           loader: prefixLoaders + '!sass-loader'
+        },
+        {
+          test: /\.less$/,
+          loader: prefixLoaders + '!less-loader'
         },
         {
           test: /\.styl$/,
