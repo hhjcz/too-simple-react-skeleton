@@ -1,8 +1,8 @@
 /** Created by hhj on 12/23/15. */
 import React, { PropTypes } from 'react'
-import { Link } from 'react-router'
 
-import DevTools from './DevTools.jsx'
+import Navigation from './Navigation'
+import DevTools from './DevTools'
 
 export default class App extends React.Component {
 
@@ -14,19 +14,15 @@ export default class App extends React.Component {
   render() {
     return (
       <div id="app-view" className="container-fluid">
-        <h1>Dohlestr</h1>
-        <img alt="50x50 placeholder" src={require('./50x50.png')}/>
-        <Link to="/">Home</Link>
-        <Link to="/zarizeni">List</Link>
+        <Navigation />
 
-        <hr />
+        <h1>Dohlestr</h1>
 
         {this.props.children}
 
         <hr />
 
-        <div>hhj - based on
-          <a href="https://medium.com/front-end-developers/handcrafting-an-isomorphic-redux-application-with-love-40ada4468af4#.dyjo0n2px">
+        <div>hhj - based on <a href="https://medium.com/front-end-developers/handcrafting-an-isomorphic-redux-application-with-love-40ada4468af4#.dyjo0n2px">
             tutorial
           </a>
         </div>
