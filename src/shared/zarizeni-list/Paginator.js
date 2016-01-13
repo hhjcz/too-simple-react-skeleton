@@ -32,7 +32,7 @@ export default class Paginator extends React.Component {
   render() {
     const { pagination, onPageChange, onPerPageChange, bsSize, maxButtons } = this.props
     return (
-      <div class="container-fluid">
+      <div className="container-fluid">
         <div className="row">
           <div className="col col-xs-8 vcenter">
             <Pagination

@@ -54,7 +54,7 @@ class Container extends React.Component {
     const { pagination, seznamZarizeni, fetching } = this.props
     return (
       <div id="zarizeni-list">
-        <h2>Seznam zařízení</h2>
+        <h4>Seznam zařízení</h4>
         <Paginator pagination={pagination} onPageChange={this.onPageChange.bind(this) } onPerPageChange={this.onPerPageChange.bind(this)} />
         <Tabulka seznamZarizeni={seznamZarizeni} />
         {fetching ? 'Fetching...' : ''}
