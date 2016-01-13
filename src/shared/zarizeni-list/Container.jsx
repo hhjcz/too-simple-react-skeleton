@@ -42,8 +42,9 @@ class Container extends React.Component {
 
   onPerPageChange(perPage) {
     const { history, location } = this.props
-    if (location.query.perPage === '' + perPage) return
-    history.push({ ...location, query: { ...location.query, perPage } })
+    if (location.query.per_page === '' + perPage) return
+    const query = { ...location.query, per_page: perPage }
+    history.push({ ...location, query })
   }
 
   // server and client side fetch actions (see server.js & componentDidMount):
@@ -54,8 +55,8 @@ class Container extends React.Component {
     return (
       <div id="zarizeni-list">
         <h2>Seznam zařízení</h2>
+        <Paginator pagination={pagination} onPageChange={this.onPageChange.bind(this) } onPerPageChange={this.onPerPageChange.bind(this)} />
         <Tabulka seznamZarizeni={seznamZarizeni} />
-        <Paginator pagination={pagination} onPageChange={this.onPageChange.bind(this) } />
         {fetching ? 'Fetching...' : ''}
       </div>
     )

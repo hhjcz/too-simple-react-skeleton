@@ -27,13 +27,19 @@ export default function reducer(state = initialState, action) {
 
   switch (action.type) {
     case actions.FETCH_LIST_REQUEST:
-      return state.update('fetching', () => true)
+      return state
+        .update('fetching', () => true)
+        .update('pagination', (pagination) => new Pagination({ ...pagination.toObject(), ...action.pagination }))
 
     case actions.FETCH_LIST_SUCCESS:
       return setList(state, action.seznamZarizeni)
         .update('fetching', () => false)
         .update('queryParams', () => action.queryParams)
         .update('pagination', () => new Pagination({ ...action.pagination, page: action.pagination.currentPage }))
+
+    case actions.FETCH_LIST_ERROR:
+      return setList(state, [])
+        .update('fetching', () => false)
 
     case actions.SET_LIST:
       return setList(state, action.seznamZarizeni)
