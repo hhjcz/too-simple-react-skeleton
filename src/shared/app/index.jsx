@@ -16,8 +16,6 @@ export default class App extends React.Component {
       <div id="app-view" className="container-fluid">
         <Navigation />
 
-        <h1>Dohlestr</h1>
-
         {this.props.children}
 
         <hr />
