@@ -2,13 +2,16 @@
 import React, { PropTypes } from 'react'
 import { Pagination, Input } from 'react-bootstrap'
 
+import debounce from '../lib/debounce'
+
 export default class Paginator extends React.Component {
   static propTypes = {
     pagination: PropTypes.object.isRequired,
     onPageChange: PropTypes.func.isRequired,
     onPerPageChange: PropTypes.func.isRequired,
     bsSize: PropTypes.number,
-    maxButtons: PropTypes.string
+    maxButtons: PropTypes.string,
+    debounce: PropTypes.number
   };
 
   constructor(props) {
@@ -17,20 +20,32 @@ export default class Paginator extends React.Component {
       // page: this.props.pagination.page,
       perPage: this.props.pagination.perPage
     }
+    this.onPerPageChange = debounce.call(this, this.onPerPageChange, this.props.debounce || 500).bind(this)
   }
 
   componentWillReceiveProps(nextProps) {
+    // console.log('Receive next perPage: ', nextProps.pagination.perPage)
     if (this.props.pagination.perPage !== nextProps.pagination.perPage) this.setState({ perPage: nextProps.pagination.perPage })
   }
 
-  validatePageSize(perPage) {
-    if (!parseInt(perPage) > 0) return 'error'
+  componentWillUpdate(nextProps) {  // eslint-disable-line no-unused-vars
+    // console.log('Update next perPage: ', nextProps.pagination.perPage)
+  }
 
-    return 'success'
+  onPerPageChange(perPage) {
+    if (this.validatePageSize(perPage)) this.props.onPerPageChange(this.parsePageSize(perPage))
+  }
+
+  validatePageSize(perPage) {
+    return this.parsePageSize(perPage) > 0
+  }
+
+  parsePageSize(perPage) {
+    return parseInt(perPage, 10)
   }
 
   render() {
-    const { pagination, onPageChange, onPerPageChange, bsSize, maxButtons } = this.props
+    const { pagination, onPageChange, bsSize, maxButtons } = this.props
     return (
       <div className="container-fluid">
         <div className="row">
@@ -53,15 +68,16 @@ export default class Paginator extends React.Component {
           <div className="col col-xs-2 vcenter">
             <Input
               type="text"
-              bsStyle={this.validatePageSize(this.state.perPage)}
+              bsStyle={this.validatePageSize(this.state.perPage) ? 'success' : 'error'}
               bsSize="small"
               addonBefore="page size"
               value={this.state.perPage}
               ref="perPage"
               onChange={(event) => {
+                event.persist()
                 const perPage = event.target.value
                 this.setState({ perPage })
-                if (this.validatePageSize(perPage).indexOf('success') > -1) onPerPageChange(parseInt(perPage))
+                this.onPerPageChange(perPage)
               }}
             />
           </div>
