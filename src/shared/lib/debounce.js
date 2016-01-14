@@ -11,15 +11,20 @@
  * @param _context
  * @returns {debounced}
  */
-export default function debounce(fn, delay, _context) {
+export default function debounce(fn, delay, __context) {
   let timeout
+  const _context = __context || this
 
   const debounced = function(...args) {
     const context = _context || this
     clearTimeout(timeout)
-    timeout = setTimeout(() => {
-      fn.apply(context, args)
-    }, delay)
+    const promise = new Promise(function(resolve) {
+      timeout = setTimeout(() => {
+        resolve(fn.apply(context, args))
+      }, delay)
+    })
+
+    return promise
   }
 
   debounced.cancel = function() {
