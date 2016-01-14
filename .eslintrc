@@ -27,7 +27,8 @@
 //    "no-alert": 0,
     "semi": 0,
     "new-cap": 0,
-    "space-before-function-paren": 0
+    "space-before-function-paren": 0,
+    "one-var": 0
 //    "object-curly-spacing": [1, "always"],
 //    "object-shorthand": 1,
 //    "no-unused-vars": 2
