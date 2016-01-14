@@ -20,7 +20,7 @@ export default class Paginator extends React.Component {
       // page: this.props.pagination.page,
       perPage: this.props.pagination.perPage
     }
-    this.onPerPageChange = debounce.call(this, this.onPerPageChange, this.props.debounce || 500).bind(this)
+    this.onPerPageChange = debounce(this.onPerPageChange, this.props.debounce || 500, this)
   }
 
   componentWillReceiveProps(nextProps) {
