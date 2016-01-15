@@ -2,14 +2,11 @@
 import thunkMiddleware from 'redux-thunk'
 import { createStore as _createStore, applyMiddleware, compose } from 'redux'
 import createLogger from 'redux-logger'
-import DevTools from './DevTools'
 
 import reducer from './reducer'
 
-
 // defined in webpack configuration or node runtime environment
-const DEVELOPMENT = process.env.NODE_ENV !== 'production'
-const BROWSER_DEVELOPMENT = DEVELOPMENT && process.env.IS_BROWSER === true
+const BROWSER_DEVELOPMENT = process.env.NODE_ENV !== 'production' && process.env.IS_BROWSER === true
 
 export default function createStore(initialState = {}) {
   const middleware = [thunkMiddleware]
@@ -22,7 +19,8 @@ export default function createStore(initialState = {}) {
   }
 
   let devToolsInstrument = (x) => x
-  if (DEVELOPMENT) {
+  if (process.env.NODE_ENV !== 'production') {
+    const DevTools = require('./DevTools')
     devToolsInstrument = DevTools.instrument()
   }
 
