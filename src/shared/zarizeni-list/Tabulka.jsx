@@ -1,28 +1,25 @@
 /** Created by hhj on 12/28/15. */
 import React, { PropTypes } from 'react'
 
-import Radka from './Radka.jsx'
+import Header from './Header'
+import Radka from './Radka'
 import { columns } from './Column'
 
 export default class Tabulka extends React.Component {
   static propTypes = {
-    seznamZarizeni: PropTypes.object
+    seznamZarizeni: PropTypes.object,
+    onSortChange: PropTypes.func,
+    sortBy: PropTypes.string
   };
 
   render() {
     // console.log(this.props)
-    const { seznamZarizeni } = this.props
+    const { seznamZarizeni, sortBy, onSortChange } = this.props
     // console.log(seznamZarizeni.toObject())
 
     return (
       <div className="Table">
-        <div className="Table-row Table-header">
-          {
-            columns.toList().map(col => {
-              return <div className="Table-row-item" key={col.name}>{col.caption}</div>
-            })
-          }
-        </div>
+        <Header columns={columns} sortBy={sortBy} onSortChange={onSortChange} />
         {
           seznamZarizeni.map(zarizeni => {
             return <Radka key={zarizeni.id} zarizeni={zarizeni} columns={columns.toList()} />

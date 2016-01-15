@@ -1,6 +1,7 @@
 /** Created by hhj on 12/28/15. */
 import React, { PropTypes } from 'react'
 import { connect } from 'react-redux'
+import humps from 'humps'
 
 import createMapStateToProps from '../lib/createMapStateToProps'
 import createMapDispatchToProps from '../lib/createMapDispatchToProps'
@@ -43,20 +44,26 @@ class Container extends React.Component {
   onPerPageChange(perPage) {
     const { history, location } = this.props
     if (location.query.per_page === '' + perPage) return
-    const query = { ...location.query, per_page: perPage }
-    history.push({ ...location, query })
+    history.push({ ...location, query: { ...location.query, per_page: perPage } })
+  }
+
+  onSortChange(_sort) {
+    let sort = humps.decamelize(_sort)
+    const { history, location } = this.props
+    if (location.query._sort === '' + sort) sort = '-' + sort
+    history.push({ ...location, query: { ...location.query, _sort: sort } })
   }
 
   // server and client side fetch actions (see server.js & componentDidMount):
   static fetchActions = [listActions.fetchListByUrl];
 
   render() {
-    const { pagination, seznamZarizeni, fetching } = this.props
+    const { pagination, seznamZarizeni, fetching, location } = this.props
     return (
       <div id="zarizeni-list">
         <h4>Seznam zařízení</h4>
         <Paginator pagination={pagination} onPageChange={this.onPageChange.bind(this) } onPerPageChange={this.onPerPageChange.bind(this)} />
-        <Tabulka seznamZarizeni={seznamZarizeni} />
+        <Tabulka seznamZarizeni={seznamZarizeni} onSortChange={this.onSortChange.bind(this)} sortBy={humps.camelize(location.query._sort)} />
         {fetching ? 'Fetching...' : ''}
       </div>
     )
