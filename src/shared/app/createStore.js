@@ -20,7 +20,7 @@ export default function createStore(initialState = {}) {
 
   let devToolsInstrument = (x) => x
   if (process.env.NODE_ENV !== 'production') {
-    const DevTools = require('./DevTools')
+    const DevTools = require('./DevTools').default
     devToolsInstrument = DevTools.instrument()
   }
 
