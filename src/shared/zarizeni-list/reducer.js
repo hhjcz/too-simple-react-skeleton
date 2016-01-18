@@ -57,9 +57,10 @@ export default function reducer(state = initialState, action) {
       return state.update('pagination', pagination => setPageSize(pagination, action.perPage))
 
     case actions.SORT_CHANGE:
-      let dir = state.sort.dir
-      if (state.sort.by === action.sort) dir = !dir
-      return state.update('sort', () => new Sort({ by: action.sort, dir }))
+      let dir = state.sort.dir === true
+      if (state.sort.by === action.sortField) dir = !dir
+      const newSort = new Sort({ dir, by: action.sortField })
+      return state.update('sort', () => newSort)
 
     default:
       return state

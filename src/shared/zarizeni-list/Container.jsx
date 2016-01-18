@@ -36,7 +36,7 @@ export class Container extends React.Component {
         <Paginator pagination={pagination} onPageChange={page => dispatch(listActions.gotoPage(page))}
                    onPerPageChange={perPage => dispatch(listActions.setPageSize(perPage))}
         />
-        <Tabulka seznamZarizeni={seznamZarizeni} onSortChange={sort => dispatch(listActions.sortChange(sort))} sort={sort} />
+        <Tabulka seznamZarizeni={seznamZarizeni} onSortChange={sortField => dispatch(listActions.sortChange(sortField))} sort={sort} />
         {fetching ? 'Fetching...' : ''}
       </div>
     )

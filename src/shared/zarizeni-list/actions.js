@@ -132,12 +132,12 @@ export function setPageSize(perPage) {
   }
 }
 
-export function sortChange(sort) {
+export function sortChange(sortField) {
   return dispatch => {
 
     dispatch({
       type: SORT_CHANGE,
-      sort
+      sortField
     })
 
     dispatch(fetchList())
