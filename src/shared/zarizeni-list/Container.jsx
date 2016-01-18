@@ -59,7 +59,7 @@ export class Container extends React.Component {
 
   render() {
     const { pagination, seznamZarizeni, fetching, location } = this.props
-    const sortBy = humps.camelize(location.query._sort || null)
+    const sortBy = humps.camelize(location.query._sort || '')
     return (
       <div id="zarizeni-list">
         <h4>Seznam zařízení</h4>
