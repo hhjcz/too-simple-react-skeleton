@@ -5,20 +5,20 @@ import sd from 'skin-deep'
 import { List } from 'immutable'
 
 import createStore from '../../app/createStore'
-import Container from './../Container'
+import Connected, { Container } from './../Container'
 import { Pagination } from '../pagination'
 
-describe('zarizeni-list Container component', () => {
+describe('zarizeni-list connected Container component', () => {
   let vdom
   let instance  // eslint-disable-line no-unused-vars
 
   beforeEach(() => {
     const store = createStore()
-    const tree = sd.shallowRender(React.createElement(Container, { store }))
+    const tree = sd.shallowRender(React.createElement(Connected, { store }))
 
     instance = tree.getMountedInstance()
     vdom = tree.getRenderOutput()
-    // console.log(vdom.props.actions)
+    // console.log(vdom.props.children)
   })
 
   it('should connect props to redux', () => {
@@ -32,6 +32,26 @@ describe('zarizeni-list Container component', () => {
     expect(typeof vdom.props.seznamZarizeni).to.equal('object')
     expect(vdom.props.seznamZarizeni).to.be.instanceof(List)
     expect(vdom.props.pagination).to.be.instanceof(Pagination)
+  })
+
+})
+
+describe('zarizeni-list Container component', () => {
+  let vdom
+  let instance  // eslint-disable-line no-unused-vars
+
+  beforeEach(() => {
+    const store = createStore()
+    const location = { query: {} }
+    const tree = sd.shallowRender(React.createElement(Container, { store, location }))
+
+    instance = tree.getMountedInstance()
+    vdom = tree.getRenderOutput()
+    // console.log(vdom.props.children)
+  })
+
+  it('should render', () => {
+    expect(vdom.type).to.equal('div')
   })
 
 })

@@ -10,15 +10,15 @@ import * as listActions from './actions'
 import Tabulka from './Tabulka.jsx'
 import Paginator from './Paginator'
 
-class Container extends React.Component {
+export class Container extends React.Component {
 
   static propTypes = {
     fetching: PropTypes.bool,
     seznamZarizeni: PropTypes.object,
     pagination: PropTypes.object.isRequired,
     dispatch: PropTypes.func,
-    history: PropTypes.object,
-    location: PropTypes.object,
+    history: PropTypes.object.isRequired,
+    location: PropTypes.object.isRequired,
     params: PropTypes.object,
   };
 
@@ -59,11 +59,12 @@ class Container extends React.Component {
 
   render() {
     const { pagination, seznamZarizeni, fetching, location } = this.props
+    const sortBy = humps.camelize(location.query._sort || null)
     return (
       <div id="zarizeni-list">
         <h4>Seznam zařízení</h4>
         <Paginator pagination={pagination} onPageChange={this.onPageChange.bind(this) } onPerPageChange={this.onPerPageChange.bind(this)} />
-        <Tabulka seznamZarizeni={seznamZarizeni} onSortChange={this.onSortChange.bind(this)} sortBy={humps.camelize(location.query._sort)} />
+        <Tabulka seznamZarizeni={seznamZarizeni} onSortChange={this.onSortChange.bind(this)} sortBy={sortBy} />
         {fetching ? 'Fetching...' : ''}
       </div>
     )
