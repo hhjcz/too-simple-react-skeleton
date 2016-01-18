@@ -2,7 +2,8 @@
 import { expect } from 'chai'
 import { List } from 'immutable'
 import { Zarizeni } from '../../zarizeni/core'
-import { Pagination } from './../pagination'
+import { Pagination } from '../pagination'
+import { Sort } from '../sort'
 import * as actions from './../actions'
 import reducer, { InitialState } from './../reducer'
 
@@ -10,7 +11,8 @@ describe('reducer', () => {
 
   const initialState = new InitialState({
     pagination: new Pagination({ page: 1, perPage: 666, total: 6666, totalPages: 3 }),
-    seznamZarizeni: List.of()
+    seznamZarizeni: List.of(),
+    sort: new Sort()
   })
 
   it('sets initial state', () => {
@@ -65,6 +67,29 @@ describe('reducer', () => {
       pagination: new Pagination({ page: 1, perPage: 666, total: 6666, totalPages: 3 }),
       seznamZarizeni: List.of()
     }))
+  })
+
+  it('should handle SORT_CHANGE', () => {
+    const nextState = reducer(initialState, { type: actions.SORT_CHANGE, sortField: 'someColumn' })
+    expect(nextState.sort.by).to.equal('someColumn')
+    expect(nextState.sort.dir).to.equal(false)
+
+    // assert immutability
+    expect(initialState).to.equal(new InitialState({
+      pagination: new Pagination({ page: 1, perPage: 666, total: 6666, totalPages: 3 }),
+      seznamZarizeni: List.of(),
+      sort: new Sort()
+    }))
+  })
+
+  it('should reverse sort direction', () => {
+    const state = reducer(initialState, { type: actions.SORT_CHANGE, sortField: 'someColumn' })
+    expect(state.sort.by).to.equal('someColumn')
+    expect(state.sort.dir).to.equal(false)
+    const nextState = reducer(state, { type: actions.SORT_CHANGE, sortField: 'someColumn' })
+    expect(nextState.sort.by).to.equal('someColumn')
+    expect(nextState.sort.dir).to.equal(true)
+
   })
 
 })
