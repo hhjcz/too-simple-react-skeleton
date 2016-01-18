@@ -4,6 +4,7 @@ import React from 'react'
 import sd from 'skin-deep'
 
 import Header from '../Header'
+import { Sort } from '../sort'
 import { columns } from '../Column.jsx'
 
 describe('zarizeni-list Header component', () => {
@@ -11,7 +12,7 @@ describe('zarizeni-list Header component', () => {
   let instance   // eslint-disable-line no-unused-vars
 
   beforeEach(() => {
-    const tree = sd.shallowRender(React.createElement(Header, { columns, sortBy: 'nic' }))
+    const tree = sd.shallowRender(React.createElement(Header, { columns, sort: new Sort() }))
 
     instance = tree.getMountedInstance()
     vdom = tree.getRenderOutput()

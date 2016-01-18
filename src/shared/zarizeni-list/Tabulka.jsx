@@ -9,17 +9,17 @@ export default class Tabulka extends React.Component {
   static propTypes = {
     seznamZarizeni: PropTypes.object,
     onSortChange: PropTypes.func,
-    sortBy: PropTypes.string
+    sort: PropTypes.object
   };
 
   render() {
     // console.log(this.props)
-    const { seznamZarizeni, sortBy, onSortChange } = this.props
+    const { seznamZarizeni, sort, onSortChange } = this.props
     // console.log(seznamZarizeni.toObject())
 
     return (
       <div className="Table">
-        <Header columns={columns} sortBy={sortBy} onSortChange={onSortChange} />
+        <Header columns={columns} sort={sort} onSortChange={onSortChange} />
         {
           seznamZarizeni.map(zarizeni => {
             return <Radka key={zarizeni.id} zarizeni={zarizeni} columns={columns.toList()} />

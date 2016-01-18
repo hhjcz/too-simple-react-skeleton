@@ -1,7 +1,6 @@
 /** Created by hhj on 12/28/15. */
 import React, { PropTypes } from 'react'
 import { connect } from 'react-redux'
-import humps from 'humps'
 
 import createMapStateToProps from '../lib/createMapStateToProps'
 import createMapDispatchToProps from '../lib/createMapDispatchToProps'
@@ -16,55 +15,28 @@ export class Container extends React.Component {
     fetching: PropTypes.bool,
     seznamZarizeni: PropTypes.object,
     pagination: PropTypes.object.isRequired,
-    dispatch: PropTypes.func,
-    history: PropTypes.object.isRequired,
-    location: PropTypes.object.isRequired,
-    params: PropTypes.object,
+    sort: PropTypes.object,
+    dispatch: PropTypes.func
   };
 
   // browser fetching:
   componentDidMount() {
-    const { dispatch, location, params } = this.props
-    Container.fetchActions.forEach((action) => dispatch(action({ location, params })))
-  }
-
-  componentDidUpdate(prevProps) {
-    if (prevProps.location !== this.props.location) {
-      const { dispatch, location, params } = this.props
-      Container.fetchActions.forEach((action) => dispatch(action({ location, params })))
-    }
-  }
-
-  onPageChange(page) {
-    const { history, location } = this.props
-    if (location.query.page === '' + page) return
-    history.push({ ...location, query: { ...location.query, page } })
-  }
-
-  onPerPageChange(perPage) {
-    const { history, location } = this.props
-    if (location.query.per_page === '' + perPage) return
-    history.push({ ...location, query: { ...location.query, per_page: perPage } })
-  }
-
-  onSortChange(_sort) {
-    let sort = humps.decamelize(_sort)
-    const { history, location } = this.props
-    if (location.query._sort === '' + sort) sort = '-' + sort
-    history.push({ ...location, query: { ...location.query, _sort: sort } })
+    const { dispatch } = this.props
+    Container.fetchActions.forEach((action) => dispatch(action()))
   }
 
   // server and client side fetch actions (see server.js & componentDidMount):
-  static fetchActions = [listActions.fetchListByUrl];
+  static fetchActions = [listActions.fetchList];
 
   render() {
-    const { pagination, seznamZarizeni, fetching, location } = this.props
-    const sortBy = humps.camelize(location.query._sort || '')
+    const { fetching, seznamZarizeni, pagination, sort, dispatch } = this.props
     return (
       <div id="zarizeni-list">
         <h4>Seznam zařízení</h4>
-        <Paginator pagination={pagination} onPageChange={this.onPageChange.bind(this) } onPerPageChange={this.onPerPageChange.bind(this)} />
-        <Tabulka seznamZarizeni={seznamZarizeni} onSortChange={this.onSortChange.bind(this)} sortBy={sortBy} />
+        <Paginator pagination={pagination} onPageChange={page => dispatch(listActions.gotoPage(page))}
+                   onPerPageChange={perPage => dispatch(listActions.setPageSize(perPage))}
+        />
+        <Tabulka seznamZarizeni={seznamZarizeni} onSortChange={sort => dispatch(listActions.sortChange(sort))} sort={sort} />
         {fetching ? 'Fetching...' : ''}
       </div>
     )

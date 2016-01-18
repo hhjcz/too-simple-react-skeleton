@@ -67,16 +67,4 @@ describe('reducer', () => {
     }))
   })
 
-  it('should handle NEXT_PAGE', () => {
-    const nextState = reducer(initialState, { type: actions.NEXT_PAGE })
-    expect(nextState).to.equal(new InitialState({
-      pagination: new Pagination({ page: 2, perPage: 666, total: 6666, totalPages: 3 }),
-      seznamZarizeni: initialState.get('seznamZarizeni')
-    }))
-    expect(initialState).to.equal(new InitialState({
-      pagination: new Pagination({ page: 1, perPage: 666, total: 6666, totalPages: 3 }),
-      seznamZarizeni: List.of()
-    }))
-  })
-
 })

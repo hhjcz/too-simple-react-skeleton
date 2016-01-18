@@ -4,8 +4,8 @@ import humps from 'humps'
 
 export const SET_PAGINATION = 'SET_PAGINATION'
 export const GOTO_PAGE = 'GOTO_PAGE'
-export const NEXT_PAGE = 'NEXT_PAGE'
-export const PREVIOUS_PAGE = 'PREVIOUS_PAGE'
+export const SET_PAGE_SIZE = 'SET_PAGE_SIZE'
+export const SORT_CHANGE = 'SORT_CHANGE'
 
 export const SET_LIST = 'SET_LIST'
 export const FETCH_LIST_REQUEST = 'FETCH_LIST_REQUEST'
@@ -14,13 +14,9 @@ export const FETCH_LIST_ERROR = 'FETCH_LIST_ERROR'
 
 const getSubState = (getState) => getState().zarizeniList
 
-export function requestList({ query }) {
-  const pagination = {}
-  if (query.page !== undefined) pagination.page = parseInt(query.page)
-  if (query.per_page !== undefined) pagination.perPage = parseInt(query.per_page)
+export function requestList() {
   return {
-    type: FETCH_LIST_REQUEST,
-    pagination
+    type: FETCH_LIST_REQUEST
   }
 }
 
@@ -41,6 +37,39 @@ export function fetchError({ error }) {
   }
 }
 
+function fetchFromApi({ queryParams, dispatch, getState }) {
+  const previousQueryParams = getSubState(getState).queryParams
+  // need to refetch?
+  if (previousQueryParams === queryParams) return null
+
+  dispatch(requestList())
+
+  return fetch(`http://netvision-test:8089/api/zarizeni${queryParams}`)
+    .then(
+      response => {
+        if (!response.ok) {
+          const msg = `Ajaaj, chybka api: ${response.status} ${response.statusText}`
+          dispatch(fetchError(msg))
+          throw new Error(msg)
+        }
+        return response.json()  // parse json to object
+      },
+      error => {
+        // console.log(error)
+        const msg2 = `Ajeje, chybka api: ${error}`
+        dispatch(fetchError(msg2))
+        throw new Error(msg2)
+      })
+    .then(
+      response => {
+        dispatch(receiveList({ response, queryParams }))
+      },
+      error => {
+        console.log(error)
+      }
+    )
+}
+
 /**
  * @param location
  * @param params
@@ -48,72 +77,35 @@ export function fetchError({ error }) {
  */
 export function fetchListByUrl({ location, params }) {  // eslint-disable-line no-unused-vars
   return (dispatch, getState) => {   // eslint-disable-line no-unused-vars
-    const previousQueryParams = getSubState(getState).queryParams
     const queryParams = location.search
-    // need to refetch?
-    if (previousQueryParams === queryParams) return null
 
-    // dispatch({type: GOTO_PAGE, page: location.query.page})
-    dispatch(requestList({ query: location.query || {} }))
-
-    return fetch(`http://netvision-test:8089/api/zarizeni${queryParams}`)
-      .then(
-        response => {
-          if (!response.ok) {
-            const msg = `Ajaaj, chybka api: ${response.status} ${response.statusText}`
-            dispatch(fetchError(msg))
-            throw new Error(msg)
-          }
-          return response.json()  // parse json to object
-        },
-        error => {
-          // console.log(error)
-          const msg2 = `Ajeje, chybka api: ${error}`
-          dispatch(fetchError(msg2))
-          throw new Error(msg2)
-        })
-      .then(
-        response => {
-          dispatch(receiveList({ response, queryParams }))
-        },
-        error => {
-          console.log(error)
-        }
-      )
+    return fetchFromApi({ queryParams, dispatch, getState })
   }
 }
 
 /**
- * @deprecated
  * @returns {Function}
  */
 export function fetchList() {
   const parseQueryParams = (getState) => {
-    const { page, perPage } = getSubState(getState).get('pagination').toObject()
-    return `page=${page}&per_page=${perPage}`
+    const { pagination: { page, perPage }, sort } = getSubState(getState).toObject()
+    const _sort = (sort.dir ? '-' : '') + humps.decamelize(sort.by)
+    return `?page=${page}&per_page=${perPage}&_sort=${_sort}`
   }
 
   return (dispatch, getState) => {
-    dispatch(requestList())
-
     const queryParams = parseQueryParams(getState)
-    return fetch(`http://netvision-test:8089/api/zarizeni?${queryParams}`)
-      .then(
-        response => response.json(),  // parse json to object
-        error => {
-          console.log(error)
-        })
-      .then(response => dispatch(receiveList(response)))
+
+    return fetchFromApi({ queryParams, dispatch, getState })
   }
 }
 
 /**
- * @deprecated
  * @param page
  * @returns {Function}
  */
 export function gotoPage(page) {
-  return (dispatch) => {
+  return dispatch => {
 
     dispatch({
       type: GOTO_PAGE,
@@ -122,4 +114,33 @@ export function gotoPage(page) {
 
     dispatch(fetchList())
   }
+}
+
+/**
+ * @param perPage
+ * @returns {Function}
+ */
+export function setPageSize(perPage) {
+  return dispatch => {
+
+    dispatch({
+      type: SET_PAGE_SIZE,
+      perPage
+    })
+
+    dispatch(fetchList())
+  }
+}
+
+export function sortChange(sort) {
+  return dispatch => {
+
+    dispatch({
+      type: SORT_CHANGE,
+      sort
+    })
+
+    dispatch(fetchList())
+  }
+
 }
