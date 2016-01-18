@@ -12,7 +12,7 @@
     "dev": "NODE_PATH=$NODE_PATH:./src/shared node --harmony ./src/server/index.js",
     "test": "mocha --compilers js:babel-register --require ./test_helper.js --recursive --watch-extensions jsx 'src/**/*.spec.js'",
     "test:watch": "npm run test -- --watch",
-    "pretest": "npm run eslint # (auto hook runs with npm run test)",
+    "pretest": "true || npm run eslint # (auto hook runs with npm run test)",
     "eslint": "eslint --ext=js --ext=jsx src || true"
   },
   "keywords": [],
