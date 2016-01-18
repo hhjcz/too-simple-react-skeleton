@@ -4,7 +4,6 @@ import { render } from 'react-dom'
 import { Router } from 'react-router'
 import { createHistory, useQueries } from 'history'
 import { Provider } from 'react-redux'
-import { syncReduxAndRouter } from 'redux-simple-router'
 // import 'bootstrap/dist/css/bootstrap.min.css'
 import './my-bootstrap.less'
 import './global.styl'
@@ -19,8 +18,6 @@ const history = useQueries(createHistory)()
 const initialState = window.__INITIAL_STATE__
 
 const store = createStore(initialState)
-
-syncReduxAndRouter(history, store)
 
 render(
   <Provider store={store}>

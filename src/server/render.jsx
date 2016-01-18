@@ -5,7 +5,6 @@ import React from 'react'
 import { renderToString } from 'react-dom/server'
 import { RoutingContext, match } from 'react-router'
 import { Provider } from 'react-redux'
-import { replacePath } from 'redux-simple-router'
 import Promise from 'bluebird'
 
 import routes from './../shared/app/routes'
@@ -14,8 +13,6 @@ import createStore from './../shared/app/createStore'
 export default function render(req, res, next) {
   const location = createLocation(req.url)
   const store = createStore()
-  // initial location for redux-simple-router
-  store.dispatch(replacePath(req.url))
 
   match({ routes, location }, async (err, redirectLocation, renderProps) => {
 
