@@ -18,13 +18,11 @@ export default function debounce(fn, delay, __context) {
   const debounced = function(...args) {
     const context = _context || this
     clearTimeout(timeout)
-    const promise = new Promise(function(resolve) {
+    return new Promise(function(resolve) {
       timeout = setTimeout(() => {
         resolve(fn.apply(context, args))
       }, delay)
     })
-
-    return promise
   }
 
   debounced.cancel = function() {

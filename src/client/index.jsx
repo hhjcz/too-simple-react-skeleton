@@ -5,7 +5,7 @@ import { Router } from 'react-router'
 import { createHistory, useQueries } from 'history'
 import { Provider } from 'react-redux'
 import { syncReduxAndRouter } from 'redux-simple-router'
-//import 'bootstrap/dist/css/bootstrap.min.css'
+// import 'bootstrap/dist/css/bootstrap.min.css'
 import './my-bootstrap.less'
 import './global.styl'
 
