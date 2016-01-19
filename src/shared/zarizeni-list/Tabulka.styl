@@ -8,9 +8,10 @@
   display: flex
   flex-flow: column nowrap
   justify-content: space-between
+  align-items: center
   border: 1px solid $dark-color
-  font-size: 1rem
-  margin: 0.5rem
+  font-size: 1.2rem
+  margin: 0.3rem
   //line-height: 1.5
 
   // .Table-header
@@ -25,31 +26,35 @@
   // .Table-row
   &-row {
     width: 100%
+    border: solid #fff
+    border-top-width: 0px
+    border-bottom-width: 0px
+    border-left-width: 0.5px
+    border-right-width: 0.5px
     &:nth-of-type(even) {
       background-color: $dark-color
     }
     &:nth-of-type(odd) {
       background-color: $light-color
     }
-    +above(3) {
-      display: flex
-      font-size: 1.2rem
-      flex-flow: row nowrap
-      &:nth-of-type(even) {
-        background-color: $light-color
-      }
-      &:nth-of-type(odd) {
-        background-color: $dark-color
-      }
-    } // .Table-row-item
+    display: flex
+    //font-size: 1.2rem
+    flex-flow: row nowrap
+    &:nth-of-type(even) {
+      background-color: $light-color
+    }
+    &:nth-of-type(odd) {
+      background-color: $dark-color
+    }
+    // .Table-row-item
     &-item {
       display: flex
       flex-flow: row nowrap
       flex-grow: 1
       flex-basis: 0
-      padding: 0.5em
+      align-self: center
+      padding: 0.3em
       word-break: keep-all
-      //border: 1px solid #fff
       //padding: 0.5em
     }
   }
@@ -58,6 +63,4 @@
 for grow in (1..9)
   .u-flex-grow-{grow}
     flex-grow grow
-
-
 
