@@ -3,13 +3,19 @@ import thunkMiddleware from 'redux-thunk'
 import { createStore as _createStore, applyMiddleware, compose } from 'redux'
 import createLogger from 'redux-logger'
 
+import myMiddleware from '../lib/myMiddleware'
 import reducer from './reducer'
 
 // defined in webpack configuration or node runtime environment
 const BROWSER_DEVELOPMENT = process.env.NODE_ENV !== 'production' && process.env.IS_BROWSER === true
 
-export default function createStore(initialState = {}) {
-  const middleware = [thunkMiddleware]
+/**
+ * @param initialState
+ * @param history
+ * @returns {*}
+ */
+export default function createStore(initialState = {}, history = null) {
+  const middleware = [myMiddleware({ history })]  // inject history (in client only)
   if (BROWSER_DEVELOPMENT) {
     middleware.push(createLogger({
       collapsed: true,
@@ -38,5 +44,6 @@ export default function createStore(initialState = {}) {
       store.replaceReducer(nextReducer)
     })
   }
+
   return store
 }

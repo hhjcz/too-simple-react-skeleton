@@ -25,7 +25,7 @@ export class Container extends React.Component {
     Container.fetchActions.forEach((action) => dispatch(action()))
   }
 
-  // server and client side fetch actions (see server.js & componentDidMount):
+  // server and client side fetch actions (see render.jsx & componentDidMount):
   static fetchActions = [listActions.fetchList];
 
   render() {

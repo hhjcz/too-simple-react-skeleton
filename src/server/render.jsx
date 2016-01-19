@@ -48,7 +48,7 @@ export default function render(req, res, next) {
     const mainCssFilename = '/main.css'
     const mainCssLink = process.env.NODE_ENV === 'production' ? `<link rel="stylesheet" href="${mainCssFilename}">` : ''
 
-    // TODO - extract HTML to react component
+    // TODO - extract HTML to separate react component
     const HTML = `
   <!DOCTYPE html>
   <html>
@@ -75,6 +75,9 @@ export default function render(req, res, next) {
   })
 }
 
+/**
+ * Fetch data by dispatching actions defined by static property fetchActions on react components
+ */
 async function fetchAsyncData(dispatch, { components, location, params }) { // eslint-disable-line no-unused-vars
   const fetchActions = components.reduce((actions, component) => {
     if (!component) return actions

@@ -17,7 +17,7 @@ const history = useQueries(createHistory)()
 // server has put the state here (see server.js):
 const initialState = window.__INITIAL_STATE__
 
-const store = createStore(initialState)
+const store = createStore(initialState, history)
 
 render(
   <Provider store={store}>

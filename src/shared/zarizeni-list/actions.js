@@ -14,18 +14,22 @@ export const FETCH_LIST_ERROR = 'FETCH_LIST_ERROR'
 
 const getSubState = (getState) => getState().zarizeniList
 
-export function requestList() {
+export function fetchRequested() {
   return {
     type: FETCH_LIST_REQUEST
   }
 }
 
-export function receiveList({ response, queryParams }) {
+export function fetchSuccess({ response, queryParams }) {
   const camelResponse = humps.camelizeKeys(response)
   return {
     type: FETCH_LIST_SUCCESS,
     seznamZarizeni: camelResponse.data,
     pagination: camelResponse.meta.pagination,
+    sort: {
+      dir: camelResponse.meta.sort.indexOf('-') > -1,
+      by: humps.camelize(camelResponse.meta.sort)
+    },
     queryParams
   }
 }
@@ -37,12 +41,15 @@ export function fetchError({ error }) {
   }
 }
 
-function fetchFromApi({ queryParams, dispatch, getState }) {
-  const previousQueryParams = getSubState(getState).queryParams
-  // need to refetch?
-  if (previousQueryParams === queryParams) return null
+/**
+ *
+ * @param queryParams
+ * @param dispatch
+ * @returns {axios.Promise}
+ */
+const fetchFromApi = ({ queryParams, dispatch }) => {
 
-  dispatch(requestList())
+  dispatch(fetchRequested())
 
   return fetch(`http://netvision-test:8089/api/zarizeni${queryParams}`)
     .then(
@@ -62,7 +69,7 @@ function fetchFromApi({ queryParams, dispatch, getState }) {
       })
     .then(
       response => {
-        dispatch(receiveList({ response, queryParams }))
+        dispatch(fetchSuccess({ response, queryParams }))
       },
       error => {
         console.log(error)
@@ -71,30 +78,32 @@ function fetchFromApi({ queryParams, dispatch, getState }) {
 }
 
 /**
- * @param location
- * @param params
- * @returns {Function}
+ * Projects state variables to url, so that on page reload, it can be used on server for initial state
+ *
+ * @param history
+ * @param search
  */
-export function fetchListByUrl({ location, params }) {  // eslint-disable-line no-unused-vars
-  return (dispatch, getState) => {   // eslint-disable-line no-unused-vars
-    const queryParams = location.search
-
-    return fetchFromApi({ queryParams, dispatch, getState })
-  }
+const projectStateToUrl = (history, search) => {
+  history.push({ pathname: window.location.pathname, search })
 }
 
 /**
  * @returns {Function}
  */
-export function fetchList() {
-  const parseQueryParams = (getState) => {
+export function fetchList({ location } = {}) {
+  const serializeQueryParams = getState => {
     const { pagination: { page, perPage }, sort } = getSubState(getState).toObject()
-    const _sort = (sort.dir ? '-' : '') + humps.decamelize(sort.by)
-    return `?page=${page}&per_page=${perPage}&_sort=${_sort}`
+    const _sort = sort.by ? '&_sort=' + (sort.dir ? '-' : '') + humps.decamelize(sort.by) : ''
+    return `?page=${page}&per_page=${perPage}${_sort}`
   }
 
-  return (dispatch, getState) => {
-    const queryParams = parseQueryParams(getState)
+  return (dispatch, getState, history) => {
+    // on server, get (initial) query from url (via location), on client from state
+    const queryParams = location ? location.search : serializeQueryParams(getState)
+    const previousQueryParams = getSubState(getState).queryParams
+    if (previousQueryParams === queryParams) return null // no need to refetch
+
+    if (history) projectStateToUrl(history, queryParams)
 
     return fetchFromApi({ queryParams, dispatch, getState })
   }

@@ -39,6 +39,7 @@ export default function reducer(state = initialState, action) {
         .update('fetching', () => false)
         .update('queryParams', () => action.queryParams)
         .update('pagination', () => new Pagination({ ...action.pagination, page: action.pagination.currentPage }))
+        .update('sort', () => new Sort(action.sort))
 
     case actions.FETCH_LIST_ERROR:
       return setList(state, [])
@@ -59,8 +60,7 @@ export default function reducer(state = initialState, action) {
     case actions.SORT_CHANGE:
       let dir = state.sort.dir === true
       if (state.sort.by === action.sortField) dir = !dir
-      const newSort = new Sort({ dir, by: action.sortField })
-      return state.update('sort', () => newSort)
+      return state.update('sort', () => new Sort({ dir, by: action.sortField }))
 
     default:
       return state
