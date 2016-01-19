@@ -14,14 +14,15 @@ export default class Header extends React.Component {
       <div className="Table-row Table-header">
         {
           columns.toList().map(col => {
-            const sorted = sort.by === col.name ? ' sorted' : ''
+            const arrow = sort.by === col.name ? (sort.dir ? 'glyphicon-arrow-up' : 'glyphicon-arrow-down') : ''
             return (
               <div className="Table-row-item" key={col.name} onClick={() => onSortChange(col.name)}>
-                <div>
-                  {col.caption}
-                </div>
-                <div>
-                  {sorted}
+                <div className="Table-row">
+                  <div className="Table-row-item u-flex-grow-2">
+                    {col.caption}
+                  </div>
+                  <div className={'Table-row-item glyphicon ' + arrow} />
+                  <div className="Table-row-item glyphicon glyphicon-filter" />
                 </div>
               </div>
             )

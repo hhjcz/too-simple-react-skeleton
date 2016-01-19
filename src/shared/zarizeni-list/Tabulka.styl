@@ -48,20 +48,16 @@
       flex-grow: 1
       flex-basis: 0
       padding: 0.5em
-      word-break: break-all
-      &:before {
-        content: attr(data-header)
-        width: 30%
-        font-weight: 700
-      }
-      +above(2) {
-        border: 1px solid #fff
-        padding: 0.5em
-        &:before {
-          content: none
-        }
-      }
+      word-break: keep-all
+      //border: 1px solid #fff
+      //padding: 0.5em
     }
   }
-
 }
+
+for grow in (1..9)
+  .u-flex-grow-{grow}
+    flex-grow grow
+
+
+
