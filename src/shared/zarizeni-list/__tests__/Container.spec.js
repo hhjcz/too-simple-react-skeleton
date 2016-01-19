@@ -25,7 +25,7 @@ describe('zarizeni-list connected Container component', () => {
     expect(typeof vdom.props.store).to.equal('object')
     expect(typeof vdom.props.dispatch).to.equal('function')
     expect(typeof vdom.props.actions).to.equal('object')
-    expect(typeof vdom.props.actions.receiveList).to.equal('function')
+    expect(typeof vdom.props.actions.fetchList).to.equal('function')
   })
 
   it('should connect proper sub state to props', () => {

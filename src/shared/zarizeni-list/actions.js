@@ -14,13 +14,13 @@ export const FETCH_LIST_ERROR = 'FETCH_LIST_ERROR'
 
 const getSubState = (getState) => getState().zarizeniList
 
-export function fetchRequested() {
+function fetchRequested() {
   return {
     type: FETCH_LIST_REQUEST
   }
 }
 
-export function fetchSuccess({ response, queryParams }) {
+function fetchSuccess({ response, queryParams }) {
   const camelResponse = humps.camelizeKeys(response)
   return {
     type: FETCH_LIST_SUCCESS,
@@ -34,7 +34,7 @@ export function fetchSuccess({ response, queryParams }) {
   }
 }
 
-export function fetchError({ error }) {
+function fetchError({ error }) {
   return {
     type: FETCH_LIST_ERROR,
     error
@@ -78,23 +78,19 @@ const fetchFromApi = ({ queryParams, dispatch }) => {
 }
 
 /**
- * Projects state variables to url, so that on page reload, it can be used on server for initial state
- *
- * @param history
- * @param search
- */
-const projectStateToUrl = (history, search) => {
-  history.push({ pathname: window.location.pathname, search })
-}
-
-/**
  * @returns {Function}
  */
 export function fetchList({ location } = {}) {
+
   const serializeQueryParams = getState => {
     const { pagination: { page, perPage }, sort } = getSubState(getState).toObject()
     const _sort = sort.by ? '&_sort=' + (sort.dir ? '-' : '') + humps.decamelize(sort.by) : ''
     return `?page=${page}&per_page=${perPage}${_sort}`
+  }
+
+  // projects state variables to url, so that on page reload, it can be used on server for initial state
+  const projectStateToUrl = (history, search) => {
+    history.push({ pathname: window.location.pathname, search })
   }
 
   return (dispatch, getState, history) => {
