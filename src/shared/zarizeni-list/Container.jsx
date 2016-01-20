@@ -6,7 +6,7 @@ import createMapStateToProps from '../lib/createMapStateToProps'
 import createMapDispatchToProps from '../lib/createMapDispatchToProps'
 import createFetchWrapper from '../lib/createFetchWrapper'
 import * as listActions from './actions'
-import Tabulka from './Tabulka.jsx'
+import Tabulka from './Tabulka'
 import Paginator from './Paginator'
 
 export class Container extends React.Component {
@@ -36,7 +36,10 @@ export class Container extends React.Component {
         <Paginator pagination={pagination} onPageChange={page => dispatch(listActions.gotoPage(page))}
                    onPerPageChange={perPage => dispatch(listActions.setPageSize(perPage))}
         />
-        <Tabulka seznamZarizeni={seznamZarizeni} onSortChange={sortField => dispatch(listActions.sortChange(sortField))} sort={sort} fetching={fetching} />
+        <Tabulka seznamZarizeni={seznamZarizeni} sort={sort} fetching={fetching}
+                 onSortChange={sortField => dispatch(listActions.sortChange(sortField))}
+                 onFilterChange={filter => dispatch(listActions.filterChange(filter))}
+        />
       </div>
     )
   }

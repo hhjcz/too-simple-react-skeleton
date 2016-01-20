@@ -6,6 +6,7 @@ export const SET_PAGINATION = 'SET_PAGINATION'
 export const GOTO_PAGE = 'GOTO_PAGE'
 export const SET_PAGE_SIZE = 'SET_PAGE_SIZE'
 export const SORT_CHANGE = 'SORT_CHANGE'
+export const FILTER_CHANGE = 'FILTER_CHANGE'
 
 export const SET_LIST = 'SET_LIST'
 export const FETCH_LIST_REQUEST = 'FETCH_LIST_REQUEST'
@@ -77,15 +78,49 @@ const fetchFromApi = ({ queryParams, dispatch }) => {
     )
 }
 
+function parseFilters(filters) {
+
+  const apiFilters = filters.map((filter, filterName) => {
+    let suffix = '', value = ''
+    const comparator = filter.comparator || 'contains'
+
+    if (comparator === 'contains' && filter.value !== null) {
+      suffix = '-lk';
+      value = '%' + filter.value + '%';
+    } else if (comparator === 'begins' && filter.value !== null) {
+      suffix = '-lk';
+      value = filter.value + '%';
+    } else if (comparator === 'empty' && filter.value === false) {
+      suffix = '-not';
+      value = '';
+    } else if (comparator === 'empty' && filter.value === true) {
+      suffix = '-null';
+      value = '';
+    } else if (filter.value !== null) {
+      suffix = '';
+      value = filter.value;
+    } else return null
+
+    return {
+      field: filterName + suffix,
+      value: encodeURIComponent(value)
+    }
+  })
+
+  return apiFilters;
+}
+
 /**
  * @returns {Function}
  */
 export function fetchList({ location } = {}) {
 
   const serializeQueryParams = getState => {
-    const { pagination: { page, perPage }, sort } = getSubState(getState).toObject()
+    const { pagination: { page, perPage }, sort, filters } = getSubState(getState).toObject()
     const _sort = sort.by ? '&_sort=' + (sort.dir ? '-' : '') + humps.decamelize(sort.by) : ''
-    return `?page=${page}&per_page=${perPage}${_sort}`
+    const filtersString = parseFilters(filters).map(filter => `${filter.field}=${filter.value}`).toArray().join('&')
+    console.log('Filters: ', filtersString)
+    return `?page=${page}&per_page=${perPage}${_sort}&${filtersString}`
   }
 
   // projects state variables to url, so that on page reload, it can be used on server for initial state
@@ -147,5 +182,14 @@ export function sortChange(sortField) {
 
     dispatch(fetchList())
   }
+}
 
+export function filterChange(filter) {
+  return dispatch => {
+    dispatch({
+      type: FILTER_CHANGE,
+      filter
+    })
+    dispatch(fetchList())
+  }
 }

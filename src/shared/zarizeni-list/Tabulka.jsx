@@ -8,15 +8,16 @@ import { columns } from './Column'
 
 export default class Tabulka extends React.Component {
   static propTypes = {
+    fetching: PropTypes.bool,
     seznamZarizeni: PropTypes.object,
-    onSortChange: PropTypes.func,
     sort: PropTypes.object,
-    fetching: PropTypes.bool
+    onSortChange: PropTypes.func,
+    onFilterChange: PropTypes.func,
   };
 
   render() {
     // console.log(this.props)
-    const { seznamZarizeni, sort, onSortChange, fetching } = this.props
+    const { fetching, seznamZarizeni, sort, onSortChange, onFilterChange } = this.props
     // console.log(seznamZarizeni.toObject())
 
     return (
@@ -25,7 +26,9 @@ export default class Tabulka extends React.Component {
         <div className="Table-row Table-header">
           {
             columns.toList().map(col => {
-              return <HeaderCell key={col.name} sort={sort} column={col} onSortChange={onSortChange} />
+              return (
+                <HeaderCell key={col.name} sort={sort} column={col} onSortChange={onSortChange} onFilterChange={onFilterChange} />
+              )
             })
           }
         </div>
