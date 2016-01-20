@@ -1,6 +1,7 @@
 /** Created by hhj on 12/28/15. */
 import React, { PropTypes } from 'react'
 
+import './Tabulka.styl'
 import Header from './Header'
 import Radka from './Radka'
 import { columns } from './Column'
