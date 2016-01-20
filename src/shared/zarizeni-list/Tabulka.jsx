@@ -2,7 +2,7 @@
 import React, { PropTypes } from 'react'
 
 import './Tabulka.styl'
-import Header from './Header'
+import HeaderCell from './HeaderCell'
 import Radka from './Radka'
 import { columns } from './Column'
 
@@ -20,7 +20,15 @@ export default class Tabulka extends React.Component {
 
     return (
       <div className="Table">
-        <Header columns={columns} sort={sort} onSortChange={onSortChange} />
+        {/* header */}
+        <div className="Table-row Table-header">
+          {
+            columns.toList().map(col => {
+              return <HeaderCell key={col.name} sort={sort} column={col} onSortChange={onSortChange} />
+            })
+          }
+        </div>
+        {/* rows */}
         {
           seznamZarizeni.map(zarizeni => {
             return <Radka key={zarizeni.id} zarizeni={zarizeni} columns={columns.toList()} />
