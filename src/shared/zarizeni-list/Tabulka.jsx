@@ -10,16 +10,17 @@ export default class Tabulka extends React.Component {
   static propTypes = {
     seznamZarizeni: PropTypes.object,
     onSortChange: PropTypes.func,
-    sort: PropTypes.object
+    sort: PropTypes.object,
+    fetching: PropTypes.bool
   };
 
   render() {
     // console.log(this.props)
-    const { seznamZarizeni, sort, onSortChange } = this.props
+    const { seznamZarizeni, sort, onSortChange, fetching } = this.props
     // console.log(seznamZarizeni.toObject())
 
     return (
-      <div className="Table">
+      <div className={'Table ' + (fetching ? ' Table-fetching' : '')}>
         {/* header */}
         <div className="Table-row Table-header">
           {
@@ -34,6 +35,7 @@ export default class Tabulka extends React.Component {
             return <Radka key={zarizeni.id} zarizeni={zarizeni} columns={columns.toList()} />
           })
         }
+        {fetching ? <div className="fetchIndicator glyphicon" /> : ''}
       </div>
     )
   }

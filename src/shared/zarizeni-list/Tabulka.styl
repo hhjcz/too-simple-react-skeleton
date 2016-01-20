@@ -5,21 +5,29 @@
   $light-color = #ffffff
 
   display: flex
+  position relative
   flex-flow: column nowrap
   justify-content: space-between
   align-items: center
   border: 1px solid $dark-color
   font-size: 1.2rem
   margin: 0.3rem
+  opacity: 1
+  font-weight 300
+  transition: all 1s ease-in
   //line-height: 1.5
 
   // .Table-header
   &-header {
-    display: none
+    display: flex
     +above(3) {
       font-weight: 700
       background-color: $dark-color
     }
+  }
+
+  &-fetching {
+    opacity 0.1
   }
 
   // .Table-row
@@ -56,6 +64,23 @@
       word-break: keep-all
       //padding: 0.5em
     }
+  }
+}
+
+.fetchIndicator {
+  position: absolute
+  display: flex
+  justify-content: center
+  align-self: center
+  background: transparent
+  font-size 20em
+  top: 20%
+  left: 15%
+  width 70%
+  z-index: 1060
+  opacity: 0.6
+  &:before {
+    content: "\e026";
   }
 }
 
