@@ -5,11 +5,13 @@
  *   debounce.call(this, fn, delay)
  * or
  *   debounce(fn, delay, this)
+ * or
+ *   debounce(fn, delay).bind(this)
  *
- * @param fn
+ * @param fn Function to be debounced
  * @param delay
  * @param _context
- * @returns {debounced}
+ * @returns {debounced} Debounced function as promise
  */
 export default function debounce(fn, delay, __context) {
   let timeout
