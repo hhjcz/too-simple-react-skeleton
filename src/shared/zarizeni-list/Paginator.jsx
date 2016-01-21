@@ -66,6 +66,9 @@ export default class Paginator extends React.Component {
             />
           </div>
           <div className="col col-xs-2 vcenter">
+            <Input type="text" addonBefore="total" value={pagination.total} bsStyle="success" bsSize="small" disabled />
+          </div>
+          <div className="col col-xs-2 vcenter">
             <Input
               type="text"
               bsStyle={this.validatePageSize(this.state.perPage) ? 'success' : 'error'}
@@ -82,9 +85,10 @@ export default class Paginator extends React.Component {
             />
           </div>
         </div>
-        <div>
-          Current: {pagination.page}, page size: {pagination.perPage}, total pages: {pagination.totalPages}
-        </div>
+        {/*<div>
+         Current: {pagination.page}, page size: {pagination.perPage}, total pages: {pagination.totalPages}
+         </div>
+         */}
       </div>
     )
   }

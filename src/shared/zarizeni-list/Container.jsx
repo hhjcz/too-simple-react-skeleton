@@ -33,12 +33,12 @@ export class Container extends React.Component {
     return (
       <div id="zarizeni-list">
         <h4>Seznam zařízení</h4>
-        <Paginator pagination={pagination} onPageChange={page => dispatch(listActions.gotoPage(page))}
-                   onPerPageChange={perPage => dispatch(listActions.setPageSize(perPage))}
-        />
         <Tabulka seznamZarizeni={seznamZarizeni} sort={sort} fetching={fetching}
                  onSortChange={sortField => dispatch(listActions.sortChange(sortField))}
                  onFilterChange={filter => dispatch(listActions.filterChange(filter))}
+        />
+        <Paginator pagination={pagination} onPageChange={page => dispatch(listActions.gotoPage(page))}
+                   onPerPageChange={perPage => dispatch(listActions.setPageSize(perPage))}
         />
       </div>
     )
