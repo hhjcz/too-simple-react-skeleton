@@ -18,21 +18,32 @@
     padding 0.3em
     word-break keep-all
 
-  .filterIcon
+  & .filterIcon
     cursor pointer
     &:before
       content "\e138"
+    &.active
+      color red
 
-  .columnFilter
+  & .columnFilter
     z-index 1050
     display flex
     position absolute
-    bottom 3em
+    bottom 0em
     left 0px
     width 100%
-    background white
+    background #e8e8e8
     border 1px solid black
     border-radius 0.2em
     margin 0
     padding 0.5em
+    opacity 0
+    transition-duration 0.2s
+    transition-timing-function ease-in
+    transition-property all
+    transform rotate3d(1, 0, 0, 90deg)
+    &.visible
+      bottom 3em
+      opacity 1
+      transform rotate3d(1, 0, 0, 0deg)
 

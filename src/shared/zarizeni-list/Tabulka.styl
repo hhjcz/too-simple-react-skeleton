@@ -7,17 +7,16 @@
   position relative
   display flex
   flex-flow column nowrap
-  //justify-content space-between
+  justify-content space-between
   align-items center
   margin 0.3rem
   opacity 1
-  transition all 1s ease-in
   //font-size 15px
   //font-weight 300
   //line-height 1.5
 
-  &.fetching
-    opacity 0.1
+  //&.fetching
+  //  opacity 0.1
 
   // .myTableRow
   &Row
@@ -38,25 +37,29 @@
       flex-basis 0
       align-self center
       padding 0.3em
-      word-break keep-all
+      word-break break-all
+      transition all 0.2s ease-in
+      .myTable.fetching &
+        opacity 1
+
+  & .fetchIndicator
+    position absolute
+    display flex
+    justify-content center
+    align-self center
+    background transparent
+    font-size 20em
+    top 20%
+    left 15%
+    width 70%
+    z-index 1060
+    opacity 0.3
+    &:before
+      content "\e026"
 
   for grow in (1..9)
     & div .uFlexGrow-{grow}
       flex-grow grow
 
-.fetchIndicator
-  position absolute
-  display flex
-  justify-content center
-  align-self center
-  background transparent
-  font-size 20em
-  top 20%
-  left 15%
-  width 70%
-  z-index 1060
-  opacity 0.6
-  &:before
-    content "\e026";
 
 

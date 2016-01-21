@@ -16,6 +16,7 @@ export class Container extends React.Component {
     seznamZarizeni: PropTypes.object,
     pagination: PropTypes.object.isRequired,
     sort: PropTypes.object,
+    filters: PropTypes.object,
     dispatch: PropTypes.func
   };
 
@@ -29,11 +30,11 @@ export class Container extends React.Component {
   static fetchActions = [listActions.fetchList];
 
   render() {
-    const { fetching, seznamZarizeni, pagination, sort, dispatch } = this.props
+    const { fetching, seznamZarizeni, pagination, sort, filters, dispatch } = this.props
     return (
       <div id="zarizeni-list">
         <h4>Seznam zařízení</h4>
-        <Tabulka seznamZarizeni={seznamZarizeni} sort={sort} fetching={fetching}
+        <Tabulka seznamZarizeni={seznamZarizeni} sort={sort} fetching={fetching} filters={filters}
                  onSortChange={sortField => dispatch(listActions.sortChange(sortField))}
                  onFilterChange={filter => dispatch(listActions.filterChange(filter))}
         />

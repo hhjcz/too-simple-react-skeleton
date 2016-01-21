@@ -11,13 +11,14 @@ export default class Tabulka extends React.Component {
     fetching: PropTypes.bool,
     seznamZarizeni: PropTypes.object,
     sort: PropTypes.object,
+    filters: PropTypes.object,
     onSortChange: PropTypes.func,
     onFilterChange: PropTypes.func,
   };
 
   render() {
     // console.log(this.props)
-    const { fetching, seznamZarizeni, sort, onSortChange, onFilterChange } = this.props
+    const { fetching, seznamZarizeni, sort, filters, onSortChange, onFilterChange } = this.props
     // console.log(seznamZarizeni.toObject())
 
     return (
@@ -27,7 +28,7 @@ export default class Tabulka extends React.Component {
           {
             columns.toList().map(col => {
               return (
-                <HeaderCell key={col.name} sort={sort} column={col} onSortChange={onSortChange} onFilterChange={onFilterChange} />
+                <HeaderCell key={col.name} sort={sort} column={col} filter={filters.get(col.name)} onSortChange={onSortChange} onFilterChange={onFilterChange} />
               )
             })
           }

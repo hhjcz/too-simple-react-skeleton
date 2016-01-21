@@ -1,7 +1,7 @@
 /** Created by hhj on 1/4/16. */
 import { expect } from 'chai'
 import React from 'react'
-import { List } from 'immutable'
+import { List, Map } from 'immutable'
 import sd from 'skin-deep'
 
 import Tabulka from './../Tabulka.jsx'
@@ -11,7 +11,7 @@ describe('zarizeni-list Tabulka component', () => {
   let instance   // eslint-disable-line no-unused-vars
 
   beforeEach(() => {
-    const tree = sd.shallowRender(React.createElement(Tabulka, { seznamZarizeni: List() }))
+    const tree = sd.shallowRender(React.createElement(Tabulka, { seznamZarizeni: List(), filters: Map() }))
 
     instance = tree.getMountedInstance()
     vdom = tree.getRenderOutput()
