@@ -14,7 +14,7 @@ describe('zarizeni-list HeaderFilter component', () => {
 
     instance = tree.getMountedInstance()
     vdom = tree.getRenderOutput()
-    console.log(vdom.props.children[1].props.children)
+    // console.log(vdom.props.children[1].props.children)
   })
 
   it('should render', () => {
