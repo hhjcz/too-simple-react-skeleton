@@ -6,7 +6,7 @@ import { Link } from 'react-router' // eslint-disable-line no-unused-vars
 
 import { Zarizeni } from '../../zarizeni/core'
 import Radka from '../Radka'
-import { columns } from '../Column'
+import { columns } from '../column'
 
 describe('zarizeni-list Radka component', () => {
   let vdom

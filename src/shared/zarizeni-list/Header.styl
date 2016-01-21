@@ -1,46 +1,38 @@
-.Header {
-  $dark-color = #f2f2f2
-  $light-color = #ffffff
+.myTable .header
 
-  display: flex
-  width: 100%
+  display flex
+  flex-flow row nowrap
+  width 100%
   position relative
-  flex-flow: row nowrap
-  justify-content: space-between
-  align-items: center
-  border: 1px solid $dark-color
-  font-size: 1.2rem
-  padding: 0
-  border-top-width: 0px
-  border-bottom-width: 0px
-  border-left-width: 0.5px
-  border-right-width: 0.5px
-  background-color: $dark-color
-  //line-height: 1.5
+  //justify-content space-between
+  align-items center
+  //font-size 1.2rem
+  font-weight 700
+  padding 0
+  cursor default
 
-  // .Header-item
-  &-item {
-    display: flex
-    flex-flow: row nowrap
-    flex-grow: 1
-    flex-basis: 0
-    align-self: center
-    padding: 0.3em
-    word-break: keep-all
-    //padding: 0.5em
-  }
-}
+  // .headerItem
+  &Item
+    flex-grow 1
+    align-self center
+    padding 0.3em
+    word-break keep-all
 
-  .ColumnFilter {
-    z-index: 1050
-    display: flex
-    position: absolute
+  .filterIcon
+    cursor pointer
+    &:before
+      content "\e138"
+
+  .columnFilter
+    z-index 1050
+    display flex
+    position absolute
     bottom 3em
-    left 0
+    left 0px
     width 100%
     background white
     border 1px solid black
     border-radius 0.2em
     margin 0
     padding 0.5em
-  }
+

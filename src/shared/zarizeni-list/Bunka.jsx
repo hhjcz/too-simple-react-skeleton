@@ -13,7 +13,7 @@ export default class Bunka extends React.Component {
     const { column, model } = this.props
     const content = (typeof column.render === 'function') ? column.render(model) : model[column.name]
     return (
-      <div className="Table-row-item" key={column.name}>
+      <div className="myTableRowItem" key={column.name}>
         {content}
       </div>
     )

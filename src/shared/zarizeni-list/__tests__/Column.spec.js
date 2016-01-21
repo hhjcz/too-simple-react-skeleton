@@ -2,7 +2,7 @@
 import { expect } from 'chai'
 import { Record, Map } from 'immutable'
 
-import { Column, columntValueTypes, columns } from '../Column'
+import { Column, columntValueTypes, columns } from '../column'
 
 describe('zarizeni-list Column', () => {
 

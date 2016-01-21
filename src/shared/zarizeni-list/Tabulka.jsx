@@ -4,7 +4,7 @@ import React, { PropTypes } from 'react'
 import './Tabulka.styl'
 import HeaderCell from './HeaderCell'
 import Radka from './Radka'
-import { columns } from './Column'
+import { columns } from './column'
 
 export default class Tabulka extends React.Component {
   static propTypes = {
@@ -21,9 +21,9 @@ export default class Tabulka extends React.Component {
     // console.log(seznamZarizeni.toObject())
 
     return (
-      <div className={'Table ' + (fetching ? ' Table-fetching' : '')}>
+      <div className={'myTable' + (fetching ? ' fetching' : '')}>
         {/* header */}
-        <div className="Table-row Table-header">
+        <div className="myTableRow">
           {
             columns.toList().map(col => {
               return (

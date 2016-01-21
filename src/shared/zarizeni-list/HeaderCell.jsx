@@ -1,5 +1,6 @@
 /** Created by hhj on 1/20/16. */
 import React, { PropTypes } from 'react'
+import { Input } from 'react-bootstrap'
 import debounce from '../lib/debounce'
 import { Filter } from './filter'
 import './Header.styl'
@@ -27,17 +28,19 @@ export default class HeaderCell extends React.Component {
     const { sort, column, onSortChange, onFilterChange } = this.props
     const arrow = sort.by === column.name ? (sort.dir ? 'glyphicon-arrow-up' : 'glyphicon-arrow-down') : ''
     return (
-      <div className="Table-row-item">
-        <div className="Header">
-          <div className="Header-item u-flex-grow-2" onClick={() => onSortChange(column.name)}>
+      <div className="myTableRowItem">
+        <div className="header">
+          <div className="headerItem uFlexGrow-2" onClick={() => onSortChange(column.name)}>
             {column.caption}
           </div>
-          <div className={'Header-item glyphicon ' + arrow} />
-          <div className="Header-item glyphicon glyphicon-filter" onClick={() => this.toggleFilter.bind(this)() } />
+          <div className={'headerItem glyphicon ' + arrow} />
+          <div className="headerItem glyphicon filterIcon" onClick={() => this.toggleFilter.bind(this)() } />
           {
             this.state.filterVisible ?
-              <div className="ColumnFilter">
-                <input onChange={debounce(event => onFilterChange(new Filter({ name: column.name, value: event.target.value })), 500)} />
+              <div className="columnFilter vcenter">
+                <Input type="text" addonBefore="filter" bsStyle="success"
+                  onChange={debounce(event => onFilterChange(new Filter({ name: column.name, value: event.target.value })), 500)}
+                />
               </div>
               : null
           }
