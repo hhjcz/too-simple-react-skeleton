@@ -21,16 +21,15 @@ export default class HeaderFilter extends React.Component {
     this.onFilterChange = debounce(this.onFilterChange, this.props.debounce || 500, this)
   }
 
-  toggleFilter() {
-    this.setState({ filterVisible: !this.state.filterVisible })
-  }
-
   onFilterChange(filterValue) {
     this.props.onFilterChange(new Filter({ name: this.props.column.name, value: filterValue }))
   }
 
+  toggleFilter() {
+    this.setState({ filterVisible: !this.state.filterVisible })
+  }
+
   render() {
-    //const { column, onFilterChange } = this.props
     const active = this.state.filterValue ? ' active' : ''
     return (
       <div>

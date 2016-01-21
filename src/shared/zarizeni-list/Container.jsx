@@ -34,12 +34,14 @@ export class Container extends React.Component {
     return (
       <div id="zarizeni-list">
         <h4>Seznam zařízení</h4>
-        <Tabulka seznamZarizeni={seznamZarizeni} sort={sort} fetching={fetching} filters={filters}
-                 onSortChange={sortField => dispatch(listActions.sortChange(sortField))}
-                 onFilterChange={filter => dispatch(listActions.filterChange(filter))}
+        <Tabulka
+          seznamZarizeni={seznamZarizeni} sort={sort} fetching={fetching} filters={filters}
+          onSortChange={sortField => dispatch(listActions.sortChange(sortField))}
+          onFilterChange={filter => dispatch(listActions.filterChange(filter))}
         />
-        <Paginator pagination={pagination} onPageChange={page => dispatch(listActions.gotoPage(page))}
-                   onPerPageChange={perPage => dispatch(listActions.setPageSize(perPage))}
+        <Paginator
+          pagination={pagination} onPageChange={page => dispatch(listActions.gotoPage(page))}
+          onPerPageChange={perPage => dispatch(listActions.setPageSize(perPage))}
         />
       </div>
     )

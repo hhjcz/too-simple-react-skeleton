@@ -1,6 +1,5 @@
 /** Created by hhj on 1/20/16. */
 import React, { PropTypes } from 'react'
-import { Input } from 'react-bootstrap'
 import HeaderFilter from './HeaderFilter'
 import './Header.styl'
 

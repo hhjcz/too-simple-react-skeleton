@@ -66,7 +66,7 @@ export default function reducer(state = initialState, action) {
 
     case actions.FILTER_CHANGE:
       return state.update('filters', filters => {
-        if (action.filter.value == '') return filters.delete(action.filter.name)
+        if (action.filter.value === '') return filters.delete(action.filter.name)
         return filters.set(action.filter.name, action.filter)
       })
 

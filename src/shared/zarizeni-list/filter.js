@@ -6,4 +6,3 @@ export const Filter = Record({
   value: '',
   comparator: ''
 })
-
