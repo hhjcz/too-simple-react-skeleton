@@ -18,6 +18,7 @@ export const Column = Record({
   valueType: columntValueTypes.number,
   defaultValue: null,
   visible: true,
+  width: 2,
   render: null
 })
 
@@ -28,6 +29,7 @@ export const columns = Map(
       caption: 'ID',
       valueType: columntValueTypes.number,
       visible: true,
+      width: 1,
       render: (zarizeni) => <Link to={'/zarizeni/' + zarizeni.id}>{zarizeni.id}</Link>
     }),
     name: new Column({
@@ -35,6 +37,7 @@ export const columns = Map(
       caption: 'Name',
       valueType: columntValueTypes.string,
       visible: true,
+      width: 3,
       render: (zarizeni) => <Link to={'/zarizeni/' + zarizeni.id}>{zarizeni.name}</Link>,
     }),
     createdAt: new Column({
