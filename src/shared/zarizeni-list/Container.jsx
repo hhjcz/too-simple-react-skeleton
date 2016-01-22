@@ -15,9 +15,9 @@ export class Container extends React.Component {
     fetching: PropTypes.bool,
     seznamZarizeni: PropTypes.object,
     pagination: PropTypes.object.isRequired,
-    sort: PropTypes.object,
-    filters: PropTypes.object,
-    dispatch: PropTypes.func
+    sort: PropTypes.object.isRequired,
+    filters: PropTypes.object.isRequired,
+    dispatch: PropTypes.func.isRequired,
   };
 
   // browser fetching:

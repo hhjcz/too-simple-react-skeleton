@@ -14,7 +14,8 @@ describe('zarizeni-list connected Container component', () => {
 
   beforeEach(() => {
     const store = createStore()
-    const tree = sd.shallowRender(React.createElement(Connected, { store }))
+    const pagination = new Pagination()
+    const tree = sd.shallowRender(React.createElement(Connected, { store, pagination }))
 
     instance = tree.getMountedInstance()
     vdom = tree.getRenderOutput()
@@ -43,7 +44,8 @@ describe('zarizeni-list Container component', () => {
   beforeEach(() => {
     const store = createStore()
     const location = { query: {} }
-    const tree = sd.shallowRender(React.createElement(Container, { store, location }))
+    const pagination = new Pagination()
+    const tree = sd.shallowRender(React.createElement(Container, { store, location, pagination }))
 
     instance = tree.getMountedInstance()
     vdom = tree.getRenderOutput()

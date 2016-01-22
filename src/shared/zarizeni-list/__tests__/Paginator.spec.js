@@ -2,7 +2,7 @@
 
 import { expect } from 'chai'
 import React from 'react'
-import { addons } from 'react/addons'
+import TestUtils from 'react-addons-test-utils'
 import sd from 'skin-deep'
 
 import { Pagination } from '../pagination'
@@ -28,7 +28,7 @@ describe('zarizeni-list Paginator component (testing using shallow render)', () 
 
 describe('zarizeni-list Paginator component (testing using real DOM)', () => {
   beforeEach(() => {
-    const { TestUtils } = addons;
+    //const { TestUtils } = addons;
 
     this.component = TestUtils.renderIntoDocument(
       <Paginator pagination={new Pagination} onPageChange={ (page) => console.log('page: ', page)} onPerPageChange={ (perPage) => console.log(perPage)} />)

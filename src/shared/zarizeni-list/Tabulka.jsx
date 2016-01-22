@@ -12,8 +12,8 @@ export default class Tabulka extends React.Component {
     seznamZarizeni: PropTypes.object,
     sort: PropTypes.object,
     filters: PropTypes.object,
-    onSortChange: PropTypes.func,
-    onFilterChange: PropTypes.func,
+    onSortChange: PropTypes.func.isRequired,
+    onFilterChange: PropTypes.func.isRequired,
   };
 
   render() {

@@ -12,13 +12,17 @@ export default class HeaderFilter extends React.Component {
     debounce: PropTypes.number,
   };
 
+  static defaultProps = {
+    debounce: 500,
+  };
+
   constructor(props) {
     super(props)
     this.state = {
       filterValue: this.props.filter ? this.props.filter.value : '',
       filterVisible: false
     }
-    this.onFilterChange = debounce(this.onFilterChange, this.props.debounce || 500, this)
+    this.onFilterChange = debounce(this.onFilterChange, this.props.debounce, this)
   }
 
   onFilterChange(filterValue) {

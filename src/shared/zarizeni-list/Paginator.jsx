@@ -9,9 +9,15 @@ export default class Paginator extends React.Component {
     pagination: PropTypes.object.isRequired,
     onPageChange: PropTypes.func.isRequired,
     onPerPageChange: PropTypes.func.isRequired,
-    bsSize: PropTypes.number,
-    maxButtons: PropTypes.string,
+    bsSize: PropTypes.string,
+    maxButtons: PropTypes.number,
     debounce: PropTypes.number
+  };
+
+  static defaultProps = {
+    debounce: 500,
+    bsSize: 'small',
+    maxButtons: 9,
   };
 
   constructor(props) {
@@ -20,7 +26,7 @@ export default class Paginator extends React.Component {
       // page: this.props.pagination.page,
       perPage: this.props.pagination.perPage
     }
-    this.onPerPageChange = debounce(this.onPerPageChange, this.props.debounce || 500, this)
+    this.onPerPageChange = debounce(this.onPerPageChange, this.props.debounce, this)
   }
 
   componentWillReceiveProps(nextProps) {
@@ -51,13 +57,13 @@ export default class Paginator extends React.Component {
         <div className="row">
           <div className="col col-xs-8 vcenter">
             <Pagination
-              bsSize={bsSize || 'medium'}
+              bsSize={bsSize}
               prev
               next
               first
               last
               ellipsis
-              maxButtons={maxButtons || 9}
+              maxButtons={maxButtons}
               items={pagination.totalPages}
               activePage={pagination.page}
               onSelect={(event, selectedEvent) => {
@@ -66,13 +72,13 @@ export default class Paginator extends React.Component {
             />
           </div>
           <div className="col col-xs-2 vcenter">
-            <Input type="text" addonBefore="total" value={pagination.total} bsStyle="success" bsSize="small" disabled />
+            <Input type="text" addonBefore="total" value={pagination.total} bsStyle="success" bsSize={bsSize} disabled />
           </div>
           <div className="col col-xs-2 vcenter">
             <Input
               type="text"
               bsStyle={this.validatePageSize(this.state.perPage) ? 'success' : 'error'}
-              bsSize="small"
+              bsSize={bsSize}
               addonBefore="page size"
               value={this.state.perPage}
               ref="perPage"

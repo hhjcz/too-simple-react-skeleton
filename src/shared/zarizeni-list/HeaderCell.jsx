@@ -8,8 +8,8 @@ export default class HeaderCell extends React.Component {
     column: PropTypes.object,
     sort: PropTypes.object,
     filter: PropTypes.object,
-    onSortChange: PropTypes.func,
-    onFilterChange: PropTypes.func,
+    onSortChange: PropTypes.func.isRequired,
+    onFilterChange: PropTypes.func.isRequired,
   };
 
   render() {
