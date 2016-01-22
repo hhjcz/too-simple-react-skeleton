@@ -23,6 +23,7 @@ export default class HeaderFilter extends React.Component {
       filterVisible: false
     }
     this.onFilterChange = debounce(this.onFilterChange, this.props.debounce, this)
+    this.toggleFilter = this.toggleFilter.bind(this)
   }
 
   onFilterChange(filterValue) {
@@ -34,17 +35,21 @@ export default class HeaderFilter extends React.Component {
   }
 
   render() {
+    const self = this
     const active = this.state.filterValue ? ' active' : ''
     return (
       <div>
-        <div className={'headerItem glyphicon filterIcon' + active} onClick={() => this.toggleFilter.bind(this)() } />
+        <div
+          className={'headerItem glyphicon filterIcon' + active}
+          onClick={this.toggleFilter}
+        />
         <div className={'columnFilter vcenter' + (this.state.filterVisible ? ' visible' : '')}>
           <Input
             type="text" value={this.state.filterValue} addonBefore="filter" bsStyle="success"
-            onChange={(event) => {
+            onChange={function(event) {
               const filterValue = event.target.value
-              this.setState({ filterValue })
-              this.onFilterChange(filterValue)
+              self.setState({ filterValue })
+              self.onFilterChange(filterValue)
             }}
           />
         </div>

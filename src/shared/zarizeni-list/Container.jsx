@@ -36,12 +36,13 @@ export class Container extends React.Component {
         <h4>Seznam zařízení</h4>
         <Tabulka
           seznamZarizeni={seznamZarizeni} sort={sort} fetching={fetching} filters={filters}
-          onSortChange={sortField => dispatch(listActions.sortChange(sortField))}
-          onFilterChange={filter => dispatch(listActions.filterChange(filter))}
+          onSortChange={function(sortField) {dispatch(listActions.sortChange(sortField))}}
+          onFilterChange={function(filter) {dispatch(listActions.filterChange(filter))}}
         />
         <Paginator
-          pagination={pagination} onPageChange={page => dispatch(listActions.gotoPage(page))}
-          onPerPageChange={perPage => dispatch(listActions.setPageSize(perPage))}
+          pagination={pagination}
+          onPageChange={function(page) {dispatch(listActions.gotoPage(page))}}
+          onPerPageChange={function(perPage) {dispatch(listActions.setPageSize(perPage))}}
         />
       </div>
     )
@@ -49,7 +50,7 @@ export class Container extends React.Component {
 }
 
 // TODO - not used for now, does not work
-const WrappedContainer = createFetchWrapper(listActions.fetchList)(Container) // eslint-disable-line no-unused-vars
+const WrappedContainer = createFetchWrapper(listActions.fetchList)(Container)
 
 export default connect(
   createMapStateToProps(state => state.zarizeniList),

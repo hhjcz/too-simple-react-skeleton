@@ -22,14 +22,16 @@ describe('createMapDispatchToProps', () => {
   })
 
   it('should bind actions passed as array', () => {
-    const props = createMapDispatchToProps([{ firstAction, secondAction }, { secondAction, firstAction }])(dispatch)
+    const actions = [{ firstAction, secondAction }, { secondAction, firstAction }]
+    const props = createMapDispatchToProps(actions)(dispatch)
 
     expect(typeof props.actions.firstAction).to.equal('function')
     expect(props.actions.firstAction('something')).to.equal('dispatched something')
   })
 
   it('should not duplicate actions (should merge)', () => {
-    const props = createMapDispatchToProps([{ firstAction, secondAction }, { secondAction, firstAction }])(dispatch)
+    const actions = [{ firstAction, secondAction }, { secondAction, firstAction }]
+    const props = createMapDispatchToProps(actions)(dispatch)
 
     expect(Object.keys(props.actions).length).to.equal(2)
   })

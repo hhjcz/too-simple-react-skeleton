@@ -12,7 +12,9 @@ describe('zarizeni-list Header component', () => {
   let instance   // eslint-disable-line no-unused-vars
 
   beforeEach(() => {
-    const tree = sd.shallowRender(React.createElement(HeaderCell, { column: columns.get('id'), sort: new Sort() }))
+    const tree = sd.shallowRender(
+      React.createElement(HeaderCell, { column: columns.get('id'), sort: new Sort() })
+    )
 
     instance = tree.getMountedInstance()
     vdom = tree.getRenderOutput()

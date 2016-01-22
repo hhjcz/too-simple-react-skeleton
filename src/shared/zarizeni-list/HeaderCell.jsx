@@ -14,13 +14,15 @@ export default class HeaderCell extends React.Component {
 
   render() {
     const { sort, filter, column, onSortChange, onFilterChange } = this.props
-    const arrow = sort.by === column.name ? (sort.dir ? 'glyphicon-arrow-up' : 'glyphicon-arrow-down') : ''
+    const arrowDirection = sort.dir ? 'up' : 'down'
+    const arrow = sort.by === column.name ? `glyphicon-arrow-${arrowDirection}` : ''
+
     return (
       <div className={'myTableRowItem' + ` uFlexGrow-${column.width}`}>
         <div className="header">
-          <div className="headerItem uFlexGrow-2" onClick={() => onSortChange(column.name)}>
+          <div className="headerItem uFlexGrow-2" onClick={function() {onSortChange(column.name)}}>
             {column.caption}
-          <div className={'headerItem glyphicon ' + arrow} />
+            <div className={'headerItem glyphicon ' + arrow} />
           </div>
           <HeaderFilter column={column} filter={filter} onFilterChange={onFilterChange} />
         </div>

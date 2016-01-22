@@ -18,14 +18,16 @@ export const InitialState = Record({
 const initialState = new InitialState
 
 // Note how JSON from server is revived to immutable record.
-const revive = ({ fetching, queryParams, seznamZarizeni, pagination, sort, filters }) => initialState.merge({
-  fetching,
-  queryParams,
-  seznamZarizeni: List(seznamZarizeni).map(z => new Zarizeni(z)),
-  pagination: new Pagination(pagination),
-  sort: new Sort(sort),
-  filters: Map(filters)
-});
+const revive = ({ fetching, queryParams, seznamZarizeni, pagination, sort, filters }) => {
+  return initialState.merge({
+    fetching,
+    queryParams,
+    seznamZarizeni: List(seznamZarizeni).map(z => new Zarizeni(z)),
+    pagination: new Pagination(pagination),
+    sort: new Sort(sort),
+    filters: Map(filters)
+  });
+}
 
 export default function reducer(state = initialState, action) {
   if (!(state instanceof InitialState)) return revive(state)
@@ -34,13 +36,15 @@ export default function reducer(state = initialState, action) {
     case actions.FETCH_LIST_REQUEST:
       return state
         .update('fetching', () => true)
-    // .update('pagination', (pagination) => new Pagination({ ...pagination.toObject(), ...action.pagination }))
 
     case actions.FETCH_LIST_SUCCESS:
       return setList(state, action.seznamZarizeni)
         .update('fetching', () => false)
         .update('queryParams', () => action.queryParams)
-        .update('pagination', () => new Pagination({ ...action.pagination, page: action.pagination.currentPage }))
+        .update('pagination', () => new Pagination({
+          ...action.pagination,
+          page: action.pagination.currentPage
+        }))
         .update('sort', () => new Sort(action.sort))
 
     case actions.FETCH_LIST_ERROR:

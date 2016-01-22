@@ -118,12 +118,14 @@ export function fetchList({ location } = {}) {
   const serializeQueryParams = getState => {
     const { pagination: { page, perPage }, sort, filters } = getSubState(getState).toObject()
     const _sort = sort.by ? '&_sort=' + (sort.dir ? '-' : '') + humps.decamelize(sort.by) : ''
-    const filtersString = parseFilters(filters).map(filter => `${filter.field}=${filter.value}`).toArray().join('&')
-    console.log('Filters: ', filtersString)
+    const filtersString = parseFilters(filters)
+      .map(filter => `${filter.field}=${filter.value}`).toArray().join('&')
+
     return `?page=${page}&per_page=${perPage}${_sort}&${filtersString}`
   }
 
-  // projects state variables to url, so that on page reload, it can be used on server for initial state
+  // projects state variables to url,
+  // so that on page reload it can be used on server for initial state
   const projectStateToUrl = (history, search) => {
     history.push({ pathname: window.location.pathname, search })
   }

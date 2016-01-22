@@ -2,6 +2,7 @@
 
 import { expect } from 'chai'
 import React from 'react'
+import ReactDOM from 'react-dom'
 import TestUtils from 'react-addons-test-utils'
 import sd from 'skin-deep'
 
@@ -28,11 +29,14 @@ describe('zarizeni-list Paginator component (testing using shallow render)', () 
 
 describe('zarizeni-list Paginator component (testing using real DOM)', () => {
   beforeEach(() => {
-    //const { TestUtils } = addons;
-
     this.component = TestUtils.renderIntoDocument(
-      <Paginator pagination={new Pagination} onPageChange={ (page) => console.log('page: ', page)} onPerPageChange={ (perPage) => console.log(perPage)} />)
-    this.renderedDOM = () => React.findDOMNode(this.component)
+      <Paginator
+        pagination={new Pagination}
+        onPageChange={ function(page) {console.log('page: ', page)}}
+        onPerPageChange={ function(perPage) {console.log(perPage)}}
+      />
+    )
+    this.renderedDOM = () => ReactDOM.findDOMNode(this.component)
     console.log(this.component)
   })
 

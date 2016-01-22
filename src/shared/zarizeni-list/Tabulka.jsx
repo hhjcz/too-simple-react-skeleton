@@ -28,7 +28,10 @@ export default class Tabulka extends React.Component {
           {
             columns.toList().map(col => {
               return (
-                <HeaderCell key={col.name} sort={sort} column={col} filter={filters.get(col.name)} onSortChange={onSortChange} onFilterChange={onFilterChange} />
+                <HeaderCell
+                  key={col.name} sort={sort} column={col} filter={filters.get(col.name)}
+                  onSortChange={onSortChange} onFilterChange={onFilterChange}
+                />
               )
             })
           }

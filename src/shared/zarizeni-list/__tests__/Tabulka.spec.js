@@ -11,7 +11,9 @@ describe('zarizeni-list Tabulka component', () => {
   let instance   // eslint-disable-line no-unused-vars
 
   beforeEach(() => {
-    const tree = sd.shallowRender(React.createElement(Tabulka, { seznamZarizeni: List(), filters: Map() }))
+    const tree = sd.shallowRender(
+      React.createElement(Tabulka, { seznamZarizeni: List(), filters: Map() })
+    )
 
     instance = tree.getMountedInstance()
     vdom = tree.getRenderOutput()

@@ -16,7 +16,10 @@ describe('reducer', () => {
   })
 
   it('sets initial state', () => {
-    const nextState = reducer(undefined, { type: actions.SET_LIST, seznamZarizeni: List.of(new Zarizeni({ id: 66 })) })
+    const nextState = reducer(
+      undefined,
+      { type: actions.SET_LIST, seznamZarizeni: List.of(new Zarizeni({ id: 66 })) }
+    )
     expect(nextState).to.equal(new InitialState({
       pagination: new Pagination({ page: 1, perPage: 10, totalPages: 3 }),
       seznamZarizeni: List.of(new Zarizeni({ id: 66 }))
@@ -45,7 +48,10 @@ describe('reducer', () => {
     const state = reducer(initialState, { type: actions.FETCH_LIST_REQUEST })
     expect(state.get('fetching')).to.equal(true)
 
-    const nextState = reducer(state, { type: actions.FETCH_LIST_SUCCESS, seznamZarizeni: [], pagination: [] })
+    const nextState = reducer(
+      state,
+      { type: actions.FETCH_LIST_SUCCESS, seznamZarizeni: [], pagination: [] }
+    )
 
     expect(nextState.get('fetching')).to.equal(false)
     expect(state.get('fetching')).to.equal(true)

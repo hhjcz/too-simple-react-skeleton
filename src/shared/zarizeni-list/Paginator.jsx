@@ -23,19 +23,15 @@ export default class Paginator extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      // page: this.props.pagination.page,
       perPage: this.props.pagination.perPage
     }
     this.onPerPageChange = debounce(this.onPerPageChange, this.props.debounce, this)
   }
 
   componentWillReceiveProps(nextProps) {
-    // console.log('Receive next perPage: ', nextProps.pagination.perPage)
-    if (this.props.pagination.perPage !== nextProps.pagination.perPage) this.setState({ perPage: nextProps.pagination.perPage })
-  }
-
-  componentWillUpdate(nextProps) {  // eslint-disable-line no-unused-vars
-    // console.log('Update next perPage: ', nextProps.pagination.perPage)
+    if (this.props.pagination.perPage !== nextProps.pagination.perPage) {
+      this.setState({ perPage: nextProps.pagination.perPage })
+    }
   }
 
   onPerPageChange(perPage) {
@@ -52,49 +48,47 @@ export default class Paginator extends React.Component {
 
   render() {
     const { pagination, onPageChange, bsSize, maxButtons } = this.props
+    const self = this
     return (
       <div className="container-fluid">
         <div className="row">
           <div className="col col-xs-8 vcenter">
             <Pagination
-              bsSize={bsSize}
-              prev
-              next
-              first
-              last
-              ellipsis
-              maxButtons={maxButtons}
               items={pagination.totalPages}
               activePage={pagination.page}
-              onSelect={(event, selectedEvent) => {
+              prev next first last ellipsis
+              bsSize={bsSize} maxButtons={maxButtons}
+              onSelect={function(event, selectedEvent) {
                 if (pagination.page !== selectedEvent.eventKey) onPageChange(selectedEvent.eventKey)
               }}
             />
           </div>
           <div className="col col-xs-2 vcenter">
-            <Input type="text" addonBefore="total" value={pagination.total} bsStyle="success" bsSize={bsSize} disabled />
+            <Input
+              type="text"
+              addonBefore="total"
+              value={pagination.total}
+              bsStyle="success"
+              bsSize={bsSize} disabled
+            />
           </div>
           <div className="col col-xs-2 vcenter">
             <Input
               type="text"
-              bsStyle={this.validatePageSize(this.state.perPage) ? 'success' : 'error'}
-              bsSize={bsSize}
+              ref="perPage"
               addonBefore="page size"
               value={this.state.perPage}
-              ref="perPage"
-              onChange={(event) => {
+              bsStyle={this.validatePageSize(this.state.perPage) ? 'success' : 'error'}
+              bsSize={bsSize}
+              onChange={function(event) {
                 event.persist()
                 const perPage = event.target.value
-                this.setState({ perPage })
-                this.onPerPageChange(perPage)
+                self.setState({ perPage })
+                self.onPerPageChange(perPage)
               }}
             />
           </div>
         </div>
-        {/*<div>
-         Current: {pagination.page}, page size: {pagination.perPage}, total pages: {pagination.totalPages}
-         </div>
-         */}
       </div>
     )
   }
