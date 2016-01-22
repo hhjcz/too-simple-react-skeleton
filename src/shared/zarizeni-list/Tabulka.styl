@@ -45,6 +45,7 @@
   & .fetchIndicator
     position absolute
     display flex
+    visibility hidden
     justify-content center
     align-self center
     background transparent
@@ -53,9 +54,15 @@
     left 15%
     width 70%
     z-index 1060
-    opacity 0.3
+    opacity 0
+    transition-duration 0.2s
+    transition-timing-function ease-in
+    transition-property none
     &:before
       content "\e026"
+    &.visible
+      visibility visible
+      opacity 0.3
 
   for grow in (1..9)
     & div .uFlexGrow-{grow}

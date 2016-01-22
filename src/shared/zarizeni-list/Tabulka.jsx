@@ -42,7 +42,7 @@ export default class Tabulka extends React.Component {
             return <Radka key={zarizeni.id} zarizeni={zarizeni} columns={columns.toList()} />
           })
         }
-        {fetching ? <div className="fetchIndicator glyphicon" /> : ''}
+        {fetching ? <div className="fetchIndicator glyphicon visible" /> : ''}
       </div>
     )
   }

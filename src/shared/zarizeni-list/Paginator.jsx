@@ -39,15 +39,15 @@ export default class Paginator extends React.Component {
   }
 
   validatePageSize(perPage) {
-    return this.parsePageSize(perPage) > 0
+    return Paginator.parsePageSize(perPage) > 0
   }
 
-  parsePageSize(perPage) {
+  static parsePageSize(perPage) {
     return parseInt(perPage, 10)
   }
 
   render() {
-    const { pagination, onPageChange, bsSize, maxButtons } = this.props
+    const { pagination, onPageChange, bsSize, maxButtons, fetching } = this.props
     const self = this
     return (
       <div className="container-fluid">
