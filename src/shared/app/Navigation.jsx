@@ -11,7 +11,7 @@ export default class Navigation extends React.Component {
       <Navbar inverse>
         <Navbar.Collapse>
           <Nav bsStyle="pills">
-            <NavbarBrand>Dohlestr</NavbarBrand>
+            <NavbarBrand>Dohlestr ({process.env.NODE_ENV})</NavbarBrand>
             <NavItem eventKet={1}><Link to="/">Home</Link></NavItem>
             <NavItem eventKet={2}><Link to="/zarizeni">List</Link></NavItem>
             <NavItem eventKet={3}><Link to="/hriste">Hriste</Link></NavItem>
