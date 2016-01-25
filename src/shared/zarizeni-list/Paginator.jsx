@@ -25,7 +25,7 @@ export default class Paginator extends React.Component {
     this.state = {
       perPage: this.props.pagination.perPage
     }
-    this.onPerPageChange = debounce(this.onPerPageChange, this.props.debounce, this)
+    if (this.props.debounce > 0) this.onPerPageChange = debounce(this.onPerPageChange, this.props.debounce, this)
   }
 
   componentWillReceiveProps(nextProps) {
@@ -35,10 +35,10 @@ export default class Paginator extends React.Component {
   }
 
   onPerPageChange(perPage) {
-    if (this.validatePageSize(perPage)) this.props.onPerPageChange(this.parsePageSize(perPage))
+    if (Paginator.validatePageSize(perPage)) this.props.onPerPageChange(Paginator.parsePageSize(perPage))
   }
 
-  validatePageSize(perPage) {
+  static validatePageSize(perPage) {
     return Paginator.parsePageSize(perPage) > 0
   }
 
@@ -52,7 +52,7 @@ export default class Paginator extends React.Component {
     return (
       <div className="container-fluid">
         <div className="row">
-          <div className="col col-xs-8 vcenter">
+          <div className="col col-xs-8 vcenter" ref="pageInput">
             <Pagination
               items={pagination.totalPages}
               activePage={pagination.page}
@@ -63,7 +63,7 @@ export default class Paginator extends React.Component {
               }}
             />
           </div>
-          <div className="col col-xs-2 vcenter">
+          <div className="col col-xs-2 vcenter" ref="totalInput">
             <Input
               type="text"
               addonBefore="total"
@@ -72,16 +72,17 @@ export default class Paginator extends React.Component {
               bsSize={bsSize} disabled
             />
           </div>
-          <div className="col col-xs-2 vcenter">
+          <div className="col col-xs-2 vcenter" ref="perPageInput">
             <Input
+              id="perPageInput"
               type="text"
               ref="perPage"
               addonBefore="page size"
               value={this.state.perPage}
-              bsStyle={this.validatePageSize(this.state.perPage) ? 'success' : 'error'}
+              bsStyle={Paginator.validatePageSize(this.state.perPage) ? 'success' : 'error'}
               bsSize={bsSize}
               onChange={function(event) {
-                event.persist()
+                if (event.persist) event.persist()
                 const perPage = event.target.value
                 self.setState({ perPage })
                 self.onPerPageChange(perPage)
