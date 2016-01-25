@@ -22,7 +22,7 @@ export default class HeaderFilter extends React.Component {
       filterValue: this.props.filter ? this.props.filter.value : '',
       filterVisible: false
     }
-    this.onFilterChange = debounce(this.onFilterChange, this.props.debounce, this)
+    if (this.props.debounce > 0) this.onFilterChange = debounce(this.onFilterChange, this.props.debounce, this)
     this.toggleFilter = this.toggleFilter.bind(this)
   }
 
@@ -45,6 +45,7 @@ export default class HeaderFilter extends React.Component {
         />
         <div className={'columnFilter vcenter' + (this.state.filterVisible ? ' visible' : '')}>
           <Input
+            id="filterInput"
             type="text" value={this.state.filterValue} bsStyle="success"
             onChange={function(event) {
               const filterValue = event.target.value
