@@ -5,13 +5,12 @@ const autoprefixer = require('autoprefixer')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
 const IsomorphicToolsPlugin = require('webpack-isomorphic-tools/plugin')
 const isomorphicToolsConfig = require('./webpack-isomorphic-tools.config.js')
-import loadEnv from './src/shared/lib/loadEnv'
+const loadEnv = require('./loadEnv').default
 
 const isomorphicToolsPlugin = new IsomorphicToolsPlugin(isomorphicToolsConfig)
 const prefixLoaders = 'css-loader!postcss-loader'
 
-const env = loadEnv('.env.json')
-process.env = { ...process.env, ...env }
+loadEnv()
 
 module.exports = {
   entry: {
@@ -24,7 +23,7 @@ module.exports = {
     extensions: ['', '.js', '.jsx', '.scss', '.sass']
   },
   output: {
-    path: path.join(__dirname, 'dist'),
+    path: path.join(__dirname, '../../dist'),
     filename: 'bundle.js',
     chunkFilename: 'bundle-[hash].js',
     publicPath: '/'

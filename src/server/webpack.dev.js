@@ -4,17 +4,16 @@ import webpack from 'webpack';
 import assign from 'object-assign';
 import webpackDevMiddleware from 'webpack-dev-middleware';
 import webpackHotMiddleware from 'webpack-hot-middleware';
-import prodCfg from './webpack.prod.config.js';
-import IsomorphicToolsPlugin from 'webpack-isomorphic-tools/plugin';
+import prodCfg from './webpack.prod.js';
+import IsomorphicToolsPlugin from '../../node_modules/webpack-isomorphic-tools/plugin';
 import isomorphicToolsConfig from './webpack-isomorphic-tools.config.js';
-import loadEnv from './src/shared/lib/loadEnv'
+import loadEnv from './loadEnv'
 
 const isomorphicToolsPlugin = new IsomorphicToolsPlugin(isomorphicToolsConfig)
 
 Object.assign = assign;
 
-const env = loadEnv('.env.json')
-process.env = {...process.env, ...env}
+loadEnv()
 
 // add hot reload feature in dev mode (using babel-plugin-react-transform & react-transform-hmr),
 // rest of babel config taken from .babelrc

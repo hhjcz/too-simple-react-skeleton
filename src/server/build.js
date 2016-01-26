@@ -2,9 +2,8 @@
 require('babel-register')({})
 
 const webpack = require('webpack')
-const config = require('../../webpack.prod.config')
+const config = require('./webpack.prod.js')
 
 const compiler = webpack(config)
 
 compiler.run(() => {})
-

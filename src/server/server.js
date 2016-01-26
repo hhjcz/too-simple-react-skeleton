@@ -2,10 +2,9 @@
 import express from 'express'
 import path from 'path'
 import render from './render'
-import loadEnv from '../shared/lib/loadEnv'
+import loadEnv from './loadEnv'
 
-const env = loadEnv('.env.json')
-process.env = { ...process.env, ...env }
+loadEnv()
 
 const PORT = process.env.PORT || 3000
 
@@ -13,7 +12,7 @@ const app = express()
 
 // add dev middleware to express in dev mode
 if (process.env.NODE_ENV !== 'production') {
-  require('../../webpack.dev.js').default(app);
+  require('./webpack.dev.js').default(app);
 }
 
 app.use('/', express.static('dist', { maxAge: '200d' }));

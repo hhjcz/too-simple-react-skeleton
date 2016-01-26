@@ -19,7 +19,7 @@ export default function createStore(initialState = {}, history = null) {
   const serverBaseUrl = process.env.SERVER_BASE_URL || 'http://localhost:8089/api/'
   const fetch = createFetch(serverBaseUrl)
 
-  const middleware = [myMiddleware({ history, fetch })]  // inject history (in client only)
+  const middleware = [myMiddleware({ history, fetch })]  // inject dependencies for actions (history in client only)
   if (BROWSER_DEVELOPMENT) {
     middleware.push(createLogger({
       collapsed: true,
