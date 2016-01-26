@@ -15,26 +15,6 @@ describe('reducer', () => {
     sort: new Sort()
   })
 
-  it('sets initial state', () => {
-    const nextState = reducer(
-      undefined,
-      { type: actions.SET_LIST, seznamZarizeni: List.of(new Zarizeni({ id: 66 })) }
-    )
-    expect(nextState).to.equal(new InitialState({
-      pagination: new Pagination({ page: 1, perPage: 10, totalPages: 3 }),
-      seznamZarizeni: List.of(new Zarizeni({ id: 66 }))
-    }))
-  })
-
-  it('should handle SET_LIST', () => {
-    const seznamZarizeni = List.of(new Zarizeni({ id: 1 }), new Zarizeni({ id: 2 }))
-    const nextState = reducer(initialState, { type: actions.SET_LIST, seznamZarizeni })
-
-    expect(nextState.get('seznamZarizeni')).to.equal(
-      List.of(new Zarizeni({ id: 1 }), new Zarizeni({ id: 2 }))
-    )
-  })
-
   it('should handle FETCH_LIST_REQUEST', () => {
     expect(initialState.get('fetching')).to.equal(false)
 

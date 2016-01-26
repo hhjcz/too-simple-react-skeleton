@@ -51,9 +51,6 @@ export default function reducer(state = initialState, action) {
       return setList(state, [])
         .update('fetching', () => false)
 
-    case actions.SET_LIST:
-      return setList(state, action.seznamZarizeni)
-
     case actions.SET_PAGINATION:
       return state.update('pagination', () => action.pagination)
 
