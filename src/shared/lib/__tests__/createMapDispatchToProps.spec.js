@@ -6,7 +6,7 @@ describe('createMapDispatchToProps', () => {
 
   const firstAction = x => x
   const secondAction = y => y
-  const dispatch = z => 'dispatched ' + z
+  const dispatch = z => `dispatched ${z}`
 
   it('should map dispatch function to props', () => {
     const props = createMapDispatchToProps({ firstAction, secondAction })(dispatch)

@@ -20,7 +20,7 @@ app.use('/favicon.ico', express.static('src/server/favicon.ico', { maxAge: '200d
 
 app.use('/', render)
 
-app.listen(PORT, function() {   // eslint-disable-line func-names, space-before-function-paren
+app.listen(PORT, () => {
   console.log('Server listening on', PORT)
 })
 

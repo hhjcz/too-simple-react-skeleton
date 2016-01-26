@@ -25,7 +25,9 @@ export default class Paginator extends React.Component {
     this.state = {
       perPage: this.props.pagination.perPage
     }
-    if (this.props.debounce > 0) this.onPerPageChange = debounce(this.onPerPageChange, this.props.debounce, this)
+    if (this.props.debounce > 0) {
+      this.onPerPageChange = debounce(this.onPerPageChange, this.props.debounce, this)
+    }
   }
 
   componentWillReceiveProps(nextProps) {
@@ -35,7 +37,9 @@ export default class Paginator extends React.Component {
   }
 
   onPerPageChange(perPage) {
-    if (Paginator.validatePageSize(perPage)) this.props.onPerPageChange(Paginator.parsePageSize(perPage))
+    if (Paginator.validatePageSize(perPage)) {
+      this.props.onPerPageChange(Paginator.parsePageSize(perPage))
+    }
   }
 
   static validatePageSize(perPage) {
@@ -47,7 +51,7 @@ export default class Paginator extends React.Component {
   }
 
   render() {
-    const { pagination, onPageChange, bsSize, maxButtons, fetching } = this.props
+    const { pagination, onPageChange, bsSize, maxButtons } = this.props
     const self = this
     return (
       <div className="container-fluid">

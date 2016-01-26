@@ -32,7 +32,9 @@ describe('zarizeni-list HeaderFilter component', () => {
 
   it('should call input onChange handler', () => {
     tree.fillField('#filterInput', 'someFilterValue')
-    expect(spyOnChange).to.be.called.once.with(new Filter({ name: 'someColumn', value: 'someFilterValue' }))
+    expect(spyOnChange).to.be.called.once.with(new Filter({
+      name: 'someColumn', value: 'someFilterValue'
+    }))
   })
 
 })

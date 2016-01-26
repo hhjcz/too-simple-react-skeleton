@@ -7,18 +7,16 @@
  * @param envFile  JSON file with env config
  * @returns {{}}
  */
-export default function loadEnv(envFile) {
-  envFile || (envFile = 'env.json')
+export default function loadEnv(envFile = 'env.json') {
   let env = {}
   const fs = require('fs')
 
   const nodeEnv = process.env.NODE_ENV === 'production' ? 'production' : 'development'
 
-  try {
+  fs.exists(envFile, () => {
     const envJson = JSON.parse(fs.readFileSync(envFile, 'utf8'))[nodeEnv]
     env = { ...envJson, ...process.env }
-  } catch (e) {
-  }
+  })
 
   process.env = { ...process.env, ...env }
 

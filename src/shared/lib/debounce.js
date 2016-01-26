@@ -20,7 +20,7 @@ export default function debounce(fn, delay, __context) {
   const debounced = function(...args) {
     const context = _context || this
     clearTimeout(timeout)
-    return new Promise(function(resolve) {
+    return new Promise(resolve => {
       timeout = setTimeout(() => {
         resolve(fn.apply(context, args))
       }, delay)

@@ -71,15 +71,15 @@ module.exports = {
       },
       {
         test: /\.less$/,
-        loader: ExtractTextPlugin.extract('style-loader', prefixLoaders + '!less-loader')
+        loader: ExtractTextPlugin.extract('style-loader', `${prefixLoaders}!less-loader`)
       },
       {
         test: /\.scss$/,
-        loader: ExtractTextPlugin.extract('style-loader', prefixLoaders + '!sass-loader')
+        loader: ExtractTextPlugin.extract('style-loader', `${prefixLoaders}!sass-loader`)
       },
       {
         test: /\.styl$/,
-        loader: ExtractTextPlugin.extract('style-loader', prefixLoaders + '!stylus-loader')
+        loader: ExtractTextPlugin.extract('style-loader', `${prefixLoaders}!stylus-loader`)
       }
     ]
   },

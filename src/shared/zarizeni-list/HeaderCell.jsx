@@ -22,7 +22,7 @@ export default class HeaderCell extends React.Component {
         <div className="header">
           <div className="headerItem uFlexGrow-2" onClick={function() {onSortChange(column.name)}}>
             {column.caption}
-            <div className={'headerItem glyphicon ' + arrow} />
+            <div className={`headerItem glyphicon ${arrow}`} />
           </div>
           <HeaderFilter column={column} filter={filter} onFilterChange={onFilterChange} />
         </div>

@@ -22,7 +22,9 @@ export default class HeaderFilter extends React.Component {
       filterValue: this.props.filter ? this.props.filter.value : '',
       filterVisible: false
     }
-    if (this.props.debounce > 0) this.onFilterChange = debounce(this.onFilterChange, this.props.debounce, this)
+    if (this.props.debounce > 0) {
+      this.onFilterChange = debounce(this.onFilterChange, this.props.debounce, this)
+    }
     this.toggleFilter = this.toggleFilter.bind(this)
   }
 

@@ -62,7 +62,7 @@ describe('zarizeni-list Paginator component (testing using real DOM)', () => {
     console.log(this.component)
   })
 
-  //it('should render', () => {
-  //})
+  // it('should render', () => {
+  // })
 
 })

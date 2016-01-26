@@ -6,9 +6,6 @@ import { Column, columntValueTypes, columns } from '../column'
 
 describe('zarizeni-list Column', () => {
 
-  beforeEach(() => {
-  })
-
   it('should instantiate with default values', () => {
     const column = new Column()
     expect(column instanceof Record).to.equal(true)

@@ -85,10 +85,10 @@ function parseFilters(filters) {
 
     if (comparator === 'contains' && filter.value !== null) {
       suffix = '-lk';
-      value = '%' + filter.value + '%';
+      value = `%${filter.value}%`;
     } else if (comparator === 'begins' && filter.value !== null) {
       suffix = '-lk';
-      value = filter.value + '%';
+      value = `${filter.value}%`;
     } else if (comparator === 'empty' && filter.value === false) {
       suffix = '-not';
       value = '';

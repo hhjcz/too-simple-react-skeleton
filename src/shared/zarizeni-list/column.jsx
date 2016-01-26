@@ -30,7 +30,7 @@ export const columns = Map(
       valueType: columntValueTypes.number,
       visible: true,
       width: 1,
-      render: (zarizeni) => <Link to={'/zarizeni/' + zarizeni.id}>{zarizeni.id}</Link>
+      render: (zarizeni) => <Link to={`/zarizeni/${zarizeni.id}`}>{zarizeni.id}</Link>
     }),
     name: new Column({
       name: 'name',
@@ -38,7 +38,7 @@ export const columns = Map(
       valueType: columntValueTypes.string,
       visible: true,
       width: 3,
-      render: (zarizeni) => <Link to={'/zarizeni/' + zarizeni.id}>{zarizeni.name}</Link>,
+      render: (zarizeni) => <Link to={`/zarizeni/${zarizeni.id}`}>{zarizeni.name}</Link>,
     }),
     createdAt: new Column({
       name: 'createdAt',

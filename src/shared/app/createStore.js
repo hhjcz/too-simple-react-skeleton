@@ -1,5 +1,4 @@
 /** Created by hhj on 12/28/15. */
-import thunkMiddleware from 'redux-thunk'
 import { createStore as _createStore, applyMiddleware, compose } from 'redux'
 import createLogger from 'redux-logger'
 
@@ -19,7 +18,8 @@ export default function createStore(initialState = {}, history = null) {
   const serverBaseUrl = process.env.SERVER_BASE_URL || 'http://localhost:8089/api/'
   const fetch = createFetch(serverBaseUrl)
 
-  const middleware = [myMiddleware({ history, fetch })]  // inject dependencies for actions (history in client only)
+  // inject dependencies for actions (history in client only)
+  const middleware = [myMiddleware({ history, fetch })]
   if (BROWSER_DEVELOPMENT) {
     middleware.push(createLogger({
       collapsed: true,

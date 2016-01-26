@@ -64,15 +64,15 @@ export default function(app) {
         },
         {
           test: /\.scss$/,
-          loader: prefixLoaders + '!sass-loader'
+          loader: `${prefixLoaders}!sass-loader`
         },
         {
           test: /\.less$/,
-          loader: prefixLoaders + '!less-loader'
+          loader: `${prefixLoaders}!less-loader`
         },
         {
           test: /\.styl$/,
-          loader: prefixLoaders + '!stylus-loader'
+          loader: `${prefixLoaders}!stylus-loader`
         }
       ]
     },

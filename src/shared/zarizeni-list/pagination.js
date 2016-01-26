@@ -8,12 +8,12 @@ export const Pagination = Record({
   totalPages: 3,
 })
 
-export const setPage = (pagination, page) => {
-  return new Pagination({ ...pagination.toObject(), page })
-}
+export const setPage = (pagination, page) => new Pagination({
+  ...pagination.toObject(), page
+})
 
-export const setPageSize = (pagination, perPage) => {
-  return new Pagination({ ...pagination.toObject(), perPage })
-}
+export const setPageSize = (pagination, perPage) => new Pagination({
+  ...pagination.toObject(), perPage
+})
 
 export default Pagination

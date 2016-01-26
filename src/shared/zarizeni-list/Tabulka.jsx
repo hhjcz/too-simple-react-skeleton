@@ -26,21 +26,19 @@ export default class Tabulka extends React.Component {
         {/* header */}
         <div className="myTableRow">
           {
-            columns.toList().map(col => {
-              return (
-                <HeaderCell
-                  key={col.name} sort={sort} column={col} filter={filters.get(col.name)}
-                  onSortChange={onSortChange} onFilterChange={onFilterChange}
-                />
-              )
-            })
+            columns.toList().map(col =>
+              <HeaderCell
+                key={col.name} sort={sort} column={col} filter={filters.get(col.name)}
+                onSortChange={onSortChange} onFilterChange={onFilterChange}
+              />
+            )
           }
         </div>
         {/* rows */}
         {
-          seznamZarizeni.map(zarizeni => {
-            return <Radka key={zarizeni.id} zarizeni={zarizeni} columns={columns.toList()} />
-          })
+          seznamZarizeni.map(zarizeni =>
+            <Radka key={zarizeni.id} zarizeni={zarizeni} columns={columns.toList()} />
+          )
         }
         {fetching ? <div className="fetchIndicator glyphicon visible" /> : ''}
       </div>
