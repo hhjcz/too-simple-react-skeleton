@@ -1,5 +1,6 @@
 /** Created by hhj on 20.12.15. */
 import humps from 'humps'
+import { Map } from 'immutable'
 
 export const SET_PAGINATION = 'SET_PAGINATION'
 export const GOTO_PAGE = 'GOTO_PAGE'
@@ -14,27 +15,33 @@ export const FETCH_LIST_ERROR = 'FETCH_LIST_ERROR'
 
 const getSubState = (getState) => getState().zarizeniList
 
-function fetchRequested() {
-  return {
-    type: FETCH_LIST_REQUEST
-  }
-}
+const fetchRequested = () => ({ type: FETCH_LIST_REQUEST })
 
-function fetchSuccess({ response, queryParams }) {
-  const camelResponse = humps.camelizeKeys(response)
+const fetchSuccess = ({ response, queryParams }) => {
+  const normalizeResponse = response => {
+    const normalizedResponse = humps.camelizeKeys(response)
+    normalizedResponse.meta || (normalizedResponse.meta = {})
+    normalizedResponse.meta.pagination || (normalizedResponse.meta.pagination = {})
+    normalizedResponse.meta.sort || (normalizedResponse.meta.sort = '')
+
+    return normalizedResponse
+  }
+
+  const normResponse = normalizeResponse(response)
+
   return {
     type: FETCH_LIST_SUCCESS,
-    seznamZarizeni: camelResponse.data,
-    pagination: camelResponse.meta.pagination,
+    seznamZarizeni: normResponse.data,
+    pagination: normResponse.meta.pagination,
     sort: {
-      dir: camelResponse.meta.sort.indexOf('-') > -1,
-      by: humps.camelize(camelResponse.meta.sort)
+      dir: normResponse.meta.sort.indexOf('-') > -1,
+      by: humps.camelize(normResponse.meta.sort)
     },
     queryParams
   }
 }
 
-function fetchError({ error }) {
+const fetchError = ({ error }) => {
   return {
     type: FETCH_LIST_ERROR,
     error
@@ -77,7 +84,7 @@ const fetchFromApi = ({ queryParams, dispatch, fetch }) => {
     )
 }
 
-function parseFilters(filters) {
+const parseFilters = filters => {
 
   const apiFilters = filters.map((filter, filterName) => {
     let suffix = '', value = ''
@@ -115,9 +122,10 @@ function parseFilters(filters) {
 export function fetchList({ location } = {}) {
 
   const serializeQueryParams = getState => {
-    const { pagination: { page, perPage }, sort, filters } = getSubState(getState).toObject()
-    const _sort = sort.by ? '&_sort=' + (sort.dir ? '-' : '') + humps.decamelize(sort.by) : ''
-    const filtersString = parseFilters(filters)
+    const { pagination, sort, filters } = getSubState(getState).toObject()
+    const { page, perPage } = pagination ? pagination : {};
+    const _sort = sort ? (sort.by ? '&_sort=' + (sort.dir ? '-' : '') + humps.decamelize(sort.by) : '') : ''
+    const filtersString = parseFilters(filters || Map())
       .map(filter => `${filter.field}=${filter.value}`).toArray().join('&')
 
     return `?page=${page}&per_page=${perPage}${_sort}&${filtersString}`
