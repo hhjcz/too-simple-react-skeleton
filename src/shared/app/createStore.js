@@ -3,6 +3,7 @@ import thunkMiddleware from 'redux-thunk'
 import { createStore as _createStore, applyMiddleware, compose } from 'redux'
 import createLogger from 'redux-logger'
 
+import createFetch from '../lib/createFetch'
 import myMiddleware from '../lib/myMiddleware'
 import reducer from './reducer'
 
@@ -15,7 +16,10 @@ const BROWSER_DEVELOPMENT = process.env.NODE_ENV !== 'production' && process.env
  * @returns {*}
  */
 export default function createStore(initialState = {}, history = null) {
-  const middleware = [myMiddleware({ history })]  // inject history (in client only)
+  const serverBaseUrl = process.env.SERVER_BASE_URL || 'http://localhost:8089/api/'
+  const fetch = createFetch(serverBaseUrl)
+
+  const middleware = [myMiddleware({ history, fetch })]  // inject history (in client only)
   if (BROWSER_DEVELOPMENT) {
     middleware.push(createLogger({
       collapsed: true,

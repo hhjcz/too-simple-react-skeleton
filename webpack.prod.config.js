@@ -5,9 +5,13 @@ const autoprefixer = require('autoprefixer')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
 const IsomorphicToolsPlugin = require('webpack-isomorphic-tools/plugin')
 const isomorphicToolsConfig = require('./webpack-isomorphic-tools.config.js')
+import loadEnv from './src/shared/lib/loadEnv'
 
 const isomorphicToolsPlugin = new IsomorphicToolsPlugin(isomorphicToolsConfig)
 const prefixLoaders = 'css-loader!postcss-loader'
+
+const env = loadEnv('.env.json')
+process.env = { ...process.env, ...env }
 
 module.exports = {
   entry: {
@@ -29,7 +33,8 @@ module.exports = {
     new webpack.DefinePlugin({
       'process.env': {
         NODE_ENV: JSON.stringify('production'),
-        IS_BROWSER: true
+        IS_BROWSER: true,
+        SERVER_BASE_URL: JSON.stringify(process.env.SERVER_BASE_URL),
       }
     }),
     new ExtractTextPlugin('main.css'),

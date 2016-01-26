@@ -1,5 +1,4 @@
 /** Created by hhj on 20.12.15. */
-import fetch from 'isomorphic-fetch'
 import humps from 'humps'
 
 export const SET_PAGINATION = 'SET_PAGINATION'
@@ -48,11 +47,11 @@ function fetchError({ error }) {
  * @param dispatch
  * @returns {axios.Promise}
  */
-const fetchFromApi = ({ queryParams, dispatch }) => {
+const fetchFromApi = ({ queryParams, dispatch, fetch }) => {
 
   dispatch(fetchRequested())
 
-  return fetch(`http://netvision-test:8089/api/zarizeni${queryParams}`)
+  return fetch(`/zarizeni${queryParams}`)
     .then(
       response => {
         if (!response.ok) {
@@ -130,7 +129,7 @@ export function fetchList({ location } = {}) {
     history.push({ pathname: window.location.pathname, search })
   }
 
-  return (dispatch, getState, history) => {
+  return ({ dispatch, getState, history, fetch }) => {
     // on server, get (initial) query from url (via location), on client from state
     const queryParams = location ? location.search : serializeQueryParams(getState)
     const previousQueryParams = getSubState(getState).queryParams
@@ -138,7 +137,7 @@ export function fetchList({ location } = {}) {
 
     if (history) projectStateToUrl(history, queryParams)
 
-    return fetchFromApi({ queryParams, dispatch, getState })
+    return fetchFromApi({ queryParams, dispatch, fetch })
   }
 }
 
@@ -147,7 +146,7 @@ export function fetchList({ location } = {}) {
  * @returns {Function}
  */
 export function gotoPage(page) {
-  return dispatch => {
+  return ({ dispatch }) => {
 
     dispatch({
       type: GOTO_PAGE,
@@ -163,7 +162,7 @@ export function gotoPage(page) {
  * @returns {Function}
  */
 export function setPageSize(perPage) {
-  return dispatch => {
+  return ({ dispatch }) => {
 
     dispatch({
       type: SET_PAGE_SIZE,
@@ -175,7 +174,7 @@ export function setPageSize(perPage) {
 }
 
 export function sortChange(sortField) {
-  return dispatch => {
+  return ({ dispatch }) => {
 
     dispatch({
       type: SORT_CHANGE,
@@ -187,7 +186,7 @@ export function sortChange(sortField) {
 }
 
 export function filterChange(filter) {
-  return dispatch => {
+  return ({ dispatch }) => {
     dispatch({
       type: FILTER_CHANGE,
       filter

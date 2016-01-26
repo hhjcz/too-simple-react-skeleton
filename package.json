@@ -8,7 +8,7 @@
     "postinstall": "npm run build && npm run test",
     "start": "NODE_ENV=production PORT=8080 NODE_PATH=$NODE_PATH:./src/shared node --harmony ./src/server/index.js",
     "prestart": "npm run build",
-    "build": "NODE_ENV=production webpack --progress --color -p --config webpack.prod.config.js",
+    "build": "NODE_ENV=production NODE_PATH=$NODE_PATH:./src/shared node --harmony ./src/server/build.js",
     "dev": "NODE_PATH=$NODE_PATH:./src/shared node --harmony ./src/server/index.js",
     "test": "mocha --compilers js:babel-register --require ./test_helper.js --recursive --watch-extensions jsx 'src/**/*.spec.js'",
     "test:watch": "npm run test -- --watch",

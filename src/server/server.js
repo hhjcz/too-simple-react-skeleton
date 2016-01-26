@@ -2,6 +2,10 @@
 import express from 'express'
 import path from 'path'
 import render from './render'
+import loadEnv from '../shared/lib/loadEnv'
+
+const env = loadEnv('.env.json')
+process.env = { ...process.env, ...env }
 
 const PORT = process.env.PORT || 3000
 
