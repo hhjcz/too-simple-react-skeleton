@@ -38,14 +38,26 @@ export default function reducer(state = initialState, action) {
         .update('fetching', () => true)
 
     case actions.FETCH_LIST_SUCCESS:
-      return setList(state, action.seznamZarizeni)
-        .update('fetching', () => false)
-        .update('queryParams', () => action.queryParams)
-        .update('pagination', () => new Pagination({
-          ...action.pagination,
-          page: action.pagination.currentPage
-        }))
-        .update('sort', () => new Sort(action.sort))
+      return setList(state, action.data)
+        .set('fetching', false)
+        .set('queryParams', action.meta.queryParams)
+        .update('pagination', pagination => {
+          if (action.meta.pagination) {
+            return new Pagination({
+              ...pagination,
+              ...action.meta.pagination,
+            })
+          } else {
+            return pagination
+          }
+        })
+        .update('sort', sort => {
+          if (action.meta.sort) {
+            return new Sort(action.meta.sort)
+          } else {
+            return sort
+          }
+        })
 
     case actions.FETCH_LIST_ERROR:
       return setList(state, [])

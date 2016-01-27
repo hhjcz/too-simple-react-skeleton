@@ -7,7 +7,7 @@ import { Sort } from '../sort'
 import * as actions from './../actions'
 import reducer, { InitialState } from './../reducer'
 
-describe('reducer', () => {
+describe('zarizeni-list reducer', () => {
 
   const initialState = new InitialState({
     pagination: new Pagination({ page: 1, perPage: 666, total: 6666, totalPages: 3 }),
@@ -30,7 +30,7 @@ describe('reducer', () => {
 
     const nextState = reducer(
       state,
-      { type: actions.FETCH_LIST_SUCCESS, seznamZarizeni: [], pagination: [] }
+      { type: actions.FETCH_LIST_SUCCESS, data: [], meta: {} }
     )
 
     expect(nextState.get('fetching')).to.equal(false)
