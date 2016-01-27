@@ -1,7 +1,6 @@
 /** Created by hhj on 20.12.15. */
 import humps from 'humps'
 import { Map } from 'immutable'
-import { Sort } from './sort'
 
 export const SET_PAGINATION = 'SET_PAGINATION'
 export const GOTO_PAGE = 'GOTO_PAGE'
@@ -64,7 +63,7 @@ const fetchFromApi = ({ queryParams, dispatch, fetch }) => {
 
   dispatch(fetchRequested())
 
-  fetch(`/zarizeni${queryParams}`)
+  return fetch(`/zarizeni${queryParams}`)
     .then(
       response => {
         if (!response.ok) {
@@ -120,6 +119,7 @@ const parseFilters = filters => {
 }
 
 /**
+ * @param location
  * @returns {Function}
  */
 export function fetchList({ location } = {}) {
@@ -166,7 +166,7 @@ export function fetchList({ location } = {}) {
 
     if (history) projectStateToUrl(history, queryParams)
 
-    fetchFromApi({ queryParams, dispatch, fetch })
+    return fetchFromApi({ queryParams, dispatch, fetch })
   }
 }
 
