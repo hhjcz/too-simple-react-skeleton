@@ -8,6 +8,7 @@ describe('zarizeni-list actions', () => {
 
   describe('fetchList', () => {
 
+    let state
     const nullResponse = {}
     const zarizeniList = {}
     zarizeniList.toObject = () => zarizeniList
@@ -30,16 +31,16 @@ describe('zarizeni-list actions', () => {
         expect(action.data).not.to.be.undefined
       }
       const initialState = reducer(getState())
-      const newState = reducer(initialState, action)
+      state = reducer(initialState, action)
 
-      return newState
+      return action
     }
 
     it('should handle null response', () => {
-      const ret = dispatch(actions.fetchList())
-      expect(ret).to.be.instanceOf(Record)
-      expect(ret.seznamZarizeni).to.be.instanceOf(List)
-      expect(ret.fetching).to.be.false
+      dispatch(actions.gotoPage(5))
+      expect(state).to.be.instanceOf(Record)
+      expect(state.seznamZarizeni).to.be.instanceOf(List)
+      expect(state.fetching).to.be.false
     })
 
   })

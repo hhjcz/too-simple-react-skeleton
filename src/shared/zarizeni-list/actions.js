@@ -64,7 +64,7 @@ const fetchFromApi = ({ queryParams, dispatch, fetch }) => {
 
   dispatch(fetchRequested())
 
-  return fetch(`/zarizeni${queryParams}`)
+  fetch(`/zarizeni${queryParams}`)
     .then(
       response => {
         if (!response.ok) {
@@ -166,7 +166,7 @@ export function fetchList({ location } = {}) {
 
     if (history) projectStateToUrl(history, queryParams)
 
-    return fetchFromApi({ queryParams, dispatch, fetch })
+    fetchFromApi({ queryParams, dispatch, fetch })
   }
 }
 
