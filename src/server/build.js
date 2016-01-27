@@ -6,6 +6,8 @@ const config = require('./webpack.prod.js')
 
 const compiler = webpack(config)
 
+console.info('Building webpack bundle...')
+
 compiler.run((err, stats) => {
   if (!stats.hasErrors()) {
     console.log(stats.toString({ colors: true, chunks: false, modules: false, children: false }))
