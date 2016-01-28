@@ -4,7 +4,8 @@
  * Loads and merges environment config to process.env from JSON file (defaults to env.json)
  * If variable already defined in process.env, it will not be overwritten
  *
- * @param envFile  JSON file with env config
+ * @param envFile JSON file with env config
+ * @param envJson Directly pass environment variables (for testing purposes mainly)
  * @returns {{}}
  */
 export default function loadEnv(envFile = 'env.json', envJson = null) {
