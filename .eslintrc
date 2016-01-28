@@ -26,13 +26,15 @@
     "no-console": 0,
 //    "no-alert": 0,
     "semi": 0,
+    "no-extra-semi": 1,
     "new-cap": 0,
     "space-before-function-paren": 0,
     "one-var": 0,
     "radix": 0,
 //    "object-curly-spacing": [1, "always"],
 //    "object-shorthand": 1,
-    "no-unused-vars": 1
+    "no-unused-vars": 1,
+    "max-len": [1, 100, 4, {"ignoreComments": true}]
   },
   "settings": {
     "import/parser": "babel-eslint",

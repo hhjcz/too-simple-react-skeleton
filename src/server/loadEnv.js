@@ -5,21 +5,21 @@
  * If variable already defined in process.env, it will not be overwritten
  *
  * @param envFile JSON file with env config
- * @param envJson Directly pass environment variables (for testing purposes mainly)
+ * @param envDirect Directly pass environment variables (for testing purposes mainly)
  * @returns {{}}
  */
-export default function loadEnv(envFile = 'env.json', envJson = null) {
-  let env = {}
+export default function loadEnv(envFile = 'env.json', envDirect = null) {
+  const env = {}
   const fs = require('fs')
 
   const nodeEnv = process.env.NODE_ENV === 'production' ? 'production' : 'development'
 
-  if (!envJson && fs.existsSync(envFile)) {
-    envJson = JSON.parse(fs.readFileSync(envFile, 'utf8'))[nodeEnv]
+  if (!envDirect && fs.existsSync(envFile)) {
+    envDirect = JSON.parse(fs.readFileSync(envFile, 'utf8'))[nodeEnv]
   }
 
-  Object.keys(envJson || {}).forEach((key) => {
-    env[key] = process.env[key] || envJson[key]
+  Object.keys(envDirect || {}).forEach((key) => {
+    env[key] = process.env[key] || envDirect[key]
   })
 
   process.env = { ...process.env, ...env }
