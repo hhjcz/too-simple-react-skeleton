@@ -18,6 +18,7 @@ export const InitialState = Record({
 const initialState = new InitialState
 
 // Note how JSON from server is revived to immutable record.
+/* eslint-disable arrow-body-style */
 const revive = ({ fetching, queryParams, seznamZarizeni, pagination, sort, filters }) => {
   return initialState.merge({
     fetching,
@@ -28,6 +29,7 @@ const revive = ({ fetching, queryParams, seznamZarizeni, pagination, sort, filte
     filters: Map(filters)
   });
 }
+/* eslint-enable arrow-body-style */
 
 export default function reducer(state = initialState, action) {
   if (!(state instanceof InitialState)) return revive(state)
@@ -41,27 +43,21 @@ export default function reducer(state = initialState, action) {
       return setList(state, action.data)
         .set('fetching', false)
         .set('queryParams', action.meta.queryParams)
-        .update('pagination', pagination => {
-          if (action.meta.pagination) {
-            return new Pagination({
-              ...pagination,
-              ...action.meta.pagination,
-            })
-          } else {
-            return pagination
-          }
-        })
-        .update('sort', sort => {
-          if (action.meta.sort) {
-            return new Sort(action.meta.sort)
-          } else {
-            return sort
-          }
-        })
+        .update('pagination', pagination =>
+          action.meta.pagination
+            ? new Pagination({ ...pagination, ...action.meta.pagination, })
+            : pagination
+        )
+        .update('sort', sort =>
+          action.meta.sort
+            ? new Sort(action.meta.sort)
+            : sort
+        )
 
     case actions.FETCH_LIST_ERROR:
       return setList(state, [])
-        .update('fetching', () => false)
+        .set('fetching', false)
+        .set('queryParams', '')
 
     case actions.SET_PAGINATION:
       return state.update('pagination', () => action.pagination)
