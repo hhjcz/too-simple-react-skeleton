@@ -110,7 +110,7 @@ export function fetchFromApi({ uri, queryParams, dispatch, fetch, fetchCallbacks
   function reportError(errorMessage) {
     const msg = `Ajaaj, chybka api: ${errorMessage}`
     dispatch(fetchError(msg))
-    throw new Error(msg)
+    // throw new Error(msg)
   }
 
 }
