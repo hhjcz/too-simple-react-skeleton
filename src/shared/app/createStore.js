@@ -2,7 +2,7 @@
 import { createStore as _createStore, applyMiddleware, compose } from 'redux'
 import createLogger from 'redux-logger'
 
-import createFetch from '../lib/fetch/createFetch'
+import createFetch from '../lib/rest/createFetch'
 import myMiddleware from '../lib/myMiddleware'
 import reducer from './reducer'
 

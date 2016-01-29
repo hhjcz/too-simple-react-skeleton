@@ -2,10 +2,10 @@
 import { List, Record, Map } from 'immutable'
 
 import * as actions from './actions'
-import { setList } from './core'
 import { Pagination, setPage, setPageSize } from './pagination'
 import { Sort } from './sort'
 import { Zarizeni } from '../zarizeni/core'
+import rest from '../app/rest'
 
 export const InitialState = Record({
   fetching: false,
@@ -34,30 +34,9 @@ const revive = ({ fetching, queryParams, seznamZarizeni, pagination, sort, filte
 export default function reducer(state = initialState, action) {
   if (!(state instanceof InitialState)) return revive(state)
 
+  state = rest.reducer.zarizeniList(state, action)
+
   switch (action.type) {
-    case actions.FETCH_LIST_REQUEST:
-      return state
-        .update('fetching', () => true)
-
-    case actions.FETCH_LIST_SUCCESS:
-      return setList(state, action.data)
-        .set('fetching', false)
-        .set('queryParams', action.meta.queryParams)
-        .update('pagination', pagination =>
-          action.meta.pagination
-            ? new Pagination({ ...pagination, ...action.meta.pagination, })
-            : pagination
-        )
-        .update('sort', sort =>
-          action.meta.sort
-            ? new Sort(action.meta.sort)
-            : sort
-        )
-
-    case actions.FETCH_LIST_ERROR:
-      return setList(state, [])
-        .set('fetching', false)
-        .set('queryParams', '')
 
     case actions.SET_PAGINATION:
       return state.update('pagination', () => action.pagination)

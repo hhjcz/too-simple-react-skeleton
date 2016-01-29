@@ -1,11 +1,10 @@
 /** Created by hhj on 20.12.15. */
 import { expect } from 'chai'
 import { List } from 'immutable'
-import { Zarizeni } from '../../zarizeni/core'
 import { Pagination } from '../pagination'
 import { Sort } from '../sort'
-import * as actions from './../actions'
-import reducer, { InitialState } from './../reducer'
+import * as actions from '../actions'
+import reducer, { InitialState } from '../reducer'
 
 describe('zarizeni-list reducer', () => {
 
@@ -15,27 +14,27 @@ describe('zarizeni-list reducer', () => {
     sort: new Sort()
   })
 
-  it('should handle FETCH_LIST_REQUEST', () => {
-    expect(initialState.get('fetching')).to.equal(false)
-
-    const nextState = reducer(initialState, { type: actions.FETCH_LIST_REQUEST })
-
-    expect(nextState.get('fetching')).to.equal(true)
-    expect(initialState.get('fetching')).to.equal(false)
-  })
-
-  it('should handle FETCH_LIST_SUCCESS', () => {
-    const state = reducer(initialState, { type: actions.FETCH_LIST_REQUEST })
-    expect(state.get('fetching')).to.equal(true)
-
-    const nextState = reducer(
-      state,
-      { type: actions.FETCH_LIST_SUCCESS, data: [], meta: {} }
-    )
-
-    expect(nextState.get('fetching')).to.equal(false)
-    expect(state.get('fetching')).to.equal(true)
-  })
+  //it('should handle fetch REQUEST', () => {
+  //  expect(initialState.get('fetching')).to.equal(false)
+  //
+  //  const nextState = reducer(initialState, { type: actions.FETCH_LIST_REQUEST })
+  //
+  //  expect(nextState.get('fetching')).to.equal(true)
+  //  expect(initialState.get('fetching')).to.equal(false)
+  //})
+  //
+  //it('should handle fetch SUCCESS', () => {
+  //  const state = reducer(initialState, { type: actions.FETCH_LIST_REQUEST })
+  //  expect(state.get('fetching')).to.equal(true)
+  //
+  //  const nextState = reducer(
+  //    state,
+  //    { type: actions.FETCH_LIST_SUCCESS, data: [], meta: {} }
+  //  )
+  //
+  //  expect(nextState.get('fetching')).to.equal(false)
+  //  expect(state.get('fetching')).to.equal(true)
+  //})
 
   it('should handle SET_PAGINATION', () => {
     const pagination = new Pagination({ page: 6, perPage: 66, total: 6666, totalPages: 666 })

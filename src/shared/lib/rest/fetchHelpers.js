@@ -84,11 +84,11 @@ export function serializeQueryParams(state) {
 /**
  * @returns {axios.Promise}
  */
-export function fetchFromApi({ uri, queryParams, dispatch, fetch, fetchCallbacks: { fetchRequested, fetchSuccess, fetchError } }) {
+export function fetchFromApi({ url, queryParams, dispatch, fetch, fetchCallbacks: { fetchRequested, fetchSuccess, fetchError } }) {
 
   dispatch(fetchRequested())
 
-  return fetch(`${uri}${queryParams}`)
+  return fetch(`${url}${queryParams}`)
     .then(
       response => {
         if (!response.ok) {

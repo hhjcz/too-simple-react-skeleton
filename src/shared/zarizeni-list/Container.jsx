@@ -4,8 +4,8 @@ import { connect } from 'react-redux'
 
 import createMapStateToProps from '../lib/createMapStateToProps'
 import createMapDispatchToProps from '../lib/createMapDispatchToProps'
-import createFetchWrapper from '../lib/fetch/createFetchWrapper'
-import * as listActions from './actions'
+import createFetchWrapper from '../lib/rest/createFetchWrapper'
+import * as actions from './actions'
 import Tabulka from './Tabulka'
 import Paginator from './Paginator'
 
@@ -27,7 +27,7 @@ export class Container extends React.Component {
   }
 
   // server and client side fetch actions (see render.jsx & componentDidMount):
-  static fetchActions = [listActions.fetchList];
+  static fetchActions = [actions.fetchAction];
 
   render() {
     const { fetching, seznamZarizeni, pagination, sort, filters, dispatch } = this.props
@@ -36,13 +36,13 @@ export class Container extends React.Component {
         <h4>Seznam zařízení</h4>
         <Tabulka
           seznamZarizeni={seznamZarizeni} sort={sort} fetching={fetching} filters={filters}
-          onSortChange={function(sortField) {dispatch(listActions.sortChange(sortField))}}
-          onFilterChange={function(filter) {dispatch(listActions.filterChange(filter))}}
+          onSortChange={function(sortField) {dispatch(actions.sortChange(sortField))}}
+          onFilterChange={function(filter) {dispatch(actions.filterChange(filter))}}
         />
         <Paginator
           pagination={pagination}
-          onPageChange={function(page) {dispatch(listActions.gotoPage(page))}}
-          onPerPageChange={function(perPage) {dispatch(listActions.setPageSize(perPage))}}
+          onPageChange={function(page) {dispatch(actions.gotoPage(page))}}
+          onPerPageChange={function(perPage) {dispatch(actions.setPageSize(perPage))}}
         />
       </div>
     )
@@ -50,9 +50,9 @@ export class Container extends React.Component {
 }
 
 // TODO - not used for now, does not work
-const WrappedContainer = createFetchWrapper(listActions.fetchList)(Container)
+const WrappedContainer = createFetchWrapper(actions.fetchAction)(Container)
 
 export default connect(
   createMapStateToProps(state => state.zarizeniList),
-  createMapDispatchToProps(listActions)
+  createMapDispatchToProps(actions)
 )(Container)
