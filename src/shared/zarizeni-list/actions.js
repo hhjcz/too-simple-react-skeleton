@@ -1,5 +1,5 @@
 /** Created by hhj on 20.12.15. */
-import { serializeQueryParams, fetchFromApi } from '../lib/fetchHelpers'
+import { serializeQueryParams, fetchFromApi } from '../lib/fetch/fetchHelpers'
 
 export const SET_PAGINATION = 'SET_PAGINATION'
 export const GOTO_PAGE = 'GOTO_PAGE'

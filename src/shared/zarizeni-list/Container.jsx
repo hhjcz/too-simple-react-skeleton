@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 
 import createMapStateToProps from '../lib/createMapStateToProps'
 import createMapDispatchToProps from '../lib/createMapDispatchToProps'
-import createFetchWrapper from '../lib/createFetchWrapper'
+import createFetchWrapper from '../lib/fetch/createFetchWrapper'
 import * as listActions from './actions'
 import Tabulka from './Tabulka'
 import Paginator from './Paginator'
