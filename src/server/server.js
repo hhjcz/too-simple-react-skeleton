@@ -2,9 +2,6 @@
 import express from 'express'
 import compression from 'compression'
 import render from './render'
-import loadEnv from './loadEnv'
-
-loadEnv()
 
 const PORT = process.env.PORT || 3000
 
