@@ -5,7 +5,7 @@ export const actionPrefix = '@@my-rest'
 
 export const getActionBasename = endpointName => `${actionPrefix}/${humps.decamelize(endpointName).toUpperCase()}`
 
-export const getFetchActions = endpointName => {
+export const generateFetchActions = endpointName => {
   const actionBaseName = getActionBasename(endpointName)
   return {
     fetchRequested: () => ({

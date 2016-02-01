@@ -81,43 +81,9 @@ export function serializeQueryParams(state) {
   return `${pageString}${perPageString}${sortString}${filtersString}`
 }
 
-/**
- * @returns {axios.Promise}
- */
-export function fetchFromApi({ url, queryParams, dispatch, fetch, fetchCallbacks: { fetchRequested, fetchSuccess, fetchError } }) {
-
-  dispatch(fetchRequested())
-
-  return fetch(`${url}${queryParams}`)
-    .then(
-      response => {
-        if (!response.ok) {
-          reportError(`${response.status} ${response.statusText}`)
-        }
-        return response.json()  // parse json to object
-      },
-      error => {
-        reportError(error)
-      })
-    .then(
-      response => {
-        const normalizedResponse = normalizeResponse(response)
-        normalizedResponse.meta.queryParams = queryParams
-        return dispatch(fetchSuccess(normalizedResponse))
-      }
-    )
-
-  function reportError(errorMessage) {
-    const msg = `Ajaaj, chybka api: ${errorMessage}`
-    dispatch(fetchError(msg))
-    // throw new Error(msg)
-  }
-
-}
 
 export default {
   normalizeResponse,
   parseFilters,
   serializeQueryParams,
-  fetchFromApi,
 }

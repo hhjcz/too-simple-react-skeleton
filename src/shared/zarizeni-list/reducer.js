@@ -34,7 +34,7 @@ const revive = ({ fetching, queryParams, seznamZarizeni, pagination, sort, filte
 export default function reducer(state = initialState, action) {
   if (!(state instanceof InitialState)) return revive(state)
 
-  state = rest.reducer.zarizeniList(state, action)
+  state = rest.reducers.zarizeniList(state, action)
 
   switch (action.type) {
 

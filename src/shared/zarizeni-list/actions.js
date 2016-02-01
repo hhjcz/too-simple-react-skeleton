@@ -8,6 +8,7 @@ export const SORT_CHANGE = 'SORT_CHANGE'
 export const FILTER_CHANGE = 'FILTER_CHANGE'
 
 export const fetchAction = rest.actions.zarizeniList
+export const restObject = rest
 
 /**
  * @param {number} page

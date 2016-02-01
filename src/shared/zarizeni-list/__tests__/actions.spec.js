@@ -14,7 +14,7 @@ describe('zarizeni-list actions', () => {
     zarizeniList.toObject = () => zarizeniList
 
     const fetch = url => ({
-      //console.log('Dispatching: ', action)
+      // console.log('Dispatching: ', action)
       then: successCb => successCb({
         ok: true,
         json: () => ({
@@ -27,7 +27,7 @@ describe('zarizeni-list actions', () => {
 
     const dispatch = action => {
       if (typeof action === 'function') return action({ dispatch, getState, fetch })
-      if (action.type === actions.FETCH_LIST_SUCCESS) {
+      if (action.type === '@@my-rest/ZARIZENI_LIST_SUCCESS') {
         expect(action.data).not.to.be.undefined
       }
       const initialState = reducer(getState())
@@ -35,6 +35,8 @@ describe('zarizeni-list actions', () => {
 
       return action
     }
+
+    actions.restObject.use('fetch', fetch)
 
     it('should handle null response', () => {
       dispatch(actions.gotoPage(5))
