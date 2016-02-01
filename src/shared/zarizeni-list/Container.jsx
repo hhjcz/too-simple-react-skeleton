@@ -13,7 +13,7 @@ export class Container extends React.Component {
 
   static propTypes = {
     fetching: PropTypes.bool,
-    seznamZarizeni: PropTypes.object,
+    items: PropTypes.object,
     pagination: PropTypes.object.isRequired,
     sort: PropTypes.object.isRequired,
     filters: PropTypes.object.isRequired,
@@ -30,7 +30,7 @@ export class Container extends React.Component {
   static fetchActions = [actions.fetchAction];
 
   render() {
-    const { fetching, seznamZarizeni, pagination, sort, filters, dispatch } = this.props
+    const { fetching, items: seznamZarizeni, pagination, sort, filters, dispatch } = this.props
     return (
       <div id="zarizeni-list">
         <h4>Seznam zařízení</h4>

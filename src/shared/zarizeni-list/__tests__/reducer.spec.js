@@ -4,11 +4,11 @@ import { List } from 'immutable'
 import { Pagination } from '../pagination'
 import { Sort } from '../sort'
 import * as actions from '../actions'
-import reducer, { InitialState } from '../reducer'
+import reducer from '../reducer'
 
 describe('zarizeni-list reducer', () => {
 
-  const initialState = new InitialState({
+  const initialState = reducer({
     pagination: new Pagination({ page: 1, perPage: 666, total: 6666, totalPages: 3 }),
     seznamZarizeni: List.of(),
     sort: new Sort()
@@ -44,11 +44,11 @@ describe('zarizeni-list reducer', () => {
 
   it('should handle GOTO_PAGE', () => {
     const nextState = reducer(initialState, { type: actions.GOTO_PAGE, page: 3 })
-    expect(nextState).to.equal(new InitialState({
+    expect(nextState).to.equal(reducer({
       pagination: new Pagination({ page: 3, perPage: 666, total: 6666, totalPages: 3 }),
       seznamZarizeni: initialState.get('seznamZarizeni')
     }))
-    expect(initialState).to.equal(new InitialState({
+    expect(initialState).to.equal(reducer({
       pagination: new Pagination({ page: 1, perPage: 666, total: 6666, totalPages: 3 }),
       seznamZarizeni: List.of()
     }))
@@ -60,7 +60,7 @@ describe('zarizeni-list reducer', () => {
     expect(nextState.sort.dir).to.equal(false)
 
     // assert immutability
-    expect(initialState).to.equal(new InitialState({
+    expect(initialState).to.equal(reducer({
       pagination: new Pagination({ page: 1, perPage: 666, total: 6666, totalPages: 3 }),
       seznamZarizeni: List.of(),
       sort: new Sort()

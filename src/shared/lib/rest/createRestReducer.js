@@ -2,12 +2,38 @@
 import { getActionBasename } from './utils'
 import { Pagination } from '../../zarizeni-list/pagination'
 import { Sort } from '../../zarizeni-list/sort'
-import { setList } from '../../zarizeni-list/core'
+import { List, Record, Map } from 'immutable'
 
 export default function createRestReducer(endpointName, config) {
   const actionBasename = getActionBasename(endpointName)
+  const itemTransformer = config.itemTransformer || (item => item)
+
+  const InitialState = Record({
+    fetching: false,
+    queryParams: null,
+    items: List(),
+    pagination: new Pagination(),
+    sort: new Sort(),
+    filters: Map()
+  })
+  const initialState = new InitialState
+
+  // Note how JSON from server is revived to immutable record.
+  /* eslint-disable arrow-body-style */
+  const revive = ({ fetching, queryParams, items, pagination, sort, filters }) => {
+    return initialState.merge({
+      fetching,
+      queryParams,
+      items: List(items).map(itemTransformer),
+      pagination: new Pagination(pagination),
+      sort: new Sort(sort),
+      filters: Map(filters)
+    });
+  }
+  /* eslint-enable arrow-body-style */
 
   return function reducer(state, action) {
+    if (!(state instanceof InitialState)) return revive(state)
 
     switch (action.type) {
       case `${actionBasename}_REQUEST`:
@@ -15,7 +41,7 @@ export default function createRestReducer(endpointName, config) {
           .update('fetching', () => true)
 
       case `${actionBasename}_SUCCESS`:
-        return setList(state, action.data)
+        return state.set('items', List(action.data).map(itemTransformer))
           .set('fetching', false)
           .set('queryParams', action.meta.queryParams)
           .update('pagination', pagination =>
@@ -30,7 +56,7 @@ export default function createRestReducer(endpointName, config) {
           )
 
       case `${actionBasename}_ERROR`:
-        return setList(state, [])
+        return state.set('items', List([]))
           .set('fetching', false)
           .set('queryParams', '')
 

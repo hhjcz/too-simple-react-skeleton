@@ -2,7 +2,7 @@
 import createRestReducer from './createRestReducer'
 import createRestAction from './createRestAction'
 
-export default function createMyRest(config = {}, fetch = null) {
+export default function createMyRest(config = {}, fetch = () => ({})) {
   const myRest = { actions: {}, reducers: {} }
   const fetchHolder = { fetch }
 

@@ -4,7 +4,11 @@ import { generateFetchActions } from './utils'
 
 export default function createRestAction(endpointName, config, fetchHolder) {
   const url = config.url || '/'
-  const getSubState = getState => getState()[endpointName]
+  const getSubState = getState => {
+    let state = getState()[endpointName]
+    if (state.toObject) state = state.toObject()
+    return state
+  }
   const { fetchRequested, fetchSuccess, fetchError } = generateFetchActions(endpointName)
 
   /**
@@ -51,7 +55,7 @@ export default function createRestAction(endpointName, config, fetchHolder) {
     // on server, get (initial) query from url (via location), on client from state
     const queryParams = location
       ? location.search
-      : serializeQueryParams(getSubState(getState).toObject())
+      : serializeQueryParams(getSubState(getState))
     const previousQueryParams = getSubState(getState).queryParams
     if (previousQueryParams === queryParams) return null // no need to refetch
 

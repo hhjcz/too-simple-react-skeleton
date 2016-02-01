@@ -1,7 +1,8 @@
 /** Created by hhj on 1/26/16. */
 import { expect } from 'chai'
 import { Record, List } from 'immutable'
-import * as actions from '../actions'
+import actions from '../actions'
+import rest from '../../app/rest'
 import reducer from '../reducer'
 
 describe('zarizeni-list actions', () => {
@@ -36,12 +37,12 @@ describe('zarizeni-list actions', () => {
       return action
     }
 
-    actions.restObject.use('fetch', fetch)
+    rest.use('fetch', fetch)
 
     it('should handle null response', () => {
       dispatch(actions.gotoPage(5))
       expect(state).to.be.instanceOf(Record)
-      expect(state.seznamZarizeni).to.be.instanceOf(List)
+      expect(state.items).to.be.instanceOf(List)
       expect(state.fetching).to.be.false
     })
 
