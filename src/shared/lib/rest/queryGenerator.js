@@ -1,5 +1,5 @@
 /** Created by hhj on 1/28/16. */
-import humps from 'humps'
+import { snakeCase } from 'lodash'
 
 function parseFilters(filters) {
 
@@ -25,7 +25,7 @@ function parseFilters(filters) {
     } else return null
 
     return {
-      field: filterName + suffix,
+      field: snakeCase(filterName) + suffix,
       value: encodeURIComponent(value)
     }
   })
@@ -49,7 +49,7 @@ function collection(state) {
 
   let sortString = ''
   if (sort && sort.by) {
-    sortString = `&_sort=${sort.dir ? '-' : ''}${humps.decamelize(sort.by)}`
+    sortString = `&_sort=${sort.dir ? '-' : ''}${snakeCase(sort.by)}`
   }
 
   let filtersString = ''

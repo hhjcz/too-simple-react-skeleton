@@ -1,7 +1,7 @@
 /** Created by hhj on 1/29/16. */
 import queryGenerator from './queryGenerator'
 import responseTransformer from './responseTransformer'
-import { generateFetchActions, getSubState } from './utils'
+import { getSubState } from './utils'
 
 const defaultConfig = () => {
   return {
@@ -11,9 +11,8 @@ const defaultConfig = () => {
   }
 }
 
-export default function createRestAction(endpointName, _config, fetchHolder) {
+export default function createRestAction(endpointName, _config, actionCreators, fetchHolder) {
   const config = { ...defaultConfig(), ..._config }
-  const { fetchRequested, fetchSuccess, fetchError } = generateFetchActions(endpointName)
   const getThisSubState = getSubState(endpointName)
 
   /**
@@ -22,13 +21,13 @@ export default function createRestAction(endpointName, _config, fetchHolder) {
   const fetchFromApi = ({ queryParams, dispatch, responseTransformer }) => {
 
     function reportError(errorMessage) {
-      const msg = `Ajaaj, chybka api: ${errorMessage}`
-      dispatch(fetchError(msg))
-      console.log(msg)
-      throw new Error(msg)
+      const error = `Ajaaj, chybka api: ${errorMessage}`
+      dispatch(actionCreators.fetchAllError({ error }))
+      console.log(error)
+      throw new Error(error)
     }
 
-    dispatch(fetchRequested())
+    dispatch(actionCreators.fetchAllRequested())
 
     return fetchHolder.fetch(`${config.url}${queryParams}`)
       .then(
@@ -45,13 +44,13 @@ export default function createRestAction(endpointName, _config, fetchHolder) {
         response => {
           const normalizedResponse = responseTransformer(response)
           normalizedResponse.meta.queryParams = queryParams
-          return dispatch(fetchSuccess(normalizedResponse))
+          return dispatch(actionCreators.fetchAllSuccess(normalizedResponse))
         }
       )
   }
 
-  // projects state variables to url,
-  // so that on page reload it can be used on server for initial state
+// projects state variables to url,
+// so that on page reload it can be used on server for initial state
   const projectStateToUrl = (history, search) => {
     history.push({ pathname: window.location.pathname, search })
   }

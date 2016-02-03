@@ -13,8 +13,7 @@ const InitialState = Record({
   filters: Map()
 })
 
-export default function createRestReducer(endpointName, config) {
-  const actionBasename = getActionBasename(endpointName)
+export default function createRestReducer(endpointName, config = {}, actionTypes = {}) {
   const itemTransformer = config.itemTransformer || (item => item)
 
   const initialState = new InitialState
@@ -37,11 +36,11 @@ export default function createRestReducer(endpointName, config) {
     if (!(state instanceof InitialState)) return revive(state)
 
     switch (action.type) {
-      case `${actionBasename}_REQUEST`:
+      case actionTypes.fetchAllRequested:
         return state
           .update('fetching', () => true)
 
-      case `${actionBasename}_SUCCESS`:
+      case actionTypes.fetchAllSuccess:
         return state.set('items', List(action.data).map(itemTransformer))
           .set('fetching', false)
           .set('queryParams', action.meta.queryParams)
@@ -56,7 +55,7 @@ export default function createRestReducer(endpointName, config) {
               : sort
           )
 
-      case `${actionBasename}_ERROR`:
+      case actionTypes.fetchAllError:
         return state.set('items', List([]))
           .set('fetching', false)
           .set('queryParams', '')

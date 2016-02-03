@@ -1,8 +1,8 @@
 /** Created by hhj on 2/2/16. */
-import humps from 'humps'
+import { camelize, camelizeKeys } from 'humps'
 
 function collection(response) {
-  const camelized = humps.camelizeKeys(response)
+  const camelized = camelizeKeys(response)
   const normalizedResponse = {
     data: camelized.data || [],
     meta: camelized.meta || {}
@@ -10,7 +10,7 @@ function collection(response) {
   if (normalizedResponse.meta.sort) {
     normalizedResponse.meta.sort = {
       dir: normalizedResponse.meta.sort.indexOf('-') > -1,
-      by: humps.camelize(normalizedResponse.meta.sort || '')
+      by: camelize(normalizedResponse.meta.sort || '')
     }
   }
   if (normalizedResponse.meta.pagination) {
@@ -24,7 +24,7 @@ function collection(response) {
 }
 
 function item(response) {
-  const camelized = humps.camelizeKeys(response)
+  const camelized = camelizeKeys(response)
   const normalizedResponse = {
     item: camelized,
     meta: camelized.meta || {}
