@@ -1,27 +1,7 @@
 /** Created by hhj on 1/28/16. */
 import humps from 'humps'
 
-export function normalizeResponse(response) {
-  const normalizedResponse = humps.camelizeKeys(response)
-  normalizedResponse.data || (normalizedResponse.data = [])
-  normalizedResponse.meta || (normalizedResponse.meta = {})
-  if (normalizedResponse.meta.sort) {
-    normalizedResponse.meta.sort = {
-      dir: normalizedResponse.meta.sort.indexOf('-') > -1,
-      by: humps.camelize(normalizedResponse.meta.sort || '')
-    }
-  }
-  if (normalizedResponse.meta.pagination) {
-    normalizedResponse.meta.pagination = {
-      ...normalizedResponse.meta.pagination,
-      page: normalizedResponse.meta.pagination.currentPage,
-    }
-  }
-
-  return normalizedResponse
-}
-
-export function parseFilters(filters) {
+function parseFilters(filters) {
 
   const apiFilters = filters.map((filter, filterName) => {
     let suffix = '', value = ''
@@ -53,7 +33,7 @@ export function parseFilters(filters) {
   return apiFilters;
 }
 
-export function serializeQueryParams(state) {
+function collection(state) {
   const { pagination, sort, filters } = state
   const { page, perPage } = pagination ? pagination : {};
 
@@ -81,9 +61,13 @@ export function serializeQueryParams(state) {
   return `${pageString}${perPageString}${sortString}${filtersString}`
 }
 
-
-export default {
-  normalizeResponse,
-  parseFilters,
-  serializeQueryParams,
+function item(state) {
+  return ''
 }
+
+const queryGenerator = {
+  collection,
+  item,
+}
+
+export default queryGenerator

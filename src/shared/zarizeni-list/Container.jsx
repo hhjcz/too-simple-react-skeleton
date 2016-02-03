@@ -27,7 +27,7 @@ export class Container extends React.Component {
   }
 
   // server and client side fetch actions (see render.jsx & componentDidMount):
-  static fetchActions = [actions.fetchAction];
+  static fetchActions = [actions.getAll];
 
   render() {
     const { fetching, items: seznamZarizeni, pagination, sort, filters, dispatch } = this.props
@@ -50,9 +50,9 @@ export class Container extends React.Component {
 }
 
 // TODO - not used for now, does not work
-const WrappedContainer = createFetchWrapper(actions.fetchAction)(Container)
+const WrappedContainer = createFetchWrapper(actions.getAll)(Container)
 
 export default connect(
-  createMapStateToProps(state => state.zarizeniList),
+  createMapStateToProps(state => state.zarizeni),
   createMapDispatchToProps(actions)
 )(Container)

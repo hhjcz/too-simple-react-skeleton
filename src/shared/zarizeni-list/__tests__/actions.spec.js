@@ -11,8 +11,8 @@ describe('zarizeni-list actions', () => {
 
     let state
     const nullResponse = {}
-    const zarizeniList = {}
-    zarizeniList.toObject = () => zarizeniList
+    const zarizeni = {}
+    zarizeni.toObject = () => zarizeni
 
     const fetch = url => ({
       // console.log('Dispatching: ', action)
@@ -24,11 +24,11 @@ describe('zarizeni-list actions', () => {
       })
     })
 
-    const getState = () => ({ zarizeniList })
+    const getState = () => ({ zarizeni })
 
     const dispatch = action => {
       if (typeof action === 'function') return action({ dispatch, getState, fetch })
-      if (action.type === '@@my-rest/ZARIZENI_LIST_SUCCESS') {
+      if (action.type === '@@my-rest/ZARIZENI_SUCCESS') {
         expect(action.data).not.to.be.undefined
       }
       const initialState = reducer(getState())

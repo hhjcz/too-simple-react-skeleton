@@ -6,7 +6,7 @@ import { Zarizeni } from '../zarizeni/core'
 const serverBaseUrl = process.env.SERVER_BASE_URL || 'http://localhost:8089/api'
 
 const rest = myRest({
-  zarizeniList: {
+  zarizeni: {
     url: '/zarizeni',
     itemTransformer: item => new Zarizeni(item)
   }

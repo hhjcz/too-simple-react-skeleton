@@ -7,11 +7,13 @@ export const SET_PAGE_SIZE = 'SET_PAGE_SIZE'
 export const SORT_CHANGE = 'SORT_CHANGE'
 export const FILTER_CHANGE = 'FILTER_CHANGE'
 
-const fetchAction = restActions.zarizeniList
+const { getAll, getOne } = restActions.zarizeni
 
 module.exports = {
   ...module.exports,
-  fetchAction: restActions.zarizeniList,
+  ...restActions.zarizeni,
+  getAll,
+  getOne,
 }
 
 /**
@@ -26,7 +28,7 @@ export function gotoPage(page) {
       page
     })
 
-    dispatch(fetchAction())
+    dispatch(getAll())
   }
 }
 
@@ -42,7 +44,7 @@ export function setPageSize(perPage) {
       perPage
     })
 
-    dispatch(fetchAction())
+    dispatch(getAll())
   }
 }
 
@@ -58,7 +60,7 @@ export function sortChange(sortField) {
       sortField
     })
 
-    dispatch(fetchAction())
+    dispatch(getAll())
   }
 }
 
@@ -72,7 +74,6 @@ export function filterChange(filter) {
       type: FILTER_CHANGE,
       filter
     })
-    dispatch(fetchAction())
+    dispatch(getAll())
   }
 }
-

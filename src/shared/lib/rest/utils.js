@@ -21,3 +21,9 @@ export const generateFetchActions = endpointName => {
     })
   }
 }
+
+export const getSubState = endpointName => getState => {
+  let state = getState()[endpointName]
+  if (state.toObject) state = state.toObject()
+  return state
+}

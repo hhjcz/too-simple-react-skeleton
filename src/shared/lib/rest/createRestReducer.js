@@ -4,18 +4,19 @@ import { Pagination } from '../../zarizeni-list/pagination'
 import { Sort } from '../../zarizeni-list/sort'
 import { List, Record, Map } from 'immutable'
 
+const InitialState = Record({
+  fetching: false,
+  queryParams: null,
+  items: List(),
+  pagination: new Pagination(),
+  sort: new Sort(),
+  filters: Map()
+})
+
 export default function createRestReducer(endpointName, config) {
   const actionBasename = getActionBasename(endpointName)
   const itemTransformer = config.itemTransformer || (item => item)
 
-  const InitialState = Record({
-    fetching: false,
-    queryParams: null,
-    items: List(),
-    pagination: new Pagination(),
-    sort: new Sort(),
-    filters: Map()
-  })
   const initialState = new InitialState
 
   // Note how JSON from server is revived to immutable record.
@@ -41,7 +42,7 @@ export default function createRestReducer(endpointName, config) {
           .update('fetching', () => true)
 
       case `${actionBasename}_SUCCESS`:
-        return state.set('items', List(action.data).map(itemTransformer))
+        return state.set('items', List(action.items).map(item => itemTransformer(action.entities[endpointName][item])))
           .set('fetching', false)
           .set('queryParams', action.meta.queryParams)
           .update('pagination', pagination =>

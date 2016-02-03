@@ -8,7 +8,7 @@ import rest from '../app/rest'
 
 export default function reducer(state = {}, action) {
 
-  state = rest.reducers.zarizeniList(state, action)
+  state = rest.reducers.zarizeni(state, action)
   if (!action) return state
 
   switch (action.type) {

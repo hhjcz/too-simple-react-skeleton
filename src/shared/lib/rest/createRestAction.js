@@ -1,20 +1,25 @@
 /** Created by hhj on 1/29/16. */
-import { serializeQueryParams, normalizeResponse } from './fetchHelpers'
-import { generateFetchActions } from './utils'
+import queryGenerator from './queryGenerator'
+import responseTransformer from './responseTransformer'
+import { generateFetchActions, getSubState } from './utils'
 
-export default function createRestAction(endpointName, config, fetchHolder) {
-  const url = config.url || '/'
-  const getSubState = getState => {
-    let state = getState()[endpointName]
-    if (state.toObject) state = state.toObject()
-    return state
+const defaultConfig = () => {
+  return {
+    url: '/',
+    responseTransformer,
+    queryGenerator,
   }
+}
+
+export default function createRestAction(endpointName, _config, fetchHolder) {
+  const config = { ...defaultConfig(), ..._config }
   const { fetchRequested, fetchSuccess, fetchError } = generateFetchActions(endpointName)
+  const getThisSubState = getSubState(endpointName)
 
   /**
    * @returns {axios.Promise}
    */
-  const fetchFromApi = ({ queryParams, dispatch }) => {
+  const fetchFromApi = ({ queryParams, dispatch, responseTransformer }) => {
 
     function reportError(errorMessage) {
       const msg = `Ajaaj, chybka api: ${errorMessage}`
@@ -25,7 +30,7 @@ export default function createRestAction(endpointName, config, fetchHolder) {
 
     dispatch(fetchRequested())
 
-    return fetchHolder.fetch(`${url}${queryParams}`)
+    return fetchHolder.fetch(`${config.url}${queryParams}`)
       .then(
         response => {
           if (!response.ok) {
@@ -38,7 +43,7 @@ export default function createRestAction(endpointName, config, fetchHolder) {
         })
       .then(
         response => {
-          const normalizedResponse = normalizeResponse(response)
+          const normalizedResponse = responseTransformer(response)
           normalizedResponse.meta.queryParams = queryParams
           return dispatch(fetchSuccess(normalizedResponse))
         }
@@ -51,18 +56,23 @@ export default function createRestAction(endpointName, config, fetchHolder) {
     history.push({ pathname: window.location.pathname, search })
   }
 
-  const fetchActionCreator = ({ location } = {}) => ({ dispatch, getState, history }) => {
+  const createAction = resourceType => ({ location } = {}) => ({ dispatch, getState, history }) => {
     // on server, get (initial) query from url (via location), on client from state
-    const queryParams = location
-      ? location.search
-      : serializeQueryParams(getSubState(getState))
-    const previousQueryParams = getSubState(getState).queryParams
+    const queryParams = location ? location.search : config.queryGenerator[resourceType](getThisSubState(getState))
+    const previousQueryParams = getThisSubState(getState).queryParams
     if (previousQueryParams === queryParams) return null // no need to refetch
 
     if (history) projectStateToUrl(history, queryParams)
 
-    return fetchFromApi({ queryParams, dispatch })
+    return fetchFromApi({ queryParams, dispatch, responseTransformer: config.responseTransformer[resourceType] })
   }
 
-  return fetchActionCreator
+  const getAll = createAction('collection')
+
+  const getOne = createAction('item')
+
+  return {
+    getAll,
+    getOne,
+  }
 }
