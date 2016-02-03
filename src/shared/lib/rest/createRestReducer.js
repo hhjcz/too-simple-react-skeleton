@@ -42,7 +42,7 @@ export default function createRestReducer(endpointName, config) {
           .update('fetching', () => true)
 
       case `${actionBasename}_SUCCESS`:
-        return state.set('items', List(action.items).map(item => itemTransformer(action.entities[endpointName][item])))
+        return state.set('items', List(action.data).map(itemTransformer))
           .set('fetching', false)
           .set('queryParams', action.meta.queryParams)
           .update('pagination', pagination =>

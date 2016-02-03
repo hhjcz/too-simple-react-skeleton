@@ -1,32 +1,10 @@
 /** Created by hhj on 2/2/16. */
 import humps from 'humps'
-import { normalize, Schema, arrayOf } from 'normalizr'
-
-const zarizeni = new Schema('zarizeni')
-const netvisionZarizeni = new Schema('netvisionZarizeni')
-const orionZarizeni = new Schema('orionZarizeni')
-const umisteni = new Schema('umisteni')
-const lokalita = new Schema('lokality')
-
-zarizeni.define({
-  netvisionZarizeni,
-  orionZarizeni,
-  umisteni,
-})
-
-umisteni.define({
-  lokalita,
-})
 
 function collection(response) {
   const camelized = humps.camelizeKeys(response)
-  const nresponse = normalize(camelized, {
-    data: arrayOf(zarizeni)
-  })
-  console.log('Normalized response: ', nresponse)
   const normalizedResponse = {
-    items: nresponse.result.data || [],
-    entities: nresponse.entities || [],
+    data: camelized.data || [],
     meta: camelized.meta || {}
   }
   if (normalizedResponse.meta.sort) {
