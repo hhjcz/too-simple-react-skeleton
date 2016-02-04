@@ -6,7 +6,7 @@ import { List, Record, Map } from 'immutable'
 
 const InitialState = Record({
   fetching: false,
-  queryParams: null,
+  lastFetchMark: null,
   items: List(),
   item: {},
   pagination: new Pagination(),
@@ -21,10 +21,10 @@ export default function createRestReducer(endpointName, config = {}, actionTypes
 
   // Note how JSON from server is revived to immutable record.
   /* eslint-disable arrow-body-style */
-  const revive = ({ fetching, queryParams, items, item, pagination, sort, filters }) => {
+  const revive = ({ fetching, lastFetchMark, items, item, pagination, sort, filters }) => {
     return initialState.merge({
       fetching,
-      queryParams,
+      lastFetchMark,
       items: List(items).map(itemTransformer),
       item: itemTransformer(item),
       pagination: new Pagination(pagination),
@@ -46,7 +46,7 @@ export default function createRestReducer(endpointName, config = {}, actionTypes
       case actionTypes.fetchAllSuccess:
         return state.set('items', List(action.data).map(itemTransformer))
           .set('fetching', false)
-          .set('queryParams', action.meta.queryParams)
+          .set('lastFetchMark', action.meta.lastFetchMark)
           .update('pagination', pagination =>
             action.meta.pagination
               ? new Pagination({ ...pagination, ...action.meta.pagination, })
@@ -61,11 +61,12 @@ export default function createRestReducer(endpointName, config = {}, actionTypes
       case actionTypes.fetchAllError:
         return state.set('items', List([]))
           .set('fetching', false)
-          .set('queryParams', '')
+          .set('lastFetchMark', '')
 
       case actionTypes.fetchOneSuccess:
         return state.set('item', itemTransformer(action.data))
           .set('fetching', false)
+          .set('lastFetchMark', action.meta.lastFetchMark)
 
       case actionTypes.fetchOneError:
         return state.set('item', {})

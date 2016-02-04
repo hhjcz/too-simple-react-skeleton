@@ -1,15 +1,13 @@
 /** Created by hhj on 1/29/16. */
-import queryGenerator from './queryGenerator'
-import responseTransformer from './responseTransformer'
+import queryGenerators from './queryGenerators'
+import responseTransformers from './responseTransformers'
 import { getSubState } from './utils'
 
-const defaultConfig = () => {
-  return {
-    url: '/',
-    responseTransformer,
-    queryGenerator,
-  }
-}
+const defaultConfig = () => ({
+  url: '/',
+  responseTransformers,
+  queryGenerators,
+})
 
 export default function createRestAction(endpointName, _config, actionCreators, fetchHolder) {
   const config = { ...defaultConfig(), ..._config }
@@ -18,18 +16,18 @@ export default function createRestAction(endpointName, _config, actionCreators, 
   /**
    * @returns {axios.Promise}
    */
-  const fetchFromApi = ({ queryParams, dispatch, responseTransformer, actionCreators }) => {
+  const fetchFromApi = ({ url, dispatch, responseTransformer, subActionCreators }) => {
 
     function reportError(errorMessage) {
       const error = `Ajaaj, chybka api: ${errorMessage}`
-      dispatch(actionCreators.error({ error }))
+      dispatch(subActionCreators.error({ error }))
       console.log(error)
       throw new Error(error)
     }
 
-    dispatch(actionCreators.requested())
+    dispatch(subActionCreators.requested())
 
-    return fetchHolder.fetch(`${config.url}${queryParams}`)
+    return fetchHolder.fetch(url)
       .then(
         response => {
           if (!response.ok) {
@@ -43,15 +41,15 @@ export default function createRestAction(endpointName, _config, actionCreators, 
       .then(
         response => {
           const normalizedResponse = responseTransformer(response)
-          normalizedResponse.meta.queryParams = queryParams
-          return dispatch(actionCreators.success(normalizedResponse))
+          normalizedResponse.meta.lastFetchMark = url
+          return dispatch(subActionCreators.success(normalizedResponse))
         }
       )
   }
 
-// projects state variables to url,
+// projects state variables to window location (via history),
 // so that on page reload it can be used on server for initial state
-  const projectStateToUrl = (history, search) => {
+  const projectStateToLocation = (history, search) => {
     history.push({ pathname: window.location.pathname, search })
   }
 
@@ -61,28 +59,28 @@ export default function createRestAction(endpointName, _config, actionCreators, 
       success: actionCreators[`${actionName}Success`],
       error: actionCreators[`${actionName}Error`],
     }
+    const queryGenerator = config.queryGenerators[actionName]
+    const responseTransformer = config.responseTransformers[actionName]
 
+    /* eslint-disable arrow-body-style */
     return ({ location, params } = {}) => {
       return ({ dispatch, getState, history }) => {
-        // on server, get (initial) query from url (via location), on client from state
-        const queryParams = params ? `/${params.id}` : (location ? location.search : config.queryGenerator[actionName](getThisSubState(getState)))
-        const previousQueryParams = getThisSubState(getState).queryParams
-        if (previousQueryParams === queryParams) return null // no need to refetch
+        // on server, get (initial) query from url (via location),
+        // on client first project to window location, then get from window.location
+        if (history) projectStateToLocation(history, queryGenerator(getThisSubState(getState)))
+        const _location = location || (global.window ? global.window.location : {})
+        const url = _location.pathname + _location.search
+        // const paramString = params && params.id ? `/${params.id}` : ''
+        // const url = `${config.url}${paramString}${queryString}`
 
-        if (history && !params) projectStateToUrl(history, queryParams)
+        if (getThisSubState(getState).lastFetchMark === url) return null // no need to refetch
 
-        return fetchFromApi({
-          queryParams,
-          dispatch,
-          responseTransformer: config.responseTransformer[actionName],
-          actionCreators: subActionCreators
-        })
+        return fetchFromApi({ url, dispatch, responseTransformer, subActionCreators })
       }
     }
   }
 
   const fetchAll = createAction('fetchAll')
-
   const fetchOne = createAction('fetchOne')
 
   return {

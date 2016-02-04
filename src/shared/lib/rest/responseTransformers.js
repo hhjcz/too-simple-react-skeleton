@@ -33,9 +33,9 @@ function item(response) {
   return normalizedResponse
 }
 
-const responseTransformer = {
+const responseTransformers = {
   fetchAll: collection,
   fetchOne: item,
 }
 
-export default responseTransformer
+export default responseTransformers
