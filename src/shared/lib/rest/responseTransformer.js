@@ -26,7 +26,7 @@ function collection(response) {
 function item(response) {
   const camelized = camelizeKeys(response)
   const normalizedResponse = {
-    item: camelized,
+    data: camelized,
     meta: camelized.meta || {}
   }
 

@@ -27,7 +27,7 @@ export class Container extends React.Component {
   }
 
   // server and client side fetch actions (see render.jsx & componentDidMount):
-  static fetchActions = [actions.getAll];
+  static fetchActions = [actions.fetchAll];
 
   render() {
     const { fetching, items: seznamZarizeni, pagination, sort, filters, dispatch } = this.props

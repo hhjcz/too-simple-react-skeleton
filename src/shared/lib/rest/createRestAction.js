@@ -66,12 +66,12 @@ export default function createRestAction(endpointName, _config, actionCreators, 
     return fetchFromApi({ queryParams, dispatch, responseTransformer: config.responseTransformer[resourceType] })
   }
 
-  const getAll = createAction('collection')
+  const fetchAll = createAction('collection')
 
-  const getOne = createAction('item')
+  const fetchOne = createAction('item')
 
   return {
-    getAll,
-    getOne,
+    fetchAll,
+    fetchOne,
   }
 }
