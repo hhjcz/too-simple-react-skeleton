@@ -3,6 +3,7 @@ import express from 'express'
 import compression from 'compression'
 import render from './render'
 
+// for example heroku.com sets env.PORT
 const PORT = process.env.PORT || 3000
 
 const app = express()
