@@ -13,22 +13,24 @@ export class Container extends React.Component {
     fetching: PropTypes.bool,
     item: PropTypes.object,
     dispatch: PropTypes.func.isRequired,
+    location: PropTypes.object,
     params: PropTypes.object,
   };
 
   // browser fetching:
   componentDidMount() {
-    const { dispatch, params } = this.props
-    Container.fetchActions.forEach((action) => dispatch(action({ location: { search: `/${params.id}` } })))
+    const { dispatch, location, params } = this.props
+    Container.fetchActions.forEach((action) => dispatch(action({ location, params })))
   }
 
   // server and client side fetch actions (see render.jsx & componentDidMount):
-  static fetchActions = [actions.getOne];
+  static fetchActions = [actions.fetchOne];
 
   render() {
-    const { fetching, item, dispatch } = this.props
+    const { item } = this.props
     return (
       <div id="zarizeni">
+        <Zarizeni zarizeni={item} />
       </div>
     )
   }

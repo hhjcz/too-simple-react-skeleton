@@ -8,6 +8,7 @@ const InitialState = Record({
   fetching: false,
   queryParams: null,
   items: List(),
+  item: {},
   pagination: new Pagination(),
   sort: new Sort(),
   filters: Map()
@@ -20,11 +21,12 @@ export default function createRestReducer(endpointName, config = {}, actionTypes
 
   // Note how JSON from server is revived to immutable record.
   /* eslint-disable arrow-body-style */
-  const revive = ({ fetching, queryParams, items, pagination, sort, filters }) => {
+  const revive = ({ fetching, queryParams, items, item, pagination, sort, filters }) => {
     return initialState.merge({
       fetching,
       queryParams,
       items: List(items).map(itemTransformer),
+      item: itemTransformer(item),
       pagination: new Pagination(pagination),
       sort: new Sort(sort),
       filters: Map(filters)
@@ -37,6 +39,7 @@ export default function createRestReducer(endpointName, config = {}, actionTypes
 
     switch (action.type) {
       case actionTypes.fetchAllRequested:
+      case actionTypes.fetchOneRequested:
         return state
           .update('fetching', () => true)
 
@@ -59,6 +62,16 @@ export default function createRestReducer(endpointName, config = {}, actionTypes
         return state.set('items', List([]))
           .set('fetching', false)
           .set('queryParams', '')
+
+      case actionTypes.fetchOneSuccess:
+        return state.set('item', itemTransformer(action.data))
+          .set('fetching', false)
+
+      case actionTypes.fetchOneError:
+        return state.set('item', {})
+          .set('fetching', false)
+          .set('queryParams', '')
+
 
       default:
         return state

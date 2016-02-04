@@ -18,16 +18,16 @@ export default function createRestAction(endpointName, _config, actionCreators, 
   /**
    * @returns {axios.Promise}
    */
-  const fetchFromApi = ({ queryParams, dispatch, responseTransformer }) => {
+  const fetchFromApi = ({ queryParams, dispatch, responseTransformer, actionCreators }) => {
 
     function reportError(errorMessage) {
       const error = `Ajaaj, chybka api: ${errorMessage}`
-      dispatch(actionCreators.fetchAllError({ error }))
+      dispatch(actionCreators.error({ error }))
       console.log(error)
       throw new Error(error)
     }
 
-    dispatch(actionCreators.fetchAllRequested())
+    dispatch(actionCreators.requested())
 
     return fetchHolder.fetch(`${config.url}${queryParams}`)
       .then(
@@ -44,7 +44,7 @@ export default function createRestAction(endpointName, _config, actionCreators, 
         response => {
           const normalizedResponse = responseTransformer(response)
           normalizedResponse.meta.queryParams = queryParams
-          return dispatch(actionCreators.fetchAllSuccess(normalizedResponse))
+          return dispatch(actionCreators.success(normalizedResponse))
         }
       )
   }
@@ -55,20 +55,35 @@ export default function createRestAction(endpointName, _config, actionCreators, 
     history.push({ pathname: window.location.pathname, search })
   }
 
-  const createAction = resourceType => ({ location } = {}) => ({ dispatch, getState, history }) => {
-    // on server, get (initial) query from url (via location), on client from state
-    const queryParams = location ? location.search : config.queryGenerator[resourceType](getThisSubState(getState))
-    const previousQueryParams = getThisSubState(getState).queryParams
-    if (previousQueryParams === queryParams) return null // no need to refetch
+  const createAction = actionName => {
+    const subActionCreators = {
+      requested: actionCreators[`${actionName}Requested`],
+      success: actionCreators[`${actionName}Success`],
+      error: actionCreators[`${actionName}Error`],
+    }
 
-    if (history) projectStateToUrl(history, queryParams)
+    return ({ location, params } = {}) => {
+      return ({ dispatch, getState, history }) => {
+        // on server, get (initial) query from url (via location), on client from state
+        const queryParams = params ? `/${params.id}` : (location ? location.search : config.queryGenerator[actionName](getThisSubState(getState)))
+        const previousQueryParams = getThisSubState(getState).queryParams
+        if (previousQueryParams === queryParams) return null // no need to refetch
 
-    return fetchFromApi({ queryParams, dispatch, responseTransformer: config.responseTransformer[resourceType] })
+        if (history && !params) projectStateToUrl(history, queryParams)
+
+        return fetchFromApi({
+          queryParams,
+          dispatch,
+          responseTransformer: config.responseTransformer[actionName],
+          actionCreators: subActionCreators
+        })
+      }
+    }
   }
 
-  const fetchAll = createAction('collection')
+  const fetchAll = createAction('fetchAll')
 
-  const fetchOne = createAction('item')
+  const fetchOne = createAction('fetchOne')
 
   return {
     fetchAll,

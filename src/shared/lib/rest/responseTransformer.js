@@ -34,8 +34,8 @@ function item(response) {
 }
 
 const responseTransformer = {
-  collection,
-  item
+  fetchAll: collection,
+  fetchOne: item,
 }
 
 export default responseTransformer

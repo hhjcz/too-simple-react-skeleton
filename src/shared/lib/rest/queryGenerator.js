@@ -66,8 +66,8 @@ function item(state) {
 }
 
 const queryGenerator = {
-  collection,
-  item,
+  fetchAll: collection,
+  fetchOne: item,
 }
 
 export default queryGenerator

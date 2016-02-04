@@ -10,7 +10,8 @@ export default class Zarizeni extends React.Component {
   render() {
     return (
       <div>
-        zarizeni id: {this.props.zarizeni.id}
+        <div>zarizeni id: {this.props.zarizeni.id}</div>
+        <div>zarizeni name: {this.props.zarizeni.name}</div>
       </div>
     )
   }
