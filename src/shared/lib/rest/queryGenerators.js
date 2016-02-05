@@ -35,7 +35,7 @@ function parseFilters(filters) {
 
 function collection(state) {
   const { pagination, sort, filters } = state
-  const { page, perPage } = pagination ? pagination : {};
+  const { page, perPage } = pagination || {};
 
   let pageString = ''
   if (page > 0) {
