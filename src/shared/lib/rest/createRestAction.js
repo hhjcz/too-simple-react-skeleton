@@ -75,7 +75,7 @@ export default function createRestAction(endpointName, _config, actionCreators, 
 
         if (getThisSubState(getState).lastFetchMark === url) return null // no need to refetch
 
-        return fetchFromApi({ url, dispatch, responseTransformer, subActionCreators })
+        return fetchFromApi({ url, responseTransformer, subActionCreators, dispatch })
       }
     }
   }
