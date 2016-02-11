@@ -30,7 +30,7 @@ export class Container extends React.Component {
   }
 
   static fetchZarizeni({ location }) {
-    rest.actions.zarizeni.fetchOne({
+    return rest.actions.zarizeni.fetchOne({
       params: { id: queryString.parse(location.search).zarizeni_id },
       projectToLocation: false
     })
