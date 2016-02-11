@@ -40,10 +40,11 @@ describe('zarizeni-list actions', () => {
     rest.use('fetch', fetch)
 
     it('should handle null response', () => {
-      dispatch(actions.gotoPage(5))
-      expect(state).to.be.instanceOf(Record)
-      expect(state.items).to.be.instanceOf(List)
-      expect(state.fetching).to.be.false
+      return dispatch(actions.fetchAll()).then(response => {
+        expect(state).to.be.instanceOf(Record)
+        expect(state.items).to.be.instanceOf(List)
+        expect(state.fetching).to.be.false
+      })
     })
 
   })

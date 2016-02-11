@@ -1,16 +1,8 @@
 /** Created by hhj on 1/29/16. */
-import queryGenerators from './queryGenerators'
-import responseTransformers from './responseTransformers'
+import createResource from './createResource'
 import { getSubState } from './utils'
 
-const defaultConfig = () => ({
-  url: '/',
-  responseTransformers,
-  queryGenerators,
-})
-
-export default function createRestAction(endpointName, _config, actionCreators, fetchHolder) {
-  const config = { ...defaultConfig(), ..._config }
+export default function createRestAction(endpointName, config, actionCreators, fetchHolder) {
   const getThisSubState = getSubState(endpointName)
 
 // projects state variables to window location (via history),
@@ -19,14 +11,14 @@ export default function createRestAction(endpointName, _config, actionCreators, 
     history.push({ pathname: window.location.pathname, search })
   }
 
+  const resource = createResource(endpointName, config, fetchHolder)
+
   const createAction = actionName => {
     const subActionCreators = {
       requested: actionCreators[`${actionName}Requested`],
       success: actionCreators[`${actionName}Success`],
       error: actionCreators[`${actionName}Error`],
     }
-    const queryGenerator = config.queryGenerators[actionName]
-    const responseTransformer = config.responseTransformers[actionName]
 
     /* eslint-disable arrow-body-style */
     return ({ location, params, projectToLocation } = {}) => {
@@ -41,33 +33,17 @@ export default function createRestAction(endpointName, _config, actionCreators, 
           throw new Error(error)
         }
 
-        // on server, get (initial) query from url (via location),
-        // on client first project to window location, then get from window.location
-        let queryString
-        if (location) {
-          queryString = location.search
-        } else {
-          queryString = queryGenerator(getThisSubState(getState))
-          if (history && projectToLocation) projectStateToLocation(history, queryString)
-        }
-        let paramString = params && params.id ? `/${params.id}` : ''
-        paramString = paramString + (params && params.zarizeni_id ? `?zarizeni_id=${params.zarizeni_id}` : '')
-        const url = `${config.url}${paramString}${queryString}`
-
-        if (getThisSubState(getState).lastFetchMark === url) return null // no need to refetch
+        const state = getThisSubState(getState)
+        const { url, queryString, run } = resource[actionName]({ location, params, state })
+        if (state.lastFetchMark === url) return null // no need to refetch
+        if (history && projectToLocation) projectStateToLocation(history, queryString)
 
         dispatch(subActionCreators.requested())
 
-        return fetchHolder.fetch(url)
-          .then(
-            response => {
-              const normalizedResponse = responseTransformer(response)
-              normalizedResponse.meta.lastFetchMark = url
-              return dispatch(subActionCreators.success(normalizedResponse))
-            },
-            error => {
-              reportError(error)
-            })
+        return run().then(
+          response => dispatch(subActionCreators.success(response)),
+          error => reportError(error)
+        )
       }
     }
   }
