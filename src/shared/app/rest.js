@@ -9,6 +9,9 @@ const rest = myRest({
   zarizeni: {
     url: '/zarizeni',
     itemTransformer: item => new Zarizeni(item)
+  },
+  umisteni: {
+    url: '/umisteni',
   }
 }).use('fetch', createFetch(serverBaseUrl))
 

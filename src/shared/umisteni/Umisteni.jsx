@@ -7,7 +7,9 @@ export default class Umisteni extends React.Component {
     zarizeni: PropTypes.object.isRequired
   };
 
-  static defaultProps = {};
+  static defaultProps = {
+    zarizeni: {}
+  };
 
   render() {
     const { zarizeni } = this.props

@@ -23,7 +23,7 @@ export class Container extends React.Component {
   // browser fetching:
   componentDidMount() {
     const { dispatch } = this.props
-    Container.fetchActions.forEach((action) => dispatch(action()))
+    Container.fetchActions.forEach((action) => dispatch(action({ projectToLocation: true })))
   }
 
   // server and client side fetch actions (see render.jsx & componentDidMount):
@@ -36,13 +36,13 @@ export class Container extends React.Component {
         <h4>Seznam zařízení</h4>
         <Tabulka
           seznamZarizeni={seznamZarizeni} sort={sort} fetching={fetching} filters={filters}
-          onSortChange={function(sortField) {dispatch(actions.sortChange(sortField))}}
-          onFilterChange={function(filter) {dispatch(actions.filterChange(filter))}}
+          onSortChange={function(sortField) {dispatch(actions.sortChange(sortField, true))}}
+          onFilterChange={function(filter) {dispatch(actions.filterChange(filter, true))}}
         />
         <Paginator
           pagination={pagination}
-          onPageChange={function(page) {dispatch(actions.gotoPage(page))}}
-          onPerPageChange={function(perPage) {dispatch(actions.setPageSize(perPage))}}
+          onPageChange={function(page) {dispatch(actions.gotoPage(page, true))}}
+          onPerPageChange={function(perPage) {dispatch(actions.setPageSize(perPage, true))}}
         />
       </div>
     )

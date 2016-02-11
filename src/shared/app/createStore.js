@@ -8,6 +8,8 @@ import reducer from './reducer'
 // defined in webpack configuration or node runtime environment
 const BROWSER_DEVELOPMENT = process.env.NODE_ENV !== 'production' && process.env.IS_BROWSER === true
 
+let store = {}
+
 /**
  * @param initialState
  * @param history
@@ -31,7 +33,7 @@ export default function createStore(initialState = {}, history = null) {
     devToolsInstrument = DevTools.instrument()
   }
 
-  const store = compose(
+  store = compose(
     applyMiddleware(...middleware),
     devToolsInstrument
   )(_createStore)(reducer, initialState)
@@ -46,5 +48,9 @@ export default function createStore(initialState = {}, history = null) {
     })
   }
 
+  return store
+}
+
+export function getStore() {
   return store
 }

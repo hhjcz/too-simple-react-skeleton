@@ -14,7 +14,8 @@ export default class Navigation extends React.Component {
             <NavbarBrand>Dohlestr ({process.env.NODE_ENV})</NavbarBrand>
             <NavItem eventKet={1}><Link to="/">Home</Link></NavItem>
             <NavItem eventKet={2}><Link to="/zarizeni">List</Link></NavItem>
-            <NavItem eventKet={3}><Link to="/hriste">Hriste</Link></NavItem>
+            <NavItem eventKet={3}><Link to="/umisteni?zarizeni_id=11566">Umisteni</Link></NavItem>
+            <NavItem eventKet={4}><Link to="/hriste">Hriste</Link></NavItem>
           </Nav>
         </Navbar.Collapse>
       </Navbar>

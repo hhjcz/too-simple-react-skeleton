@@ -20,7 +20,7 @@ module.exports = {
  * @param {number} page
  * @returns {Function}
  */
-export function gotoPage(page) {
+export function gotoPage(page, projectToLocation = false) {
   return ({ dispatch }) => {
 
     dispatch({
@@ -28,7 +28,7 @@ export function gotoPage(page) {
       page
     })
 
-    dispatch(fetchAll())
+    dispatch(fetchAll({ projectToLocation }))
   }
 }
 
@@ -36,7 +36,7 @@ export function gotoPage(page) {
  * @param {number} perPage
  * @returns {Function}
  */
-export function setPageSize(perPage) {
+export function setPageSize(perPage, projectToLocation = false) {
   return ({ dispatch }) => {
 
     dispatch({
@@ -44,7 +44,7 @@ export function setPageSize(perPage) {
       perPage
     })
 
-    dispatch(fetchAll())
+    dispatch(fetchAll({ projectToLocation }))
   }
 }
 
@@ -52,7 +52,7 @@ export function setPageSize(perPage) {
  * @param {string} sortField
  * @returns {Function}
  */
-export function sortChange(sortField) {
+export function sortChange(sortField, projectToLocation = false) {
   return ({ dispatch }) => {
 
     dispatch({
@@ -60,7 +60,7 @@ export function sortChange(sortField) {
       sortField
     })
 
-    dispatch(fetchAll())
+    dispatch(fetchAll({ projectToLocation }))
   }
 }
 
@@ -68,12 +68,12 @@ export function sortChange(sortField) {
  * @param {Filter} filter
  * @returns {Function}
  */
-export function filterChange(filter) {
+export function filterChange(filter, projectToLocation = false) {
   return ({ dispatch }) => {
     dispatch({
       type: FILTER_CHANGE,
       filter
     })
-    dispatch(fetchAll())
+    dispatch(fetchAll({ projectToLocation }))
   }
 }
