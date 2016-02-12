@@ -15,7 +15,7 @@ export default function createResource(resourceName, _config, fetchHolder) {
     const queryGenerator = config.queryGenerators[actionName]
     const responseTransformer = config.responseTransformers[actionName]
 
-    const action = ({ location, params, state }) => {
+    const fetchMethod = ({ location, params, state }) => {
       // on server, get (initial) query from url (via location),
       // on client first project to window location, then get from window.location
       let queryString
@@ -28,17 +28,16 @@ export default function createResource(resourceName, _config, fetchHolder) {
       paramString = paramString + (params && params.zarizeni_id ? `?zarizeni_id=${params.zarizeni_id}` : '')
       const url = `${config.url}${paramString}${queryString}`
 
-      const run = () => new Promise((resolve, reject) => {
-        fetchHolder.fetch(url).then(
-          response => {
-            const normalizedResponse = responseTransformer(response)
-            normalizedResponse.meta.lastFetchMark = url
-            resolve(normalizedResponse)
-          },
-          error => {
-            reject(error)
-          })
-      })
+      const run = () => fetchHolder.fetch(url)
+        .then(response => {
+          const normalizedResponse = responseTransformer(response)
+          normalizedResponse.meta.lastFetchMark = url
+          return normalizedResponse
+        })
+        .catch(error => {
+          console.log(`Ajejej, chybka resource: ${error}`)
+          throw new Error(error)
+        })
 
       return {
         url,
@@ -47,7 +46,7 @@ export default function createResource(resourceName, _config, fetchHolder) {
       }
     }
 
-    return action
+    return fetchMethod
   }
 
   const fetchAll = createAction('fetchAll')

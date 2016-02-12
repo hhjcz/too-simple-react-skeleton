@@ -11,15 +11,7 @@ describe('myRest library', () => {
   const someEndpoint = {}
   someEndpoint.toObject = () => someEndpoint
 
-  const fetch = url => ({
-    // console.log('Dispatching: ', action)
-    then: successCb => successCb({
-      ok: true,
-      json: () => ({
-        then: successCb2 => successCb2(nullResponse)
-      })
-    })
-  })
+  const fetch = url => Promise.resolve(nullResponse)
 
   const getState = () => ({ someEndpoint })
 

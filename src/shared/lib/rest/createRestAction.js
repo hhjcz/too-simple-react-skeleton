@@ -26,13 +26,6 @@ export default function createRestAction(endpointName, config, actionCreators, f
 
       return ({ dispatch, getState, history }) => {
 
-        const reportError = errorMessage => {
-          const error = `Ajaaj, chybka api: ${errorMessage}`
-          dispatch(subActionCreators.error({ error }))
-          console.log(error)
-          throw new Error(error)
-        }
-
         const state = getThisSubState(getState)
         const { url, queryString, run } = resource[actionName]({ location, params, state })
         if (state.lastFetchMark === url) return null // no need to refetch
@@ -40,10 +33,14 @@ export default function createRestAction(endpointName, config, actionCreators, f
 
         dispatch(subActionCreators.requested())
 
-        return run().then(
-          response => dispatch(subActionCreators.success(response)),
-          error => reportError(error)
-        )
+        return run()
+          .then(response => dispatch(subActionCreators.success(response)))
+          .catch(error => {
+            const errorMessage = `Ajaaj, chybka api: ${error}`
+            dispatch(subActionCreators.error({ errorMessage }))
+            console.log(errorMessage)
+            throw new Error(errorMessage)
+          })
       }
     }
   }
