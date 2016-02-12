@@ -15,6 +15,7 @@ export default function createResource(resourceName, _config, fetchHolder) {
     const queryGenerator = config.queryGenerators[actionName]
     const responseTransformer = config.responseTransformers[actionName]
 
+    // TODO - refactor with no state nor location - should receive params, queryparams and payload (for POST)...
     const fetchMethod = ({ location, params, state }) => {
       // on server, get (initial) query from url (via location),
       // on client first project to window location, then get from window.location
