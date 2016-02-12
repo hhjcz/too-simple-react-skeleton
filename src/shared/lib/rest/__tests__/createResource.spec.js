@@ -1,5 +1,5 @@
 /** Created by hhj on 2/11/16. */
-import { expect, assert } from 'chai'
+import { expect } from 'chai'
 import createResource from '../createResource'
 
 describe('myRest library createResource', () => {

@@ -18,6 +18,7 @@ module.exports = {
 
 /**
  * @param {number} page
+ * @param projectToLocation
  * @returns {Function}
  */
 export function gotoPage(page, projectToLocation = false) {
@@ -34,6 +35,7 @@ export function gotoPage(page, projectToLocation = false) {
 
 /**
  * @param {number} perPage
+ * @param projectToLocation
  * @returns {Function}
  */
 export function setPageSize(perPage, projectToLocation = false) {
@@ -50,6 +52,7 @@ export function setPageSize(perPage, projectToLocation = false) {
 
 /**
  * @param {string} sortField
+ * @param projectToLocation
  * @returns {Function}
  */
 export function sortChange(sortField, projectToLocation = false) {
@@ -66,6 +69,7 @@ export function sortChange(sortField, projectToLocation = false) {
 
 /**
  * @param {Filter} filter
+ * @param projectToLocation
  * @returns {Function}
  */
 export function filterChange(filter, projectToLocation = false) {

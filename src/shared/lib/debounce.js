@@ -10,7 +10,7 @@
  *
  * @param fn Function to be debounced
  * @param delay
- * @param _context
+ * @param __context
  * @returns {debounced} Debounced function as promise
  */
 export default function debounce(fn, delay, __context) {

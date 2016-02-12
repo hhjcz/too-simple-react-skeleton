@@ -4,9 +4,6 @@ import createFetch from '../createFetch'
 
 describe('myRest library createFetch', () => {
 
-  beforeEach(() => {
-  })
-
   it('should create fetch', (done) => {
     const fetch = createFetch('someBaseUrl')
     expect(typeof fetch).to.equal('function')

@@ -2,7 +2,6 @@
 import { expect } from 'chai'
 import React from 'react'
 import sd from 'skin-deep'
-import { Link } from 'react-router' // eslint-disable-line no-unused-vars
 
 import { Zarizeni } from '../../zarizeni/core'
 import Radka from '../Radka'

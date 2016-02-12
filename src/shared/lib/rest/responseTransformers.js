@@ -25,12 +25,10 @@ function collection(response) {
 
 function item(response) {
   const camelized = camelizeKeys(response)
-  const normalizedResponse = {
+  return {
     data: camelized,
     meta: camelized.meta || {}
   }
-
-  return normalizedResponse
 }
 
 const responseTransformers = {

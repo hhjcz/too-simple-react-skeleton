@@ -44,10 +44,8 @@ function LokalitaHint(obec, ulice, cislo, chardop, op, akrlok, ixlok) {
 }
 
 LokalitaHint.prototype.toString = function() {
-  const str = (this.obec ? `${this.obec}, ` : '') + (this.ulice ? `${this.ulice} ` : '')
+  return (this.obec ? `${this.obec}, ` : '') + (this.ulice ? `${this.ulice} ` : '')
     + (this.cislo ? `${this.cislo} ` : '') + this.chardop + (this.op ? `OP#${this.op}` : '')
-
-  return str
 }
 
 LokalitaHint.prototype.fromDefaultMap = function(mapName, force) {

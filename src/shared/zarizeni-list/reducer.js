@@ -1,6 +1,4 @@
 /** Created by hhj on 20.12.15. */
-import { List, Record, Map } from 'immutable'
-
 import actions from './actions'
 import { Pagination, setPage, setPageSize } from './pagination'
 import { Sort } from './sort'
