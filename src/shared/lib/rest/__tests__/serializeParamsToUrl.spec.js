@@ -7,6 +7,7 @@ describe('rest library serializeParamsToUrl', () => {
 
   it('should serialize main params', () => {
     expect(serializeParamsToUrl('/endpoint/:id', { id: 666 })).to.equal('/endpoint/666')
+    expect(serializeParamsToUrl('/endpoint/(:id)', { id: 666 })).to.equal('/endpoint/666')
   })
 
   it('should serialize nested params', () => {
@@ -26,11 +27,17 @@ describe('rest library serializeParamsToUrl', () => {
   })
 
   it('should remove unused params', () => {
+    expect(serializeParamsToUrl('/endpoint/:id', {})).to.equal('/endpoint')
+    expect(serializeParamsToUrl('/endpoint/(:id)', {})).to.equal('/endpoint')
     expect(serializeParamsToUrl('/endpoint/:id/nested/:nid', {
       id: 666,
       extra1: 888,
       extra2: 999
     })).to.equal('/endpoint/666/nested?extra1=888&extra2=999')
+    expect(serializeParamsToUrl('/endpoint/(:id)/nested/(:nid)', {
+      id: 666,
+      extra1: 888,
+    })).to.equal('/endpoint/666/nested?extra1=888')
   })
 
   it('should keep passed params', () => {

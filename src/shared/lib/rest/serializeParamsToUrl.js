@@ -2,7 +2,7 @@
 import { omit } from 'lodash/object'
 import qs from 'query-string'
 
-const rxClean = /(\(\/:[^\)]+\)|\/:[^\/]+)/g;
+const rxClean = /(\/\(:[^\/]+\)|\/:[^\/]+)/g;
 
 export default function serializeParamsToUrl(urlTemplate, params = {}) {
   const usedKeys = []
@@ -13,9 +13,10 @@ export default function serializeParamsToUrl(urlTemplate, params = {}) {
     }),
     urlTemplate
   )
+  // remove unused params from template
+  urlWithParams = urlWithParams.replace(rxClean, '')
   if (usedKeys.length !== Object.keys(params).length) {
-    // remove unused params from template
-    const urlObject = urlWithParams.replace(rxClean, '').split('?')
+    const urlObject = urlWithParams.split('?')
     const mergeParams = {
       ...(urlObject[1] && qs.parse(urlObject[1])),
       ...omit(params, usedKeys)

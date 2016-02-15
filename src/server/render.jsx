@@ -6,6 +6,7 @@ import { renderToString } from 'react-dom/server'
 import { RoutingContext, match } from 'react-router'
 import { Provider } from 'react-redux'
 import Promise from 'bluebird'
+import qs from 'query-string'
 
 import routes from './../shared/app/routes'
 import createStore from './../shared/app/createStore'
@@ -87,7 +88,8 @@ async function fetchAsyncData(dispatch, { components, location, params }) {
       .concat(component.fetchActions || [])
     // .concat(component.WrappedComponent ? component.WrappedComponent.fetchActions || [] : [])
   }, [])
-  const promises = fetchActions.map(action => dispatch(action({ location, params })))
+  const queryParams = { ...qs.parse(location.search), ...params }
+  const promises = fetchActions.map(action => dispatch(action({ params: queryParams })))
 
   await Promise.all(promises)
 }

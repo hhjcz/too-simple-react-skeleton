@@ -23,7 +23,7 @@ export default function createResource(resourceName, _config, fetchHolder) {
           return normalizedResponse
         })
         .catch(error => {
-          console.log(`Ajejej, chybka resource: ${error}`)
+          console.log(`Ajejej, chybka resource: ${error}, url: ${url}`)
           throw new Error(error)
         })
 

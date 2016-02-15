@@ -1,5 +1,4 @@
 /** Created by hhj on 1/29/16. */
-import qs from 'query-string'
 import { parse as urlParse } from 'url'
 import createResource from './createResource'
 import { getSubState } from './utils'
@@ -8,9 +7,9 @@ import queryGenerators from './queryGenerators'
 export default function createRestAction(endpointName, config, actionCreators, fetchHolder) {
   const getThisSubState = getSubState(endpointName)
 
-// projects state variables to window location (via history),
-// so that on page reload it can be used on server for initial state
-  const projectStateToLocation = (history, search) => {
+  // projects fetch url to window location (via history),
+  // so that on page reload it can be used on server for initial state
+  const projectFetchUrlToLocation = (history, search) => {
     history.push({ pathname: window.location.pathname, search })
   }
 
@@ -25,23 +24,17 @@ export default function createRestAction(endpointName, config, actionCreators, f
     const queryGenerator = queryGenerators[actionName]
 
     /* eslint-disable arrow-body-style */
-    return ({ location, params, projectToLocation } = {}) => {
+    return ({ params, projectToLocation } = {}) => {
       if (projectToLocation == null) projectToLocation = false // eslint-disable-line
 
       return ({ dispatch, getState, history }) => {
 
-        // on server, get (initial) query from url (via location),
-        // on client first project to window location, then get from window.location
         const state = getThisSubState(getState)
-        let queryParams
-        if (location) {
-          queryParams = qs.parse(location.search)
-        } else {
-          queryParams = qs.parse(queryGenerator(state))
-        }
-        const { fetchUrl, fetchExecute } = resource[actionName]({ ...queryParams, ...params })
+        const queryParams = { ...queryGenerator(state), ...params }
+        const { fetchUrl, fetchExecute } = resource[actionName](queryParams)
+
         if (state.lastFetchMark === fetchUrl) return null // no need to refetch
-        if (history && projectToLocation) projectStateToLocation(history, urlParse(fetchUrl).search)
+        if (history && projectToLocation) projectFetchUrlToLocation(history, urlParse(fetchUrl).search)
 
         dispatch(subActionCreators.requested())
 

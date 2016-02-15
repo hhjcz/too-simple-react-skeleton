@@ -1,7 +1,7 @@
 /** Created by hhj on 12/28/15. */
 import React, { PropTypes } from 'react'
 import { connect } from 'react-redux'
-import queryString from 'query-string'
+import qs from 'query-string'
 
 import createMapStateToProps from '../lib/createMapStateToProps'
 import createMapDispatchToProps from '../lib/createMapDispatchToProps'
@@ -26,12 +26,12 @@ export class Container extends React.Component {
   // browser fetching:
   componentDidMount() {
     const { dispatch, location } = this.props
-    Container.fetchActions.forEach(action => dispatch(action({ location })))
+    Container.fetchActions.forEach(action => dispatch(action({ params: qs.parse(location.search) })))
   }
 
-  static fetchZarizeni({ location }) {
+  static fetchZarizeni({ params }) {
     return rest.actions.zarizeni.fetchOne({
-      params: { id: queryString.parse(location.search).zarizeni_id },
+      params: { id: params.zarizeni_id },
       projectToLocation: false
     })
   }

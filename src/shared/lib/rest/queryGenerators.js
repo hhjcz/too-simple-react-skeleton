@@ -1,4 +1,5 @@
 /** Created by hhj on 1/28/16. */
+import qs from 'query-string'
 import { snakeCase } from 'lodash'
 
 function parseFilters(filters) {
@@ -58,11 +59,11 @@ function collection(state) {
         .map(filter => `${filter.field}=${filter.value}`).toArray().join('&')
   }
 
-  return `${pageString}${perPageString}${sortString}${filtersString}`
+  return qs.parse(`${pageString}${perPageString}${sortString}${filtersString}`)
 }
 
 function item(state) {
-  return ''
+  return {}
 }
 
 const queryGenerators = {
