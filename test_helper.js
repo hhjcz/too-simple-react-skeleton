@@ -15,6 +15,6 @@ chai.should()
 // ignore import and require of these extensions on server (in node; deprecated but still functional):
 const ignoreRequireExtensions = ['.scss', '.sass', '.css', '.styl']
 ignoreRequireExtensions.forEach((ext) => {
-  require.extensions[ext] = () => {
+  require.extensions[ext] = () => {   // eslint-disable-line arrow-body-style
   }
 })

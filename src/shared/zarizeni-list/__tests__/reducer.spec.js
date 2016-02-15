@@ -14,16 +14,16 @@ describe('zarizeni-list reducer', () => {
     sort: new Sort()
   })
 
-  //it('should handle fetch REQUEST', () => {
+  // it('should handle fetch REQUEST', () => {
   //  expect(initialState.get('fetching')).to.equal(false)
   //
   //  const nextState = reducer(initialState, { type: actions.FETCH_LIST_REQUEST })
   //
   //  expect(nextState.get('fetching')).to.equal(true)
   //  expect(initialState.get('fetching')).to.equal(false)
-  //})
+  // })
   //
-  //it('should handle fetch SUCCESS', () => {
+  // it('should handle fetch SUCCESS', () => {
   //  const state = reducer(initialState, { type: actions.FETCH_LIST_REQUEST })
   //  expect(state.get('fetching')).to.equal(true)
   //
@@ -34,7 +34,7 @@ describe('zarizeni-list reducer', () => {
   //
   //  expect(nextState.get('fetching')).to.equal(false)
   //  expect(state.get('fetching')).to.equal(true)
-  //})
+  // })
 
   it('should handle SET_PAGINATION', () => {
     const pagination = new Pagination({ page: 6, perPage: 66, total: 6666, totalPages: 666 })
