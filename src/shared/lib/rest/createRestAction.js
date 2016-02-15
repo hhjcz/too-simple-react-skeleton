@@ -1,6 +1,9 @@
 /** Created by hhj on 1/29/16. */
+import qs from 'query-string'
+import { parse as urlParse } from 'url'
 import createResource from './createResource'
 import { getSubState } from './utils'
+import queryGenerators from './queryGenerators'
 
 export default function createRestAction(endpointName, config, actionCreators, fetchHolder) {
   const getThisSubState = getSubState(endpointName)
@@ -19,6 +22,7 @@ export default function createRestAction(endpointName, config, actionCreators, f
       success: actionCreators[`${actionName}Success`],
       error: actionCreators[`${actionName}Error`],
     }
+    const queryGenerator = queryGenerators[actionName]
 
     /* eslint-disable arrow-body-style */
     return ({ location, params, projectToLocation } = {}) => {
@@ -26,14 +30,22 @@ export default function createRestAction(endpointName, config, actionCreators, f
 
       return ({ dispatch, getState, history }) => {
 
+        // on server, get (initial) query from url (via location),
+        // on client first project to window location, then get from window.location
         const state = getThisSubState(getState)
-        const { url, queryString, run } = resource[actionName]({ location, params, state })
-        if (state.lastFetchMark === url) return null // no need to refetch
-        if (history && projectToLocation) projectStateToLocation(history, queryString)
+        let queryParams
+        if (location) {
+          queryParams = qs.parse(location.search)
+        } else {
+          queryParams = qs.parse(queryGenerator(state))
+        }
+        const { fetchUrl, fetchExecute } = resource[actionName]({ ...queryParams, ...params })
+        if (state.lastFetchMark === fetchUrl) return null // no need to refetch
+        if (history && projectToLocation) projectStateToLocation(history, urlParse(fetchUrl).search)
 
         dispatch(subActionCreators.requested())
 
-        return run()
+        return fetchExecute()
           .then(response => dispatch(subActionCreators.success(response)))
           .catch(error => {
             const errorMessage = `Ajaaj, chybka api: ${error}`

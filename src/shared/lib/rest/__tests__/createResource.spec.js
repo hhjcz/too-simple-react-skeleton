@@ -13,7 +13,7 @@ describe('myRest library createResource', () => {
   it('should return promise', () => {
     const fetch = () => Promise.resolve({})
     const resource = createResource('someResource', {}, { fetch })
-    const promise = resource.fetchOne({}).run()
+    const promise = resource.fetchOne({}).fetchExecute()
 
     return Promise.all([
       promise.should.be.resolved,
@@ -25,7 +25,7 @@ describe('myRest library createResource', () => {
   it('should throw error', () => {
     const fetch = () => Promise.reject('Nejaka chyba api')
     const resource = createResource('someResource', {}, { fetch })
-    const promise = resource.fetchOne({}).run()
+    const promise = resource.fetchOne({}).fetchExecute()
 
     return promise.should.be.rejectedWith(Error)
   })

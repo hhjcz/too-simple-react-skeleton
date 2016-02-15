@@ -7,11 +7,11 @@ const serverBaseUrl = process.env.SERVER_BASE_URL || 'http://localhost:8089/api'
 
 const rest = myRest({
   zarizeni: {
-    url: '/zarizeni',
+    url: '/zarizeni/:id',
     itemTransformer: item => new Zarizeni(item)
   },
   umisteni: {
-    url: '/umisteni',
+    url: '/umisteni/:id',
   }
 }).use('fetch', createFetch(serverBaseUrl))
 
