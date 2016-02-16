@@ -5,7 +5,7 @@ export default function createFetch(serverBaseUrl) {
   console.log('Creating fetch for server base URL: ', serverBaseUrl)
 
   /** @return {Promise} */
-  return url => fetch(serverBaseUrl + url)
+  return (url, options = {}) => fetch(serverBaseUrl + url, options)
     .then(
       response => {
         if (!response.ok) {

@@ -12,9 +12,13 @@ const rest = myRest({
   },
   umisteni: {
     url: '/umisteni/:id',
+  },
+  testEndpoint: {
+    url: '/test/:id'
   }
 }).use('fetch', createFetch(serverBaseUrl))
 
 export const actions = rest.actions
+export const reducers = rest.reducers
 
 export default rest

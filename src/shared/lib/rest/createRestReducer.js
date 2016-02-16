@@ -34,14 +34,14 @@ export default function createRestReducer(endpointName, config = {}, actionTypes
   }
   /* eslint-enable arrow-body-style */
 
-  return function reducer(state, action) {
+  return function reducer(state = {}, action) {
     if (!(state instanceof InitialState)) return revive(state)
 
     switch (action.type) {
       case actionTypes.fetchAllRequested:
       case actionTypes.fetchOneRequested:
-        return state
-          .update('fetching', () => true)
+      case actionTypes.createRequested:
+        return state.set('fetching', true)
 
       case actionTypes.fetchAllSuccess:
         return state.set('items', List(action.data).map(itemTransformer))
@@ -71,8 +71,13 @@ export default function createRestReducer(endpointName, config = {}, actionTypes
       case actionTypes.fetchOneError:
         return state.set('item', {})
           .set('fetching', false)
-          .set('queryParams', '')
+          .set('lastFetchMark', '')
 
+      case actionTypes.createSuccess:
+        return state.set('fetching', false)
+
+      case actionTypes.createError:
+        return state.set('fetching', false)
 
       default:
         return state

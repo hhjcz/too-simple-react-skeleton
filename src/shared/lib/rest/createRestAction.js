@@ -21,17 +21,17 @@ export default function createRestAction(endpointName, config, actionCreators, f
       success: actionCreators[`${actionName}Success`],
       error: actionCreators[`${actionName}Error`],
     }
-    const queryGenerator = queryGenerators[actionName]
+    const queryGenerator = queryGenerators[actionName] || (() => ({}))
 
     /* eslint-disable arrow-body-style */
-    return ({ params, projectToLocation } = {}) => {
+    return ({ params, body, projectToLocation } = {}) => {
       if (projectToLocation == null) projectToLocation = false // eslint-disable-line
 
       return ({ dispatch, getState, history }) => {
 
         const state = getThisSubState(getState)
         const queryParams = { ...queryGenerator(state), ...params }
-        const { fetchUrl, fetchExecute } = resource[actionName](queryParams)
+        const { fetchUrl, fetchExecute } = resource[actionName](queryParams, body)
 
         if (state.lastFetchMark === fetchUrl) return null // no need to refetch
         if (history && projectToLocation) projectFetchUrlToLocation(history, urlParse(fetchUrl).search)
@@ -52,9 +52,11 @@ export default function createRestAction(endpointName, config, actionCreators, f
 
   const fetchAll = createAction('fetchAll')
   const fetchOne = createAction('fetchOne')
+  const create = createAction('create')
 
   return {
     fetchAll,
     fetchOne,
+    create,
   }
 }
