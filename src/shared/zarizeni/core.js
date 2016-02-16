@@ -8,4 +8,22 @@ export const Zarizeni = Record({
   createdAt: '',
   updatedAt: '',
   deletedAt: '',
+  netvisionZarizeni: {
+    id: 0,
+    name: '',
+    ipAddress: '',
+    createdAt: '',
+    updatedAt: '',
+    deletedAt: '',
+    defaultmap: '',
+  },
+  orionZarizeni: {
+    id: 0,
+    name: '',
+    ipAddress: '',
+    createdAt: '',
+    updatedAt: '',
+    deletedAt: '',
+  },
+  // lokalitaHint: '',
 })

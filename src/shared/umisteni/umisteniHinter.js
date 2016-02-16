@@ -64,15 +64,15 @@ export function find(name) {
   /** @type {LokalitaHint} lokalitaHint */
   let lokalitaHint
 
-  let match = name.match(/\[(\D+)\]\s*([a-z\s\._]*)\s*(\d*)\s*-+\s*(\D+)(\d*)(.*)/i)
+  let match = name.match(/\[(\D+)\]\s*([a-z\s\._]*)\s*(\d*)([A-z]*)\s*-+\s*(\D+)(\d*)(.*)/i)
   if (match !== null) {
-    lokalitaHint = new LokalitaHint(null, match[2].trim(), match[3])
+    lokalitaHint = new LokalitaHint(null, match[2].trim(), match[3], (match[4] || '').toLowerCase())
   }
 
   if (!lokalitaHint) {
     match = name.match(/\S+\.(\S+)\.([0-9]*[A-Za-z]+)(\d*)(\w*).*/i)
     if (match !== null) {
-      lokalitaHint = new LokalitaHint(zkratkaToObec(match[1]), match[2].trim(), match[3], match[4])
+      lokalitaHint = new LokalitaHint(zkratkaToObec(match[1]), match[2].trim(), match[3], (match[4] || '').toLowerCase())
     }
   }
 

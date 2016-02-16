@@ -36,17 +36,24 @@ export class Container extends React.Component {
     })
   }
 
+  static fetchUmisteni({ params }) {
+    return rest.actions.umisteni.fetchAll({
+      params,
+      projectToLocation: false
+    })
+  }
+
   // server and client side fetch actions (see render.jsx & componentDidMount):
   // static fetchActions = [actions.fetchAll];
   static get fetchActions() {
-    return [Container.fetchZarizeni];
+    return [Container.fetchZarizeni, Container.fetchUmisteni];
   }
 
   render() {
-    const { zarizeni } = this.props
+    const { zarizeni, umisteni } = this.props
     return (
       <div id="zarizeni-list">
-        <Umisteni zarizeni={zarizeni.item} />
+        <Umisteni zarizeni={zarizeni.item} umisteni={umisteni.items} />
       </div>
     )
   }

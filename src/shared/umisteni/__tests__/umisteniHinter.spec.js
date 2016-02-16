@@ -8,7 +8,7 @@ describe(' umisteniHinter', () => {
     /* [ jmeno, obec, ulice, cislo, cisloDoplnkove, op ] */
     const names = [
       ['A1AT-ASCENDUM.NYRANY_123471', '', '', '', '', '123471'],
-      ['X.PRG.HVEZDOVA2A', 'Praha', 'HVEZDOVA', '2', 'A', ''],
+      ['X.PRG.HVEZDOVA2A', 'Praha', 'HVEZDOVA', '2', 'a', ''],
       ['XC.PRG.BUDEJOVICKA13-2', 'Praha', 'BUDEJOVICKA', '13', '', ''],
       ['rc.prg.kloknerova26 (ZSMV-PRA-KLOKNEROVA_136675)', 'Praha', 'kloknerova', '26', '', '136675'],
       ['XC.OST.28RIJNA65', 'Ostrava', '28RIJNA', '65', '', ''],
@@ -23,6 +23,8 @@ describe(' umisteniHinter', () => {
       ['[CERAGON] Sokolska-Drtinova10 (libertas_119674)', '', 'Sokolska', '', '', '119674'],
       ['op.pri.komin', 'Pribram', 'komin', '', '', ''],
       ['[CERAGON] Dobronicka1257-Eltodo (Vimbou)', '', 'Dobronicka', '1257', '', '1257'],
+      ['[CERAGON] Dobronicka1257b-Eltodo (Vimbou)', '', 'Dobronicka', '1257', 'b', '1257'],
+      ['[CERAGON] Dobronicka1257B-Eltodo (Vimbou)', '', 'Dobronicka', '1257', 'b', '1257'],
       ['Coca-Cola - TEP - Krupka - Kateřinská 95 (SA-3520)', '', '', '', '', 'SA-3520'],
       ['[SUMMITD] Pardubice_ZavoduMiru-CBL_KeKamenici (cbl_69734)', '', 'Pardubice_ZavoduMiru', '', '', '69734'],
     ];
