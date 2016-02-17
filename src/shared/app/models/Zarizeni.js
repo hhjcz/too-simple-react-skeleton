@@ -27,3 +27,5 @@ export const Zarizeni = Record({
   },
   // lokalitaHint: '',
 })
+
+export default Zarizeni

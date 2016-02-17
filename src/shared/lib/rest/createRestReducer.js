@@ -1,7 +1,7 @@
 /** Created by hhj on 1/29/16. */
 import { getActionBasename } from './utils'
-import { Pagination } from '../../zarizeni-list/pagination'
-import { Sort } from '../../zarizeni-list/sort'
+import { Pagination } from '../../app/models/Pagination'
+import { Sort } from '../../app/models/Sort'
 import { List, Record, Map } from 'immutable'
 
 const InitialState = Record({

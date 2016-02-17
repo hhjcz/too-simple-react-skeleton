@@ -4,8 +4,8 @@ import React from 'react'
 import sd from 'skin-deep'
 
 import HeaderCell from '../HeaderCell'
-import { Sort } from '../sort'
-import { columns } from '../column'
+import { Sort } from '../../app/models/Sort'
+import { columns } from '../../app/models/Column'
 
 describe('zarizeni-list Header component', () => {
   let vdom

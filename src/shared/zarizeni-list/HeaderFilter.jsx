@@ -1,7 +1,7 @@
 /** Created by hhj on 1/21/16. */
 import React, { PropTypes } from 'react'
 import { Input } from 'react-bootstrap'
-import { Filter } from './filter'
+import { Filter } from './../app/models/Filter'
 import debounce from '../lib/debounce'
 
 export default class HeaderFilter extends React.Component {

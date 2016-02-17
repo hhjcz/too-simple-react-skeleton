@@ -6,7 +6,7 @@ import { List } from 'immutable'
 
 import createStore from '../../app/createStore'
 import Connected, { Container } from './../Container'
-import { Pagination } from '../pagination'
+import { Pagination } from '../../app/models/Pagination'
 
 describe('zarizeni-list connected Container component', () => {
   let vdom

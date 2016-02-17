@@ -5,3 +5,5 @@ export const Sort = Record({
   dir: false,
   by: '',
 })
+
+export default Sort

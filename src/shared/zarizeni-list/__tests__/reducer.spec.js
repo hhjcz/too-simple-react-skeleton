@@ -1,8 +1,8 @@
 /** Created by hhj on 20.12.15. */
 import { expect } from 'chai'
 import { List } from 'immutable'
-import { Pagination } from '../pagination'
-import { Sort } from '../sort'
+import { Pagination } from '../../app/models/Pagination'
+import { Sort } from '../../app/models/Sort'
 import * as actions from '../actions'
 import reducer from '../reducer'
 

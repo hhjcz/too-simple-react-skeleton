@@ -1,8 +1,8 @@
 /** Created by hhj on 2/17/16. */
 // noinspection JSUnresolvedVariable
 import { expect } from 'chai'
-import Umisteni from '../umisteni'
-import Lokalita from '../lokalita'
+import Umisteni from '../Umisteni'
+import Lokalita from '../Lokalita'
 
 describe('umisteni class Umisteni', () => {
 

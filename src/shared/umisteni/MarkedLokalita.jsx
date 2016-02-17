@@ -19,6 +19,7 @@ export default class MarkedLokalita extends React.Component {
     const createMarked = () => ({ __html: markLokalita(lokalita, zarizeni).marked })
     return (
       <div>
+        {lokalita.id}
         <span dangerouslySetInnerHTML={createMarked()} />
       </div>
     )

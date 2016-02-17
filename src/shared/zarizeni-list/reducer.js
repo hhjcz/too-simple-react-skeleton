@@ -1,7 +1,7 @@
 /** Created by hhj on 20.12.15. */
 import actions from './actions'
-import { Pagination, setPage, setPageSize } from './pagination'
-import { Sort } from './sort'
+import { Pagination, setPage, setPageSize } from './../app/models/Pagination'
+import { Sort } from './../app/models/Sort'
 import rest from '../app/rest'
 
 export default function reducer(state = {}, action) {

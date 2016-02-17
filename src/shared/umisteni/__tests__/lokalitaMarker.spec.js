@@ -2,8 +2,8 @@
 import { expect } from 'chai'
 
 import lokalitaMarker from '../lokalitaMarker'
-import { Lokalita } from '../../app/models/lokalita'
-import { Zarizeni } from '../../zarizeni/core'
+import { Lokalita } from '../../app/models/Lokalita'
+import { Zarizeni } from '../../app/models/Zarizeni'
 
 describe('umisteni lokalitaMarker', () => {
 

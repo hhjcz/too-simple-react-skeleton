@@ -1,8 +1,8 @@
 /** Created by hhj on 1/29/16. */
 import myRest from '../lib/rest/index'
 import createFetch from '../lib/rest/createFetch'
-import { Zarizeni } from '../zarizeni/core'
-import { Umisteni } from './models/umisteni'
+import { Zarizeni } from './models/Zarizeni'
+import { Umisteni } from './models/Umisteni'
 
 const serverBaseUrl = process.env.SERVER_BASE_URL || 'http://localhost:8089/api'
 
@@ -13,7 +13,7 @@ const rest = myRest({
   },
   umisteni: {
     url: '/umisteni/:id',
-    itemTransformer: item => new Umisteni(item)
+    itemTransformer: item => item
   },
   testEndpoint: {
     url: '/test/:id'

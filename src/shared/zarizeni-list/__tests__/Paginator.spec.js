@@ -5,7 +5,7 @@ import ReactDOM from 'react-dom'
 import TestUtils from 'react-addons-test-utils'
 import sd from 'skin-deep'
 
-import { Pagination } from '../pagination'
+import { Pagination } from '../../app/models/Pagination'
 import Paginator from '../Paginator'
 
 describe('zarizeni-list Paginator component (testing using shallow render)', () => {

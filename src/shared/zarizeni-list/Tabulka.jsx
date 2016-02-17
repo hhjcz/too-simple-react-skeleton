@@ -4,7 +4,7 @@ import React, { PropTypes } from 'react'
 import './Tabulka.styl'
 import HeaderCell from './HeaderCell'
 import Radka from './Radka'
-import { columns } from './column'
+import { columns } from './../app/models/Column'
 
 export default class Tabulka extends React.Component {
   static propTypes = {

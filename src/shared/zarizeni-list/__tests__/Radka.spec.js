@@ -3,9 +3,9 @@ import { expect } from 'chai'
 import React from 'react'
 import sd from 'skin-deep'
 
-import { Zarizeni } from '../../zarizeni/core'
+import { Zarizeni } from '../../app/models/Zarizeni'
 import Radka from '../Radka'
-import { columns } from '../column'
+import { columns } from '../../app/models/Column'
 
 describe('zarizeni-list Radka component', () => {
   let vdom
