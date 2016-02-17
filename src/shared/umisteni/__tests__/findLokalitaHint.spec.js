@@ -1,8 +1,8 @@
 /** Created by hhj on 2/5/16. */
 import { expect } from 'chai'
-import umisteniHinter from '../umisteniHinter'
+import findLokalitaHint from '../findLokalitaHint'
 
-describe(' umisteniHinter', () => {
+describe(' findLokalitaHint', () => {
 
   it('should find correct hints', () => {
     /* [ jmeno, obec, ulice, cislo, cisloDoplnkove, op ] */
@@ -30,7 +30,7 @@ describe(' umisteniHinter', () => {
     ];
 
     names.forEach(nameMatch => {
-      const lokalitaHint = umisteniHinter.find(nameMatch[0]);
+      const lokalitaHint = findLokalitaHint(nameMatch[0]);
       expect(lokalitaHint.obec).to.equal(nameMatch[1]);
       expect(lokalitaHint.ulice).to.equal(nameMatch[2]);
       expect(lokalitaHint.cislo).to.equal(nameMatch[3]);

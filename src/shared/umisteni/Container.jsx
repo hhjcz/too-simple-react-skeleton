@@ -50,10 +50,10 @@ export class Container extends React.Component {
   }
 
   render() {
-    const { zarizeni, umisteni } = this.props
+    const { zarizeni, umisteni, actions } = this.props
     return (
       <div id="zarizeni-list">
-        <Umisteni zarizeni={zarizeni.item} seznamUmisteni={umisteni.items} />
+        <Umisteni zarizeni={zarizeni.item} seznamUmisteni={umisteni.items} actions={actions} />
       </div>
     )
   }

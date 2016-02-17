@@ -1,5 +1,4 @@
 /** Created by hhj on 2/16/16. */
-import umisteniHinter from './umisteniHinter'
 import longestSubstring from '../lib/longestSubstring'
 
 const markCssClass = 'text-warning'
@@ -30,11 +29,10 @@ function mark(str1, str2) {
   return marked
 }
 
-function markObec(lokalita, zarizeni) {
-  const hint = zarizeni.lokalitaHint
-  let markedObec = mark(lokalita.obec, hint.obec)
+function markObec(lokalita, lokalitaHint) {
+  let markedObec = mark(lokalita.obec, lokalitaHint.obec)
   if (markedObec.markLength === 0) {
-    if (zarizeni.netvisionZarizeni && zarizeni.netvisionZarizeni.defaultmap && zarizeni.netvisionZarizeni.defaultmap.indexOf(lokalita.obec) >= 0) {
+    if (lokalitaHint.map && lokalitaHint.map.indexOf(lokalita.obec) >= 0) {
       markedObec = mark(lokalita.obec, lokalita.obec)
     }
   }
@@ -42,20 +40,20 @@ function markObec(lokalita, zarizeni) {
   return markedObec
 }
 
-function markUlice(lokalita, zarizeni) {
-  return mark(lokalita.ulice, zarizeni.lokalitaHint.ulice)
+function markUlice(lokalita, lokalitaHint) {
+  return mark(lokalita.ulice, lokalitaHint.ulice)
 }
 
-function markCispop(lokalita, zarizeni) {
-  return mark(lokalita.cispop, zarizeni.lokalitaHint.cispop)
+function markCispop(lokalita, lokalitaHint) {
+  return mark(lokalita.cispop, lokalitaHint.cispop)
 }
 
-function markCisori(lokalita, zarizeni) {
-  return mark(lokalita.cisori, zarizeni.lokalitaHint.cisori)
+function markCisori(lokalita, lokalitaHint) {
+  return mark(lokalita.cisori, lokalitaHint.cisori)
 }
 
-function markCisdop(lokalita, zarizeni) {
-  return mark(lokalita.chardop, zarizeni.lokalitaHint.chardop)
+function markCisdop(lokalita, lokalitaHint) {
+  return mark(lokalita.chardop, lokalitaHint.chardop)
 }
 
 Marked.prototype.concat = function(toConcat) {
@@ -70,29 +68,27 @@ Marked.prototype.concat = function(toConcat) {
 }
 
 /**
- *
  * @param {Lokalita} lokalita
- * @param {Zarizeni} zarizeni
+ * @param {LokalitaHint} lokalitaHint
  * @returns {Marked}
  */
-export default function(lokalita, zarizeni) {
-  zarizeni.lokalitaHint || (zarizeni.lokalitaHint = umisteniHinter.find(zarizeni.name))
+export default function markLokalita(lokalita, lokalitaHint) {
   const marked = new Marked()
 
-  marked.concat(markObec(lokalita, zarizeni))
+  marked.concat(markObec(lokalita, lokalitaHint))
     .concat(lokalita.cast ? `-${lokalita.cast} ` : '')
-    .concat(markUlice(lokalita, zarizeni))
+    .concat(markUlice(lokalita, lokalitaHint))
     .concat(' ')
-    .concat(markCispop(lokalita, zarizeni))
+    .concat(markCispop(lokalita, lokalitaHint))
     .concat('/')
-    .concat(markCisori(lokalita, zarizeni))
+    .concat(markCisori(lokalita, lokalitaHint))
     .concat(' ')
-    .concat(markCisdop(lokalita, zarizeni))
+    .concat(markCisdop(lokalita, lokalitaHint))
 
   if (marked.markLength > 0) return marked
 
   // mark longest common substring
-  const trimmedName = zarizeni.name ? zarizeni.name : ''
+  const trimmedName = lokalitaHint.name ? lokalitaHint.name : ''
   const trimmedAdresa = lokalita ? lokalita.adresa : ''
   marked.marked = longestSubstring
     .mark(trimmedName, trimmedAdresa, '<span class="text-warning"><b>', '</b></span>')
