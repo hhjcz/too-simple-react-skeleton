@@ -2,7 +2,7 @@
 import myRest from '../lib/rest/index'
 import createFetch from '../lib/rest/createFetch'
 import { Zarizeni } from './models/Zarizeni'
-import { Umisteni } from './models/Umisteni'
+import { UmisteniFactory } from './models/Umisteni'
 
 const serverBaseUrl = process.env.SERVER_BASE_URL || 'http://localhost:8089/api'
 
@@ -13,7 +13,8 @@ const rest = myRest({
   },
   umisteni: {
     url: '/umisteni/:id',
-    itemTransformer: item => item
+    itemTransformer: item => UmisteniFactory(item),
+    // itemTransformer: item => item,
   },
   testEndpoint: {
     url: '/test/:id'
