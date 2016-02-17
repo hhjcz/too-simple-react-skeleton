@@ -3,15 +3,15 @@ import chai, { expect } from 'chai'
 import React from 'react'
 import sd from 'skin-deep'
 
-import Lokalita from '../Lokalita'
+import MarkedLokalita from '../MarkedLokalita'
 
-describe('umisteni Lokalita component', () => {
+describe('umisteni MarkedLokalita component', () => {
   let tree
   let vdom
   let instance   // eslint-disable-line no-unused-vars
 
   beforeEach(() => {
-    tree = sd.shallowRender(React.createElement(Lokalita, {}))
+    tree = sd.shallowRender(React.createElement(MarkedLokalita, {}))
 
     instance = tree.getMountedInstance()
     vdom = tree.getRenderOutput()

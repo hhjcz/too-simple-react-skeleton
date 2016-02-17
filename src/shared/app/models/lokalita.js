@@ -26,3 +26,5 @@ export class Lokalita extends Record({
     this.chardop = this.chardop || ''
   }
 }
+
+export default Lokalita

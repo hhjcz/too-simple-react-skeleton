@@ -11,15 +11,22 @@ describe('umisteni Umisteni component', () => {
   let vdom
   let instance   // eslint-disable-line no-unused-vars
 
-  beforeEach(() => {
-    tree = sd.shallowRender(React.createElement(Umisteni, { umisteni: List([{ id: 666 }]) }))
+  const shallowRender = (props) => {
+    tree = sd.shallowRender(React.createElement(Umisteni, props))
 
     instance = tree.getMountedInstance()
     vdom = tree.getRenderOutput()
     // console.log(vdom)
+  }
+
+  it('should render with default props', () => {
+    shallowRender()
+    expect(vdom.type).to.equal('div')
+    // expect(vdom.props.children.type).to.equal('');
   })
 
-  it('should render', () => {
+  it('should render with list of umisteni and zarizeni', () => {
+    shallowRender({ umisteni: List([{ id: 666 }]), zarizeni: { id: 66, name: 'someZarizeni' } })
     expect(vdom.type).to.equal('div')
     // expect(vdom.props.children.type).to.equal('');
   })

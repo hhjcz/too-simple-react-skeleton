@@ -27,7 +27,7 @@ describe('umisteni connected Container component', () => {
 
   it('should connect proper sub state to props', () => {
     expect(typeof vdom.props.umisteni).to.equal('object')
-    //expect(vdom.props.umisteni).to.be.instanceof(List)
+    // expect(vdom.props.umisteni).to.be.instanceof(List)
   })
 
 })

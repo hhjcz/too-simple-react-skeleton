@@ -53,7 +53,7 @@ export class Container extends React.Component {
     const { zarizeni, umisteni } = this.props
     return (
       <div id="zarizeni-list">
-        <Umisteni zarizeni={zarizeni.item} umisteni={umisteni.items} />
+        <Umisteni zarizeni={zarizeni.item} seznamUmisteni={umisteni.items} />
       </div>
     )
   }

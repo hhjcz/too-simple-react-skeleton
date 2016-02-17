@@ -34,7 +34,7 @@ function markObec(lokalita, zarizeni) {
   const hint = zarizeni.lokalitaHint
   let markedObec = mark(lokalita.obec, hint.obec)
   if (markedObec.markLength === 0) {
-    if (zarizeni.netvisionZarizeni.defaultmap && zarizeni.netvisionZarizeni.defaultmap.indexOf(lokalita.obec) >= 0) {
+    if (zarizeni.netvisionZarizeni && zarizeni.netvisionZarizeni.defaultmap && zarizeni.netvisionZarizeni.defaultmap.indexOf(lokalita.obec) >= 0) {
       markedObec = mark(lokalita.obec, lokalita.obec)
     }
   }

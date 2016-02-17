@@ -2,6 +2,7 @@
 import myRest from '../lib/rest/index'
 import createFetch from '../lib/rest/createFetch'
 import { Zarizeni } from '../zarizeni/core'
+import { Umisteni } from './models/umisteni'
 
 const serverBaseUrl = process.env.SERVER_BASE_URL || 'http://localhost:8089/api'
 
@@ -12,6 +13,7 @@ const rest = myRest({
   },
   umisteni: {
     url: '/umisteni/:id',
+    itemTransformer: item => new Umisteni(item)
   },
   testEndpoint: {
     url: '/test/:id'

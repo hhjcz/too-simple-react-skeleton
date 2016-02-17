@@ -60,7 +60,7 @@ LokalitaHint.prototype.fromDefaultMap = function(mapName, force) {
  * @param name
  * @returns {LokalitaHint}
  */
-export function find(name) {
+export function find(name = '') {
   /** @type {LokalitaHint} lokalitaHint */
   let lokalitaHint
 
