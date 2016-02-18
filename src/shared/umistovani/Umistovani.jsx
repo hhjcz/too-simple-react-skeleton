@@ -22,21 +22,24 @@ export default class Umistovani extends React.Component {
     this.searchForUmisteni = this.searchForUmisteni.bind(this)
   }
 
+  /**
+   * @param {LokalitaHint} lokalitaHint
+   */
   searchForUmisteni(lokalitaHint) {
     const zarizeni = this.props.zarizeni
     const params = {
       search: true,
       zarizeni_id: zarizeni.id,
-      obec: 'Praha',
+      obec: lokalitaHint.obec,
       'trimmed_ulice-lk': lokalitaHint.ulice,
     }
     this.props.actions.fetchAll({ params })
   }
 
   render() {
-    /* @type {Zarizeni} zarizeni */
+    /** @type {Zarizeni} zarizeni */
     const { zarizeni, seznamUmisteni } = this.props
-    const lokalitaHint = findLokalitaHint(zarizeni.name)
+    const lokalitaHint = findLokalitaHint(zarizeni.name, zarizeni.defaultmap)
     return (
       <div>
         <div>#{`${zarizeni.id} ${zarizeni.name}`}</div>

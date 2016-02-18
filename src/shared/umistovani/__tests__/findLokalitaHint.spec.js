@@ -27,18 +27,18 @@ describe('umistovani findLokalitaHint', () => {
       ['[CERAGON] Dobronicka1257B-Eltodo (Vimbou)', '', 'Dobronicka', '1257', 'b', '1257'],
       ['Coca-Cola - TEP - Krupka - Kateřinská 95 (SA-3520)', '', '', '', '', 'SA-3520'],
       ['[SUMMITD] Pardubice_ZavoduMiru-CBL_KeKamenici (cbl_69734)', '', 'Pardubice_ZavoduMiru', '', '', '69734'],
-    ];
+    ]
 
     names.forEach(nameMatch => {
-      const lokalitaHint = findLokalitaHint(nameMatch[0]);
-      expect(lokalitaHint.obec).to.equal(nameMatch[1]);
-      expect(lokalitaHint.ulice).to.equal(nameMatch[2]);
-      expect(lokalitaHint.cislo).to.equal(nameMatch[3]);
-      expect(lokalitaHint.cispop).to.equal(nameMatch[3]);
-      expect(lokalitaHint.cisori).to.equal(nameMatch[3]);
-      expect(lokalitaHint.chardop).to.equal(nameMatch[4]);
-      expect(lokalitaHint.op).to.equal(nameMatch[5]);
-    });
-  });
+      const lokalitaHint = findLokalitaHint(nameMatch[0])
+      expect(lokalitaHint.obec).to.equal(nameMatch[1])
+      expect(lokalitaHint.ulice).to.equal(nameMatch[2])
+      expect(lokalitaHint.cislo).to.equal(nameMatch[3])
+      expect(lokalitaHint.cispop).to.equal(nameMatch[3])
+      expect(lokalitaHint.cisori).to.equal(nameMatch[3])
+      expect(lokalitaHint.chardop).to.equal(nameMatch[4])
+      expect(lokalitaHint.op).to.equal(nameMatch[5])
+    })
+  })
 
 })

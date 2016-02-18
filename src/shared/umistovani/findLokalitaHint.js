@@ -1,7 +1,5 @@
 /** Created by hhj on 2/5/16. */
 
-/** @typedef {{obec: string, ulice: string, cislo: number, cispop: number, cisori: number, chardop: string, op: number|string, akrlok: string, ixlok: number}} LokalitaHint */
-
 const zkratky = {
   prg: 'Praha',
   brn: 'Brno',
@@ -49,7 +47,7 @@ LokalitaHint.prototype.toString = function() {
     + (this.cislo ? `${this.cislo} ` : '') + this.chardop + (this.op ? `OP#${this.op}` : '')
 }
 
-LokalitaHint.prototype.fromDefaultMap = function(mapName, force) {
+LokalitaHint.prototype.fromMapName = function(mapName, force) {
   if (!force && this.obec.length > 0) return
   let splitIndex = mapName.indexOf(' ')
   if (splitIndex === -1) splitIndex = mapName.indexOf('-')
@@ -58,10 +56,11 @@ LokalitaHint.prototype.fromDefaultMap = function(mapName, force) {
 }
 
 /**
- * @param name
+ * @param {string} name
+ * @param {string} mapName
  * @returns {LokalitaHint}
  */
-export default function findLokalitaHint(name = '') {
+export default function findLokalitaHint(name = '', mapName = '') {
   /** @type {LokalitaHint} lokalitaHint */
   let lokalitaHint
 
@@ -89,6 +88,8 @@ export default function findLokalitaHint(name = '') {
   }
 
   lokalitaHint = lokalitaHint || new LokalitaHint()
+
+  lokalitaHint.fromMapName(mapName)
 
   return lokalitaHint
 }
