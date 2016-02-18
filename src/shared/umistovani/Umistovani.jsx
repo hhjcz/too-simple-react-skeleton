@@ -3,7 +3,7 @@ import React, { PropTypes } from 'react'
 import MarkedLokalita from './MarkedLokalita'
 import findLokalitaHint from './findLokalitaHint'
 
-export default class Umisteni extends React.Component {
+export default class Umistovani extends React.Component {
   static propTypes = {
     zarizeni: PropTypes.object.isRequired,
     seznamUmisteni: PropTypes.object.isRequired,
@@ -31,7 +31,9 @@ export default class Umisteni extends React.Component {
     return (
       <div>
         <div>#{`${zarizeni.id} ${zarizeni.name}`}</div>
-        <span className="btn btn-sm btn-danger" onClick={() => this.searchForUmisteni(zarizeni, lokalitaHint)}>Search</span>
+        <span className="btn btn-sm btn-danger" onClick={function() { this.searchForUmisteni(zarizeni, lokalitaHint) }}>
+          Search
+        </span>
         {
           seznamUmisteni.map && seznamUmisteni.map(u =>
             <MarkedLokalita lokalitaHint={lokalitaHint} lokalita={u.lokalita} key={u.id} />

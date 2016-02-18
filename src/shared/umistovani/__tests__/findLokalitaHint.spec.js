@@ -2,7 +2,7 @@
 import { expect } from 'chai'
 import findLokalitaHint from '../findLokalitaHint'
 
-describe(' findLokalitaHint', () => {
+describe('umistovani findLokalitaHint', () => {
 
   it('should find correct hints', () => {
     /* [ jmeno, obec, ulice, cislo, cisloDoplnkove, op ] */

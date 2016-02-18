@@ -6,7 +6,7 @@ import sd from 'skin-deep'
 import createStore from '../../app/createStore'
 import Connected, { Container } from './../Container'
 
-describe('umisteni connected Container component', () => {
+describe('umistovani connected Container component', () => {
   let vdom
   let instance  // eslint-disable-line no-unused-vars
 
@@ -32,7 +32,7 @@ describe('umisteni connected Container component', () => {
 
 })
 
-describe('umisteni Container component', () => {
+describe('umistovani Container component', () => {
   let vdom
   let instance  // eslint-disable-line no-unused-vars
 

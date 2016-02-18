@@ -6,7 +6,7 @@ import lokalitaHinter from '../findLokalitaHint'
 import { Lokalita } from '../../app/models/Lokalita'
 import { Zarizeni } from '../../app/models/Zarizeni'
 
-describe('umisteni markLokalita', () => {
+describe('umistovani markLokalita', () => {
 
   it('should mark common lokalita and zarizeni case 1', () => {
     const lokalita = new Lokalita({ ulice: 'jakasiUlice', cispop: 66, cisdop: 5 })

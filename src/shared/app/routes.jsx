@@ -5,7 +5,7 @@ import { Route, IndexRoute } from 'react-router'
 import ZarizeniList from '../zarizeni-list/Container'
 import Zarizeni from '../zarizeni/Container'
 import NetvisionZarizeni from '../zarizeni/NetvisionZarizeni'
-import Umisteni from '../umisteni/Container'
+import Umistovani from '../umistovani/Container'
 import Ports from '../port/Ports'
 import Port from '../port/Port'
 import Hriste from './Hriste'
@@ -17,7 +17,6 @@ export default (
       <IndexRoute component={ZarizeniList} />
       <Route path=":id">
         <IndexRoute component={Zarizeni} />
-        <Route component={Umisteni} path="umisteni" />
         <Route component={NetvisionZarizeni} path="netvision" />
         <Route path="ports">
           <IndexRoute component={Ports} />
@@ -25,7 +24,7 @@ export default (
         </Route>
       </Route>
     </Route>
-    <Route path="umisteni" component={Umisteni} />
+    <Route path="umistovani" component={Umistovani} />
     <Route path="hriste" component={Hriste} />
   </Route>
 )

@@ -5,7 +5,7 @@ import sd from 'skin-deep'
 
 import MarkedLokalita from '../MarkedLokalita'
 
-describe('umisteni MarkedLokalita component', () => {
+describe('umistovani MarkedLokalita component', () => {
   let tree
   let vdom
   let instance   // eslint-disable-line no-unused-vars

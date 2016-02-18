@@ -7,13 +7,14 @@ import createMapStateToProps from '../lib/createMapStateToProps'
 import createMapDispatchToProps from '../lib/createMapDispatchToProps'
 import rest from '../app/rest'
 import * as actions from './actions'
-import Umisteni from './Umisteni'
+import Umistovani from './Umistovani'
 
 export class Container extends React.Component {
 
   static propTypes = {
     zarizeni: PropTypes.object,
     umisteni: PropTypes.object,
+    actions: PropTypes.object,
     dispatch: PropTypes.func.isRequired,
     location: PropTypes.object,
   };
@@ -53,7 +54,7 @@ export class Container extends React.Component {
     const { zarizeni, umisteni, actions } = this.props
     return (
       <div id="zarizeni-list">
-        <Umisteni zarizeni={zarizeni.item} seznamUmisteni={umisteni.items} actions={actions} />
+        <Umistovani zarizeni={zarizeni.item} seznamUmisteni={umisteni.items} actions={actions} />
       </div>
     )
   }

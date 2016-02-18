@@ -4,15 +4,15 @@ import React from 'react'
 import sd from 'skin-deep'
 import { List } from 'immutable'
 
-import Umisteni from '../Umisteni'
+import Umistovani from '../Umistovani'
 
-describe('umisteni Umisteni component', () => {
+describe('umistovani Umistovani component', () => {
   let tree
   let vdom
   let instance   // eslint-disable-line no-unused-vars
 
   const shallowRender = (props) => {
-    tree = sd.shallowRender(React.createElement(Umisteni, props))
+    tree = sd.shallowRender(React.createElement(Umistovani, props))
 
     instance = tree.getMountedInstance()
     vdom = tree.getRenderOutput()

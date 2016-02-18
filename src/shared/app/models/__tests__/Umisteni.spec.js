@@ -4,7 +4,7 @@ import { expect } from 'chai'
 import Umisteni, { UmisteniFactory } from '../Umisteni'
 import Lokalita from '../Lokalita'
 
-describe('umisteni class Umisteni', () => {
+describe('umisteni class Umistovani', () => {
 
   it('should instantiate', () => {
     const umisteni = UmisteniFactory({ id: 5, lokalita: { id: 6, ulice: 'nejakaUlice' } })
