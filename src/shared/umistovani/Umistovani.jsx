@@ -31,9 +31,7 @@ export default class Umistovani extends React.Component {
     return (
       <div>
         <div>#{`${zarizeni.id} ${zarizeni.name}`}</div>
-        <span className="btn btn-sm btn-danger" onClick={function() { this.searchForUmisteni(zarizeni, lokalitaHint) }}>
-          Search
-        </span>
+        <span className="btn btn-sm btn-danger" onClick={() => this.searchForUmisteni(zarizeni, lokalitaHint)}>Search</span>
         {
           seznamUmisteni.map && seznamUmisteni.map(u =>
             <MarkedLokalita lokalitaHint={lokalitaHint} lokalita={u.lokalita} key={u.id} />
