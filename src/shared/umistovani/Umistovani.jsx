@@ -1,9 +1,11 @@
 /** Created by hhj on 2/4/16. */
 import React, { PropTypes } from 'react'
-import MarkedLokalita from './MarkedLokalita'
 import findLokalitaHint from './findLokalitaHint'
+import MarkedLokalita from './MarkedLokalita'
+import LokalitaHint from './LokalitaHint'
 
 export default class Umistovani extends React.Component {
+
   static propTypes = {
     zarizeni: PropTypes.object.isRequired,
     seznamUmisteni: PropTypes.object.isRequired,
@@ -15,7 +17,13 @@ export default class Umistovani extends React.Component {
     seznamUmisteni: {},
   };
 
-  searchForUmisteni(zarizeni, lokalitaHint) {
+  constructor(props) {
+    super(props)
+    this.searchForUmisteni = this.searchForUmisteni.bind(this)
+  }
+
+  searchForUmisteni(lokalitaHint) {
+    const zarizeni = this.props.zarizeni
     const params = {
       search: true,
       zarizeni_id: zarizeni.id,
@@ -26,12 +34,14 @@ export default class Umistovani extends React.Component {
   }
 
   render() {
+    /* @type {Zarizeni} zarizeni */
     const { zarizeni, seznamUmisteni } = this.props
     const lokalitaHint = findLokalitaHint(zarizeni.name)
     return (
       <div>
         <div>#{`${zarizeni.id} ${zarizeni.name}`}</div>
-        <span className="btn btn-sm btn-danger" onClick={() => this.searchForUmisteni(zarizeni, lokalitaHint)}>Search</span>
+        <div>Mapa: {zarizeni.defaultmap}</div>
+        <LokalitaHint lokalitaHint={lokalitaHint} searchForUmisteni={this.searchForUmisteni} />
         {
           seznamUmisteni.map && seznamUmisteni.map(u =>
             <MarkedLokalita lokalitaHint={lokalitaHint} lokalita={u.lokalita} key={u.id} />

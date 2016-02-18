@@ -55,6 +55,7 @@ export class Container extends React.Component {
     return (
       <div id="zarizeni-list">
         <Umistovani zarizeni={zarizeni.item} seznamUmisteni={umisteni.items} actions={actions} />
+        {zarizeni.fetching || umisteni.fetching ? <div className="text-info">Fetching...</div> : ''}
       </div>
     )
   }
