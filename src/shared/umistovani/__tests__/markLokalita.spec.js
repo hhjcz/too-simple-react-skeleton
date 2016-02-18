@@ -4,7 +4,6 @@ import { expect } from 'chai'
 import markLokalita from '../markLokalita'
 import lokalitaHinter from '../findLokalitaHint'
 import { Lokalita } from '../../app/models/Lokalita'
-import { Zarizeni } from '../../app/models/Zarizeni'
 
 describe('umistovani markLokalita', () => {
 

@@ -3,7 +3,7 @@ import { expect } from 'chai'
 import React from 'react'
 import sd from 'skin-deep'
 
-import { Zarizeni } from '../../app/models/Zarizeni'
+import { ZarizeniFactory } from '../../app/models/Zarizeni'
 import Radka from '../Radka'
 import { columns } from '../../app/models/Column'
 
@@ -12,7 +12,7 @@ describe('zarizeni-list Radka component', () => {
   let instance // eslint-disable-line no-unused-vars
 
   beforeEach(() => {
-    const zarizeni = new Zarizeni({ id: 666 })
+    const zarizeni = ZarizeniFactory({ id: 666 })
     const tree = sd.shallowRender(
       React.createElement(Radka, { zarizeni, columns: columns.toList() })
     )

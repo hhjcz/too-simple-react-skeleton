@@ -8,6 +8,7 @@ export const Zarizeni = Record({
   createdAt: '',
   updatedAt: '',
   deletedAt: '',
+  defaultmap: '',
   netvisionZarizeni: {
     id: 0,
     name: '',
@@ -29,3 +30,10 @@ export const Zarizeni = Record({
 })
 
 export default Zarizeni
+
+export function ZarizeniFactory(zarizeniObj = {}) {
+  return new Zarizeni({
+    ...(zarizeniObj.toObject ? zarizeniObj.toObject() : zarizeniObj),
+    defaultmap: zarizeniObj.netvisionZarizeni ? zarizeniObj.netvisionZarizeni.defaultmap : ''
+  })
+}
