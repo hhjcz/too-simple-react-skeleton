@@ -1,6 +1,6 @@
 /** Created by hhj on 2/18/16. */
 import React, { PropTypes } from 'react'
-import { Input } from 'react-bootstrap'
+import { Input, Glyphicon } from 'react-bootstrap'
 
 class MyInput extends React.Component {
   static propTypes = {
@@ -27,6 +27,7 @@ class MyInput extends React.Component {
           type="text"
           bsSize="small"
           addonBefore={label}
+          addonAfter={<Glyphicon glyph="erase" onClick={function(event) {onChange(label, '')}} />}
           bsStyle={MyInput.bsStyle(value)}
           onChange={function(event) {
             onChange(label, event.target.value)
@@ -77,7 +78,7 @@ export default class LokalitaHint extends React.Component {
         <MyInput label="op" value={lokalitaHint.op} onChange={this.onInputChange} />
         <MyInput label="ixlok" value={lokalitaHint.ixlok} onChange={this.onInputChange} />
 
-        <span className="btn btn-sm btn-danger" onClick={ function() { searchForUmisteni(lokalitaHint) } }>
+        <span className="btn btn-sm btn-info" onClick={ function() { searchForUmisteni(lokalitaHint) } }>
           Search
         </span>
       </div>

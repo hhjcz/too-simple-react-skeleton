@@ -28,7 +28,7 @@ function addGroup(resource, group) {
  * @returns {ActionTypes}
  */
 export function actionTypesFor(resource) {
-  const actionTypes = ['fetchAll', 'fetchOne', 'create', 'update', 'delete'].reduce(
+  const actionTypes = ['fetchAll', 'fetchOne', 'create', 'update', 'destroy'].reduce(
     (result, key) => ({
       ...result,
       ...addGroup(resource, key)

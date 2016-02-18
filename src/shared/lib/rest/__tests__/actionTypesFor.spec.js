@@ -10,7 +10,7 @@ describe('actionTypesFor', () => {
     expect(typeof actionTypes.fetchOneRequested).to.equal('string')
     expect(typeof actionTypes.createSuccess).to.equal('string')
     expect(typeof actionTypes.updateError).to.equal('string')
-    expect(typeof actionTypes.deleteSuccess).to.equal('string')
+    expect(typeof actionTypes.destroySuccess).to.equal('string')
   })
 
 })

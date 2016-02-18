@@ -33,7 +33,7 @@ export default function createResource(resourceName, _config, fetchHolder) {
           return normalizedResponse
         })
         .catch(error => {
-          console.log(`Ajejej, chybka resource: ${error}, url: ${url}`)
+          console.error(`Ajejej, chybka resource: ${error}, url: ${url}`)
           throw new Error(error)
         })
 
@@ -46,10 +46,12 @@ export default function createResource(resourceName, _config, fetchHolder) {
   const fetchAll = createAction('fetchAll')
   const fetchOne = createAction('fetchOne')
   const create = createAction('create', 'POST')
+  const destroy = createAction('destroy', 'DELETE')
 
   return {
     fetchAll,
     fetchOne,
     create,
+    destroy,
   }
 }

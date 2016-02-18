@@ -11,6 +11,7 @@ export default function createFetch(serverBaseUrl) {
         if (!response.ok) {
           throw new Error(`${response.status} ${response.statusText}`)
         }
+        if (response.status === 204) return response
         return response.json()  // parse json to object
       })
 }

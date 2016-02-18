@@ -20,6 +20,7 @@ export default class Umistovani extends React.Component {
   constructor(props) {
     super(props)
     this.searchForUmisteni = this.searchForUmisteni.bind(this)
+    this.deleteAllUmisteni = this.deleteAllUmisteni.bind(this)
   }
 
   /**
@@ -28,15 +29,25 @@ export default class Umistovani extends React.Component {
   searchForUmisteni(lokalitaHint) {
     const zarizeni = this.props.zarizeni
     const params = {
-      search: true,
-      zarizeni_id: zarizeni.id,
-      obec: lokalitaHint.obec,
-      'trimmed_ulice-lk': lokalitaHint.ulice,
+      search: '',
+      zarizeni_id: zarizeni.id
     }
+    if (lokalitaHint.obec) params.obec = lokalitaHint.obec
+    if (lokalitaHint.cislo) params.cislo = lokalitaHint.cislo
+    if (lokalitaHint.ulice) params['trimmed_ulice-lk'] = lokalitaHint.ulice
+
     this.props.actions.fetchAll({ params })
   }
 
+  deleteAllUmisteni() {
+    const params = { zarizeni_id: this.props.zarizeni.id }
+    this.props.actions.destroy({ params })
+      .then(() => this.props.actions.fetchAll({ params }))
+      .catch(() => this.props.actions.fetchAll({ params }))
+  }
+
   render() {
+    const self = this
     /** @type {Zarizeni} zarizeni */
     const { zarizeni, seznamUmisteni } = this.props
     const lokalitaHint = findLokalitaHint(zarizeni.name, zarizeni.defaultmap)
@@ -50,6 +61,9 @@ export default class Umistovani extends React.Component {
             <MarkedLokalita lokalitaHint={lokalitaHint} lokalita={u.lokalita} key={u.id} />
           )
         }
+        <div className="btn btn-sm btn-danger" onClick={ function() { self.deleteAllUmisteni() } }>
+          Delete all umisteni
+        </div>
       </div>
     )
   }

@@ -39,11 +39,14 @@ export default function createRestAction(endpointName, config, actionCreators, f
         dispatch(subActionCreators.requested())
 
         return fetchExecute()
-          .then(response => dispatch(subActionCreators.success(response)))
+          .then(response => {
+            dispatch(subActionCreators.success(response))
+            return response
+          })
           .catch(error => {
             const errorMessage = `Ajaaj, chybka api: ${error}`
             dispatch(subActionCreators.error({ errorMessage }))
-            console.log(errorMessage)
+            console.error(errorMessage)
             throw new Error(errorMessage)
           })
       }
@@ -53,10 +56,12 @@ export default function createRestAction(endpointName, config, actionCreators, f
   const fetchAll = createAction('fetchAll')
   const fetchOne = createAction('fetchOne')
   const create = createAction('create')
+  const destroy = createAction('destroy')
 
   return {
     fetchAll,
     fetchOne,
     create,
+    destroy,
   }
 }
