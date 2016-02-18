@@ -7,7 +7,7 @@ class MyInput extends React.Component {
     label: PropTypes.string.isRequired,
     value: PropTypes.string.isRequired,
     onChange: PropTypes.func.isRequired,
-  }
+  };
 
   static validate(value) {
     return value && value.length >= 0
