@@ -56,6 +56,10 @@ export default class LokalitaHint extends React.Component {
     this.onInputChange = this.onInputChange.bind(this)
   }
 
+  componentWillReceiveProps(nextProps) {
+    this.setState(nextProps.lokalitaHint)
+  }
+
   onInputChange(label, value) {
     const newState = {}
     newState[label] = value

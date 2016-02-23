@@ -11,6 +11,9 @@ const rest = myRest({
     url: '/zarizeni/:id',
     itemTransformer: item => ZarizeniFactory(item)
   },
+  neumistena: {
+    url: '/zarizeni/range',
+  },
   umisteni: {
     url: '/umisteni/:id',
     itemTransformer: item => UmisteniFactory(item),

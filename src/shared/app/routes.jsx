@@ -24,7 +24,7 @@ export default (
         </Route>
       </Route>
     </Route>
-    <Route path="umistovani" component={Umistovani} />
+    <Route path="umistovani/:pozice" component={Umistovani} />
     <Route path="hriste" component={Hriste} />
   </Route>
 )
