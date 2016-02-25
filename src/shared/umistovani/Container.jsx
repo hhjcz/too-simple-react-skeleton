@@ -14,6 +14,7 @@ export class Container extends React.Component {
     zarizeni: PropTypes.object,
     umisteni: PropTypes.object,
     params: PropTypes.object,
+    history: PropTypes.object,
   };
 
   static defaultProps = {
@@ -94,6 +95,9 @@ export class Container extends React.Component {
     const nextZarizeniId = Container.getZarizeniId({ ...this.props, params: { ...this.props.params, pozice } })
     Container.fetchZarizeni(nextZarizeniId, rest.actions)
     Container.fetchUmisteni(nextZarizeniId, rest.actions)
+
+    // FIXME - workaround, depends on url path (should at least use location.pathname ...)
+    this.props.history.push({ pathname: `/umistovani/${pozice}` })
   }
 
   render() {
