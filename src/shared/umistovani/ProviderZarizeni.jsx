@@ -17,31 +17,33 @@ export default class ProviderZarizeni extends React.Component {
   };
 
   componentDidMount() {
-    this.fetch(this.props.zarizeniId)
+    // ProviderZarizeni.fetch(this.props.zarizeniId, this.props.actions)
   }
 
   componentWillReceiveProps(nextProps) {
-    const nextZarizeniId = nextProps.zarizeniId
-    if (nextZarizeniId && nextZarizeniId !== this.props.zarizeniId) {
-      this.fetch(nextZarizeniId)
-    }
+    // const nextZarizeniId = nextProps.zarizeniId
+    // if (nextZarizeniId && nextZarizeniId !== this.props.zarizeniId) {
+    //   ProviderZarizeni.fetch(nextZarizeniId, this.props.actions)
+    // }
   }
 
-  fetch(zarizeniId) {
+  static fetch(zarizeniId, actions) {
+    // return
     if (!zarizeniId > 0) return
-    this.fetchZarizeni.bind(this)(zarizeniId)
-    this.fetchUmisteni.bind(this)(zarizeniId)
+    ProviderZarizeni.fetchZarizeni(zarizeniId, actions)
+    ProviderZarizeni.fetchUmisteni(zarizeniId, actions)
   }
 
-  fetchZarizeni(zarizeniId) {
-    this.props.actions.zarizeni.fetchOne({
+  static fetchZarizeni(zarizeniId, actions) {
+    const actionReturn = actions.zarizeni.fetchOne({
       params: { id: zarizeniId, include: 'umisteni.lokalita' },
       projectToLocation: false
     })
+    return actionReturn
   }
 
-  fetchUmisteni(zarizeniId) {
-    this.props.actions.umisteni.fetchAll({
+  static fetchUmisteni(zarizeniId, actions) {
+    actions.umisteni.fetchAll({
       params: { zarizeni_id: zarizeniId, include: 'lokalita' },
       projectToLocation: false
     })

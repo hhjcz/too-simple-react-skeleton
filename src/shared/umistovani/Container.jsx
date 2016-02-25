@@ -2,7 +2,8 @@
 import React, { PropTypes } from 'react'
 import { connect } from 'react-redux'
 import { Link } from 'react-router'
-import qs from 'query-string'
+import { List } from 'immutable'
+import { Pagination } from 'react-bootstrap'
 import createMapStateToProps from '../lib/createMapStateToProps'
 import createMapDispatchToProps from '../lib/createMapDispatchToProps'
 import rest from '../app/rest'
@@ -14,58 +15,58 @@ export class Container extends React.Component {
     neumistena: PropTypes.object,
     zarizeni: PropTypes.object,
     umisteni: PropTypes.object,
-    actions: PropTypes.object,
     dispatch: PropTypes.func.isRequired,
     location: PropTypes.object,
     params: PropTypes.object,
   };
 
   static defaultProps = {
-    neumistena: { items: [] },
+    neumistena: { items: List() },
     zarizeni: { item: {} },
     umisteni: {},
-    actions: {},
     params: {},
   };
 
   constructor(props) {
     super(props);
     this.state = {
-      zarizeniId: null,
+      pozice: parseInt(props.params.pozice) || 1,
     }
-    this.getPozice = this.getPozice.bind(this)
+    this.gotoPozice = this.gotoPozice.bind(this)
   }
 
-  // browser fetching:
   componentDidMount() {
-    console.info('Container::componentDidMount')
-    const { dispatch, location, params } = this.props
-    Container.fetchActions.forEach(action => dispatch(action({ params })))
-    this.updateState(this.props)
+    // browser fetching:
+    Container.fetchActions.forEach(action => action({ params: this.props.params }, this.props.neumistena.items ))
   }
 
   componentWillReceiveProps(nextProps) {
-    console.info('Container::componentWillReceiveProps', nextProps)
-    this.updateState(nextProps)
+    // const nextZarizeniId = Container.getZarizeniId(nextProps)
+    // if (nextZarizeniId > 0 && nextZarizeniId !== this.state.zarizeniId) {
+    //   ProviderZarizeni.fetch(nextZarizeniId, rest.actions)
+    //   this.setState({ zarizeniId: nextZarizeniId })
+    // }
   }
 
-  getPozice(params) {
-    // const { location } = this.props
-    const pozice = parseInt(params.pozice)
-
-    return pozice || 0
+  static getPozice(params) {
+    return parseInt(params.pozice) || 0
   }
 
-  updateState(nextProps) {
-    const pozice = this.getPozice(nextProps.params)
-    const nextZarizeni = nextProps.neumistena.items.get(pozice)
-    const nextZarizeniId = nextZarizeni ? nextZarizeni.id : null
-    if (nextZarizeniId !== this.state.zarizeniId) this.setState({ zarizeniId: nextZarizeniId })
+  static getZarizeniId(props) {
+    const pozice = Container.getPozice(props.params)
+    const items = (props.neumistena && props.neumistena.items) ? props.neumistena.items : List()
+    const nextZarizeni = items.get(pozice - 1)
+    const nextZarizeniId = nextZarizeni ? parseInt(nextZarizeni.id) : null
+
+    return nextZarizeniId
   }
 
-  static fetchNeumistena({ params }) {
+  static fetchNeumistena({ params }, items = List()) {
     return rest.actions.neumistena.fetchAll({
       params: { _filter: 'neumistena', page: 1, per_page: 10000 },
+    }).then(response => {
+      const zarizeniId = Container.getZarizeniId({ params, neumistena: { items: response ? List(response.data) : items } })
+      return ProviderZarizeni.fetch(zarizeniId, rest.actions)
     })
   }
 
@@ -75,18 +76,33 @@ export class Container extends React.Component {
     return [Container.fetchNeumistena]// , Container.fetchZarizeni, Container.fetchUmisteni]
   }
 
+  gotoPozice(pozice) {
+    this.setState({ pozice })
+    const nextZarizeniId = Container.getZarizeniId({ ...this.props, params: { ...this.props.params, pozice } })
+    // if (nextZarizeniId > 0 && nextZarizeniId !== this.state.zarizeniId) {
+    ProviderZarizeni.fetch(nextZarizeniId, rest.actions)
+    //   this.setState({ zarizeniId: nextZarizeniId })
+    // }
+  }
+
   render() {
-    console.info('Container::render')
-    const { neumistena, zarizeni, umisteni, actions } = this.props
-    const zarizeniId = parseInt(this.state.zarizeniId)
+    const self = this
+    const { neumistena, zarizeni, umisteni } = this.props
     return (
       <div id="zarizeni-list">
-        { /* neumistena.items.map(item => `#${item.id} `) */ }
-        <Link to={`/umistovani/${this.getPozice(this.props.params) - 1}`}> Previous </Link>
-        <Link to={`/umistovani/${this.getPozice(this.props.params) + 1}`}> Next </Link>
+        <Pagination
+          items={neumistena.items.size}
+          activePage={this.state.pozice}
+          prev next first last ellipsis
+          bsSize="small" maxButtons={9}
+          onSelect={function(event, selectedEvent) {
+            console.log('selected key: ', selectedEvent.eventKey)
+            if (self.state.pozice !== selectedEvent.eventKey) self.gotoPozice(selectedEvent.eventKey)
+          }}
+        />
         {
-          zarizeniId > 0
-            ? <ProviderZarizeni zarizeniId={zarizeniId} zarizeni={zarizeni} umisteni={umisteni} actions={actions} />
+          zarizeni.item.id > 0
+            ? <ProviderZarizeni zarizeni={zarizeni} umisteni={umisteni} actions={rest.actions} />
             : ''
         }
       </div>
@@ -96,5 +112,5 @@ export class Container extends React.Component {
 
 export default connect(
   createMapStateToProps(state => state),
-  createMapDispatchToProps(rest.actions)
+  // createMapDispatchToProps(rest.actions)
 )(Container)
