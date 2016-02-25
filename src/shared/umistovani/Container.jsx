@@ -58,9 +58,7 @@ export class Container extends React.Component {
 
   // TODO - refactor
   static fetchNeumistena({ params }, items = List()) {
-    return rest.actions.neumistena.fetchAll({
-      params: { _filter: 'neumistena', page: 1, per_page: 10000 },
-    }).then(response => {
+    return rest.actions.neumistena.fetchAll().then(response => {
       const zarizeniId = Container.getZarizeniId({
         params,
         neumistena: { items: response ? List(response.data) : items }

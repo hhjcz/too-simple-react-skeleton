@@ -13,6 +13,7 @@ const rest = myRest({
   },
   neumistena: {
     url: '/zarizeni/range',
+    extraParams: { _filter: 'neumistena', page: 1, per_page: 10000 },
   },
   umisteni: {
     url: '/umisteni/:id',

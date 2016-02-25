@@ -14,6 +14,7 @@ export default function createRestAction(endpointName, config, actionCreators, f
   }
 
   const resource = createResource(endpointName, config, fnHolder)
+  const { extraParams } = config
 
   const createAction = actionName => {
     const subActionCreators = {
@@ -30,10 +31,10 @@ export default function createRestAction(endpointName, config, actionCreators, f
       return fnHolder.dispatch(({ dispatch, getState, history }) => {
 
         const state = getThisSubState(getState)
-        const queryParams = { ...queryGenerator(state), ...params }
+        const queryParams = { ...queryGenerator(state), ...extraParams, ...params }
         const { fetchUrl, fetchExecute } = resource[actionName](queryParams, body)
 
-        if (state.lastFetchMark === fetchUrl) return Promise.resolve(null) // no need to refetch
+        // if (state.lastFetchMark === fetchUrl) return Promise.resolve(null) // no need to refetch
         if (history && projectToLocation) projectFetchUrlToLocation(history, urlParse(fetchUrl).search)
 
         dispatch(subActionCreators.requested())
