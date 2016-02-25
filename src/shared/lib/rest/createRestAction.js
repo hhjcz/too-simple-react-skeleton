@@ -4,7 +4,7 @@ import createResource from './createResource'
 import { getSubState } from './utils'
 import queryGenerators from './queryGenerators'
 
-export default function createRestAction(endpointName, config, actionCreators, fetchHolder) {
+export default function createRestAction(endpointName, config, actionCreators, fnHolder) {
   const getThisSubState = getSubState(endpointName)
 
   // projects fetch url to window location (via history),
@@ -13,7 +13,7 @@ export default function createRestAction(endpointName, config, actionCreators, f
     history.push({ pathname: window.location.pathname, search })
   }
 
-  const resource = createResource(endpointName, config, fetchHolder)
+  const resource = createResource(endpointName, config, fnHolder)
 
   const createAction = actionName => {
     const subActionCreators = {
@@ -27,7 +27,7 @@ export default function createRestAction(endpointName, config, actionCreators, f
     return ({ params, body, projectToLocation } = {}) => {
       if (projectToLocation == null) projectToLocation = false // eslint-disable-line
 
-      return fetchHolder.dispatch(({ dispatch, getState, history }) => {
+      return fnHolder.dispatch(({ dispatch, getState, history }) => {
 
         const state = getThisSubState(getState)
         const queryParams = { ...queryGenerator(state), ...params }
