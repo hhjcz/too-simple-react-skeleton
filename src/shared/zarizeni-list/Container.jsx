@@ -22,8 +22,7 @@ export class Container extends React.Component {
 
   // browser fetching:
   componentDidMount() {
-    const { dispatch } = this.props
-    Container.fetchActions.forEach((action) => dispatch(action({ projectToLocation: true })))
+    Container.fetchActions.forEach((action) => action({ projectToLocation: true }))
   }
 
   // server and client side fetch actions (see render.jsx & componentDidMount):

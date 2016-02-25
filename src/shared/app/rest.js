@@ -24,7 +24,7 @@ const rest = myRest({
   }
 }).use('fetch', createFetch(serverBaseUrl))
 
-export const actions = rest.actions
-export const reducers = rest.reducers
-
 export default rest
+
+// export const actions = rest.actions
+// export const reducers = rest.reducers

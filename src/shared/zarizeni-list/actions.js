@@ -28,7 +28,7 @@ export function gotoPage(page, projectToLocation = false) {
       page
     })
 
-    dispatch(fetchAll({ projectToLocation }))
+    fetchAll({ projectToLocation })
   }
 }
 
@@ -45,7 +45,7 @@ export function setPageSize(perPage, projectToLocation = false) {
       perPage
     })
 
-    dispatch(fetchAll({ projectToLocation }))
+    fetchAll({ projectToLocation })
   }
 }
 
@@ -62,7 +62,7 @@ export function sortChange(sortField, projectToLocation = false) {
       sortField
     })
 
-    dispatch(fetchAll({ projectToLocation }))
+    fetchAll({ projectToLocation })
   }
 }
 
@@ -77,6 +77,7 @@ export function filterChange(filter, projectToLocation = false) {
       type: FILTER_CHANGE,
       filter
     })
-    dispatch(fetchAll({ projectToLocation }))
+
+    fetchAll({ projectToLocation })
   }
 }

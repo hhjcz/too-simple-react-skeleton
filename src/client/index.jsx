@@ -7,6 +7,7 @@ import { Provider } from 'react-redux'
 // import 'bootstrap/dist/css/bootstrap.min.css'
 import './my-bootstrap.less'
 import './global.styl'
+import rest from '../shared/app/rest'
 
 import routes from '../shared/app/routes'
 import createStore from '../shared/app/createStore'
@@ -18,6 +19,7 @@ const history = useQueries(createHistory)()
 const initialState = window.__INITIAL_STATE__
 
 const store = createStore(initialState, history)
+rest.use('dispatch', store.dispatch)
 
 render(
   <Provider store={store}>

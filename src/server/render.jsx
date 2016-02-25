@@ -10,10 +10,13 @@ import qs from 'query-string'
 
 import routes from './../shared/app/routes'
 import createStore from './../shared/app/createStore'
+import rest from '../shared/app/rest'
 
 export default function render(req, res, next) {
   const location = createLocation(req.url)
   const store = createStore()
+
+  rest.use('dispatch', store.dispatch)
 
   match({ routes, location }, async(err, redirectLocation, renderProps) => {
 
@@ -89,7 +92,7 @@ async function fetchAsyncData(dispatch, { components, location, params }) {
     // .concat(component.WrappedComponent ? component.WrappedComponent.fetchActions || [] : [])
   }, [])
   const queryParams = { ...qs.parse(location.search), ...params }
-  const promises = fetchActions.map(action => dispatch(action({ params: queryParams })))
+  const promises = fetchActions.map(action => action({ params: queryParams }))
 
   await Promise.all(promises)
 }

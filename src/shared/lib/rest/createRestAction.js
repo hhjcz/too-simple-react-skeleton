@@ -27,13 +27,13 @@ export default function createRestAction(endpointName, config, actionCreators, f
     return ({ params, body, projectToLocation } = {}) => {
       if (projectToLocation == null) projectToLocation = false // eslint-disable-line
 
-      return ({ dispatch, getState, history }) => {
+      return fetchHolder.dispatch(({ dispatch, getState, history }) => {
 
         const state = getThisSubState(getState)
         const queryParams = { ...queryGenerator(state), ...params }
         const { fetchUrl, fetchExecute } = resource[actionName](queryParams, body)
 
-        if (state.lastFetchMark === fetchUrl) return null // no need to refetch
+        if (state.lastFetchMark === fetchUrl) return Promise.resolve(null) // no need to refetch
         if (history && projectToLocation) projectFetchUrlToLocation(history, urlParse(fetchUrl).search)
 
         dispatch(subActionCreators.requested())
@@ -49,7 +49,7 @@ export default function createRestAction(endpointName, config, actionCreators, f
             console.error(errorMessage)
             throw new Error(errorMessage)
           })
-      }
+      })
     }
   }
 
