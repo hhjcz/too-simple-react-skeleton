@@ -1,5 +1,5 @@
 /** Created by hhj on 20.12.15. */
-import { actions as restActions } from '../app/rest';
+import rest from '../app/rest';
 
 export const SET_PAGINATION = 'SET_PAGINATION'
 export const GOTO_PAGE = 'GOTO_PAGE'
@@ -7,14 +7,13 @@ export const SET_PAGE_SIZE = 'SET_PAGE_SIZE'
 export const SORT_CHANGE = 'SORT_CHANGE'
 export const FILTER_CHANGE = 'FILTER_CHANGE'
 
-const { fetchAll, fetchOne } = restActions.zarizeni
 
 module.exports = {
   ...module.exports,
-  ...restActions.zarizeni,
-  fetchAll,
-  fetchOne,
+  ...rest.actions.zarizeni,
 }
+
+const { fetchAll } = rest.actions.zarizeni
 
 /**
  * @param {number} page

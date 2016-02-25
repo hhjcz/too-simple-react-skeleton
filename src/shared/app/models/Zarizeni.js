@@ -2,7 +2,7 @@
 import { Record } from 'immutable'
 
 export const Zarizeni = Record({
-  id: 1,
+  id: 0,
   name: '',
   ipAddress: '',
   createdAt: '',
