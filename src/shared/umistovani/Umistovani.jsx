@@ -30,7 +30,8 @@ export default class Umistovani extends React.Component {
     const zarizeni = this.props.zarizeni
     const params = {
       search: '',
-      zarizeni_id: zarizeni.id
+      zarizeni_id: zarizeni.id,
+      include: 'lokalita',
     }
     if (lokalitaHint.obec) params.obec = lokalitaHint.obec
     if (lokalitaHint.cislo) params.cislo = lokalitaHint.cislo
@@ -40,7 +41,7 @@ export default class Umistovani extends React.Component {
   }
 
   deleteAllUmisteni() {
-    const params = { zarizeni_id: this.props.zarizeni.id }
+    const params = { zarizeni_id: this.props.zarizeni.id, include: 'lokalita' }
     this.props.actions.destroy({ params })
       .then(() => this.props.actions.fetchAll({ params }))
       .catch(() => this.props.actions.fetchAll({ params }))
