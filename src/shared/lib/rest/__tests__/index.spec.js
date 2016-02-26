@@ -16,7 +16,7 @@ describe('myRest library', () => {
   const getState = () => ({ someEndpoint })
 
   const dispatch = action => {
-    if (typeof action === 'function') return action({ dispatch, getState, fetch })
+    if (typeof action === 'function') return action({ dispatch, getState })
     if (action.type === '@@my-rest/SOME_ENDPOINT_SUCCESS') {
       expect(action.data).not.to.be.undefined // eslint-disable-line no-unused-expressions
     }
@@ -28,6 +28,7 @@ describe('myRest library', () => {
 
   beforeEach(() => {
     rest = myRest({ someEndpoint: { url: '/someUrl' } }, fetch)
+    rest.use('dispatch', dispatch)
     reducer = rest.reducers.someEndpoint
   })
 

@@ -6,9 +6,9 @@ import createRestAction from './createRestAction'
 import actionTypesFor from './actionTypesFor'
 import { actionCreatorsFor } from './actionCreatorsFor'
 
-export default function createMyRest(config = {}, fetch = () => ({})) {
+export default function createMyRest(config = {}, fetch = () => ({}), dispatch = null) {
   const myRest = { actions: {}, reducers: {} }
-  const fnHolder = { fetch, dispatch: x => x }
+  const fnHolder = { fetch, dispatch }
 
   Object.keys(config).forEach(endpointName => {
     const actionTypes = actionTypesFor(endpointName)

@@ -19,7 +19,7 @@ describe('zarizeni-list actions', () => {
     const getState = () => ({ zarizeni })
 
     const dispatch = action => {
-      if (typeof action === 'function') return action({ dispatch, getState, fetch })
+      if (typeof action === 'function') return action({ dispatch, getState })
       const initialState = reducer(getState())
       state = reducer(initialState, action)
 
@@ -27,6 +27,7 @@ describe('zarizeni-list actions', () => {
     }
 
     rest.use('fetch', fetch)
+    rest.use('dispatch', dispatch)
 
     it('should handle null response', () => {
       return dispatch(actions.fetchAll()).then(response => {
