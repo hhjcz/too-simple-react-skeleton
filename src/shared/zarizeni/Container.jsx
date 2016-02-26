@@ -1,7 +1,6 @@
 /** Created by hhj on 12/28/15. */
 import React, { PropTypes } from 'react'
 import { connect } from 'react-redux'
-
 import createMapStateToProps from '../lib/createMapStateToProps'
 import createMapDispatchToProps from '../lib/createMapDispatchToProps'
 import * as actions from '../zarizeni-list/actions'
@@ -20,7 +19,7 @@ export class Container extends React.Component {
   // browser fetching:
   componentDidMount() {
     const { dispatch, location, params } = this.props
-    Container.fetchActions.forEach((action) => dispatch(action({ params })))
+    Container.fetchActions.forEach((action) => action({ params }))
   }
 
   // server and client side fetch actions (see render.jsx & componentDidMount):
