@@ -34,7 +34,7 @@ export default function createRestAction(endpointName, config, actionCreators, f
         const queryParams = { ...queryGenerator(state), ...extraParams, ...params }
         const { fetchUrl, fetchExecute } = resource[actionName](queryParams, body)
 
-        // if (state.lastFetchMark === fetchUrl) return Promise.resolve(null) // no need to refetch
+        if (state.lastFetchMark === fetchUrl) return Promise.resolve(null) // no need to refetch
         if (history && projectToLocation) projectFetchUrlToLocation(history, urlParse(fetchUrl).search)
 
         dispatch(subActionCreators.requested())

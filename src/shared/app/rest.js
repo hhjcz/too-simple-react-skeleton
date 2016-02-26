@@ -12,8 +12,8 @@ const rest = myRest({
     itemTransformer: item => ZarizeniFactory(item)
   },
   neumistena: {
-    url: '/zarizeni/range',
-    extraParams: { _filter: 'neumistena', page: 1, per_page: 10000 },
+    url: '/zarizeni',
+    extraParams: { _filter: 'neumistena', _fields: 'id', 'deleted_at-null': true, page: 1, per_page: 1000000 },
   },
   umisteni: {
     url: '/umisteni/:id',
