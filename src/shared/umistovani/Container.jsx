@@ -6,6 +6,7 @@ import { Pagination } from 'react-bootstrap'
 import createMapStateToProps from '../lib/createMapStateToProps'
 import rest from '../app/rest'
 import Umistovani from './Umistovani'
+import * as zarizeniListActions from '../zarizeni-list/actions'
 
 export class Container extends React.Component {
 
@@ -13,6 +14,7 @@ export class Container extends React.Component {
     neumistena: PropTypes.object,
     zarizeni: PropTypes.object,
     umisteni: PropTypes.object,
+    store: PropTypes.object,
     params: PropTypes.object,
     history: PropTypes.object,
   };
@@ -26,15 +28,16 @@ export class Container extends React.Component {
 
   constructor(props) {
     super(props);
-    this.state = {
-      pozice: parseInt(props.params.pozice) || 1,
-    }
-    this.gotoPozice = this.gotoPozice.bind(this)
+    // this.pointCursorTo = this.pointCursorTo.bind(this)
   }
 
   componentDidMount() {
     // browser fetching:
-    Container.fetchActions.forEach(action => action({ params: this.props.params }, this.props.zarizeni.items))
+    Container.fetchActions.forEach(action => action({
+      params: this.props.params,
+      dispatch: this.props.dispatch,
+      getState: () => this.props
+    }))
   }
 
   static getPozice(params) {
@@ -53,7 +56,7 @@ export class Container extends React.Component {
 
   // server and client side fetch actions (see render.jsx & componentDidMount):
   static get fetchActions() {
-    return [Container.fetchNeumistena]
+    return [Container.pointCursorTo]
   }
 
   // TODO - refactor
@@ -87,33 +90,21 @@ export class Container extends React.Component {
     })
   }
 
-  gotoPozice(pozice) {
-    if (this.state.pozice === pozice) return
+  static pointCursorTo({ params: { cursorAt }, dispatch, getState }) {
+    // if (this.props.zarizeni.cursorAt === cursorAt) return
+    cursorAt = parseInt(cursorAt) || 1
 
-    this.setState({ pozice })
+    // FIXME - workaround, depends on url path (should at least use location.pathname ...)
+    // this.props.history.push({ pathname: `/umistovani/${cursorAt}` })
 
-    // TODO - extract as separate action and project pozice to redux state instead of this component state
-    const perPage = this.props.zarizeni.pagination.perPage
-    const page = Math.ceil(pozice / perPage)
-
-    let promise
-    if (page !== this.props.zarizeni.pagination.page) promise = rest.actions.zarizeni.fetchAll({ params: { page } })
-    else promise = Promise.resolve(null)
-
-    promise.then(response => {
-      const zarizeniId = Container.getZarizeniId({
-        ...this.props,
-        params: { ...this.props.params, pozice: pozice - (page - 1) * perPage }
-      })
-
+    return dispatch(zarizeniListActions.fetchOneAt(cursorAt, false, { include: 'umisteni.lokalita' })).then(response => {
+      const zarizeniId = getState().zarizeni.item.id
       return Promise.all([
-        Container.fetchZarizeni(zarizeniId, rest.actions),
+        // Container.fetchZarizeni(zarizeniId, rest.actions),
         Container.fetchUmisteni(zarizeniId, rest.actions)
       ])
     })
 
-    // FIXME - workaround, depends on url path (should at least use location.pathname ...)
-    this.props.history.push({ pathname: `/umistovani/${pozice}` })
   }
 
   render() {
@@ -123,10 +114,10 @@ export class Container extends React.Component {
       <div id="zarizeni-list">
         <Pagination
           items={zarizeni.pagination.total}
-          activePage={this.state.pozice}
+          activePage={zarizeni.pagination.cursorAt}
           prev next first last ellipsis
           bsSize="small" maxButtons={9}
-          onSelect={function(event, selectedEvent) { self.gotoPozice(selectedEvent.eventKey) }}
+          onSelect={function(event, selectedEvent) { Container.pointCursorTo({ params: { cursorAt: selectedEvent.eventKey }, dispatch: self.props.dispatch, getState: () => self.props }) }}
         />
         {
           zarizeni.item.id > 0

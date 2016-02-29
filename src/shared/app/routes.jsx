@@ -26,7 +26,7 @@ export default (
     </Route>
     <Route path="umistovani">
       <IndexRoute component={Umistovani} />
-      <Route path=":pozice" component={Umistovani} />
+      <Route path=":cursorAt" component={Umistovani} />
     </Route>
     <Route path="hriste" component={Hriste} />
   </Route>

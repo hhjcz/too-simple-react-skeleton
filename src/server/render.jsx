@@ -28,7 +28,7 @@ export default function render(req, res, next) {
     if (!renderProps) return res.status(400).end('Ajvaj, Not fouuunddd')
 
     try {
-      await fetchAsyncData(store.dispatch, renderProps)  // eslint-disable-line no-use-before-define
+      await fetchAsyncData(store, renderProps)  // eslint-disable-line no-use-before-define
     } catch (e) {
       console.log(e)
       next(e)
@@ -84,7 +84,7 @@ export default function render(req, res, next) {
 /**
  * Fetch data by dispatching actions defined by static property fetchActions on react components
  */
-async function fetchAsyncData(dispatch, { components, location, params }) {
+async function fetchAsyncData(store, { components, location, params }) {
   const fetchActions = components.reduce((actions, component) => {
     if (!component) return actions
     return actions
@@ -92,7 +92,11 @@ async function fetchAsyncData(dispatch, { components, location, params }) {
     // .concat(component.WrappedComponent ? component.WrappedComponent.fetchActions || [] : [])
   }, [])
   const queryParams = { ...qs.parse(location.search), ...params }
-  const promises = fetchActions.map(action => action({ params: queryParams }))
+  const promises = fetchActions.map(action => action({
+    params: queryParams,
+    dispatch: store.dispatch,
+    getState: store.getState
+  }))
 
   await Promise.all(promises)
 }

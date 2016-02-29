@@ -6,7 +6,7 @@ import { List, Record, Map } from 'immutable'
 
 const InitialState = Record({
   fetching: false,
-  lastFetchMark: null,
+  lastFetchMark: { fetchAll: null, fetchOne: null },
   items: List(),
   item: {},
   pagination: new Pagination(),
@@ -46,10 +46,10 @@ export default function createRestReducer(endpointName, config = {}, actionTypes
       case actionTypes.fetchAllSuccess:
         return state.set('items', List(action.data).map(itemTransformer))
           .set('fetching', false)
-          .set('lastFetchMark', action.meta.lastFetchMark)
+          .update('lastFetchMark', lastFetchMark => ({ ...lastFetchMark, fetchAll: action.meta.lastFetchMark }))
           .update('pagination', pagination =>
             action.meta.pagination
-              ? new Pagination({ ...pagination, ...action.meta.pagination, })
+              ? new Pagination({ ...pagination.toObject(), ...action.meta.pagination })
               : pagination
           )
           .update('sort', sort =>
@@ -61,17 +61,17 @@ export default function createRestReducer(endpointName, config = {}, actionTypes
       case actionTypes.fetchAllError:
         return state.set('items', List([]))
           .set('fetching', false)
-          .set('lastFetchMark', '')
+          .update('lastFetchMark', lastFetchMark => ({ ...lastFetchMark, fetchAll: '' }))
 
       case actionTypes.fetchOneSuccess:
         return state.set('item', itemTransformer(action.data))
           .set('fetching', false)
-          .set('lastFetchMark', action.meta.lastFetchMark)
+          .update('lastFetchMark', lastFetchMark => ({ ...lastFetchMark, fetchOne: action.meta.lastFetchMark }))
 
       case actionTypes.fetchOneError:
         return state.set('item', {})
           .set('fetching', false)
-          .set('lastFetchMark', '')
+          .update('lastFetchMark', lastFetchMark => ({ ...lastFetchMark, fetchOne: '' }))
 
       case actionTypes.createSuccess:
         return state.set('fetching', false)

@@ -1,5 +1,5 @@
 /** Created by hhj on 20.12.15. */
-import actions from './actions'
+import * as actions from './actions'
 import { Pagination, setPage, setPageSize } from './../app/models/Pagination'
 import { Sort } from './../app/models/Sort'
 import rest from '../app/rest'
@@ -16,6 +16,15 @@ export default function reducer(state = {}, action) {
 
     case actions.GOTO_PAGE:
       return state.update('pagination', pagination => setPage(pagination, action.page))
+
+    case actions.POINT_CURSOR_TO:
+      const perPage = state.pagination.perPage
+      const page = Math.ceil(action.cursorAt / perPage)
+      return state.update('pagination', pagination => new Pagination({
+        ...pagination.toObject(),
+        cursorAt: action.cursorAt,
+        page,
+      }))
 
     case actions.SET_PAGE_SIZE:
       return state.update('pagination', pagination => setPageSize(pagination, action.perPage))

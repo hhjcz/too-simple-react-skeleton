@@ -3,6 +3,7 @@ import { Record } from 'immutable'
 
 export const Pagination = Record({
   page: 1,
+  cursorAt: 1,
   perPage: 10,
   total: 0,
   totalPages: 3,

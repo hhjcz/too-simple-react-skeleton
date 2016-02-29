@@ -13,7 +13,9 @@ module.exports = {
   ...rest.actions.zarizeni,
 }
 
-const { fetchAll } = rest.actions.zarizeni
+const { fetchAll, fetchOne } = rest.actions.zarizeni
+
+const getSubState = getState => getState().zarizeni
 
 /**
  * @param {number} cursorAt
@@ -21,15 +23,37 @@ const { fetchAll } = rest.actions.zarizeni
  * @returns {Function}
  */
 export function pointCursorTo(cursorAt, projectToLocation = false) {
-  return ({ dispatch }) => {
+  return ({ dispatch, getState }) => {
+
+    const currentPage = getSubState(getState).pagination.page
 
     dispatch({
       type: POINT_CURSOR_TO,
       cursorAt
     })
 
-    fetchAll({ projectToLocation })
+    let promise
+    if (true || currentPage !== getSubState(getState).pagination.page) promise = fetchAll({ projectToLocation })
+    else promise = Promise.resolve(null)
+
+    return promise
   }
+}
+
+/**
+ * @param cursorAt
+ * @param projectToLocation
+ * @returns {Function}
+ */
+export function fetchOneAt(cursorAt, projectToLocation = false, params) {
+  return ({ dispatch, getState }) => dispatch(pointCursorTo(cursorAt))
+    .then(response => {
+      const subState = getSubState(getState)
+      const { page, perPage } = subState.pagination
+      const item = subState.items.get(cursorAt - (page - 1) * perPage - 1)
+
+      return fetchOne({ params: { ...params, id: item.id } })
+    })
 }
 
 /**
@@ -45,7 +69,7 @@ export function gotoPage(page, projectToLocation = false) {
       page
     })
 
-    fetchAll({ projectToLocation })
+    return fetchAll({ projectToLocation })
   }
 }
 
@@ -62,7 +86,7 @@ export function setPageSize(perPage, projectToLocation = false) {
       perPage
     })
 
-    fetchAll({ projectToLocation })
+    return fetchAll({ projectToLocation })
   }
 }
 
@@ -79,7 +103,7 @@ export function sortChange(sortField, projectToLocation = false) {
       sortField
     })
 
-    fetchAll({ projectToLocation })
+    return fetchAll({ projectToLocation })
   }
 }
 
@@ -95,6 +119,6 @@ export function filterChange(filter, projectToLocation = false) {
       filter
     })
 
-    fetchAll({ projectToLocation })
+    return fetchAll({ projectToLocation })
   }
 }
