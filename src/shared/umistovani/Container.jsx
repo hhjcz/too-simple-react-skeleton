@@ -16,6 +16,7 @@ export class Container extends React.Component {
     umisteni: PropTypes.object,
     store: PropTypes.object,
     params: PropTypes.object,
+    dispatch: PropTypes.func,
     history: PropTypes.object,
   };
 
@@ -26,60 +27,9 @@ export class Container extends React.Component {
     params: {},
   };
 
-  constructor(props) {
-    super(props);
-    // this.pointCursorTo = this.pointCursorTo.bind(this)
-  }
-
-  componentDidMount() {
-    // browser fetching:
-    Container.fetchActions.forEach(action => action({
-      params: this.props.params,
-      dispatch: this.props.dispatch,
-      getState: () => this.props
-    }))
-  }
-
-  static getPozice(params) {
-    return parseInt(params.pozice) || 0
-  }
-
-  // TODO - refactor
-  static getZarizeniId(props) {
-    const pozice = Container.getPozice(props.params)
-    const items = (props.zarizeni && props.zarizeni.items) ? props.zarizeni.items : List()
-    const nextZarizeni = items.get(pozice - 1)
-    const nextZarizeniId = nextZarizeni ? parseInt(nextZarizeni.id) : null
-
-    return nextZarizeniId
-  }
-
   // server and client side fetch actions (see render.jsx & componentDidMount):
   static get fetchActions() {
     return [Container.pointCursorTo]
-  }
-
-  // TODO - refactor
-  static fetchNeumistena({ params }, items = List()) {
-    // FIXME - get pozice from params if not defined...
-    return rest.actions.zarizeni.fetchAll().then(response => {
-      const zarizeniId = Container.getZarizeniId({
-        params,
-        zarizeni: { items: response ? List(response.data) : items }
-      })
-      return Promise.all([
-        Container.fetchZarizeni(zarizeniId, rest.actions),
-        Container.fetchUmisteni(zarizeniId, rest.actions)
-      ])
-    })
-  }
-
-  static fetchZarizeni(zarizeniId, actions) {
-    if (!zarizeniId > 0) return Promise.resolve(null)
-    return actions.zarizeni.fetchOne({
-      params: { id: zarizeniId, include: 'umisteni.lokalita' },
-      projectToLocation: false
-    })
   }
 
   static fetchUmisteni(zarizeniId, actions) {
@@ -91,10 +41,9 @@ export class Container extends React.Component {
   }
 
   static pointCursorTo({ params: { cursorAt }, dispatch, getState }) {
-    // if (this.props.zarizeni.cursorAt === cursorAt) return
     cursorAt = parseInt(cursorAt) || 1
 
-    // FIXME - workaround, depends on url path (should at least use location.pathname ...)
+    // TODO - workaround, depends on url path (should at least use location.pathname ...)
     // this.props.history.push({ pathname: `/umistovani/${cursorAt}` })
 
     return dispatch(zarizeniListActions.fetchOneAt(cursorAt, false, { include: 'umisteni.lokalita' })).then(response => {
@@ -105,6 +54,15 @@ export class Container extends React.Component {
       ])
     })
 
+  }
+
+  componentDidMount() {
+    // browser fetching:
+    Container.fetchActions.forEach(action => action({
+      params: this.props.params,
+      dispatch: this.props.dispatch,
+      getState: () => this.props
+    }))
   }
 
   render() {
