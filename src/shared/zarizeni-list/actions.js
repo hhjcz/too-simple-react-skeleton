@@ -2,11 +2,11 @@
 import rest from '../app/rest';
 
 export const SET_PAGINATION = 'SET_PAGINATION'
+export const POINT_CURSOR_TO = 'POINT_CURSOR_TO'
 export const GOTO_PAGE = 'GOTO_PAGE'
 export const SET_PAGE_SIZE = 'SET_PAGE_SIZE'
 export const SORT_CHANGE = 'SORT_CHANGE'
 export const FILTER_CHANGE = 'FILTER_CHANGE'
-
 
 module.exports = {
   ...module.exports,
@@ -14,6 +14,23 @@ module.exports = {
 }
 
 const { fetchAll } = rest.actions.zarizeni
+
+/**
+ * @param {number} cursorAt
+ * @param {boolean} projectToLocation
+ * @returns {Function}
+ */
+export function pointCursorTo(cursorAt, projectToLocation = false) {
+  return ({ dispatch }) => {
+
+    dispatch({
+      type: POINT_CURSOR_TO,
+      cursorAt
+    })
+
+    fetchAll({ projectToLocation })
+  }
+}
 
 /**
  * @param {number} page

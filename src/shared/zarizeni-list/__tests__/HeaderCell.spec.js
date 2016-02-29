@@ -5,9 +5,9 @@ import sd from 'skin-deep'
 
 import HeaderCell from '../HeaderCell'
 import { Sort } from '../../app/models/Sort'
-import { columns } from '../../app/models/Column'
+import { columns } from '../columns'
 
-describe('zarizeni-list Header component', () => {
+describe('zarizeni-list HeaderCell component', () => {
   let vdom
   let instance   // eslint-disable-line no-unused-vars
 

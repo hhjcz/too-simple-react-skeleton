@@ -19,7 +19,7 @@ export class Container extends React.Component {
 
   static defaultProps = {
     neumistena: { items: List() },
-    zarizeni: { item: {} },
+    zarizeni: { item: {}, pagination: {} },
     umisteni: {},
     params: {},
   };
@@ -34,7 +34,7 @@ export class Container extends React.Component {
 
   componentDidMount() {
     // browser fetching:
-    Container.fetchActions.forEach(action => action({ params: this.props.params }, this.props.neumistena.items))
+    Container.fetchActions.forEach(action => action({ params: this.props.params }, this.props.zarizeni.items))
   }
 
   static getPozice(params) {
@@ -44,7 +44,7 @@ export class Container extends React.Component {
   // TODO - refactor
   static getZarizeniId(props) {
     const pozice = Container.getPozice(props.params)
-    const items = (props.neumistena && props.neumistena.items) ? props.neumistena.items : List()
+    const items = (props.zarizeni && props.zarizeni.items) ? props.zarizeni.items : List()
     const nextZarizeni = items.get(pozice - 1)
     const nextZarizeniId = nextZarizeni ? parseInt(nextZarizeni.id) : null
 
@@ -58,10 +58,11 @@ export class Container extends React.Component {
 
   // TODO - refactor
   static fetchNeumistena({ params }, items = List()) {
-    return rest.actions.neumistena.fetchAll().then(response => {
+    // FIXME - get pozice from params if not defined...
+    return rest.actions.zarizeni.fetchAll().then(response => {
       const zarizeniId = Container.getZarizeniId({
         params,
-        neumistena: { items: response ? List(response.data) : items }
+        zarizeni: { items: response ? List(response.data) : items }
       })
       return Promise.all([
         Container.fetchZarizeni(zarizeniId, rest.actions),
@@ -90,9 +91,26 @@ export class Container extends React.Component {
     if (this.state.pozice === pozice) return
 
     this.setState({ pozice })
-    const nextZarizeniId = Container.getZarizeniId({ ...this.props, params: { ...this.props.params, pozice } })
-    Container.fetchZarizeni(nextZarizeniId, rest.actions)
-    Container.fetchUmisteni(nextZarizeniId, rest.actions)
+
+    // TODO - extract as separate action and project pozice to redux state instead of this component state
+    const perPage = this.props.zarizeni.pagination.perPage
+    const page = Math.ceil(pozice / perPage)
+
+    let promise
+    if (page !== this.props.zarizeni.pagination.page) promise = rest.actions.zarizeni.fetchAll({ params: { page } })
+    else promise = Promise.resolve(null)
+
+    promise.then(response => {
+      const zarizeniId = Container.getZarizeniId({
+        ...this.props,
+        params: { ...this.props.params, pozice: pozice - (page - 1) * perPage }
+      })
+
+      return Promise.all([
+        Container.fetchZarizeni(zarizeniId, rest.actions),
+        Container.fetchUmisteni(zarizeniId, rest.actions)
+      ])
+    })
 
     // FIXME - workaround, depends on url path (should at least use location.pathname ...)
     this.props.history.push({ pathname: `/umistovani/${pozice}` })
@@ -104,7 +122,7 @@ export class Container extends React.Component {
     return (
       <div id="zarizeni-list">
         <Pagination
-          items={neumistena.items.size}
+          items={zarizeni.pagination.total}
           activePage={this.state.pozice}
           prev next first last ellipsis
           bsSize="small" maxButtons={9}

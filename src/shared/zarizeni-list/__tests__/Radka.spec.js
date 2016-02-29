@@ -5,7 +5,7 @@ import sd from 'skin-deep'
 
 import { ZarizeniFactory } from '../../app/models/Zarizeni'
 import Radka from '../Radka'
-import { columns } from '../../app/models/Column'
+import { columns } from '../columns'
 
 describe('zarizeni-list Radka component', () => {
   let vdom

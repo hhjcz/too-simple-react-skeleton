@@ -6,13 +6,14 @@ export default class Bunka extends React.Component {
   static propTypes = {
     column: PropTypes.object.isRequired,
     children: PropTypes.oneOfType([PropTypes.object, PropTypes.string]),
-    model: PropTypes.object.isRequired
+    model: PropTypes.object.isRequired,
+    pozice: PropTypes.number,
   };
 
   render() {
-    const { column, model } = this.props
+    const { column, model, pozice } = this.props
     const content = (typeof column.render === 'function')
-      ? column.render(model)
+      ? column.render(model, pozice)
       : model[column.name]
     return (
       <div className={'myTableRowItem' + ` uFlexGrow-${column.width}`} key={column.name}>

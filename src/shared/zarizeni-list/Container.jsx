@@ -34,7 +34,7 @@ export class Container extends React.Component {
       <div id="zarizeni-list">
         <h4>Seznam zařízení</h4>
         <Tabulka
-          seznamZarizeni={seznamZarizeni} sort={sort} fetching={fetching} filters={filters}
+          seznamZarizeni={seznamZarizeni} sort={sort} fetching={fetching} filters={filters} pagination={pagination}
           onSortChange={function(sortField) {dispatch(actions.sortChange(sortField, true))}}
           onFilterChange={function(filter) {dispatch(actions.filterChange(filter, true))}}
         />
