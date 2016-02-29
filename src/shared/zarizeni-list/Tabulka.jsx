@@ -20,7 +20,7 @@ export default class Tabulka extends React.Component {
 
   static defaultProps = {
     pagination: {},
-  }
+  };
 
   render() {
     // console.log(this.props)
