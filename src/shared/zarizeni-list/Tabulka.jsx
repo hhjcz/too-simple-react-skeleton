@@ -29,7 +29,7 @@ export default class Tabulka extends React.Component {
     // console.log(seznamZarizeni.toObject())
 
     return (
-      <div className={'myTable' + (fetching ? ' fetching' : '')}>
+      <div className={`myTable${(fetching ? ' fetching' : '')}`}>
         {/* header */}
         <div className="myTableRow">
           {
