@@ -48,8 +48,6 @@ export class Container extends React.Component {
   static pointCursorTo({ params: { cursorAt }, dispatch, getState }) {
     cursorAt = parseInt(cursorAt) || 1
 
-    // TODO - workaround, depends on url path (should at least use location.pathname ...)
-    // this.props.history.push({ pathname: `/umistovani/${cursorAt}` })
 
     return dispatch(zarizeniListActions.fetchOneAt(cursorAt, false, { include: 'umisteni.lokalita' })).then(response => {
       const zarizeniId = getState().zarizeni.item.id
@@ -71,11 +69,15 @@ export class Container extends React.Component {
   }
 
   onCursorChange(event, selectedEvent) {
+    const cursorAt = selectedEvent.eventKey
     Container.pointCursorTo({
-      params: { cursorAt: selectedEvent.eventKey },
+      params: { cursorAt },
       dispatch: this.props.dispatch,
       getState: () => this.props
     })
+
+    // TODO - workaround, depends on url path (should at least use location.pathname ...)
+    this.props.history.push({ pathname: `/umistovani/${cursorAt}` })
   }
 
   render() {
