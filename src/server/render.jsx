@@ -3,7 +3,7 @@
 import createLocation from 'history/lib/createLocation'
 import React from 'react'
 import { renderToString } from 'react-dom/server'
-import { RoutingContext, match } from 'react-router'
+import { RouterContext, match } from 'react-router'
 import { Provider } from 'react-redux'
 import Promise from 'bluebird'
 import qs from 'query-string'
