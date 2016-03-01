@@ -14,10 +14,8 @@ export class Container extends React.Component {
     neumistena: PropTypes.object,
     zarizeni: PropTypes.object,
     umisteni: PropTypes.object,
-    store: PropTypes.object,
     params: PropTypes.object,
     dispatch: PropTypes.func,
-    history: PropTypes.object,
   };
 
   static defaultProps = {
@@ -27,14 +25,13 @@ export class Container extends React.Component {
     params: {},
   };
 
+  static contextTypes = {
+    router: React.PropTypes.object.isRequired
+  };
+
   // server and client side fetch actions (see render.jsx & componentDidMount):
   static get fetchActions() {
     return [Container.pointCursorTo]
-  }
-
-  constructor(props) {
-    super(props)
-    this.onCursorChange = this.onCursorChange.bind(this)
   }
 
   static fetchUmisteni(zarizeniId, actions) {
@@ -45,9 +42,8 @@ export class Container extends React.Component {
     })
   }
 
-  static pointCursorTo({ params: { cursorAt }, dispatch, getState }) {
-    cursorAt = parseInt(cursorAt) || 1
-
+  static pointCursorTo({ params, dispatch, getState }) {
+    const cursorAt = parseInt(params.cursorAt) || 1
 
     return dispatch(zarizeniListActions.fetchOneAt(cursorAt, false, { include: 'umisteni.lokalita' })).then(response => {
       const zarizeniId = getState().zarizeni.item.id
@@ -57,6 +53,11 @@ export class Container extends React.Component {
       ])
     })
 
+  }
+
+  constructor(props) {
+    super(props)
+    this.onCursorChange = this.onCursorChange.bind(this)
   }
 
   componentDidMount() {
@@ -77,7 +78,7 @@ export class Container extends React.Component {
     })
 
     // TODO - workaround, depends on url path (should at least use location.pathname ...)
-    this.props.history.push({ pathname: `/umistovani/${cursorAt}` })
+    this.context.router.push({ pathname: `/umistovani/${cursorAt}` })
   }
 
   render() {

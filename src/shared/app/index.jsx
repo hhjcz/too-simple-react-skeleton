@@ -9,6 +9,17 @@ export default class App extends React.Component {
     children: PropTypes.object
   };
 
+  static contextTypes = {
+    router: React.PropTypes.object.isRequired
+  };
+
+  static childContextTypes = {
+    router: React.PropTypes.object
+  };
+
+  getChildContext() {
+    return { router: this.context.router }
+  }
 
   render() {
     let devTools = ''
