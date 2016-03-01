@@ -3,6 +3,7 @@ import React, { PropTypes } from 'react'
 import findLokalitaHint from './findLokalitaHint'
 import MarkedLokalita from './MarkedLokalita'
 import LokalitaHint from './LokalitaHint'
+import LokalitaHint2 from './LokalitaHint2'
 
 export default class Umistovani extends React.Component {
 
@@ -57,6 +58,7 @@ export default class Umistovani extends React.Component {
         <div>#{`${zarizeni.id} ${zarizeni.name}`}</div>
         <div>Mapa: {zarizeni.defaultmap}</div>
         <LokalitaHint lokalitaHint={lokalitaHint} searchForUmisteni={this.searchForUmisteni} />
+        <LokalitaHint2 id="666" searchForUmisteni={this.searchForUmisteni} />
         {
           seznamUmisteni.map && seznamUmisteni.map(u =>
             <MarkedLokalita lokalitaHint={lokalitaHint} lokalita={u.lokalita} key={u.id} />
