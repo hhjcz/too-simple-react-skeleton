@@ -32,6 +32,11 @@ export class Container extends React.Component {
     return [Container.pointCursorTo]
   }
 
+  constructor(props) {
+    super(props)
+    this.onCursorChange = this.onCursorChange.bind(this)
+  }
+
   static fetchUmisteni(zarizeniId, actions) {
     if (!zarizeniId > 0) return Promise.resolve(null)
     return actions.umisteni.fetchAll({
@@ -65,17 +70,23 @@ export class Container extends React.Component {
     }))
   }
 
+  onCursorChange(event, selectedEvent) {
+    Container.pointCursorTo({
+      params: { cursorAt: selectedEvent.eventKey },
+      dispatch: this.props.dispatch,
+      getState: () => this.props
+    })
+  }
+
   render() {
     const self = this
     const { neumistena, zarizeni, umisteni } = this.props
     return (
       <div id="zarizeni-list">
         <Pagination
-          items={zarizeni.pagination.total}
-          activePage={zarizeni.pagination.cursorAt}
-          prev next first last ellipsis
-          bsSize="small" maxButtons={9}
-          onSelect={function(event, selectedEvent) { Container.pointCursorTo({ params: { cursorAt: selectedEvent.eventKey }, dispatch: self.props.dispatch, getState: () => self.props }) }}
+          items={zarizeni.pagination.total} activePage={zarizeni.pagination.cursorAt}
+          prev next first last ellipsis bsSize="small" maxButtons={9}
+          onSelect={self.onCursorChange}
         />
         {
           zarizeni.item.id > 0
