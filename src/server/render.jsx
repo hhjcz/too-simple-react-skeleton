@@ -36,7 +36,7 @@ export default function render(req, res, next) {
 
     let InitialComponent = (
       <Provider store={store}>
-        <RoutingContext {...renderProps} />
+        <RouterContext {...renderProps} />
       </Provider>
     )
 
