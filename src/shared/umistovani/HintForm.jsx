@@ -38,7 +38,7 @@ class MyInput extends React.Component {
   }
 }
 
-export default class LokalitaHint extends React.Component {
+export default class HintForm extends React.Component {
   static propTypes = {
     lokalitaHint: PropTypes.object.isRequired,
     searchForUmisteni: PropTypes.func.isRequired,
@@ -57,7 +57,8 @@ export default class LokalitaHint extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    this.setState(nextProps.lokalitaHint)
+    // update state from props when zaerizeni has changed
+    if (nextProps.lokalitaHint.id !== this.props.lokalitaHint.id) this.setState(nextProps.lokalitaHint)
   }
 
   onInputChange(label, value) {

@@ -28,8 +28,9 @@ const zkratky = {
 
 const zkratkaToObec = zkratkaObce => zkratky[zkratkaObce.toLowerCase()] || zkratkaObce
 
-function LokalitaHint(obec, ulice, cislo, chardop, op, akrlok, ixlok, map) {
+function LokalitaHint({ id, obec, ulice, cislo, chardop, op, akrlok, ixlok, map } = {}) {
   // console.log(obec)
+  this.id = id || 0
   this.obec = obec || ''
   this.ulice = ulice || ''
   this.cislo = cislo || ''
@@ -60,19 +61,30 @@ LokalitaHint.prototype.fromMapName = function(mapName, force) {
  * @param {string} mapName
  * @returns {LokalitaHint}
  */
-export default function findLokalitaHint(name = '', mapName = '') {
-  /** @type {LokalitaHint} lokalitaHint */
+export default function findLokalitaHint(name = '', mapName = '', id = 0) {
+  /** @type {HintForm} lokalitaHint */
   let lokalitaHint
 
   let match = name.match(/\[(\D+)\]\s*([a-z\s\._]*)\s*(\d*)([A-z]*)\s*-+\s*(\D+)(\d*)(.*)/i)
   if (match !== null) {
-    lokalitaHint = new LokalitaHint(null, match[2].trim(), match[3], (match[4] || '').toLowerCase())
+    lokalitaHint = new LokalitaHint({
+      id,
+      ulice: match[2].trim(),
+      cislo: match[3],
+      chardop: (match[4] || '').toLowerCase()
+    })
   }
 
   if (!lokalitaHint) {
     match = name.match(/\S+\.(\S+)\.([0-9]*[A-Za-z]+)(\d*)(\w*).*/i)
     if (match !== null) {
-      lokalitaHint = new LokalitaHint(zkratkaToObec(match[1]), match[2].trim(), match[3], (match[4] || '').toLowerCase())
+      lokalitaHint = new LokalitaHint({
+        id,
+        obec: zkratkaToObec(match[1]),
+        ulice: match[2].trim(),
+        cislo: match[3],
+        chardop: (match[4] || '').toLowerCase()
+      })
     }
   }
 
@@ -82,12 +94,12 @@ export default function findLokalitaHint(name = '', mapName = '') {
     if (match !== null) {
       const op = (match[1] || '') + match[2]
       if (lokalitaHint) lokalitaHint.op = op
-      else lokalitaHint = new LokalitaHint(null, null, null, null, op)
+      else lokalitaHint = new LokalitaHint({ id, op })
       break
     }
   }
 
-  lokalitaHint = lokalitaHint || new LokalitaHint()
+  lokalitaHint = lokalitaHint || new LokalitaHint({ id })
 
   lokalitaHint.fromMapName(mapName)
 

@@ -3,9 +3,9 @@ import chai, { expect } from 'chai'
 import React from 'react'
 import sd from 'skin-deep'
 
-import LokalitaHint from '../LokalitaHint'
+import LokalitaHint from '../HintForm'
 
-describe('umistovani LokalitaHint component', () => {
+describe('umistovani HintForm component', () => {
   let tree
   let vdom
   let instance   // eslint-disable-line no-unused-vars

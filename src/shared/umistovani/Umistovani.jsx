@@ -2,7 +2,7 @@
 import React, { PropTypes } from 'react'
 import findLokalitaHint from './findLokalitaHint'
 import MarkedLokalita from './MarkedLokalita'
-import LokalitaHint from './LokalitaHint'
+import HintForm from './HintForm'
 
 export default class Umistovani extends React.Component {
 
@@ -51,12 +51,12 @@ export default class Umistovani extends React.Component {
     const self = this
     /** @type {Zarizeni} zarizeni */
     const { zarizeni, seznamUmisteni } = this.props
-    const lokalitaHint = findLokalitaHint(zarizeni.name, zarizeni.defaultmap)
+    const lokalitaHint = findLokalitaHint(zarizeni.name, zarizeni.defaultmap, zarizeni.id)
     return (
       <div>
         <div>#{`${zarizeni.id} ${zarizeni.name}`}</div>
         <div>Mapa: {zarizeni.defaultmap}</div>
-        <LokalitaHint lokalitaHint={lokalitaHint} searchForUmisteni={this.searchForUmisteni} />
+        <HintForm lokalitaHint={lokalitaHint} searchForUmisteni={this.searchForUmisteni} />
         {
           seznamUmisteni.map && seznamUmisteni.map(u =>
             <MarkedLokalita lokalitaHint={lokalitaHint} lokalita={u.lokalita} key={u.id} />
