@@ -31,28 +31,24 @@ export class Container extends React.Component {
 
   // server and client side fetch actions (see render.jsx & componentDidMount):
   static get fetchActions() {
-    return [Container.pointCursorTo]
+    return [Container.fetchZarizeni]
   }
 
-  static fetchUmisteni(zarizeniId, actions) {
-    if (!zarizeniId > 0) return Promise.resolve(null)
-    return actions.umisteni.fetchAll({
-      params: { zarizeni_id: zarizeniId, include: 'lokalita' },
-      projectToLocation: false
-    })
-  }
-
-  static pointCursorTo({ params, dispatch, getState }) {
+  static fetchZarizeni({ params, dispatch, getState }) {
     const cursorAt = parseInt(params.cursorAt) || 1
 
-    return dispatch(zarizeniListActions.fetchOneAt(cursorAt, false, { include: 'umisteni.lokalita' })).then(response => {
-      const zarizeniId = getState().zarizeni.item.id
-      return Promise.all([
-        // Container.fetchZarizeni(zarizeniId, rest.actions),
-        Container.fetchUmisteni(zarizeniId, rest.actions)
-      ])
-    })
+    const promise = dispatch(zarizeniListActions.fetchOneAt(cursorAt, false, { include: 'umisteni.lokalita' }))
+      .then(response => {
+        const zarizeniId = getState().zarizeni.item.id
+        if (!(zarizeniId > 0)) throw new Error('Fetch chyba: nepodaril se fetch zarizeni s validnim id')
 
+        return rest.actions.umisteni.fetchAll({
+          params: { zarizeni_id: zarizeniId, include: 'lokalita' },
+          projectToLocation: false
+        })
+      })
+
+    return promise
   }
 
   constructor(props) {
@@ -71,7 +67,7 @@ export class Container extends React.Component {
 
   onCursorChange(event, selectedEvent) {
     const cursorAt = selectedEvent.eventKey
-    Container.pointCursorTo({
+    Container.fetchZarizeni({
       params: { cursorAt },
       dispatch: this.props.dispatch,
       getState: () => this.props
