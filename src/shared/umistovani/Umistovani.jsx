@@ -52,6 +52,7 @@ export default class Umistovani extends React.Component {
     /** @type {Zarizeni} zarizeni */
     const { zarizeni, seznamUmisteni } = this.props
     const lokalitaHint = findLokalitaHint(zarizeni.name, zarizeni.defaultmap, zarizeni.id)
+
     return (
       <div>
         <div>#{`${zarizeni.id} ${zarizeni.name}`}</div>

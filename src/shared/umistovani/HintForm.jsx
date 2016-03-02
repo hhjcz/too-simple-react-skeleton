@@ -1,42 +1,6 @@
 /** Created by hhj on 2/18/16. */
 import React, { PropTypes } from 'react'
-import { Input, Glyphicon } from 'react-bootstrap'
-
-class MyInput extends React.Component {
-  static propTypes = {
-    label: PropTypes.string.isRequired,
-    value: PropTypes.string.isRequired,
-    onChange: PropTypes.func.isRequired,
-  };
-
-  static validate(value) {
-    return value && value.length >= 0
-  }
-
-  static bsStyle(value) {
-    if (value && value.length > 0) return MyInput.validate(value) ? 'success' : 'error'
-    return ''
-  }
-
-  render() {
-    const { label, value, onChange } = this.props
-    return (
-      <span className="text-info">
-        <Input
-          value={value}
-          type="text"
-          bsSize="small"
-          addonBefore={label}
-          addonAfter={<Glyphicon glyph="erase" onClick={function(event) {onChange(label, '')}} />}
-          bsStyle={MyInput.bsStyle(value)}
-          onChange={function(event) {
-            onChange(label, event.target.value)
-          }}
-        />
-      </span>
-    )
-  }
-}
+import MyDraggableInput from '../lib/MyDraggableInput'
 
 export default class HintForm extends React.Component {
   static propTypes = {
@@ -57,7 +21,7 @@ export default class HintForm extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    // update state from props when zaerizeni has changed
+    // update state from props when zarizeni has changed
     if (nextProps.lokalitaHint.id !== this.props.lokalitaHint.id) this.setState(nextProps.lokalitaHint)
   }
 
@@ -70,18 +34,23 @@ export default class HintForm extends React.Component {
   render() {
     const { searchForUmisteni } = this.props
     const lokalitaHint = this.state
+    const eventHandlers = {
+      onChange: this.onInputChange,
+    }
+    const form = Object.keys(lokalitaHint).map(name =>
+      <MyDraggableInput key={name} label={name} value={lokalitaHint[name]} {...eventHandlers} />
+    )
+
     return (
       <div>
-        <MyInput label="obec" value={lokalitaHint.obec} onChange={this.onInputChange} />
-        <MyInput label="ulice" value={lokalitaHint.ulice} onChange={this.onInputChange} />
-        {/* <span className="btn btn-xs btn-info" ng-click="lokalitaHint.akrlok=lokalitaHint.ulice; lokalitaHint.ulice=''">
-         2akrlok
-         </span>
+        {form}
+        {/* <MyInput label="obec" value={lokalitaHint.obec} {...eventHandlers} />
+         <MyInput label="ulice" value={lokalitaHint.ulice} {...eventHandlers} />
+         <MyInput label="cislo" value={lokalitaHint.cislo} {...eventHandlers} />
+         <MyInput label="akrlok" value={lokalitaHint.akrlok} {...eventHandlers} />
+         <MyInput label="op" value={lokalitaHint.op} {...eventHandlers} />
+         <MyInput label="ixlok" value={lokalitaHint.ixlok} {...eventHandlers} />
          */}
-        <MyInput label="cislo" value={lokalitaHint.cislo} onChange={this.onInputChange} />
-        <MyInput label="akrlok" value={lokalitaHint.akrlok} onChange={this.onInputChange} />
-        <MyInput label="op" value={lokalitaHint.op} onChange={this.onInputChange} />
-        <MyInput label="ixlok" value={lokalitaHint.ixlok} onChange={this.onInputChange} />
 
         <span className="btn btn-sm btn-info" onClick={ function() { searchForUmisteni(lokalitaHint) } }>
           Search
