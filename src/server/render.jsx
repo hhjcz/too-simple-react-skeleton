@@ -18,7 +18,7 @@ export default function render(req, res, next) {
 
   rest.use('dispatch', store.dispatch)
 
-  match({ routes, location }, async(err, redirectLocation, renderProps) => {
+  match({ routes, location }, async(err, redirectLocation, renderProps) => {  // eslint-disable-line consistent-return
 
     if (err) {
       console.error(err)
@@ -62,8 +62,6 @@ export default function render(req, res, next) {
       <meta charset="utf-8">
       <title>Dohlestr using react/redux from scratch by hhj</title>
       ${mainCssLink}
-      <!-- Bootstrap: latest compiled and minified CSS -->
-      <!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">-->
       <script>
         window.__INITIAL_STATE__ = ${JSON.stringify(initialState)};
       </script>
@@ -83,8 +81,9 @@ export default function render(req, res, next) {
 
 /**
  * Fetch data by dispatching actions defined by static property fetchActions on react components
+ * @returns {Promise}
  */
-async function fetchAsyncData(store, { components, location, params }) {
+function fetchAsyncData({ dispatch, getState }, { components, location, params }) {
   const fetchActions = components.reduce((actions, component) => {
     if (!component) return actions
     return actions
@@ -94,9 +93,9 @@ async function fetchAsyncData(store, { components, location, params }) {
   const queryParams = { ...qs.parse(location.search), ...params }
   const promises = fetchActions.map(action => action({
     params: queryParams,
-    dispatch: store.dispatch,
-    getState: store.getState
+    dispatch,
+    getState
   }))
 
-  await Promise.all(promises)
+  return Promise.all(promises)
 }
