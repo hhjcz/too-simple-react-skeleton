@@ -34,28 +34,28 @@ export default function render(req, res, next) {
       next(e)
     }
 
-    let InitialComponent = (
+    const InitialComponent = (
       <Provider store={store}>
         <RouterContext {...renderProps} />
       </Provider>
     )
 
-    let initialState = store.getState()
+    const initialState = store.getState()
 
-    let componentHtml = renderToString(InitialComponent)
+    const componentHtml = renderToString(InitialComponent)
 
     // webpackIsomorphicTools defined globally in index.js
-    let {
+    const {
       javascript: { main: mainJsFilename },
       // style: { main: mainCssFilename }
     } = webpackIsomorphicTools.assets()
-    let mainCssFilename = '/main.css'
-    let mainCssLink = process.env.NODE_ENV === 'production'
+    const mainCssFilename = '/main.css'
+    const mainCssLink = process.env.NODE_ENV === 'production'
       ? `<link rel="stylesheet" href="${mainCssFilename}">`
       : ''
 
     // TODO - extract HTML to separate react component
-    let HTML = `
+    const HTML = `
   <!DOCTYPE html>
   <html>
     <head>
