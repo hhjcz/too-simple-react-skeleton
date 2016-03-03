@@ -7,6 +7,7 @@ export default class MyDraggableInput extends React.Component {
     label: PropTypes.string.isRequired,
     value: PropTypes.any.isRequired,
     onChange: PropTypes.func.isRequired,
+    bsSize: PropTypes.string,
   };
 
   static validate(value) {
@@ -59,7 +60,7 @@ export default class MyDraggableInput extends React.Component {
         <Input
           value={value}
           type="text"
-          bsSize="small"
+          bsSize={this.props.bsSize || 'small'}
           bsStyle={bsStyle}
           draggable
           addonBefore={label}
