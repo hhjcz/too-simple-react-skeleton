@@ -1,65 +1,49 @@
 /** Created by hhj on 1/28/16. */
-import qs from 'query-string'
 import { snakeCase } from 'lodash'
 
 function parseFilters(filters) {
 
-  const apiFilters = filters.map((filter, filterName) => {
-    let suffix = '', value = ''
+  const apiFilters = filters.reduce((result, filter, filterName) => {
+    let suffix = ''
+    let value = ''
     const comparator = filter.comparator || 'contains'
 
     if (comparator === 'contains' && filter.value !== null) {
-      suffix = '-lk';
-      value = `%${filter.value}%`;
+      suffix = '-lk'
+      value = `%${filter.value}%`
     } else if (comparator === 'begins' && filter.value !== null) {
-      suffix = '-lk';
+      suffix = '-lk'
       value = `${filter.value}%`;
     } else if (comparator === 'empty' && filter.value === false) {
-      suffix = '-not';
-      value = '';
+      suffix = '-not'
+      value = ''
     } else if (comparator === 'empty' && filter.value === true) {
-      suffix = '-null';
-      value = '';
+      suffix = '-null'
+      value = null
     } else if (filter.value !== null) {
-      suffix = '';
-      value = filter.value;
+      suffix = ''
+      value = filter.value
     } else return null
 
-    return {
-      field: snakeCase(filterName) + suffix,
-      value: encodeURIComponent(value)
-    }
-  })
+    result[snakeCase(filterName) + suffix] = value
+
+    return result
+  }, {})
 
   return apiFilters;
 }
 
-function collection(state) {
+function collection(state, extraParams = {}) {
   const { pagination, sort, filters } = state
   const { page, perPage } = pagination || {};
+  let queryParams = {}
 
-  let pageString = ''
-  if (page > 0) {
-    pageString = `?page=${page}`
-  }
+  if (page > 0) queryParams.page = page
+  if (perPage > 0) queryParams.per_page = perPage
+  if (sort && sort.by) queryParams._sort = `${sort.dir ? '-' : ''}${snakeCase(sort.by)}`
+  if (filters && filters.forEach) queryParams = { ...queryParams, ...parseFilters(filters) }
 
-  let perPageString = ''
-  if (perPage > 0) {
-    perPageString = `&per_page=${perPage}`
-  }
-
-  let sortString = ''
-  if (sort && sort.by) {
-    sortString = `&_sort=${sort.dir ? '-' : ''}${snakeCase(sort.by)}`
-  }
-
-  let filtersString = ''
-  if (filters && filters.map && filters.size > 0) {
-    filtersString = '&' + parseFilters(filters)
-        .map(filter => `${filter.field}=${filter.value}`).toArray().join('&')
-  }
-
-  return qs.parse(`${pageString}${perPageString}${sortString}${filtersString}`)
+  return { ...queryParams, ...extraParams }
 }
 
 function item(state) {
