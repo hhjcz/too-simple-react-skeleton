@@ -3,13 +3,15 @@ import myRest from '../lib/rest/index'
 import createFetch from '../lib/rest/createFetch'
 import { ZarizeniFactory } from './models/Zarizeni'
 import { UmisteniFactory } from './models/Umisteni'
+import Sort from './models/Sort'
 
 const serverBaseUrl = process.env.SERVER_BASE_URL || 'http://localhost:8089/api'
 
 const rest = myRest({
   zarizeni: {
     url: '/zarizeni/:id',
-    itemTransformer: item => ZarizeniFactory(item)
+    itemTransformer: item => ZarizeniFactory(item),
+    defaultState: { sort: new Sort({ dir: true, by: 'createdAt' }) }
   },
   neumistena: {
     url: '/zarizeni',
