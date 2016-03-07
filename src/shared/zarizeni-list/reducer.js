@@ -40,6 +40,12 @@ export default function reducer(state = {}, action) {
         return filters.set(action.filter.name, action.filter)
       })
 
+    case actions.GENERAL_PARAM_CHANGE:
+      return state.update('generalParams', generalParams => {
+        if (action.paramObj.value === '') return generalParams.delete(action.paramObj.name)
+        return generalParams.set(action.paramObj.name, action.paramObj.value)
+      })
+
     default:
       return state
   }

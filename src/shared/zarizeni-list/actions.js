@@ -7,6 +7,7 @@ export const GOTO_PAGE = 'GOTO_PAGE'
 export const SET_PAGE_SIZE = 'SET_PAGE_SIZE'
 export const SORT_CHANGE = 'SORT_CHANGE'
 export const FILTER_CHANGE = 'FILTER_CHANGE'
+export const GENERAL_PARAM_CHANGE = 'GENERAL_PARAM_CHANGE'
 
 module.exports = {
   ...module.exports,
@@ -117,6 +118,22 @@ export function filterChange(filter, projectToLocation = false) {
     dispatch({
       type: FILTER_CHANGE,
       filter
+    })
+
+    return fetchAll({ projectToLocation })
+  }
+}
+
+/**
+ * @param {Filter} filter
+ * @param projectToLocation
+ * @returns {Function}
+ */
+export function generalParamChange(paramObj, projectToLocation = false) {
+  return ({ dispatch }) => {
+    dispatch({
+      type: GENERAL_PARAM_CHANGE,
+      paramObj
     })
 
     return fetchAll({ projectToLocation })
