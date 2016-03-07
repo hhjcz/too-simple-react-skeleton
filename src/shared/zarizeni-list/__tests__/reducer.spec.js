@@ -46,11 +46,13 @@ describe('zarizeni-list reducer', () => {
     const nextState = reducer(initialState, { type: actions.GOTO_PAGE, page: 3 })
     expect(nextState).to.equal(reducer({
       pagination: new Pagination({ page: 3, perPage: 666, total: 6666, totalPages: 3 }),
-      seznamZarizeni: initialState.get('seznamZarizeni')
+      seznamZarizeni: initialState.get('seznamZarizeni'),
+      sort: initialState.get('sort')
     }))
     expect(initialState).to.equal(reducer({
       pagination: new Pagination({ page: 1, perPage: 666, total: 6666, totalPages: 3 }),
-      seznamZarizeni: List.of()
+      seznamZarizeni: List.of(),
+      sort: initialState.get('sort')
     }))
   })
 
