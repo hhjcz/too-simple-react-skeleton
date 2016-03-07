@@ -20,7 +20,7 @@ export default class PredefinedViews extends React.Component {
           <Button bsStyle="info" bsSize="small"
             onClick={function(e) {
               // e.target.active = true
-              onGeneralParamChange({ name: '_filter', value: 'neumistena'})
+              onGeneralParamChange({ name: '_filter', value: 'neumistena' })
             }}
           >
             Neumistena
