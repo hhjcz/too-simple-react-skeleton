@@ -34,7 +34,7 @@ function parseFilters(filters) {
 }
 
 function collection(state, extraParams = {}) {
-  const { pagination, sort, filters } = state
+  const { pagination, sort, filters, generalParams } = state
   const { page, perPage } = pagination || {};
   let queryParams = {}
 
@@ -42,6 +42,7 @@ function collection(state, extraParams = {}) {
   if (perPage > 0) queryParams.per_page = perPage
   if (sort && sort.by) queryParams._sort = `${sort.dir ? '-' : ''}${snakeCase(sort.by)}`
   if (filters && filters.forEach) queryParams = { ...queryParams, ...parseFilters(filters) }
+  if (generalParams) queryParams = { ... queryParams, ...generalParams.toObject() }
 
   return { ...queryParams, ...extraParams }
 }
