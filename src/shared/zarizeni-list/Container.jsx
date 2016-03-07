@@ -8,6 +8,7 @@ import createFetchWrapper from '../lib/rest/createFetchWrapper'
 import * as actions from './actions'
 import Tabulka from './Tabulka'
 import Paginator from './Paginator'
+import PredefinedViews from './PredefinedViews'
 
 export class Container extends React.Component {
 
@@ -20,23 +21,33 @@ export class Container extends React.Component {
     dispatch: PropTypes.func.isRequired,
   };
 
+  // server and client side fetch actions (see render.jsx & componentDidMount):
+  static fetchActions = [actions.fetchAll];
+
   // browser fetching:
   componentDidMount() {
     Container.fetchActions.forEach((action) => action({ projectToLocation: true }))
   }
 
-  // server and client side fetch actions (see render.jsx & componentDidMount):
-  static fetchActions = [actions.fetchAll];
-
   render() {
     const { fetching, items: seznamZarizeni, pagination, sort, filters, dispatch } = this.props
+    const onSortChange = function(sortField) {
+      dispatch(actions.sortChange(sortField, true))
+    }
+    const onFilterChange = function(filter) {
+      dispatch(actions.filterChange(filter, true))
+    }
+    const onGeneralParamChange = function(param) {
+      dispatch(actions.generalParamChange(param))
+    }
+
     return (
       <div id="zarizeni-list">
         <h4>Seznam zařízení</h4>
+        <PredefinedViews onSortChange={onSortChange} onFilterChange={onFilterChange} onGeneralParamChange={onGeneralParamChange} />
         <Tabulka
           seznamZarizeni={seznamZarizeni} sort={sort} fetching={fetching} filters={filters} pagination={pagination}
-          onSortChange={function(sortField) {dispatch(actions.sortChange(sortField, true))}}
-          onFilterChange={function(filter) {dispatch(actions.filterChange(filter, true))}}
+          onSortChange={onSortChange} onFilterChange={onFilterChange}
         />
         <Paginator
           pagination={pagination}
