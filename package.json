@@ -70,7 +70,7 @@
     "chai-as-promised": "^5.2.0",
     "chai-immutable": "^1.5.3",
     "chai-spies": "^0.7.1",
-    "eslint": "^2.2.0",
+    "eslint": "~2.2.0",
     "eslint-config-airbnb": "^6.0.0",
     "eslint-plugin-import": "^1.0.0",
     "eslint-plugin-react": "^4.1.0",
