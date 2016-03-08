@@ -1,7 +1,6 @@
 /** Created by hhj on 12/28/15. */
 import React, { PropTypes } from 'react'
 import { connect } from 'react-redux'
-import { List } from 'immutable'
 import { Pagination } from 'react-bootstrap'
 import createMapStateToProps from '../lib/createMapStateToProps'
 import rest from '../app/rest'
@@ -11,7 +10,6 @@ import * as zarizeniListActions from '../zarizeni-list/actions'
 export class Container extends React.Component {
 
   static propTypes = {
-    neumistena: PropTypes.object,
     zarizeni: PropTypes.object,
     umisteni: PropTypes.object,
     params: PropTypes.object,
@@ -19,7 +17,6 @@ export class Container extends React.Component {
   };
 
   static defaultProps = {
-    neumistena: { items: List() },
     zarizeni: { item: {}, pagination: {} },
     umisteni: {},
     params: {},
@@ -79,7 +76,7 @@ export class Container extends React.Component {
 
   render() {
     const self = this
-    const { neumistena, zarizeni, umisteni } = this.props
+    const { zarizeni, umisteni } = this.props
     return (
       <div id="zarizeni-list">
         <Pagination
@@ -93,7 +90,7 @@ export class Container extends React.Component {
             : ''
         }
         {
-          neumistena.fetching || zarizeni.fetching || umisteni.fetching
+          zarizeni.fetching || umisteni.fetching
             ? <div className="text-info">Fetching...</div> : ''
         }
       </div>
