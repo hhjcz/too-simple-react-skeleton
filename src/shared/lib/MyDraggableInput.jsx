@@ -19,6 +19,8 @@ export default class MyDraggableInput extends React.Component {
     return ''
   }
 
+  static droppedTo = null;
+
   constructor(props) {
     super(props)
     this.onDragStart = this.onDragStart.bind(this)
@@ -31,11 +33,15 @@ export default class MyDraggableInput extends React.Component {
   }
 
   onDragStart(e) {
-    e.dataTransfer.setData('text', e.currentTarget.dataset.value)
+    MyDraggableInput.droppedTo = null
+    e.dataTransfer.setData('value', e.currentTarget.dataset.value)
   }
 
   onDragEnd() {
-    this.props.onChange(this.props.label, '')
+    // clear value when successfully dropped to other input
+    if (MyDraggableInput.droppedTo && MyDraggableInput.droppedTo !== this) this.props.onChange(this.props.label, '')
+    MyDraggableInput.droppedTo = null
+    this.setState({ draggedOver: false })
   }
 
   onDragOver(e) {
@@ -48,15 +54,17 @@ export default class MyDraggableInput extends React.Component {
   }
 
   onDrop(e) {
+    // indicate that it was dropped here
+    MyDraggableInput.droppedTo = this
     this.setState({ draggedOver: false })
-    this.props.onChange(this.props.label, e.dataTransfer.getData('text'))
+    this.props.onChange(this.props.label, e.dataTransfer.getData('value'))
   }
 
   render() {
     const { label, value, onChange } = this.props
     const bsStyle = this.state.draggedOver || MyDraggableInput.bsStyle(value)
     return (
-      <div data-value={value} draggable
+      <div data-value={value} data-label={label} draggable
         onDragStart={this.onDragStart} onDragEnd={this.onDragEnd}
         onDragOver={this.onDragOver} onDragLeave={this.onDragLeave}
         className="text-info"
