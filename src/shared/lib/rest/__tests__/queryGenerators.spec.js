@@ -3,9 +3,9 @@ import { expect } from 'chai'
 import { Map } from 'immutable'
 import qs from 'query-string'
 import queryGenerators from '../queryGenerators'
-import Filter from '../../../app/models/Filter'
-import Sort from '../../../app/models/Sort'
-import Pagination from '../../../app/models/Pagination'
+import { Filter } from '../../../app/models/Filter'
+import { Sort } from '../../../app/models/Sort'
+import { Pagination } from '../../../app/models/Pagination'
 
 describe('rest library queryGenerators', () => {
   const { fetchAll: collectionGenerator, fetchOne: itemGenerator } = queryGenerators
@@ -33,6 +33,11 @@ describe('rest library queryGenerators', () => {
   it('should generate from empty object', () => {
     const query = collectionGenerator({})
     expect(query).to.deep.equal({})
+  })
+
+  it('should generate single item query params', () => {
+    const query = itemGenerator(null, { someParam: 'someValue' })
+    expect(query.someParam).to.equal('someValue')
   })
 
 })

@@ -47,8 +47,8 @@ function collection(state, extraParams = {}) {
   return { ...queryParams, ...extraParams }
 }
 
-function item(state) {
-  return {}
+function item(state, extraParams = {}) { // eslint-disable-line no-unused-vars
+  return { ...extraParams }
 }
 
 const queryGenerators = {
