@@ -11,12 +11,6 @@
         "mocha": true
     },
     "rules": {
-        //    "react/no-multi-comp": 0,
-        //    "import/default": 0,
-        //    "import/no-duplicates": 0,
-        //    "import/named": 0,
-        //    "import/namespace": 0,
-        //    "import/no-unresolved": 0,
         "import/no-named-as-default": 1,
         // Temporarirly disabled due to a possible bug in babel-eslint (todomvc example)
         //    "block-scoped-var": 0,
@@ -24,17 +18,13 @@
         "padded-blocks": 0,
         "comma-dangle": 0,
         // not sure why airbnb turned this on. gross!
-        //    "indent": [1, 2, {"SwitchCase": 1}],
         "no-console": 0,
-        //    "no-alert": 0,
         "semi": 0,
         "no-extra-semi": 1,
         "new-cap": 0,
         "space-before-function-paren": 0,
         "one-var": 0,
         "radix": 0,
-        //    "object-curly-spacing": [1, "always"],
-        //    "object-shorthand": 1,
         "no-unused-vars": 1,
         "quote-props": 0,
         "max-len": [
@@ -44,7 +34,12 @@
             {
                 "ignoreComments": true
             }
-        ]
+        ],
+        "no-param-reassign": 0, // hhj from este framework: We love param reassignment. Naming is hard.
+        "no-shadow": 0, // Shadowing is a nice language feature. Naming is hard.
+        // Overide Stateless
+        "react/prefer-stateless-function": 0,
+        "func-names": 0 // hhj
     },
     "settings": {
         "import/parser": "babel-eslint",

@@ -1,4 +1,5 @@
 /** Created by hhj on 1/14/16. */
+/* eslint-disable func-names */
 
 /**
  * Usage:

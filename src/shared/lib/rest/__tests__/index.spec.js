@@ -4,14 +4,13 @@ import myRest from '../index'
 
 describe('myRest library', () => {
 
-  let state
   let reducer
   let rest
   const nullResponse = {}
   const someEndpoint = {}
   someEndpoint.toObject = () => someEndpoint
 
-  const fetch = url => Promise.resolve(nullResponse)
+  const fetch = () => Promise.resolve(nullResponse)
 
   const getState = () => ({ someEndpoint })
 
@@ -21,7 +20,7 @@ describe('myRest library', () => {
       expect(action.data).not.to.be.undefined // eslint-disable-line no-unused-expressions
     }
     const initialState = reducer(getState())
-    state = reducer(initialState, action)
+    reducer(initialState, action)
 
     return action
   }

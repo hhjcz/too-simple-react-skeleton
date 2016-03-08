@@ -34,7 +34,7 @@ export default class MyDraggableInput extends React.Component {
     e.dataTransfer.setData('text', e.currentTarget.dataset.value)
   }
 
-  onDragEnd(e) {
+  onDragEnd() {
     this.props.onChange(this.props.label, '')
   }
 
@@ -43,7 +43,7 @@ export default class MyDraggableInput extends React.Component {
     this.setState({ draggedOver: 'warning' })
   }
 
-  onDragLeave(e) {
+  onDragLeave() {
     this.setState({ draggedOver: false })
   }
 
@@ -56,7 +56,11 @@ export default class MyDraggableInput extends React.Component {
     const { label, value, onChange } = this.props
     const bsStyle = this.state.draggedOver || MyDraggableInput.bsStyle(value)
     return (
-      <div data-value={value} draggable onDragEnd={this.onDragEnd} onDragStart={this.onDragStart} onDragOver={this.onDragOver} onDragLeave={this.onDragLeave} className="text-info">
+      <div data-value={value} draggable
+        onDragStart={this.onDragStart} onDragEnd={this.onDragEnd}
+        onDragOver={this.onDragOver} onDragLeave={this.onDragLeave}
+        className="text-info"
+      >
         <Input
           value={value}
           type="text"
@@ -64,8 +68,8 @@ export default class MyDraggableInput extends React.Component {
           bsStyle={bsStyle}
           draggable
           addonBefore={label}
-          addonAfter={<Glyphicon glyph="erase" onClick={function(event) { onChange(label, '')} } />}
-          onChange={function(event) { onChange(label, event.target.value) }}
+          addonAfter={<Glyphicon glyph="erase" onClick={function() { onChange(label, '')} } />}
+          onChange={function(e) { onChange(label, e.target.value) }}
           onDrop={this.onDrop}
         />
       </div>

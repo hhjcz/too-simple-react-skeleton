@@ -1,7 +1,7 @@
 /** Created by hhj on 2/18/16. */
 import { expect } from 'chai'
 
-import Zarizeni, { ZarizeniFactory } from '../Zarizeni'
+import { Zarizeni, ZarizeniFactory } from '../Zarizeni'
 
 describe('Zarizeni factory', () => {
 

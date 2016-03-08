@@ -1,7 +1,7 @@
 /** Created by hhj on 2/3/16. */
 import { expect } from 'chai'
-import actionTypesFor from '../actionTypesFor'
-import actionCreatorsFor from '../actionCreatorsFor'
+import { actionTypesFor } from '../actionTypesFor'
+import { actionCreatorsFor } from '../actionCreatorsFor'
 
 describe('actionCreatorsFor', () => {
 

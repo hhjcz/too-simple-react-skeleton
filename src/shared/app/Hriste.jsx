@@ -1,5 +1,5 @@
 /** Created by hhj on 1/12/16. */
-import React, { PropTypes } from 'react'
+import React from 'react'
 import { Image } from 'react-bootstrap'
 
 export default class Hriste extends React.Component {

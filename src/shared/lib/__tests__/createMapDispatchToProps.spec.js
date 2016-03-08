@@ -31,7 +31,10 @@ describe('createMapDispatchToProps', () => {
   })
 
   it('should bind nested actions passed as deep object', () => {
-    const actions = { firstGroup: { firstAction, secondAction }, secondGroup: { secondAction, firstAction } }
+    const actions = {
+      firstGroup: { firstAction, secondAction },
+      secondGroup: { secondAction, firstAction }
+    }
     const props = createMapDispatchToProps(actions)(dispatch)
 
     expect(typeof props.actions.firstGroup.firstAction).to.equal('function')
@@ -39,7 +42,11 @@ describe('createMapDispatchToProps', () => {
   })
 
   it('should not duplicate actions (should merge)', () => {
-    const actions = [{ firstAction, secondAction }, { secondAction, firstAction }, { secondAction, firstAction }]
+    const actions = [
+      { firstAction, secondAction },
+      { secondAction, firstAction },
+      { secondAction, firstAction }
+    ]
     const props = createMapDispatchToProps(actions)(dispatch)
 
     expect(Object.keys(props.actions).length).to.equal(2)

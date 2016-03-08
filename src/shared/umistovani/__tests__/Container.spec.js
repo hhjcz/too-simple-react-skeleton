@@ -8,15 +8,13 @@ import Connected, { Container } from './../Container'
 
 describe('umistovani connected Container component', () => {
   let vdom
-  let instance  // eslint-disable-line no-unused-vars
 
   beforeEach(() => {
     const store = createStore()
     const tree = sd.shallowRender(React.createElement(Connected, { store }))
 
-    instance = tree.getMountedInstance()
+    // const instance = tree.getMountedInstance()
     vdom = tree.getRenderOutput()
-    // console.log(vdom.props.children)
   })
 
   it('should connect props to redux', () => {
@@ -34,16 +32,14 @@ describe('umistovani connected Container component', () => {
 
 describe('umistovani Container component', () => {
   let vdom
-  let instance  // eslint-disable-line no-unused-vars
 
   beforeEach(() => {
     const store = createStore()
     const location = { query: {} }
     const tree = sd.shallowRender(React.createElement(Container, { store, location }))
 
-    instance = tree.getMountedInstance()
+    // const instance = tree.getMountedInstance()
     vdom = tree.getRenderOutput()
-    // console.log(vdom.props.children)
   })
 
   it('should render', () => {

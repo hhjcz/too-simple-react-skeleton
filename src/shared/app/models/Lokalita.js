@@ -16,8 +16,8 @@ export class Lokalita extends Record({
   kodObjektUIR: 0,
   bunka: 0,
 }) {
-  constructor() {
-    super(...arguments)
+  constructor(...args) {
+    super(...args)
     this._chardop()
   }
 

@@ -1,7 +1,5 @@
 /** Created by hhj on 1/11/16. */
-/* eslint-disable react/no-multi-comp */
-import React from 'react'
-import { Record, Map } from 'immutable'
+import { Record } from 'immutable'
 
 export const columntValueTypes = {
   number: 'number',

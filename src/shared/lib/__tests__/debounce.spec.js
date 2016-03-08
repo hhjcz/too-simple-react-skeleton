@@ -6,7 +6,7 @@ import debounce from '../debounce'
 describe('debounce', () => {
 
   let context
-  const fn = function(args) {
+  const fn = function fn(args) {
     this.alteredValue = this.value + args
     return this.alteredValue
   }

@@ -7,14 +7,12 @@ import { List } from 'immutable'
 import Umistovani from '../Umistovani'
 
 describe('umistovani Umistovani component', () => {
-  let tree
   let vdom
-  let instance   // eslint-disable-line no-unused-vars
 
   const shallowRender = (props) => {
-    tree = sd.shallowRender(React.createElement(Umistovani, props))
+    const tree = sd.shallowRender(React.createElement(Umistovani, props))
 
-    instance = tree.getMountedInstance()
+    // const instance = tree.getMountedInstance()
     vdom = tree.getRenderOutput()
     // console.log(vdom)
   }

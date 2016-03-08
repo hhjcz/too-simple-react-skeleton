@@ -14,10 +14,12 @@ export default class PredefinedViews extends React.Component {
 
   render() {
     const { onFilterChange, onSortChange, onGeneralParamChange } = this.props
+    const aktivni = true
     return (
       <div>
         <ButtonGroup>
           <Button bsStyle="info" bsSize="small"
+            active={aktivni}
             onClick={function(e) {
               // e.target.active = true
               onGeneralParamChange({ name: '_filter', value: 'neumistena' })

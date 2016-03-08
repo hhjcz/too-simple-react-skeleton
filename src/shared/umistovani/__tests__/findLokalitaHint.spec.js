@@ -1,4 +1,5 @@
 /** Created by hhj on 2/5/16. */
+/* eslint-disable max-len */
 import { expect } from 'chai'
 import findLokalitaHint from '../findLokalitaHint'
 

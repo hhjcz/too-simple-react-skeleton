@@ -5,7 +5,7 @@ import rest from '../rest'
 describe('app rest', () => {
 
   it('should define rest actions', () => {
-   expect(typeof rest.actions).to.equal('object')
+    expect(typeof rest.actions).to.equal('object')
   })
 
 })

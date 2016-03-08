@@ -2,7 +2,7 @@
 // noinspection JSUnresolvedVariable
 import { expect } from 'chai'
 import Umisteni, { UmisteniFactory } from '../Umisteni'
-import Lokalita from '../Lokalita'
+import { Lokalita } from '../Lokalita'
 
 describe('umisteni class Umistovani', () => {
 

@@ -11,5 +11,8 @@ export default class Umisteni extends Record({
 }
 
 export function UmisteniFactory(umisteniObj) {
-  return new Umisteni({ ...umisteniObj, lokalita: (umisteniObj && umisteniObj.lokalita) ? new Lokalita(umisteniObj.lokalita) : null })
+  return new Umisteni({
+    ...umisteniObj,
+    lokalita: (umisteniObj && umisteniObj.lokalita) ? new Lokalita(umisteniObj.lokalita) : null
+  })
 }

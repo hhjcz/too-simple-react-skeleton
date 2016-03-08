@@ -2,7 +2,7 @@
 import React from 'react'
 import { render } from 'react-dom'
 import { Router, browserHistory } from 'react-router'
-import { createHistory, useQueries } from 'history'
+// import { createHistory, useQueries } from 'history'
 import { Provider } from 'react-redux'
 // import 'bootstrap/dist/css/bootstrap.min.css'
 import './my-bootstrap.less'

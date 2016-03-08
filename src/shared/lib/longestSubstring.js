@@ -1,4 +1,5 @@
 /** Created by hhj on 2/16/16. */
+/* eslint-disable func-names, max-len */
 
 const trim = stringToTrim => stringToTrim.toLowerCase().replace(/\s+/g, '')
 
@@ -20,7 +21,7 @@ export const find = function(origStr1, origStr2, trimStrings = true) {
     str2Length = str2.length,
     num = new Array(str1Length)
   let sequence = '',
-    maxlen = 0,
+    maxLen = 0,
     lastSubsBegin = 0
 
   for (let ii = 0; ii < str1Length; ii++) {
@@ -42,8 +43,8 @@ export const find = function(origStr1, origStr2, trimStrings = true) {
           num[i][j] = 1 + num[i - 1][j - 1]
         }
 
-        if (num[i][j] > maxlen) {
-          maxlen = num[i][j]
+        if (num[i][j] > maxLen) {
+          maxLen = num[i][j]
           thisSubsBegin = i - num[i][j] + 1
           if (lastSubsBegin === thisSubsBegin) {
             // if the current LCS is the same as the last time this block ran
@@ -59,11 +60,11 @@ export const find = function(origStr1, origStr2, trimStrings = true) {
     }
   }
   const offset1 = thisSubsBegin + countSpaces(origStr1, 0, thisSubsBegin + 1)
-  const length1 = maxlen + countSpaces(origStr1, offset1, offset1 + maxlen)
+  const length1 = maxLen + countSpaces(origStr1, offset1, offset1 + maxLen)
   const offset2 = str2.indexOf(sequence) + countSpaces(origStr2, 0, str2.indexOf(sequence) + 1)
-  const length2 = maxlen + countSpaces(origStr2, offset2, offset2 + maxlen)
+  const length2 = maxLen + countSpaces(origStr2, offset2, offset2 + maxLen)
 
-  return { length: maxlen, sequence, offset1, offset2, length1, length2 }
+  return { length: maxLen, sequence, offset1, offset2, length1, length2 }
 }
 
 export const mark = function(str1, str2, preTag = '<b>', postTag = '</b>', minLength = 3, trimStrings) {
