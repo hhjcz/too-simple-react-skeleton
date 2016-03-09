@@ -3,9 +3,25 @@ import { combineReducers } from 'redux'
 import zarizeni from '../zarizeni-list/reducer'
 import rest from './rest'
 
-const reducer = combineReducers({
+const combinedReducer = combineReducers({
   ...rest.reducers,
   zarizeni,
 })
+
+let reduxStorageActions
+if (process.env.IS_BROWSER) {
+  reduxStorageActions = require('redux-localstorage').actionTypes
+}
+
+const reducer = (state = {}, action) => {
+  // initial state is received from server (see client/index.js) and hydrated in combined (sub) reducers,
+  // then the state is replaced by local storage persisted state if it exists:
+  if (process.env.IS_BROWSER && action.type === reduxStorageActions.INIT) {
+    const persistedState = action.payload || {}
+    state = { ...state, ...persistedState }
+  }
+
+  return combinedReducer(state, action)
+}
 
 export default reducer

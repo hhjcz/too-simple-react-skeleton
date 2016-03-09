@@ -1,6 +1,7 @@
 /** Created by hhj on 12/28/15. */
 import { createStore as _createStore, applyMiddleware, compose } from 'redux'
 import createLogger from 'redux-logger'
+import adapter from 'redux-localstorage/lib/adapters/localStorage'
 
 import myMiddleware from '../lib/myMiddleware'
 import reducer from './reducer'
@@ -27,14 +28,24 @@ export default function createStore(initialState = {}, history = null) {
     }))
   }
 
-  let devToolsInstrument = (x) => x
+  let devToolsInstrument = x => x
   if (process.env.NODE_ENV !== 'production') {
     const DevTools = require('./DevTools').default
     devToolsInstrument = DevTools.instrument()
   }
 
+  let persistStateMiddleware = x => x
+  if (process.env.IS_BROWSER) {
+    const persistState = require('redux-localstorage').default
+    const storage = compose(
+      // filter('some.nested.key')
+    )(adapter(window.localStorage))
+    persistStateMiddleware = persistState(storage, 'dohlestr-frontend-state')
+  }
+
   store = compose(
     applyMiddleware(...middleware),
+    persistStateMiddleware,
     devToolsInstrument
   )(_createStore)(reducer, initialState)
 

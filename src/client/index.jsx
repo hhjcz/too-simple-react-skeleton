@@ -16,6 +16,8 @@ import createStore from '../shared/app/createStore'
 // const history = useQueries(createHistory)()
 
 // server has put the state here (see server.js):
+// (initial state is then also hydrated from local storage,
+//  which replaces the state received from server - see reducer.js)
 const initialState = window.__INITIAL_STATE__
 
 const store = createStore(initialState, browserHistory)
