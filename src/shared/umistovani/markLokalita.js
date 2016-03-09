@@ -1,18 +1,30 @@
 /** Created by hhj on 2/16/16. */
 import longestSubstring from '../lib/longestSubstring'
+import { stringifyLokalita } from './stringifyLokalita'
 
 const markCssClass = 'text-warning'
 
 function normalize(str) {
-  if (str == null) return ''
+  if (!str) return ''
   let nstr = str.toString()
   if (nstr) nstr = nstr.toLowerCase()
   return nstr
 }
 
-function Marked() {
-  this.marked = ''
-  this.markLength = 0
+function Marked(marked, markLength) {
+  this.marked = marked || ''
+  this.markLength = markLength || 0
+}
+
+Marked.prototype.concat = function(toConcat) {
+  if (typeof toConcat === 'string') {
+    this.marked += toConcat
+  } else {
+    this.marked += toConcat.marked
+    this.markLength += toConcat.markLength
+  }
+
+  return this
 }
 
 function mark(str1, str2) {
@@ -56,15 +68,12 @@ function markCisdop(lokalita, lokalitaHint) {
   return mark(lokalita.chardop, lokalitaHint.chardop)
 }
 
-Marked.prototype.concat = function(toConcat) {
-  if (typeof toConcat === 'string') {
-    this.marked += toConcat
-  } else {
-    this.marked += toConcat.marked
-    this.markLength += toConcat.markLength
-  }
+function markAkrlok(lokalita, lokalitaHint) {
+  const marked = longestSubstring.mark(lokalita.akrlok, lokalitaHint.ulice, '<span class="text-warning"><b>', '</b></span>')
+  const markedAkrlok = new Marked()
+  if (marked.markLength > 0) markedAkrlok.concat(' :: ').concat(marked)
 
-  return this
+  return markedAkrlok
 }
 
 /**
@@ -84,15 +93,16 @@ export default function markLokalita(lokalita, lokalitaHint) {
     .concat(markCisori(lokalita, lokalitaHint))
     .concat(' ')
     .concat(markCisdop(lokalita, lokalitaHint))
+    .concat(markAkrlok(lokalita, lokalitaHint))
 
-  if (marked.markLength > 0) return marked
-
-  // mark longest common substring
-  const trimmedName = lokalitaHint.name ? lokalitaHint.name : ''
-  const trimmedAdresa = lokalita ? lokalita.adresa : ''
-  marked.marked = longestSubstring
-    .mark(trimmedName, trimmedAdresa, '<span class="text-warning"><b>', '</b></span>')
-    .marked2
+  if (marked.markLength === 0) {
+    // mark longest common substring
+    const trimmedName = lokalitaHint.zarizeniName || ''
+    const trimmedAdresa = stringifyLokalita(lokalita)
+    marked.marked = longestSubstring
+      .mark(trimmedName, trimmedAdresa, '<span class="text-warning"><b>', '</b></span>')
+      .marked2
+  }
 
   return marked
 }

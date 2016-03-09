@@ -24,11 +24,12 @@ const zkratky = {
   lib: 'Liberec',
   tab: 'Tabor',
   bre: 'Breclav',
+  baa: 'Bratislava',
 }
 
 const zkratkaToObec = zkratkaObce => zkratky[zkratkaObce.toLowerCase()] || zkratkaObce
 
-function LokalitaHint({ id, obec, ulice, cislo, chardop, op, akrlok, ixlok, map } = {}) {
+function LokalitaHint({ id, obec, ulice, cislo, chardop, op, akrlok, ixlok, map, zarizeniName } = {}) {
   // console.log(obec)
   this.id = id || 0
   this.obec = obec || ''
@@ -41,6 +42,7 @@ function LokalitaHint({ id, obec, ulice, cislo, chardop, op, akrlok, ixlok, map 
   this.akrlok = akrlok || ''
   this.ixlok = ixlok || ''
   this.map = map || ''
+  this.zarizeniName = zarizeniName || ''
 }
 
 LokalitaHint.prototype.toString = function() {
@@ -102,6 +104,7 @@ export default function findLokalitaHint(name = '', mapName = '', id = 0) {
   lokalitaHint = lokalitaHint || new LokalitaHint({ id })
 
   lokalitaHint.fromMapName(mapName)
+  lokalitaHint.zarizeniName = name
 
   return lokalitaHint
 }

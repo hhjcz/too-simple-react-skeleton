@@ -86,7 +86,7 @@ export const mark = function(str1, str2, preTag = '<b>', postTag = '</b>', minLe
     marked2 = str2.substring(0, common.offset2) + preTag + str2.substring(common.offset2, common.offset2 + common.length2) + postTag + str2.substring(common.offset2 + common.length2, str2.length)
   }
 
-  return { marked1, marked2 }
+  return { marked1, marked2, marked: marked1, markLength: common.length }
 }
 
 export default {

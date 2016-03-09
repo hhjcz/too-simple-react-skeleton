@@ -36,6 +36,7 @@ export default class Umistovani extends React.Component {
     if (lokalitaHint.obec) params.obec = lokalitaHint.obec
     if (lokalitaHint.cislo) params.cislo = lokalitaHint.cislo
     if (lokalitaHint.ulice) params['trimmed_ulice-lk'] = lokalitaHint.ulice
+    if (lokalitaHint.akrlok) params['akrlok-lk'] = lokalitaHint.akrlok
 
     this.props.actions.fetchAll({ params })
   }
