@@ -3,20 +3,12 @@
 
 const trim = stringToTrim => stringToTrim.toLowerCase().replace(/\s+/g, '')
 
-const countSpaces = (str, fromPosition, toPosition) => (str.substring(fromPosition, toPosition).match(/\s+/g) || []).length
+const countSpaces = (str, fromPosition, toPosition) => {
+  const spaceCount = (str.substring(fromPosition, toPosition).match(/\s+/g) || []).length
+  return (str.substring(fromPosition, toPosition + spaceCount).match(/\s+/g) || []).length
+}
 
-export const find = function(origStr1, origStr2, trimStrings = true) {
-  if (!origStr1 || !origStr2) {
-    return { length: 0, sequence: '', offset1: 0, offset2: 0 }
-  }
-
-  let str1 = origStr1
-  let str2 = origStr2
-  if (trimStrings) {
-    str1 = trim(origStr1)
-    str2 = trim(origStr2)
-  }
-
+const tFind = function(str1, str2) {
   const str1Length = str1.length,
     str2Length = str2.length,
     num = new Array(str1Length)
@@ -59,12 +51,27 @@ export const find = function(origStr1, origStr2, trimStrings = true) {
       }
     }
   }
-  const offset1 = thisSubsBegin + countSpaces(origStr1, 0, thisSubsBegin + 1)
-  const length1 = maxLen + countSpaces(origStr1, offset1, offset1 + maxLen)
-  const offset2 = str2.indexOf(sequence) + countSpaces(origStr2, 0, str2.indexOf(sequence) + 1)
-  const length2 = maxLen + countSpaces(origStr2, offset2, offset2 + maxLen)
+  const offset1 = thisSubsBegin
+  const offset2 = str2.indexOf(sequence)
 
-  return { length: maxLen, sequence, offset1, offset2, length1, length2 }
+  return { length: maxLen, sequence, offset1, offset2 }
+}
+
+export const find = function(origStr1, origStr2, trimStrings = true) {
+  if (!origStr1 || !origStr2) {
+    return { length: 0, sequence: '', offset1: 0, offset2: 0 }
+  }
+
+  const str1 = trimStrings ? trim(origStr1) : origStr1
+  const str2 = trimStrings ? trim(origStr2) : origStr2
+
+  const { length: tLength, sequence, offset1: tOffset1, offset2: tOffset2 } = tFind(str1, str2)
+  const offset1 = tOffset1 + countSpaces(origStr1, 0, tOffset1 + 2)
+  const length1 = tLength + countSpaces(origStr1, offset1, offset1 + tLength)
+  const offset2 = tOffset2 + countSpaces(origStr2, 0, tOffset2 + 2)
+  const length2 = tLength + countSpaces(origStr2, offset2, offset2 + tLength)
+
+  return { length: tLength, sequence, offset1, offset2, length1, length2 }
 }
 
 export const mark = function(str1, str2, preTag = '<b>', postTag = '</b>', minLength = 3, trimStrings) {
