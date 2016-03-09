@@ -1,6 +1,6 @@
 {
   "name": "dohlestr-frontend-scratch",
-  "version": "1.0.16",
+  "version": "1.0.17",
   "repository": "git@bitbucket.org:hhjcz/dohlestr-frontend-scratch.git",
   "description": "hhj - redux/react dohlestr from scratch based on https://medium.com/front-end-developers/handcrafting-an-isomorphic-redux-application-with-love-40ada4468af4#.dyjo0n2px",
   "main": "index.js",
