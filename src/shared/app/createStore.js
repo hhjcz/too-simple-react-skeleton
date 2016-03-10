@@ -34,18 +34,18 @@ export default function createStore(initialState = {}, history = null) {
     devToolsInstrument = DevTools.instrument()
   }
 
-  let persistStateMiddleware = x => x
+  let persistStateEnhancer = x => x
   if (process.env.IS_BROWSER) {
     const persistState = require('redux-localstorage').default
     const storage = compose(
       // filter('some.nested.key')
     )(adapter(window.localStorage))
-    persistStateMiddleware = persistState(storage, 'dohlestr-frontend-state')
+    persistStateEnhancer = persistState(storage, 'dohlestr-frontend-state')
   }
 
   store = compose(
     applyMiddleware(...middleware),
-    persistStateMiddleware,
+    persistStateEnhancer,
     devToolsInstrument
   )(_createStore)(reducer, initialState)
 
