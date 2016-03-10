@@ -53,7 +53,7 @@
     "react-router": "^2.0.0",
     "redux": "^3.0.5",
     "redux-localstorage": "^1.0.0-rc4",
-    "redux-localstorage-filter": "^0.1.1",
+    "redux-localstorage-debounce": "^0.1.0",
     "redux-logger": "^2.3.1",
     "rupture": "^0.6.1",
     "sass-loader": "^3.1.2",

@@ -2,6 +2,7 @@
 import { createStore as _createStore, applyMiddleware, compose } from 'redux'
 import createLogger from 'redux-logger'
 import adapter from 'redux-localstorage/lib/adapters/localStorage'
+import storageDebounce from 'redux-localstorage-debounce'
 
 import myMiddleware from '../lib/myMiddleware'
 import reducer from './reducer'
@@ -38,7 +39,7 @@ export default function createStore(initialState = {}, history = null) {
   if (process.env.IS_BROWSER) {
     const persistState = require('redux-localstorage').default
     const storage = compose(
-      // filter('some.nested.key')
+      storageDebounce(100)
     )(adapter(window.localStorage))
     persistStateEnhancer = persistState(storage, 'dohlestr-frontend-state')
   }
