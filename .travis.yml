@@ -5,6 +5,3 @@ node_js:
   - "4"
   - "4.0"
 script: npm test && npm run build
-os:
-  - linux
-  - osx
