@@ -60,8 +60,15 @@ export default class Umistovani extends React.Component {
         <div>Mapa: {zarizeni.defaultmap}</div>
         <HintForm lokalitaHint={lokalitaHint} searchForUmisteni={this.searchForUmisteni} />
         {
-          seznamUmisteni.map && seznamUmisteni.map(u =>
-            <MarkedLokalita lokalitaHint={lokalitaHint} lokalita={u.lokalita} key={u.id} />
+          seznamUmisteni.map && seznamUmisteni.map(umisteni =>
+            <div>
+              <MarkedLokalita lokalitaHint={lokalitaHint} lokalita={umisteni.lokalita} key={umisteni.id} />
+              {
+                umisteni.lokalita.nepiOpy.map(nepiOp =>
+                  <div key={nepiOp.ixop}>{nepiOp.ixop}</div>
+                )
+              }
+            </div>
           )
         }
         <div className="btn btn-sm btn-danger" onClick={ function() { self.deleteAllUmisteni() } }>

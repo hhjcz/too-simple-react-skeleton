@@ -40,7 +40,7 @@ export class Container extends React.Component {
         if (!(zarizeniId > 0)) throw new Error('Fetch chyba: nepodaril se fetch zarizeni s validnim id')
 
         return rest.actions.umisteni.fetchAll({
-          params: { zarizeni_id: zarizeniId, include: 'lokalita' },
+          params: { zarizeni_id: zarizeniId, include: 'lokalita.nepi_opy' },
           projectToLocation: false
         })
       })

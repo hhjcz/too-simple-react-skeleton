@@ -1,6 +1,6 @@
 /** Created by hhj on 2/17/16. */
 import { Record } from 'immutable'
-import { Lokalita } from './Lokalita'
+import Lokalita from './Lokalita'
 
 export default class Umisteni extends Record({
   id: 0,

@@ -1,5 +1,6 @@
 /** Created by hhj on 2/16/16. */
 import { Record } from 'immutable'
+import { NepiOpyFactory } from './NepiOpy'
 
 export class Lokalita extends Record({
   id: 0,
@@ -11,19 +12,17 @@ export class Lokalita extends Record({
   cispop: 0,
   cisori: 0,
   cisdop: 0,
+  chardop: '',
   cisevi: 0,
   akrlok: '',
   kodObjektUIR: 0,
   bunka: 0,
+  nepiOpy: NepiOpyFactory(),
 }) {
-  constructor(...args) {
-    super(...args)
-    this._chardop()
-  }
-
-  _chardop() {
-    if (this.cisdop > 0) this.chardop = String.fromCharCode('a'.charCodeAt(0) + this.cisdop - 1)
-    this.chardop = this.chardop || ''
+  constructor(args = {}) {
+    if (args && args.nepiOpy) args.nepiOpy = NepiOpyFactory(args.nepiOpy.data || args.nepiOpy)
+    if (args.cisdop) args.chardop = String.fromCharCode('a'.charCodeAt(0) + args.cisdop - 1)
+    super(args)
   }
 }
 
