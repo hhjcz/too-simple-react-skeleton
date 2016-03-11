@@ -4,7 +4,10 @@ export class NepiOp extends Record({
   ixop: null,
   akronym: null,
   ixfirma: null,
-  nazev_firmy: null,
+  nazevFirmy: null,
+  valid: null,
+  inx: null,
+  verze: null,
 }) {
 }
 

@@ -1,5 +1,6 @@
 /** Created by hhj on 2/16/16. */
 import markLokalita from './markLokalita'
+import NepiOpy from './NepiOpy'
 
 import React, { PropTypes } from 'react'
 
@@ -20,11 +21,7 @@ export default class MarkedLokalita extends React.Component {
     return (
       <div>
         <span dangerouslySetInnerHTML={createMarked()} />
-        {/*
-          (lokalita.akrlok && lokalita.akrlok.length > 0)
-            ? <span className="text-info">"{lokalita.akrlok}"</span>
-            : ''
-        */}
+        <NepiOpy nepiOpy={lokalita.nepiOpy} />
       </div>
     )
   }

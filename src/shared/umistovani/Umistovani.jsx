@@ -63,11 +63,6 @@ export default class Umistovani extends React.Component {
           seznamUmisteni.map && seznamUmisteni.map(umisteni =>
             <div>
               <MarkedLokalita lokalitaHint={lokalitaHint} lokalita={umisteni.lokalita} key={umisteni.id} />
-              {
-                umisteni.lokalita.nepiOpy.map(nepiOp =>
-                  <div key={nepiOp.ixop}>{nepiOp.ixop}</div>
-                )
-              }
             </div>
           )
         }
