@@ -21,7 +21,10 @@ const BABEL_QUERY = {
             transform: 'react-transform-hmr',
             imports: ['react'],
             locals: ['module']
-          }
+          },
+          // {
+          //   transform: 'react-transform-render-visualizer'
+          // }
         ]
       }
     ]
