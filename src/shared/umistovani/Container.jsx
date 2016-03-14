@@ -86,9 +86,10 @@ export class Container extends React.Component {
         />
         {
           zarizeni.item.id > 0
-            ? <Umistovani zarizeni={zarizeni.item} seznamUmisteni={umisteni.items} actions={rest.actions.umisteni} />
+            ? <Umistovani zarizeni={zarizeni.item} seznamUmisteni={umisteni.items} actions={rest.actions} />
             : ''
         }
+
         {
           zarizeni.fetching || umisteni.fetching
             ? <div className="text-info">Fetching...</div> : ''

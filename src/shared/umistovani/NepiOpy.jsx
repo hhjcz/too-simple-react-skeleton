@@ -1,6 +1,6 @@
 /** Created by hhj on 3/11/16. */
-
 import React, { PropTypes } from 'react'
+import { uniqBy } from 'lodash'
 
 export default class NepiOpy extends React.Component {
   static propTypes = {
@@ -12,8 +12,10 @@ export default class NepiOpy extends React.Component {
   };
 
   render() {
-    const { nepiOpy } = this.props
-    const listItems = nepiOpy.map(nepiOp =>
+    let { nepiOpy } = this.props
+    nepiOpy = nepiOpy.toArray ? nepiOpy.toArray() : nepiOpy
+    const uniqNepiOpy = uniqBy(nepiOpy, nepiOp => nepiOp.ixop)
+    const listItems = uniqNepiOpy.map(nepiOp =>
       <li key={nepiOp.ixop}>
         {nepiOp.ixop} {nepiOp.akronym} "{nepiOp.nazevFirmy}"
       </li>
@@ -21,7 +23,7 @@ export default class NepiOpy extends React.Component {
 
     return (
       <div>
-        { nepiOpy.size > 0 ? <ul> { listItems } </ul> : null }
+        { nepiOpy.length > 0 ? <ul> { listItems } </ul> : null }
       </div>
     )
   }
