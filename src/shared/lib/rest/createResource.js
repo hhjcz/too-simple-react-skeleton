@@ -46,12 +46,14 @@ export default function createResource(resourceName, _config, fetchHolder) {
   const fetchAll = createAction('fetchAll')
   const fetchOne = createAction('fetchOne')
   const create = createAction('create', 'POST')
+  const update = createAction('update', 'PATCH')
   const destroy = createAction('destroy', 'DELETE')
 
   return {
     fetchAll,
     fetchOne,
     create,
+    update,
     destroy,
   }
 }

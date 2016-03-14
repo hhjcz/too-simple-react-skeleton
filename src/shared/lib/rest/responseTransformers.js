@@ -35,6 +35,7 @@ const responseTransformers = {
   fetchAll: collection,
   fetchOne: item,
   create: item,
+  update: item,
   destroy: item,
 }
 

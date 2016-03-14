@@ -58,12 +58,14 @@ export default function createRestAction(endpointName, config, actionCreators, f
   const fetchAll = createAction('fetchAll')
   const fetchOne = createAction('fetchOne')
   const create = createAction('create')
+  const update = createAction('update')
   const destroy = createAction('destroy')
 
   return {
     fetchAll,
     fetchOne,
     create,
+    update,
     destroy,
   }
 }

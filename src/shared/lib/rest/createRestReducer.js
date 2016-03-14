@@ -45,6 +45,7 @@ export default function createRestReducer(endpointName, config = {}, actionTypes
       case actionTypes.fetchAllRequested:
       case actionTypes.fetchOneRequested:
       case actionTypes.createRequested:
+      case actionTypes.updateRequested:
         return state.set('fetching', true)
 
       case actionTypes.fetchAllSuccess:
@@ -78,9 +79,9 @@ export default function createRestReducer(endpointName, config = {}, actionTypes
           .update('lastFetchMark', lastFetchMark => ({ ...lastFetchMark, fetchOne: '' }))
 
       case actionTypes.createSuccess:
-        return state.set('fetching', false)
-
+      case actionTypes.updateSuccess:
       case actionTypes.createError:
+      case actionTypes.updateError:
         return state.set('fetching', false)
 
       default:
