@@ -1,5 +1,6 @@
 /** Created by hhj on 1/29/16. */
 import { parse as urlParse } from 'url'
+import { decamelizeKeys } from 'humps'
 import createResource from './createResource'
 import { getSubState } from './utils'
 import queryGenerators from './queryGenerators'
@@ -31,7 +32,7 @@ export default function createRestAction(endpointName, config, actionCreators, f
       return fnHolder.dispatch(({ dispatch, getState, history }) => {
 
         const state = getThisSubState(getState)
-        const queryParams = { ...queryGenerator(state), ...extraParams, ...params }
+        const queryParams = { ...queryGenerator(state), ...extraParams, ...decamelizeKeys(params) }
         const { fetchUrl, fetchExecute } = resource[actionName](queryParams, body)
 
         const lastFetchMark = state.lastFetchMark ? (state.lastFetchMark.toObject ? state.lastFetchMark.toObject()[actionName] : state.lastFetchMark[actionName]) : null // eslint-disable-line no-nested-ternary
