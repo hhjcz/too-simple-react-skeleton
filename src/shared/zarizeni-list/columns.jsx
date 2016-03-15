@@ -54,7 +54,12 @@ export const columns = Map(
       valueType: columntValueTypes.string,
       width: 6,
       visible: true,
-      render: (zarizeni, pozice) => <Link to={`/umistovani/${pozice}`}><MarkedLokalita lokalita={zarizeni.umisteni.lokalita} /></Link>
+      render: (zarizeni, pozice) =>
+        <Link to={`/umistovani/${pozice}`}>{
+          zarizeni.umisteni.lokalita.ixlok > 0 ?
+            <MarkedLokalita lokalita={zarizeni.umisteni.lokalita} />
+            : 'neumistene'
+        }</Link>
     }),
   }
 )
