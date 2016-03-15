@@ -10,11 +10,13 @@ const serverBaseUrl = process.env.SERVER_BASE_URL || 'http://localhost:8089/api'
 const rest = myRest({
   zarizeni: {
     url: '/zarizeni/:id',
+    extraParams: { include: 'umisteni.lokalita' },
     itemTransformer: item => ZarizeniFactory(item),
     defaultState: { sort: new Sort({ dir: true, by: 'createdAt' }) }
   },
   umisteni: {
     url: '/umisteni/:id',
+    extraParams: { include: 'lokalita.nepi_opy' },
     itemTransformer: item => UmisteniFactory(item),
     // itemTransformer: item => item,
   },
