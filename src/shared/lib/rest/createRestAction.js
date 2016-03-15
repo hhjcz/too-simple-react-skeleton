@@ -15,7 +15,7 @@ export default function createRestAction(endpointName, config, actionCreators, f
   }
 
   const resource = createResource(endpointName, config, fnHolder)
-  const { extraParams } = config
+  const extraParams = decamelizeKeys(config.extraParams)
 
   const createAction = actionName => {
     const subActionCreators = {
@@ -32,7 +32,7 @@ export default function createRestAction(endpointName, config, actionCreators, f
       return fnHolder.dispatch(({ dispatch, getState, history }) => {
 
         const state = getThisSubState(getState)
-        const queryParams = { ...queryGenerator(state), ...decamelizeKeys(extraParams), ...decamelizeKeys(params) }
+        const queryParams = { ...queryGenerator(state), ...extraParams, ...decamelizeKeys(params) }
         const { fetchUrl, fetchExecute } = resource[actionName](queryParams, body)
 
         const lastFetchMark = state.lastFetchMark ? (state.lastFetchMark.toObject ? state.lastFetchMark.toObject()[actionName] : state.lastFetchMark[actionName]) : null // eslint-disable-line no-nested-ternary
