@@ -46,11 +46,11 @@ export default class HintForm extends React.Component {
 
     return (
       <div>
-        <div className="hintForm">
-          {form}
-        </div>
         <span className="btn btn-sm btn-info" onClick={ function() { searchForUmisteni(lokalitaHint) } }>
-          Search
+          <div className="hintForm">
+            {form}
+          </div>
+          Hledat
         </span>
       </div>
     )

@@ -17,7 +17,7 @@ describe('umistovani MarkedLokalita component', () => {
   })
 
   it('should render', () => {
-    expect(vdom.type).to.equal('div')
+    expect(vdom.type).to.equal('span')
     // expect(vdom.props.children.type).to.equal('');
   })
 

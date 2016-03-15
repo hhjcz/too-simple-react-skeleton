@@ -34,13 +34,13 @@ export class Container extends React.Component {
   static fetchZarizeni({ params, dispatch, getState }) {
     const cursorAt = parseInt(params.cursorAt) || 1
 
-    const promise = dispatch(zarizeniListActions.fetchOneAt(cursorAt, false, { include: 'umisteni.lokalita' }))
+    const promise = dispatch(zarizeniListActions.fetchOneAt(cursorAt, false))
       .then(response => {
         const zarizeniId = getState().zarizeni.item.id
         if (!(zarizeniId > 0)) throw new Error('Fetch chyba: nepodaril se fetch zarizeni s validnim id')
 
         return rest.actions.umisteni.fetchAll({
-          params: { zarizeni_id: zarizeniId, include: 'lokalita.nepi_opy' },
+          params: { zarizeniId },
           projectToLocation: false
         })
       })
@@ -85,14 +85,14 @@ export class Container extends React.Component {
           onSelect={self.onCursorChange}
         />
         {
-          zarizeni.item.id > 0
-            ? <Umistovani zarizeni={zarizeni.item} seznamUmisteni={umisteni.items} actions={rest.actions} />
+          zarizeni.item.id > 0 ?
+            <Umistovani zarizeni={zarizeni.item} seznamUmisteni={umisteni.items} actions={{ ...rest.actions, reload: self.componentDidMount.bind(self) }} />
             : ''
         }
 
         {
           zarizeni.fetching || umisteni.fetching
-            ? <div className="text-info">Fetching...</div> : ''
+            ? <div className="text-info">Louduju...</div> : ''
         }
       </div>
     )

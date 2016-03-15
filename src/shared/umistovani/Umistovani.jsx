@@ -3,7 +3,10 @@ import React, { PropTypes } from 'react'
 import shallowCompare from 'react-addons-shallow-compare'
 import findLokalitaHint from './findLokalitaHint'
 import MarkedLokalita from './MarkedLokalita'
+import ZarizeniInfo from './ZarizeniInfo'
 import HintForm from './HintForm'
+import NepiOpy from './NepiOpy'
+import './Umistovani.styl'
 
 export default class Umistovani extends React.Component {
 
@@ -37,15 +40,14 @@ export default class Umistovani extends React.Component {
     const params = {
       search: '',
       zarizeni_id: zarizeni.id,
-      include: 'lokalita',
     }
     if (lokalitaHint.obec) params.obec = lokalitaHint.obec
     if (lokalitaHint.cislo) params.cislo = lokalitaHint.cislo
-    if (lokalitaHint.ulice) params['trimmed_ulice-lk'] = lokalitaHint.ulice
-    if (lokalitaHint.akrlok) params['akrlok-lk'] = lokalitaHint.akrlok
-    params.include = 'lokalita.nepi_opy'
+    if (lokalitaHint.ulice) params['trimmedUlice-lk'] = `%${lokalitaHint.ulice}%`
+    if (lokalitaHint.akrlok) params['akrlok-lk'] = `%${lokalitaHint.akrlok}%`
+    if (lokalitaHint.ixlok) params.ixlok = `${lokalitaHint.ixlok}`
 
-    actions.umisteni.fetchAll({ params })
+    actions.umisteni.fetchAll({ params }).catch(error => console.info(error))
   }
 
   umistitZarizeni(umisteni) {
@@ -53,10 +55,11 @@ export default class Umistovani extends React.Component {
     const umisteneZarizeni = zarizeni.toObject()
     umisteneZarizeni.umisteni = umisteni
     actions.zarizeni.update({ params: { id: umisteneZarizeni.id }, body: umisteneZarizeni })
+      .then(actions.reload())
   }
 
   deleteAllUmisteni() {
-    const params = { zarizeni_id: this.props.zarizeni.id, include: 'lokalita' }
+    const params = { zarizeni_id: this.props.zarizeni.id }
     this.props.actions.umisteni.destroy({ params })
       .then(() => this.props.actions.umisteni.fetchAll({ params }))
       .catch(() => this.props.actions.umisteni.fetchAll({ params }))
@@ -70,20 +73,26 @@ export default class Umistovani extends React.Component {
 
     return (
       <div>
-        <div>#{`${zarizeni.id} ${zarizeni.name}`}</div>
-        <div>Mapa: {zarizeni.defaultmap}</div>
+        <ZarizeniInfo zarizeni={zarizeni} />
         <HintForm lokalitaHint={lokalitaHint} searchForUmisteni={this.searchForUmisteni} />
         {
           seznamUmisteni.map && seznamUmisteni.filter(umisteni => umisteni.lokalita.id > 0).map(umisteni =>
             <div>
-              <span className="btn-sm btn-success glyphicon glyphicon-ok" onClick={function () {self.umistitZarizeni(umisteni)}}></span>
-              <MarkedLokalita lokalitaHint={lokalitaHint} lokalita={umisteni.lokalita} key={umisteni.id} />
+              <div className="umistovani adresa">
+                <MarkedLokalita lokalitaHint={lokalitaHint} lokalita={umisteni.lokalita} key={umisteni.id} />
+                <div className="btn btn-xs btn-success glyphicon glyphicon-ok" onClick={function () {self.umistitZarizeni(umisteni)}} />
+              </div>
+              <NepiOpy nepiOpy={umisteni.lokalita.nepiOpy} />
             </div>
           )
         }
-        <div className="btn btn-sm btn-danger" onClick={ function() { self.deleteAllUmisteni() } }>
-          Delete all umisteni
-        </div>
+        {
+          seznamUmisteni.size > 1 ?
+            <div className="btn btn-sm btn-danger" onClick={ function() { self.deleteAllUmisteni() } }>
+              Smazat všechna umístění
+            </div>
+            : null
+        }
       </div>
     )
   }
