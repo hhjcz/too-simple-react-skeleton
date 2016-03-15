@@ -18,7 +18,7 @@ export default class Umistovani extends React.Component {
 
   static defaultProps = {
     zarizeni: {},
-    seznamUmisteni: {},
+    seznamUmisteni: [],
   };
 
   constructor(props) {
@@ -76,7 +76,7 @@ export default class Umistovani extends React.Component {
         <ZarizeniInfo zarizeni={zarizeni} />
         <HintForm lokalitaHint={lokalitaHint} searchForUmisteni={this.searchForUmisteni} />
         {
-          seznamUmisteni.map && seznamUmisteni.filter(umisteni => umisteni.lokalita.id > 0).map(umisteni =>
+          seznamUmisteni.map(umisteni =>
             <div>
               <div className="umistovani adresa">
                 <MarkedLokalita lokalitaHint={lokalitaHint} lokalita={umisteni.lokalita} key={umisteni.id} />
@@ -87,7 +87,7 @@ export default class Umistovani extends React.Component {
           )
         }
         {
-          seznamUmisteni.size > 1 ?
+          seznamUmisteni.size > 0 ?
             <div className="btn btn-sm btn-danger" onClick={ function() { self.deleteAllUmisteni() } }>
               Smazat všechna umístění
             </div>

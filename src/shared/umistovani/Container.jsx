@@ -77,6 +77,7 @@ export class Container extends React.Component {
   render() {
     const self = this
     const { zarizeni, umisteni } = this.props
+    const seznamUmisteni = umisteni.items
     return (
       <div id="zarizeni-list">
         <Pagination
@@ -86,7 +87,7 @@ export class Container extends React.Component {
         />
         {
           zarizeni.item.id > 0 ?
-            <Umistovani zarizeni={zarizeni.item} seznamUmisteni={umisteni.items} actions={{ ...rest.actions, reload: self.componentDidMount.bind(self) }} />
+            <Umistovani zarizeni={zarizeni.item} seznamUmisteni={seznamUmisteni} actions={{ ...rest.actions, reload: self.componentDidMount.bind(self) }} />
             : ''
         }
 
