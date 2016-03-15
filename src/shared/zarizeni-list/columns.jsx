@@ -3,6 +3,7 @@ import { Map } from 'immutable'
 import React from 'react'
 import { Link } from 'react-router'
 import { Column, columntValueTypes } from '../app/models/Column'
+import MarkedLokalita from '../umistovani/MarkedLokalita'
 
 export const columns = Map(
   {
@@ -19,7 +20,7 @@ export const columns = Map(
       caption: 'Name',
       valueType: columntValueTypes.string,
       visible: true,
-      width: 3,
+      width: 4,
       render: (zarizeni) => <Link to={`/zarizeni/${zarizeni.id}`}>{zarizeni.name}</Link>,
     }),
     createdAt: new Column({
@@ -38,7 +39,8 @@ export const columns = Map(
       name: 'deletedAt',
       caption: 'Deleted at',
       valueType: columntValueTypes.date,
-      visible: true
+      width: 1,
+      visible: false
     }),
     ipAddress: new Column({
       name: 'ipAddress',
@@ -50,8 +52,9 @@ export const columns = Map(
       name: 'umisteni',
       caption: 'Umisteni',
       valueType: columntValueTypes.string,
+      width: 6,
       visible: true,
-      render: (zarizeni, pozice) => <Link to={`/umistovani/${pozice}`}>umisteni {zarizeni.id}</Link>
+      render: (zarizeni, pozice) => <Link to={`/umistovani/${pozice}`}><MarkedLokalita lokalita={zarizeni.umisteni.lokalita} /></Link>
     }),
   }
 )

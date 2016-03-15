@@ -32,11 +32,12 @@ export default class Tabulka extends React.Component {
         {/* header */}
         <div className="myTableRow">
           {
-            columns.toList().map(col =>
+            columns.toList().map(col => col.visible ?
               <HeaderCell
                 key={col.name} sort={sort} column={col} filter={filters.get(col.name)}
                 onSortChange={onSortChange} onFilterChange={onFilterChange}
               />
+              : null
             )
           }
         </div>
