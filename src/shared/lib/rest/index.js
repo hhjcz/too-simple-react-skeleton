@@ -1,10 +1,9 @@
 /** Created by hhj on 1/29/16. */
 import { forEach } from 'lodash'
-import { bindActionCreators } from 'redux'
 import createRestReducer from './createRestReducer'
 import createRestAction from './createRestAction'
 import actionTypesFor from './actionTypesFor'
-import { actionCreatorsFor } from './actionCreatorsFor'
+import actionCreatorsFor from './actionCreatorsFor'
 
 export default function createMyRest(config = {}, fetch = () => ({}), dispatch = null) {
   const myRest = { actions: {}, reducers: {} }
