@@ -1,9 +1,10 @@
 /** Created by hhj on 12/23/15. */
 import React from 'react'
-import { render } from 'react-dom'
+import ReactDOM from 'react-dom'
 import { Router, browserHistory } from 'react-router'
 // import { createHistory, useQueries } from 'history'
 import { Provider } from 'react-redux'
+import injectTapEventPlugin from 'react-tap-event-plugin'
 // import 'bootstrap/dist/css/bootstrap.min.css'
 import './my-bootstrap.less'
 import './global.styl'
@@ -20,10 +21,13 @@ import createStore from '../shared/app/createStore'
 //  which replaces the state received from server - see reducer.js)
 const initialState = window.__INITIAL_STATE__
 
+// react tap event for material ui (http://www.material-ui.com/#/get-started/installation):
+injectTapEventPlugin()
+
 const store = createStore(initialState, browserHistory)
 rest.use('dispatch', store.dispatch)
 
-render(
+ReactDOM.render(
   <Provider store={store}>
     <Router children={routes} history={browserHistory} />
   </Provider>,
