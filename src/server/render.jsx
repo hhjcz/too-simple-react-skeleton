@@ -62,6 +62,7 @@ export default function render(req, res, next) {
       <meta charset="utf-8">
       <title>Dohlestr using react/redux from scratch by hhj</title>
       ${mainCssLink}
+      <!--<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">-->
       <script>
         window.__INITIAL_STATE__ = ${JSON.stringify(initialState)};
       </script>
