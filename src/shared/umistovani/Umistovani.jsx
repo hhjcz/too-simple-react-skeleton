@@ -1,6 +1,10 @@
 /** Created by hhj on 2/4/16. */
 import React, { PropTypes } from 'react'
 import shallowCompare from 'react-addons-shallow-compare'
+import FlatButton from 'material-ui/lib/flat-button'
+import RaisedButton from 'material-ui/lib/raised-button'
+import FloatingButton from 'material-ui/lib/floating-action-button'
+import MyIcon from '../lib/MyIcon'
 import findLokalitaHint from './findLokalitaHint'
 import MarkedLokalita from './MarkedLokalita'
 import ZarizeniInfo from './ZarizeniInfo'
@@ -80,7 +84,17 @@ export default class Umistovani extends React.Component {
             <div>
               <div className="umistovani adresa">
                 <MarkedLokalita lokalitaHint={lokalitaHint} lokalita={umisteni.lokalita} key={umisteni.id} />
-                <div className="btn btn-xs btn-success glyphicon glyphicon-ok" onClick={function () {self.umistitZarizeni(umisteni)}} />
+                {/* <div className="btn btn-xs btn-success glyphicon glyphicon-ok" onClick={function () {self.umistitZarizeni(umisteni)}} />
+                 <div className="btn btn-xs btn-success" onClick={function () {self.umistitZarizeni(umisteni)}}>
+                 <MyIcon>done</MyIcon>
+                 </div>
+                 <FlatButton label="" secondary icon={<MyIcon>done</MyIcon>} /> */}
+                <FloatingButton label="" mini secondary onTouchTap={function () {self.umistitZarizeni(umisteni)}}>
+                  <MyIcon>done</MyIcon>
+                </FloatingButton>
+                <FloatingButton label="" mini primary disable>
+                  <MyIcon>delete</MyIcon>
+                </FloatingButton>
               </div>
               <NepiOpy nepiOpy={umisteni.lokalita.nepiOpy} />
             </div>
@@ -88,9 +102,10 @@ export default class Umistovani extends React.Component {
         }
         {
           seznamUmisteni.size > 0 ?
-            <div className="btn btn-sm btn-danger" onClick={ function() { self.deleteAllUmisteni() } }>
-              Smazat všechna umístění
-            </div>
+            <RaisedButton label="Smazat všechna umístění" primary onTouchTap={ function() {self.deleteAllUmisteni() } } icon={<MyIcon>delete</MyIcon>} />
+            /* <div className="btn btn-sm btn-danger" onClick={ function() { self.deleteAllUmisteni() } }>
+             Smazat všechna umístění
+             </div> */
             : null
         }
       </div>

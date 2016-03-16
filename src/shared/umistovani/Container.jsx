@@ -95,6 +95,7 @@ export class Container extends React.Component {
           zarizeni.fetching || umisteni.fetching
             ? <div className="text-info">Louduju...</div> : ''
         }
+        {/* <span className="btn btn-xs btn-danger" onClick={() => self.forceUpdate()}>Rerender</span>*/}
       </div>
     )
   }

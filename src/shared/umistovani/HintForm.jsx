@@ -1,5 +1,6 @@
 /** Created by hhj on 2/18/16. */
 import React, { PropTypes } from 'react'
+import MyIcon from '../lib/MyIcon'
 import MyDraggableInput from '../lib/MyDraggableInput'
 import './HintForm.styl'
 
@@ -47,10 +48,11 @@ export default class HintForm extends React.Component {
     return (
       <div>
         <span className="btn btn-sm btn-info" onClick={ function() { searchForUmisteni(lokalitaHint) } }>
+          {/* <Button label="Hledat" secondary onTouchStart={ function() { searchForUmisteni(lokalitaHint) } }> */}
           <div className="hintForm">
             {form}
           </div>
-          Hledat
+          <MyIcon>search</MyIcon> Hledat
         </span>
       </div>
     )
