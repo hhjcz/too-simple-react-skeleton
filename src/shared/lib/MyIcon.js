@@ -14,9 +14,14 @@ export default class MyIcon extends React.Component {
     color: 'white',
   };
 
+  static defaultStyle = {
+    verticalAlign: 'middle',
+    fontSize: '20px'
+  };
+
   render() {
     return (
-      <FontIcon className="material-icons" {...this.props} style={{ verticalAlign: 'middle', ...this.props.style }}>
+      <FontIcon className="material-icons" {...this.props} style={{ ...MyIcon.defaultStyle, ...this.props.style }}>
         {this.props.children}
       </FontIcon>
     )

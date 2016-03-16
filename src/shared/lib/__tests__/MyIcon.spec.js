@@ -19,7 +19,7 @@ describe('lib MyIcon component', () => {
   it('should render with default props', () => {
     shallowRender()
     expect(vdom.props.color).to.equal('white')
-    expect(vdom.props.style).to.deep.equal({ verticalAlign: 'middle' })
+    expect(vdom.props.style).to.deep.equal({ verticalAlign: 'middle', fontSize: '20px' })
   })
 
   it('should pass props to FontIcon', () => {
@@ -31,7 +31,7 @@ describe('lib MyIcon component', () => {
     })
     expect(vdom.props.someProp).to.equal('someValue')
     expect(vdom.props.color).to.equal('someColor')
-    expect(vdom.props.style).to.deep.equal({ verticalAlign: 'middle', someStyle: 'someStyleValue' })
+    expect(vdom.props.style).to.deep.equal({ verticalAlign: 'middle', someStyle: 'someStyleValue', fontSize: '20px' })
   })
 
 })
