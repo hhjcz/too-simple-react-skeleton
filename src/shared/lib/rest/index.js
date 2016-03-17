@@ -1,5 +1,5 @@
 /** Created by hhj on 1/29/16. */
-import { forEach } from 'lodash'
+import forEach from 'lodash/forEach'
 import createRestReducer from './createRestReducer'
 import createRestAction from './createRestAction'
 import actionTypesFor from './actionTypesFor'

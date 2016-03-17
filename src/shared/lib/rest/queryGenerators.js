@@ -1,5 +1,5 @@
 /** Created by hhj on 1/28/16. */
-import { snakeCase } from 'lodash'
+import snakeCase from 'lodash/snakeCase'
 
 function parseFilters(filters) {
 

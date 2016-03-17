@@ -1,5 +1,5 @@
 /** Created by hhj on 2/3/16. */
-import { snakeCase } from 'lodash'
+import snakeCase from 'lodash/snakeCase'
 
 const actionPrefix = '@@my-rest'
 

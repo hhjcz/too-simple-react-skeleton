@@ -1,5 +1,5 @@
 /** Created by hhj on 2/15/16. */
-import { omit } from 'lodash/object'
+import omit from 'lodash/omit'
 import qs from 'query-string'
 
 const rxClean = /(\/\(:[^\/]+\)|\/:[^\/]+)/g;
