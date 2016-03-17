@@ -93,7 +93,7 @@ export class Container extends React.Component {
 
         {
           zarizeni.fetching || umisteni.fetching
-            ? <div className="text-info">Louduju...</div> : ''
+            ? <div className="text-info">Louduju...</div> : null
         }
         {/* <span className="btn btn-xs btn-danger" onClick={() => self.forceUpdate()}>Rerender</span>*/}
       </div>

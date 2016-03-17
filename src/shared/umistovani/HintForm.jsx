@@ -3,6 +3,7 @@ import React, { PropTypes } from 'react'
 import MyIcon from '../lib/MyIcon'
 import MyDraggableInput from '../lib/MyDraggableInput'
 import './HintForm.styl'
+import * as muiColors from 'material-ui/lib/styles/colors'
 
 export default class HintForm extends React.Component {
   static propTypes = {
@@ -47,7 +48,7 @@ export default class HintForm extends React.Component {
 
     return (
       <div>
-        <span className="btn btn-sm btn-info" onClick={ function() { searchForUmisteni(lokalitaHint) } }>
+        <span className="btn btn-sm btn-info" style={{ backgroundColor: muiColors.blueGrey200 }} onClick={ function() { searchForUmisteni(lokalitaHint) } }>
           {/* <Button label="Hledat" secondary onTouchStart={ function() { searchForUmisteni(lokalitaHint) } }> */}
           <div className="hintForm">
             {form}
