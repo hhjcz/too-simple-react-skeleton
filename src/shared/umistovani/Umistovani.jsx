@@ -1,16 +1,10 @@
 /** Created by hhj on 2/4/16. */
 import React, { PropTypes } from 'react'
 import shallowCompare from 'react-addons-shallow-compare'
-import FlatButton from 'material-ui/lib/flat-button'
-import RaisedButton from 'material-ui/lib/raised-button'
-import FloatingButton from 'material-ui/lib/floating-action-button'
-import MyIcon from '../lib/MyIcon'
 import findLokalitaHint from './findLokalitaHint'
-import MarkedLokalita from './MarkedLokalita'
 import ZarizeniInfo from './ZarizeniInfo'
 import HintForm from './HintForm'
-import NepiOpy from './NepiOpy'
-import './Umistovani.styl'
+import PotencialniUmisteni from './PotencialniUmisteni'
 
 export default class Umistovani extends React.Component {
 
@@ -70,44 +64,17 @@ export default class Umistovani extends React.Component {
   }
 
   render() {
-    const self = this
-    /** @type {Zarizeni} zarizeni */
     const { zarizeni, seznamUmisteni } = this.props
+    if (!(zarizeni.id > 0)) return null
+
+    const self = this
     const lokalitaHint = findLokalitaHint(zarizeni.name, zarizeni.defaultmap, zarizeni.id)
 
     return (
       <div>
         <ZarizeniInfo zarizeni={zarizeni} />
         <HintForm lokalitaHint={lokalitaHint} searchForUmisteni={this.searchForUmisteni} />
-        {
-          seznamUmisteni.map(umisteni =>
-            <div>
-              <div className="umistovani adresa">
-                <MarkedLokalita lokalitaHint={lokalitaHint} lokalita={umisteni.lokalita} key={umisteni.id} />
-                {/* <div className="btn btn-xs btn-success glyphicon glyphicon-ok" onClick={function () {self.umistitZarizeni(umisteni)}} />
-                 <div className="btn btn-xs btn-success" onClick={function () {self.umistitZarizeni(umisteni)}}>
-                 <MyIcon>done</MyIcon>
-                 </div>
-                 <FlatButton label="" secondary icon={<MyIcon>done</MyIcon>} /> */}
-                <FloatingButton label="" mini secondary onTouchTap={function () {self.umistitZarizeni(umisteni)}}>
-                  <MyIcon>done</MyIcon>
-                </FloatingButton>
-                <FloatingButton label="" mini primary disable>
-                  <MyIcon>delete</MyIcon>
-                </FloatingButton>
-              </div>
-              <NepiOpy nepiOpy={umisteni.lokalita.nepiOpy} />
-            </div>
-          )
-        }
-        {
-          seznamUmisteni.size > 0 ?
-            <RaisedButton label="Smazat všechna umístění" primary onTouchTap={ function() {self.deleteAllUmisteni() } } icon={<MyIcon>delete</MyIcon>} />
-            /* <div className="btn btn-sm btn-danger" onClick={ function() { self.deleteAllUmisteni() } }>
-             Smazat všechna umístění
-             </div> */
-            : null
-        }
+        <PotencialniUmisteni lokalitaHint={lokalitaHint} seznamUmisteni={seznamUmisteni} umistiZarizeni={self.umistitZarizeni} deleteAllUmisteni={self.deleteAllUmisteni} />
       </div>
     )
   }

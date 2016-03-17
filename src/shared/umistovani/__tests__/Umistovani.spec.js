@@ -19,7 +19,7 @@ describe('umistovani Umistovani component', () => {
 
   it('should render with default props', () => {
     shallowRender()
-    expect(vdom.type).to.equal('div')
+    expect(vdom).to.equal(null)
     // expect(vdom.props.children.type).to.equal('');
   })
 
