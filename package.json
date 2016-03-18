@@ -48,7 +48,7 @@
     "material-ui": "^0.15.0-alpha.1",
     "node-sass": "^3.4.2",
     "postcss-loader": "^0.8.0",
-    "query-string": "^3.0.0",
+    "query-string": "^3.0.2",
     "react": "^0.14.3",
     "react-addons-shallow-compare": "^0.14.7",
     "react-bootstrap": "^0.28.1",
@@ -68,7 +68,7 @@
     "webpack": "^1.12.9",
     "webpack-dev-middleware": "^1.4.0",
     "webpack-hot-middleware": "^2.6.0",
-    "webpack-isomorphic-tools": "^2.2.24"
+    "webpack-isomorphic-tools": "^2.2.37"
   },
   "devDependencies": {
     "babel-eslint": "^5.0.0",
