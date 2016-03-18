@@ -4,6 +4,7 @@ import createFetch from '../lib/rest/createFetch'
 import { ZarizeniFactory } from './models/Zarizeni'
 import { UmisteniFactory } from './models/Umisteni'
 import { Sort } from './models/Sort'
+import { Pagination } from './models/Pagination'
 
 const serverBaseUrl = process.env.SERVER_BASE_URL || 'http://localhost:8089/api'
 
@@ -18,6 +19,7 @@ const rest = myRest({
     url: '/umisteni/:id',
     extraParams: { include: 'lokalita.nepi_opy' },
     itemTransformer: item => UmisteniFactory(item),
+    defaultState: { pagination: new Pagination({ perPage: 1000000 }) }
     // itemTransformer: item => item,
   },
   testEndpoint: {
