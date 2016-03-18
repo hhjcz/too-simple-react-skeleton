@@ -87,6 +87,6 @@
     "redux-devtools": "^3.0.1",
     "redux-devtools-dock-monitor": "^1.0.1",
     "redux-devtools-log-monitor": "^1.0.1",
-    "skin-deep": "^0.14.0"
+    "skin-deep": "^0.15.0"
   }
 }
