@@ -23,7 +23,7 @@ const getSubState = getState => getState().zarizeni
  * @param {boolean} projectToLocation
  * @returns {Function}
  */
-export function pointCursorTo(cursorAt, projectToLocation = false) {
+export function pointCursorTo(cursorAt, projectToLocation = false, force = false) {
   return ({ dispatch, getState }) => {
 
     const currentPage = getSubState(getState).pagination.page
@@ -46,14 +46,14 @@ export function pointCursorTo(cursorAt, projectToLocation = false) {
  * @param projectToLocation
  * @returns {Function}
  */
-export function fetchOneAt(cursorAt, projectToLocation = false) {
-  return ({ dispatch, getState }) => dispatch(pointCursorTo(cursorAt))
+export function fetchOneAt(cursorAt, projectToLocation = false, force = false) {
+  return ({ dispatch, getState }) => dispatch(pointCursorTo(cursorAt, projectToLocation, force))
     .then(response => {
       const subState = getSubState(getState)
       const { page, perPage } = subState.pagination
       const item = subState.items.get(cursorAt - (page - 1) * perPage - 1)
 
-      return fetchOne({ params: { id: item.id } })
+      return fetchOne({ params: { id: item.id }, force })
     })
 }
 
