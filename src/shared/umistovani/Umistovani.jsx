@@ -44,6 +44,7 @@ export default class Umistovani extends React.Component {
     if (lokalitaHint.ulice) params['trimmedUlice-lk'] = `%${lokalitaHint.ulice}%`
     if (lokalitaHint.akrlok) params['akrlok-lk'] = `%${lokalitaHint.akrlok}%`
     if (lokalitaHint.ixlok) params.ixlok = `${lokalitaHint.ixlok}`
+    if (lokalitaHint.op) params.op = `${lokalitaHint.op}`
 
     actions.umisteni.fetchAll({ params }).catch(error => console.info(error))
   }
@@ -53,14 +54,15 @@ export default class Umistovani extends React.Component {
     const umisteneZarizeni = zarizeni.toObject()
     umisteneZarizeni.umisteni = umisteni
     actions.zarizeni.update({ params: { id: umisteneZarizeni.id }, body: umisteneZarizeni })
-      .then(actions.reload())
+      .then(actions.reload)
   }
 
   deleteAllUmisteni() {
+    const { actions } = this.props
     const params = { zarizeni_id: this.props.zarizeni.id }
     this.props.actions.umisteni.destroy({ params })
-      .then(() => this.props.actions.umisteni.fetchAll({ params }))
-      .catch(() => this.props.actions.umisteni.fetchAll({ params }))
+      .then(actions.reload)
+      .catch(actions.reload)
   }
 
   render() {

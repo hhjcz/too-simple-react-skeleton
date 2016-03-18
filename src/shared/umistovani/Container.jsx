@@ -2,6 +2,9 @@
 import React, { PropTypes } from 'react'
 import { connect } from 'react-redux'
 import { Pagination } from 'react-bootstrap'
+import IconButton from 'material-ui/lib/icon-button'
+import * as muiColors from 'material-ui/lib/styles/colors'
+import MyIcon from '../lib/MyIcon'
 import createMapStateToProps from '../lib/createMapStateToProps'
 import rest from '../app/rest'
 import Umistovani from './Umistovani'
@@ -31,17 +34,18 @@ export class Container extends React.Component {
     return [Container.fetchZarizeni]
   }
 
-  static fetchZarizeni({ params, dispatch, getState }) {
+  static fetchZarizeni({ params, dispatch, getState, force }) {
     const cursorAt = parseInt(params.cursorAt) || 1
 
-    const promise = dispatch(zarizeniListActions.fetchOneAt(cursorAt, false))
+    const promise = dispatch(zarizeniListActions.fetchOneAt(cursorAt, false, force))
       .then(response => {
         const zarizeniId = getState().zarizeni.item.id
         if (!(zarizeniId > 0)) throw new Error('Fetch chyba: nepodaril se fetch zarizeni s validnim id')
 
         return rest.actions.umisteni.fetchAll({
           params: { zarizeniId },
-          projectToLocation: false
+          projectToLocation: false,
+          force
         })
       })
 
@@ -51,6 +55,7 @@ export class Container extends React.Component {
   constructor(props) {
     super(props)
     this.onCursorChange = this.onCursorChange.bind(this)
+    this.reload = this.reload.bind(this)
   }
 
   componentDidMount() {
@@ -62,35 +67,50 @@ export class Container extends React.Component {
     }))
   }
 
-  onCursorChange(event, selectedEvent) {
-    const cursorAt = selectedEvent.eventKey
+  onCursorChange(cursorAt, force = false) {
     Container.fetchZarizeni({
       params: { cursorAt },
       dispatch: this.props.dispatch,
-      getState: () => this.props
+      getState: () => this.props,
+      force
     })
 
     // TODO - workaround, depends on url path (should at least use location.pathname ...)
     this.context.router.push({ pathname: `/umistovani/${cursorAt}` })
   }
 
+  reload() {
+    this.onCursorChange(this.props.zarizeni.pagination.cursorAt, true)
+  }
+
   render() {
     const self = this
     const { zarizeni, umisteni } = this.props
     const seznamUmisteni = umisteni.items
+    const cursorAt = zarizeni.pagination.cursorAt
     return (
       <div id="zarizeni-list">
         <Pagination
-          items={zarizeni.pagination.total} activePage={zarizeni.pagination.cursorAt}
+          items={zarizeni.pagination.total} activePage={cursorAt}
           prev next first last ellipsis bsSize="small" maxButtons={9}
-          onSelect={self.onCursorChange}
+          onSelect={function(event, selectedEvent) { self.onCursorChange(selectedEvent.eventKey) }}
         />
         {
           zarizeni.item.id > 0 ?
-            <Umistovani zarizeni={zarizeni.item} seznamUmisteni={seznamUmisteni} actions={{ ...rest.actions, reload: self.componentDidMount.bind(self) }} />
+            <Umistovani zarizeni={zarizeni.item} seznamUmisteni={seznamUmisteni} actions={{ ...rest.actions, reload: self.reload }} />
             : ''
         }
-
+        <div style={{ display: 'flex', justifyContent: 'flex-start' }}>
+          <IconButton tooltip="previous" onTouchTap={function() { self.onCursorChange(cursorAt > 1 ? cursorAt - 1 : 1) }}>
+            <MyIcon color={muiColors.blueGrey600}>arrow_back</MyIcon>
+          </IconButton>
+          <IconButton tooltip="reload" onTouchTap={function() { self.reload() }}>
+            <MyIcon color={muiColors.blueGrey800}>autorenew</MyIcon>
+          </IconButton>
+          <IconButton tooltip="next" onTouchTap={function() { self.onCursorChange(cursorAt < zarizeni.pagination.total ? cursorAt + 1 : cursorAt) }}>
+            <MyIcon color={muiColors.blueGrey800}>arrow_forward</MyIcon>
+          </IconButton>
+        </div>
         {
           zarizeni.fetching || umisteni.fetching
             ? <div className="text-info">Louduju...</div> : null
