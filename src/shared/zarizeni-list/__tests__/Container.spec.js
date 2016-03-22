@@ -2,7 +2,7 @@
 import { expect } from 'chai'
 import React from 'react'
 import sd from 'skin-deep'
-import { List } from 'immutable'
+import { List, Map } from 'immutable'
 
 import createStore from '../../app/createStore'
 import Connected, { Container } from './../Container'
@@ -10,14 +10,14 @@ import { Pagination } from '../../app/models/Pagination'
 
 describe('zarizeni-list connected Container component', () => {
   let vdom
-  let instance  // eslint-disable-line no-unused-vars
+  // let instance  // eslint-disable-line no-unused-vars
 
   beforeEach(() => {
     const store = createStore()
     const pagination = new Pagination()
     const tree = sd.shallowRender(React.createElement(Connected, { store, pagination }))
 
-    instance = tree.getMountedInstance()
+    // instance = tree.getMountedInstance()
     vdom = tree.getRenderOutput()
     // console.log(vdom.props.children)
   })
@@ -33,21 +33,20 @@ describe('zarizeni-list connected Container component', () => {
     expect(typeof vdom.props.items).to.equal('object')
     expect(vdom.props.items).to.be.instanceof(List)
     expect(vdom.props.pagination).to.be.instanceof(Pagination)
+    expect(vdom.props.generalParams).to.be.instanceof(Map)
   })
 
 })
 
 describe('zarizeni-list Container component', () => {
   let vdom
-  let instance  // eslint-disable-line no-unused-vars
+  // let instance  // eslint-disable-line no-unused-vars
 
   beforeEach(() => {
     const store = createStore()
-    const location = { query: {} }
-    const pagination = new Pagination()
-    const tree = sd.shallowRender(React.createElement(Container, { store, location, pagination }))
+    const tree = sd.shallowRender(React.createElement(Container, { ...store.getState().zarizeni.toObject() }))
 
-    instance = tree.getMountedInstance()
+    // instance = tree.getMountedInstance()
     vdom = tree.getRenderOutput()
     // console.log(vdom.props.children)
   })

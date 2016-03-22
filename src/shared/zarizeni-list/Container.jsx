@@ -18,8 +18,11 @@ export class Container extends React.Component {
     pagination: PropTypes.object.isRequired,
     sort: PropTypes.object.isRequired,
     filters: PropTypes.object.isRequired,
+    generalParams: PropTypes.object.isRequired,
     dispatch: PropTypes.func.isRequired,
   };
+
+  static defaultProps = {};
 
   // server and client side fetch actions (see render.jsx & componentDidMount):
   static fetchActions = [actions.fetchAll];
@@ -30,7 +33,7 @@ export class Container extends React.Component {
   }
 
   render() {
-    const { fetching, items: seznamZarizeni, pagination, sort, filters, dispatch } = this.props
+    const { fetching, items: seznamZarizeni, pagination, sort, filters, generalParams, dispatch } = this.props
     const onSortChange = function(sortField) {
       dispatch(actions.sortChange(sortField, true))
     }
@@ -43,8 +46,8 @@ export class Container extends React.Component {
 
     return (
       <div id="zarizeni-list">
-        <h4>Seznam zařízení</h4>
-        <PredefinedViews onSortChange={onSortChange} onFilterChange={onFilterChange} onGeneralParamChange={onGeneralParamChange} />
+        {/* <h4>Seznam zařízení</h4>*/}
+        <PredefinedViews onSortChange={onSortChange} onFilterChange={onFilterChange} onGeneralParamChange={onGeneralParamChange} namedFilter={generalParams.toObject()._filter} />
         <Tabulka
           seznamZarizeni={seznamZarizeni} sort={sort} fetching={fetching} filters={filters} pagination={pagination}
           onSortChange={onSortChange} onFilterChange={onFilterChange}
