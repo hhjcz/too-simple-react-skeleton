@@ -3,6 +3,7 @@ import myRest from '../lib/rest/index'
 import createFetch from '../lib/rest/createFetch'
 import { ZarizeniFactory } from './models/Zarizeni'
 import { UmisteniFactory } from './models/Umisteni'
+import Lokalita from './models/Lokalita'
 import { Sort } from './models/Sort'
 import { Pagination } from './models/Pagination'
 
@@ -21,6 +22,11 @@ const rest = myRest({
     itemTransformer: item => UmisteniFactory(item),
     defaultState: { pagination: new Pagination({ perPage: 1000000 }) }
     // itemTransformer: item => item,
+  },
+  lokalita: {
+    url: '/lokalita/:id',
+    itemTransformer: item => new Lokalita(item),
+    defaultState: { pagination: new Pagination({ perPage: 20 }) }
   },
   testEndpoint: {
     url: '/test/:id'
