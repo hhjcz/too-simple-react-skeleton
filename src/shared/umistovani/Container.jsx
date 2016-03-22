@@ -4,12 +4,12 @@ import { connect } from 'react-redux'
 import { Pagination } from 'react-bootstrap'
 import IconButton from 'material-ui/lib/icon-button'
 import RefreshIndicator from 'material-ui/lib/refresh-indicator'
-import * as muiColors from 'material-ui/lib/styles/colors'
-import MyIcon from '../lib/MyIcon'
 import createMapStateToProps from '../lib/createMapStateToProps'
-import rest from '../app/rest'
+import createMapDispatchToProps from '../lib/createMapDispatchToProps'
+import actions from './actions'
+import MyIcon from '../lib/MyIcon'
 import Umistovani from './Umistovani'
-import * as zarizeniListActions from '../zarizeni-list/actions'
+import * as muiColors from 'material-ui/lib/styles/colors'
 
 export class Container extends React.Component {
 
@@ -17,6 +17,7 @@ export class Container extends React.Component {
     zarizeni: PropTypes.object,
     umisteni: PropTypes.object,
     params: PropTypes.object,
+    actions: PropTypes.object.isRequired,
     dispatch: PropTypes.func,
   };
 
@@ -38,12 +39,12 @@ export class Container extends React.Component {
   static fetchZarizeni({ params, dispatch, getState, force }) {
     const cursorAt = parseInt(params.cursorAt) || 1
 
-    const promise = dispatch(zarizeniListActions.fetchOneAt(cursorAt, false, force))
+    const promise = dispatch(actions.zarizeniList.fetchOneAt(cursorAt, false, force))
       .then(response => {
         const zarizeniId = getState().zarizeni.item.id
         if (!(zarizeniId > 0)) throw new Error('Fetch chyba: nepodaril se fetch zarizeni s validnim id')
 
-        return rest.actions.umisteni.fetchAll({
+        return actions.umisteni.fetchAll({
           params: { zarizeniId },
           projectToLocation: false,
           force
@@ -86,7 +87,7 @@ export class Container extends React.Component {
 
   render() {
     const self = this
-    const { zarizeni, umisteni } = this.props
+    const { zarizeni, umisteni, actions } = this.props
     const seznamUmisteni = umisteni.items
     const cursorAt = zarizeni.pagination.cursorAt
     return (
@@ -98,7 +99,7 @@ export class Container extends React.Component {
         />
         {
           zarizeni.item.id > 0 ?
-            <Umistovani zarizeni={zarizeni.item} seznamUmisteni={seznamUmisteni} actions={{ ...rest.actions, reload: self.reload }} />
+            <Umistovani zarizeni={zarizeni.item} seznamUmisteni={seznamUmisteni} actions={{ ...actions, reload: self.reload }} />
             : ''
         }
         <div style={{ display: 'flex', justifyContent: 'flex-start' }}>
@@ -133,5 +134,6 @@ export class Container extends React.Component {
 }
 
 export default connect(
-  createMapStateToProps(state => state)
+  createMapStateToProps(state => state),
+  createMapDispatchToProps(actions)
 )(Container)
