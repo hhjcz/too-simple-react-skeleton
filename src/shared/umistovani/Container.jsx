@@ -3,6 +3,7 @@ import React, { PropTypes } from 'react'
 import { connect } from 'react-redux'
 import { Pagination } from 'react-bootstrap'
 import IconButton from 'material-ui/lib/icon-button'
+import RefreshIndicator from 'material-ui/lib/refresh-indicator'
 import * as muiColors from 'material-ui/lib/styles/colors'
 import MyIcon from '../lib/MyIcon'
 import createMapStateToProps from '../lib/createMapStateToProps'
@@ -112,8 +113,18 @@ export class Container extends React.Component {
           </IconButton>
         </div>
         {
-          zarizeni.fetching || umisteni.fetching
-            ? <div className="text-info">Louduju...</div> : null
+          zarizeni.fetching || umisteni.fetching ?
+            <div className="text-info">
+              Louduju...
+              <RefreshIndicator
+                size={32}
+                left={10}
+                top={0}
+                status="loading"
+                style={{ display: 'inline-block', position: 'relative' }}
+              />
+            </div>
+            : null
         }
         {/* <span className="btn btn-xs btn-danger" onClick={() => self.forceUpdate()}>Rerender</span>*/}
       </div>
