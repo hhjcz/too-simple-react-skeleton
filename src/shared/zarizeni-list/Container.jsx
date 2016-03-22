@@ -19,7 +19,7 @@ export class Container extends React.Component {
     sort: PropTypes.object.isRequired,
     filters: PropTypes.object.isRequired,
     generalParams: PropTypes.object.isRequired,
-    dispatch: PropTypes.func.isRequired,
+    actions: PropTypes.object.isRequired,
   };
 
   static defaultProps = {};
@@ -27,35 +27,45 @@ export class Container extends React.Component {
   // server and client side fetch actions (see render.jsx & componentDidMount):
   static fetchActions = [actions.fetchAll];
 
+  constructor(props) {
+    super(props)
+    this.onFilterChange = this.onFilterChange.bind(this)
+    this.onSortChange = this.onSortChange.bind(this)
+    this.onNamedFilterChange = this.onNamedFilterChange.bind(this)
+  }
+
   // browser fetching:
   componentDidMount() {
     Container.fetchActions.forEach((action) => action({ projectToLocation: true }))
   }
 
+  onSortChange(sortField) {
+    this.props.actions.sortChange(sortField, true)
+  }
+
+  onFilterChange(filter) {
+    this.props.actions.filterChange(filter, true)
+  }
+
+  onNamedFilterChange(filterName) {
+    this.props.actions.generalParamChange({ name: '_filter', value: filterName })
+  }
+
   render() {
-    const { fetching, items: seznamZarizeni, pagination, sort, filters, generalParams, dispatch } = this.props
-    const onSortChange = function(sortField) {
-      dispatch(actions.sortChange(sortField, true))
-    }
-    const onFilterChange = function(filter) {
-      dispatch(actions.filterChange(filter, true))
-    }
-    const onGeneralParamChange = function(param) {
-      dispatch(actions.generalParamChange(param))
-    }
+    const self = this
+    const { fetching, items: seznamZarizeni, pagination, sort, filters, generalParams, actions } = this.props
 
     return (
       <div id="zarizeni-list">
-        {/* <h4>Seznam zařízení</h4>*/}
-        <PredefinedViews onSortChange={onSortChange} onFilterChange={onFilterChange} onGeneralParamChange={onGeneralParamChange} namedFilter={generalParams.toObject()._filter} />
+        <PredefinedViews onNamedFilterChange={self.onNamedFilterChange} namedFilter={generalParams.toObject()._filter} />
         <Tabulka
           seznamZarizeni={seznamZarizeni} sort={sort} fetching={fetching} filters={filters} pagination={pagination}
-          onSortChange={onSortChange} onFilterChange={onFilterChange}
+          onSortChange={self.onSortChange} onFilterChange={self.onFilterChange}
         />
         <Paginator
           pagination={pagination}
-          onPageChange={function(page) {dispatch(actions.gotoPage(page, true))}}
-          onPerPageChange={function(perPage) {dispatch(actions.setPageSize(perPage, true))}}
+          onPageChange={function(page) {actions.gotoPage(page, true)}}
+          onPerPageChange={function(perPage) {actions.setPageSize(perPage, true)}}
         />
       </div>
     )
