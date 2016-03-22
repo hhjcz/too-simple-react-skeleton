@@ -37,11 +37,7 @@ export default class App extends React.Component {
 
         <hr />
 
-        <div>hhj - based on
-          <a href="https://medium.com/front-end-developers/handcrafting-an-isomorphic-redux-application-with-love-40ada4468af4#.dyjo0n2px">
-            tutorial
-          </a>
-        </div>
+        <div>hhj 2016</div>
         {
           devTools
         }
