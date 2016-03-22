@@ -56,7 +56,7 @@ export const columns = Map(
       visible: true,
       render: (zarizeni, pozice) =>
         <Link to={`/umistovani/${pozice}`}>{
-          zarizeni.umisteni.lokalita.ixlok > 0 ?
+          zarizeni.umisteni && zarizeni.umisteni.lokalita && zarizeni.umisteni.lokalita.ixlok > 0 ?
             <MarkedLokalita lokalita={zarizeni.umisteni.lokalita} />
             : 'neumistene'
         }</Link>
