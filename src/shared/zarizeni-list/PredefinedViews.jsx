@@ -13,7 +13,7 @@ export default class PredefinedViews extends React.Component {
   };
 
   static styles = {
-    block: { maxWidth: '200px' }
+    block: { maxWidth: '10em' }
   };
 
   constructor(props) {
