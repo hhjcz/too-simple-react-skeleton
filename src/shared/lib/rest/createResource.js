@@ -16,7 +16,7 @@ export default function createResource(resourceName, _config, fetchHolder) {
     const fetchMethod = (params = {}, body = {}) => {
       const url = serializeParamsToUrl(config.url, params)
 
-      const fetchExecute = () => fetchHolder
+      const executeFetch = () => fetchHolder
         .fetch(url, {
           method,
           headers: {
@@ -37,7 +37,7 @@ export default function createResource(resourceName, _config, fetchHolder) {
           throw new Error(error)
         })
 
-      return { fetchUrl: url, fetchExecute }
+      return { fetchUrl: url, executeFetch }
     }
 
     return fetchMethod
