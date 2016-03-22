@@ -18,10 +18,12 @@ export class Lokalita extends Record({
   kodObjektUIR: 0,
   bunka: 0,
   nepiOpy: NepiOpyFactory(),
+  nepiOpyCount: 0,
 }) {
   constructor(args = {}) {
     if (args && args.nepiOpy) args.nepiOpy = NepiOpyFactory(args.nepiOpy.data || args.nepiOpy)
     if (args.cisdop) args.chardop = String.fromCharCode('a'.charCodeAt(0) + args.cisdop - 1)
+    if (args.nepiOpyCount) args.nepiOpyCount = args.nepiOpyCount[0]
     super(args)
   }
 }
