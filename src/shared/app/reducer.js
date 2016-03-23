@@ -1,11 +1,13 @@
 /** Created by hhj on 12/28/15. */
 import { combineReducers } from 'redux'
 import zarizeni from '../zarizeni-list/reducer'
+import { reducer as toastr } from 'react-redux-toastr'
 import rest from './rest'
 
 const combinedReducer = combineReducers({
   ...rest.reducers,
   zarizeni,
+  toastr,
 })
 
 let reduxStorageActions
