@@ -19,7 +19,7 @@ export default class HeaderFilter extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      filterValue: this.props.filter ? this.props.filter.value : '',
+      filterValue: this.filterFromProps(props),
       filterVisible: false
     }
     if (this.props.debounce > 0) {
@@ -28,8 +28,18 @@ export default class HeaderFilter extends React.Component {
     this.toggleFilter = this.toggleFilter.bind(this)
   }
 
+  componentWillReceiveProps(nextProps) {
+    this.setState({
+      filterValue: this.filterFromProps(nextProps)
+    })
+  }
+
   onFilterChange(filterValue) {
     this.props.onFilterChange(new Filter({ name: this.props.column.name, value: filterValue }))
+  }
+
+  filterFromProps(props) {
+    return props.filter ? props.filter.value : ''
   }
 
   toggleFilter() {
@@ -45,7 +55,7 @@ export default class HeaderFilter extends React.Component {
           className={`headerItem glyphicon filterIcon ${active}`}
           onClick={this.toggleFilter}
         />
-        <div className={'columnFilter vcenter' + (this.state.filterVisible ? ' visible' : '')}>
+        <div className={`columnFilter vcenter ${(this.state.filterVisible ? 'visible' : '')}`}>
           <Input
             id="filterInput"
             type="text" value={this.state.filterValue} bsStyle="success"
