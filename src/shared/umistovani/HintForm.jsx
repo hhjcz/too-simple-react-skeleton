@@ -47,12 +47,12 @@ export default class HintForm extends React.Component {
     )
 
     return (
-      <div>
-        <span className="btn btn-sm btn-info" style={{ backgroundColor: muiColors.blueGrey200 }} onClick={ function() { searchForUmisteni(lokalitaHint) } }>
-          {/* <Button label="Hledat" secondary onTouchStart={ function() { searchForUmisteni(lokalitaHint) } }> */}
-          <div className="hintForm">
-            {form}
-          </div>
+      <div style={{ backgroundColor: muiColors.blueGrey200 }}>
+        {/* <Button label="Hledat" secondary onTouchStart={ function() { searchForUmisteni(lokalitaHint) } }> */}
+        <div className="hintForm">
+          {form}
+        </div>
+        <span className="btn btn-sm" style={{ backgroundColor: muiColors.blueGrey200, color: 'white', width: '100%' }} onClick={ function() { searchForUmisteni(lokalitaHint) } }>
           <MyIcon>search</MyIcon> Hledat
         </span>
       </div>
