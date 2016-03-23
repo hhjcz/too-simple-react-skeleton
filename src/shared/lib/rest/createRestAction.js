@@ -1,6 +1,7 @@
 /** Created by hhj on 1/29/16. */
 import { parse as urlParse } from 'url'
 import { decamelizeKeys } from 'humps'
+import handleError from '../myErrorHandler'
 import createResource from './createResource'
 import { getSubState } from './utils'
 import queryGenerators from './queryGenerators'
@@ -48,10 +49,9 @@ export default function createRestAction(endpointName, config, actionCreators, f
             return response
           })
           .catch(error => {
-            const errorMessage = `Ajaaj, chybka api: ${error}`
+            const errorMessage = `${error.message}`
             dispatch(subActionCreators.error({ errorMessage }))
-            console.error(errorMessage)
-            throw new Error(errorMessage)
+            handleError(errorMessage)
           })
       })
     }

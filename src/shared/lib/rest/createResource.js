@@ -1,6 +1,7 @@
 /** Created by hhj on 2/11/16. */
 import responseTransformers from './responseTransformers'
 import serializeParamsToUrl from './serializeParamsToUrl'
+import handleError from '../myErrorHandler'
 
 const defaultConfig = () => ({
   url: '/',
@@ -24,6 +25,7 @@ export default function createResource(resourceName, _config, fetchHolder) {
             // 'Content-Type': 'application/x-www-form-url-encoded',
             'Accept': 'application/json',
           },
+          mode: 'opaque',
           // body: ['GET', 'HEAD'].indexOf(method) === -1 ? qs.stringify(body) : null
           body: ['GET', 'HEAD'].indexOf(method) === -1 ? JSON.stringify(body) : null
         })
@@ -33,8 +35,9 @@ export default function createResource(resourceName, _config, fetchHolder) {
           return normalizedResponse
         })
         .catch(error => {
-          console.error(`Ajejej, chybka resource: ${error}, url: ${url}`)
-          throw new Error(error)
+          const message = `Ajejej, fetch error: ${error.message}, url: ${url}`
+          // handleError({ message })
+          throw new Error(message)
         })
 
       return { fetchUrl: url, executeFetch }

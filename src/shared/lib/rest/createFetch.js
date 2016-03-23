@@ -9,7 +9,13 @@ export default function createFetch(serverBaseUrl) {
     .then(
       response => {
         if (!response.ok) {
-          throw new Error(`${response.status} ${response.statusText}`)
+          try {
+            return response.json().then(body => {
+              throw new Error(`${body.message} (status ${response.status})`)
+            })
+          } catch (error) {
+            throw new Error(`${response.status} ${response.statusText}`)
+          }
         }
         if (response.status === 204) return response
         return response.json()  // parse json to object
