@@ -22,22 +22,19 @@ export default class Tabulka extends React.Component {
   };
 
   render() {
-    // console.log(this.props)
     const { fetching, seznamZarizeni, pagination, sort, filters, onSortChange, onFilterChange } = this.props
     let offset = (pagination.page - 1) * pagination.perPage + 1
-    // console.log(seznamZarizeni.toObject())
 
     return (
       <div className={`myTable${(fetching ? ' fetching' : '')}`}>
         {/* header */}
         <div className="myTableRow">
           {
-            columns.toList().map(col => col.visible ?
+            columns.toList().filter(col => col.visible).map(col =>
               <HeaderCell
                 key={col.name} sort={sort} column={col} filter={filters.get(col.name)}
                 onSortChange={onSortChange} onFilterChange={onFilterChange}
               />
-              : null
             )
           }
         </div>
