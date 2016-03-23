@@ -6,6 +6,7 @@ import IconButton from 'material-ui/lib/icon-button'
 import RaisedButton from 'material-ui/lib/raised-button'
 import FloatingButton from 'material-ui/lib/floating-action-button'
 import Divider from 'material-ui/lib/divider'
+import sortBy from 'lodash/sortBy'
 
 import MarkedLokalita from './MarkedLokalita'
 import NepiOpy from './NepiOpy'
@@ -14,7 +15,7 @@ import './PotencialniUmisteni.styl'
 
 export default class PotencialniUmisteni extends React.Component {
   static propTypes = {
-    seznamUmisteni: PropTypes.object.isRequired,
+    seznamUmisteni: PropTypes.array.isRequired,
     lokalitaHint: PropTypes.object.isRequired,
     umistiZarizeni: PropTypes.func.isRequired,
     deleteAllUmisteni: PropTypes.func.isRequired,
@@ -26,11 +27,12 @@ export default class PotencialniUmisteni extends React.Component {
 
   render() {
     const { seznamUmisteni, lokalitaHint, umistiZarizeni, deleteAllUmisteni } = this.props
+    const sortedSeznamUmisteni = sortBy(seznamUmisteni, umisteni => -umisteni.lokalita.nepiOpy.size)
 
     return (
       <div>
         {
-          seznamUmisteni.map(umisteni => <div key={umisteni.id}>
+          sortedSeznamUmisteni.map(umisteni => <div key={umisteni.id}>
               <div className="umistovani adresa">
                 <IconButton tooltip="Umístit!" style={{ padding: '0px' }} onTouchTap={ function () { umistiZarizeni(umisteni) } }>
                   <MyIcon color={muiColors.blue400}>done</MyIcon>
@@ -46,7 +48,7 @@ export default class PotencialniUmisteni extends React.Component {
           )
         }
         {
-          seznamUmisteni.size > 0 ?
+          sortedSeznamUmisteni.length > 0 ?
             <div style={{ paddingTop: '1em', display: 'flex', justifyContent: 'center' }}>
               <IconButton tooltip="Smazat všechna umístění" primary onTouchTap={ deleteAllUmisteni }><MyIcon color={muiColors.red300}>delete</MyIcon></IconButton>
             </div>

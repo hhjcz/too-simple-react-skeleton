@@ -16,7 +16,7 @@ export default class ZarizeniInfo extends React.Component {
   render() {
     const { zarizeni } = this.props
     return (
-      <div className="myTable" style={{ width: '50%' }}>
+      <div className="myTable" style={{ width: '80%' }}>
         <div className="myTableRow">
           <div className="myTableRowItem uFlexGrow-1">Jméno:</div>
           <div className="myTableRowItem uFlexGrow-4 text-info">
@@ -42,12 +42,12 @@ export default class ZarizeniInfo extends React.Component {
           </div>
         </div>
         {
-          zarizeni.umisteni.lokalita && zarizeni.umisteni.lokalita.ixlok > 0 ?
-            <div className="myTableRow">
-              <div className="myTableRowItem uFlexGrow-1">Umístění:</div>
-              <div className="myTableRowItem uFlexGrow-4"><MarkedLokalita lokalita={zarizeni.umisteni.lokalita} /></div>
-            </div>
-            : null
+          // zarizeni.umisteni.lokalita && zarizeni.umisteni.lokalita.ixlok > 0 ?
+          <div className="myTableRow">
+            <div className="myTableRowItem uFlexGrow-1">Umístění:</div>
+            <div className="myTableRowItem uFlexGrow-4"><MarkedLokalita lokalita={zarizeni.umisteni.lokalita} /></div>
+          </div>
+          // : null
         }
       </div>
     )

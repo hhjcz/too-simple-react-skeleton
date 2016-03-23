@@ -76,7 +76,7 @@ export default class Umistovani extends React.Component {
       <div>
         <ZarizeniInfo zarizeni={zarizeni} />
         <HintForm lokalitaHint={lokalitaHint} searchForUmisteni={this.searchForUmisteni} />
-        <PotencialniUmisteni lokalitaHint={lokalitaHint} seznamUmisteni={seznamUmisteni} umistiZarizeni={self.umistitZarizeni} deleteAllUmisteni={self.deleteAllUmisteni} />
+        <PotencialniUmisteni lokalitaHint={lokalitaHint} seznamUmisteni={seznamUmisteni.toArray ? seznamUmisteni.toArray() : seznamUmisteni} umistiZarizeni={self.umistitZarizeni} deleteAllUmisteni={self.deleteAllUmisteni} />
       </div>
     )
   }
