@@ -8,7 +8,7 @@ describe('zarizeni list logic', () => {
 
   it('adds items to the state', () => {
     const state = Map()
-    const seznamZarizeni = List.of(ZarizeniFactory({ id: 1 }), ZarizeniFactory({ id: 2 }))
+    const seznamZarizeni = List.of({ id: 1 }, { id: 2 })
     const nextState = setList(state, seznamZarizeni)
 
     expect(nextState).to.equal(Map({
@@ -18,7 +18,7 @@ describe('zarizeni list logic', () => {
 
   it('converts to immutable', () => {
     const state = Map()
-    const seznamZarizeni = [ZarizeniFactory({ id: 1 }), ZarizeniFactory({ id: 2 })]
+    const seznamZarizeni = [{ id: 1 }, { id: 2 }]
     const nextState = setList(state, seznamZarizeni)
 
     expect(nextState).to.equal(Map({

@@ -12,6 +12,7 @@ export default class Zarizeni extends React.Component {
       <div>
         <div>id: {zarizeni.id}</div>
         <div>name: {zarizeni.name}</div>
+        <div>info name: {zarizeni.infoName}</div>
         <div>deleted at: {zarizeni.deletedAt}</div>
       </div>
     )

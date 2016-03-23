@@ -5,6 +5,7 @@ import { UmisteniFactory } from './Umisteni'
 export const Zarizeni = Record({
   id: 0,
   name: '',
+  infoName: '',
   ipAddress: '',
   createdAt: '',
   updatedAt: '',
@@ -36,6 +37,7 @@ export default Zarizeni
 export function ZarizeniFactory(zarizeniObj = {}) {
   return new Zarizeni({
     ...(zarizeniObj.toObject ? zarizeniObj.toObject() : zarizeniObj),
+    infoName: zarizeniObj.infoName || (zarizeniObj.netvisionZarizeni ? zarizeniObj.netvisionZarizeni.infoName : ''),
     defaultmap: zarizeniObj.netvisionZarizeni ? zarizeniObj.netvisionZarizeni.defaultmap : '',
     umisteni: UmisteniFactory(zarizeniObj.umisteni)
   })
