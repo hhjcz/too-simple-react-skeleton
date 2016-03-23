@@ -43,6 +43,7 @@ export class Container extends React.Component {
     this.props.actions.sortChange(sortField, true)
   }
 
+  /** @param {Filter} filter */
   onFilterChange(filter) {
     this.props.actions.filterChange(filter, true)
   }
@@ -57,7 +58,7 @@ export class Container extends React.Component {
 
     return (
       <div id="zarizeni-list">
-        <PredefinedViews onNamedFilterChange={self.onNamedFilterChange} namedFilter={generalParams.toObject()._filter} />
+        <PredefinedViews onNamedFilterChange={self.onNamedFilterChange} namedFilter={generalParams.toObject()._filter} onFilterChange={self.onFilterChange} filters={filters} />
         <Tabulka
           seznamZarizeni={seznamZarizeni} sort={sort} fetching={fetching} filters={filters} pagination={pagination}
           onSortChange={self.onSortChange} onFilterChange={self.onFilterChange}
