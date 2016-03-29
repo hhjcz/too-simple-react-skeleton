@@ -16,10 +16,11 @@ export default class Radka extends React.Component {
     return (
       <div className="myTableRow">
         {
-          columns.map(col => col.visible ?
-            <Bunka column={col} model={zarizeni} pozice={pozice} key={col.name} />
-            : null
-          )
+          columns.map(col => {    // eslint-disable-line arrow-body-style
+            return col.visible ?
+              <Bunka column={col} model={zarizeni} pozice={pozice} key={col.name} />
+              : null
+          })
         }
       </div>
     )

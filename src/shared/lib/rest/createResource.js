@@ -1,7 +1,6 @@
 /** Created by hhj on 2/11/16. */
 import responseTransformers from './responseTransformers'
 import serializeParamsToUrl from './serializeParamsToUrl'
-import handleError from '../myErrorHandler'
 
 const defaultConfig = () => ({
   url: '/',
@@ -36,7 +35,6 @@ export default function createResource(resourceName, _config, fetchHolder) {
         })
         .catch(error => {
           const message = `Ajejej, fetch error: ${error.message}, url: ${url}`
-          // handleError({ message })
           throw new Error(message)
         })
 

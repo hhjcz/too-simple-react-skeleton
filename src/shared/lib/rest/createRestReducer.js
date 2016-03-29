@@ -1,5 +1,5 @@
 /** Created by hhj on 1/29/16. */
-import { getActionBasename } from './utils'
+/* eslint-disable max-len */
 import { Pagination } from '../../app/models/Pagination'
 import { Sort } from '../../app/models/Sort'
 import { List, Record, Map } from 'immutable'
@@ -52,16 +52,16 @@ export default function createRestReducer(endpointName, config = {}, actionTypes
         return state.set('items', List(action.data).map(itemTransformer))
           .set('fetching', false)
           .update('lastFetchMark', lastFetchMark => ({ ...lastFetchMark, fetchAll: action.meta.lastFetchMark }))
-          .update('pagination', pagination =>
-            action.meta.pagination
+          .update('pagination', pagination => {   // eslint-disable-line arrow-body-style
+            return action.meta.pagination
               ? new Pagination({ ...pagination.toObject(), ...action.meta.pagination })
               : pagination
-          )
-          .update('sort', sort =>
-            action.meta.sort
+          })
+          .update('sort', sort => {   // eslint-disable-line arrow-body-style
+            return action.meta.sort
               ? new Sort(action.meta.sort)
               : sort
-          )
+          })
 
       case actionTypes.fetchAllError:
         return state.set('items', List([]))

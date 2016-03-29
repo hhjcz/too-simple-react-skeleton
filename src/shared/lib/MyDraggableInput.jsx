@@ -35,7 +35,9 @@ export default class MyDraggableInput extends React.Component {
 
   onDragEnd() {
     // clear value when successfully dropped to other input
-    if (MyDraggableInput.droppedTo && MyDraggableInput.droppedTo !== this) this.props.onChange(this.props.label, '')
+    if (MyDraggableInput.droppedTo && MyDraggableInput.droppedTo !== this) {
+      this.props.onChange(this.props.label, '')
+    }
     MyDraggableInput.droppedTo = null
     this.setState({ draggedOver: false })
   }
@@ -59,7 +61,9 @@ export default class MyDraggableInput extends React.Component {
   bsStyle(value) {
     const bsStyle = {}
     if (this.state.draggedOver) bsStyle.bsStyle = 'warning'
-    else if (value && value.length > 0) bsStyle.bsStyle = MyDraggableInput.validate(value) ? 'success' : 'error'
+    else if (value && value.length > 0) {
+      bsStyle.bsStyle = MyDraggableInput.validate(value) ? 'success' : 'error'
+    }
 
     return bsStyle
   }

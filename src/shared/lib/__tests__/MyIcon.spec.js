@@ -31,7 +31,11 @@ describe('lib MyIcon component', () => {
     })
     expect(vdom.props.someProp).to.equal('someValue')
     expect(vdom.props.color).to.equal('someColor')
-    expect(vdom.props.style).to.deep.equal({ verticalAlign: 'middle', someStyle: 'someStyleValue', fontSize: '20px' })
+    expect(vdom.props.style).to.deep.equal({
+      verticalAlign: 'middle',
+      someStyle: 'someStyleValue',
+      fontSize: '20px'
+    })
   })
 
 })

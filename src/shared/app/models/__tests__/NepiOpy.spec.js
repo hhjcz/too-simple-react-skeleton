@@ -3,7 +3,7 @@
 import { expect } from 'chai'
 import { List } from 'immutable'
 import { NepiOpyFactory } from '../NepiOpy'
-import NepiOp from '../NepiOp'
+import { NepiOp } from '../NepiOp'
 
 describe('app models NepiOpy', () => {
 

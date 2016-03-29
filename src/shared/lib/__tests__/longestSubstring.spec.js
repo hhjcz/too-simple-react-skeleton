@@ -28,19 +28,28 @@ describe('lib longestSubstring', () => {
   })
 
   it('should mark substring case 03', () => {
-    const marked = mark('[SUMMITD] Kladno Kozovka-Kokos', 'Pleteny Ujezd-Pleteny Ujezd, 99 "kozovka"')
+    const marked = mark(
+      '[SUMMITD] Kladno Kozovka-Kokos',
+      'Pleteny Ujezd-Pleteny Ujezd, 99 "kozovka"'
+    )
     expect(marked.marked1).to.equal('[SUMMITD] Kladno <b>Kozovka</b>-Kokos')
     expect(marked.marked2).to.equal('Pleteny Ujezd-Pleteny Ujezd, 99 "<b>kozovka</b>"')
   })
 
   it('should mark substring case 04', () => {
-    const marked = mark('[SUMMITD] Kladno Kozova Hora-Kokos', 'Pleteny Ujezd-Pleteny Ujezd, 99 "kozova hora"')
+    const marked = mark(
+      '[SUMMITD] Kladno Kozova Hora-Kokos',
+      'Pleteny Ujezd-Pleteny Ujezd, 99 "kozova hora"'
+    )
     expect(marked.marked1).to.equal('[SUMMITD] Kladno <b>Kozova Hora</b>-Kokos')
     expect(marked.marked2).to.equal('Pleteny Ujezd-Pleteny Ujezd, 99 "<b>kozova hora</b>"')
   })
 
   it('should mark substring case 05', () => {
-    const marked = mark('[SUMMITD] Kladno Hora Kozova-Kokos', 'Pleteny Ujezd-Pleteny Ujezd, 99 "hora kozova"')
+    const marked = mark(
+      '[SUMMITD] Kladno Hora Kozova-Kokos',
+      'Pleteny Ujezd-Pleteny Ujezd, 99 "hora kozova"'
+    )
     expect(marked.marked1).to.equal('[SUMMITD] Kladno <b>Hora Kozova</b>-Kokos')
     expect(marked.marked2).to.equal('Pleteny Ujezd-Pleteny Ujezd, 99 "<b>hora kozova</b>"')
   })

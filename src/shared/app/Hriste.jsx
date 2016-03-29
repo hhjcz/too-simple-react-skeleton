@@ -27,7 +27,8 @@ export default class Hriste extends React.Component {
           Font Awesome: <i className="fa fa-home text-danger" style={{ fontSize: '3em' }}></i>
         </div>
         <div>
-          Font Awesome in FontIcon: <FontIcon className="fa fa-bicycle" style={{ fontSize: '3em' }} />
+          Font Awesome in FontIcon:
+          <FontIcon className="fa fa-bicycle" style={{ fontSize: '3em' }} />
         </div>
       </div>
     )

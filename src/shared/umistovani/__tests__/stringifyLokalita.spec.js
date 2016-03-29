@@ -1,8 +1,8 @@
 /** Created by hhj on 3/17/16. */
 /* eslint-disable no-unused-expressions */
 import { expect } from 'chai'
-import stringifyLokalita from '../stringifyLokalita'
-import Lokalita from '../../app/models/Lokalita'
+import { stringifyLokalita } from '../stringifyLokalita'
+import { Lokalita } from '../../app/models/Lokalita'
 
 describe('umistovani stringifyLokalita', () => {
 

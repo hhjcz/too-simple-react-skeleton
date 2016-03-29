@@ -44,7 +44,9 @@ describe('zarizeni-list Container component', () => {
 
   beforeEach(() => {
     const store = createStore()
-    const tree = sd.shallowRender(React.createElement(Container, { ...store.getState().zarizeni.toObject() }))
+    const tree = sd.shallowRender(
+      React.createElement(Container, { ...store.getState().zarizeni.toObject() })
+    )
 
     // instance = tree.getMountedInstance()
     vdom = tree.getRenderOutput()

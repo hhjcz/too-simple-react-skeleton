@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 
 import createMapStateToProps from '../lib/createMapStateToProps'
 import createMapDispatchToProps from '../lib/createMapDispatchToProps'
-import createFetchWrapper from '../lib/rest/createFetchWrapper'
+// import createFetchWrapper from '../lib/rest/createFetchWrapper'
 import * as actions from './actions'
 import Tabulka from './Tabulka'
 import Paginator from './Paginator'
@@ -54,13 +54,27 @@ export class Container extends React.Component {
 
   render() {
     const self = this
-    const { fetching, items: seznamZarizeni, pagination, sort, filters, generalParams, actions } = this.props
+    const {
+      fetching,
+      items: seznamZarizeni,
+      pagination,
+      sort,
+      filters,
+      generalParams,
+      actions
+    } = this.props
 
     return (
       <div id="zarizeni-list">
-        <PredefinedViews onNamedFilterChange={self.onNamedFilterChange} namedFilter={generalParams.toObject()._filter} onFilterChange={self.onFilterChange} filters={filters} />
+        <PredefinedViews
+          onNamedFilterChange={self.onNamedFilterChange}
+          namedFilter={generalParams.toObject()._filter}
+          onFilterChange={self.onFilterChange}
+          filters={filters}
+        />
         <Tabulka
-          seznamZarizeni={seznamZarizeni} sort={sort} fetching={fetching} filters={filters} pagination={pagination}
+          seznamZarizeni={seznamZarizeni} sort={sort}
+          fetching={fetching} filters={filters} pagination={pagination}
           onSortChange={self.onSortChange} onFilterChange={self.onFilterChange}
         />
         <Paginator
@@ -74,7 +88,7 @@ export class Container extends React.Component {
 }
 
 // TODO - not used for now, does not work
-const WrappedContainer = createFetchWrapper(actions.getAll)(Container)
+// const WrappedContainer = createFetchWrapper(actions.getAll)(Container)
 
 export default connect(
   createMapStateToProps(state => state.zarizeni),

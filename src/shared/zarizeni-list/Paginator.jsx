@@ -20,6 +20,14 @@ export default class Paginator extends React.Component {
     maxButtons: 9,
   };
 
+  static validatePageSize(perPage) {
+    return Paginator.parsePageSize(perPage) > 0
+  }
+
+  static parsePageSize(perPage) {
+    return parseInt(perPage, 10)
+  }
+
   constructor(props) {
     super(props);
     this.state = {
@@ -40,14 +48,6 @@ export default class Paginator extends React.Component {
     if (Paginator.validatePageSize(perPage)) {
       this.props.onPerPageChange(Paginator.parsePageSize(perPage))
     }
-  }
-
-  static validatePageSize(perPage) {
-    return Paginator.parsePageSize(perPage) > 0
-  }
-
-  static parsePageSize(perPage) {
-    return parseInt(perPage, 10)
   }
 
   render() {

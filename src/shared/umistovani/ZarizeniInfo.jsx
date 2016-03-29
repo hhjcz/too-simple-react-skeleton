@@ -45,7 +45,9 @@ export default class ZarizeniInfo extends React.Component {
           // zarizeni.umisteni.lokalita && zarizeni.umisteni.lokalita.ixlok > 0 ?
           <div className="myTableRow">
             <div className="myTableRowItem uFlexGrow-1">Umístění:</div>
-            <div className="myTableRowItem uFlexGrow-4"><MarkedLokalita lokalita={zarizeni.umisteni.lokalita} /></div>
+            <div className="myTableRowItem uFlexGrow-4">
+              <MarkedLokalita lokalita={zarizeni.umisteni.lokalita} />
+            </div>
           </div>
           // : null
         }

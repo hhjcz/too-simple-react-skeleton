@@ -1,4 +1,5 @@
 /** Created by hhj on 20.12.15. */
+/* eslint-disable no-case-declarations */
 import * as actions from './actions'
 import { Pagination, setPage, setPageSize } from './../app/models/Pagination'
 import { Sort } from './../app/models/Sort'
@@ -18,8 +19,7 @@ export default function reducer(state = {}, action) {
       return state.update('pagination', pagination => setPage(pagination, action.page))
 
     case actions.POINT_CURSOR_TO:
-      const perPage = state.pagination.perPage
-      const page = Math.ceil(action.cursorAt / perPage)
+      const page = Math.ceil(action.cursorAt / state.pagination.perPage)
       return state.update('pagination', pagination => new Pagination({
         ...pagination.toObject(),
         cursorAt: action.cursorAt,
@@ -36,7 +36,9 @@ export default function reducer(state = {}, action) {
 
     case actions.FILTER_CHANGE:
       return state.update('filters', filters => {
-        if (action.filter.value === '' || action.filter.value === null) return filters.delete(action.filter.name)
+        if (action.filter.value === '' || action.filter.value === null) {
+          return filters.delete(action.filter.name)
+        }
         return filters.set(action.filter.name, action.filter)
       })
 
@@ -49,6 +51,4 @@ export default function reducer(state = {}, action) {
     default:
       return state
   }
-
-  return state
 }

@@ -21,7 +21,10 @@ export default class MyIcon extends React.Component {
 
   render() {
     return (
-      <FontIcon className="material-icons" {...this.props} style={{ ...MyIcon.defaultStyle, ...this.props.style }}>
+      <FontIcon className="material-icons"
+        {...this.props}
+        style={{ ...MyIcon.defaultStyle, ...this.props.style }}
+      >
         {this.props.children}
       </FontIcon>
     )

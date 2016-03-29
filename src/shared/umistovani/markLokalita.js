@@ -69,7 +69,12 @@ function markCisdop(lokalita, lokalitaHint) {
 }
 
 function markAkrlok(lokalita, lokalitaHint) {
-  const marked = longestSubstring.mark(lokalita.akrlok, lokalitaHint.ulice, '<span class="text-warning"><b>', '</b></span>')
+  const marked = longestSubstring.mark(
+    lokalita.akrlok,
+    lokalitaHint.ulice,
+    '<span class="text-warning"><b>',
+    '</b></span>'
+  )
   const markedAkrlok = new Marked()
   if (lokalita.akrlok && lokalita.akrlok.length > 0) markedAkrlok.concat(' :: ').concat(marked)
 

@@ -21,9 +21,10 @@ const getSubState = getState => getState().zarizeni
 /**
  * @param {number} cursorAt
  * @param {boolean} projectToLocation
+ * @param {boolean} force
  * @returns {Function}
  */
-export function pointCursorTo(cursorAt, projectToLocation = false, force = false) {
+export function pointCursorTo(cursorAt, projectToLocation = false, force = false) {   // eslint-disable-line no-unused-vars
   return ({ dispatch, getState }) => {
 
     const currentPage = getSubState(getState).pagination.page
@@ -34,8 +35,11 @@ export function pointCursorTo(cursorAt, projectToLocation = false, force = false
     })
 
     let promise
-    if (true || currentPage !== getSubState(getState).pagination.page) promise = fetchAll({ projectToLocation })
-    else promise = Promise.resolve(null)
+    if (true || currentPage !== getSubState(getState).pagination.page) {
+      promise = fetchAll({ projectToLocation })
+    } else {
+      promise = Promise.resolve(null)
+    }
 
     return promise
   }
@@ -44,11 +48,12 @@ export function pointCursorTo(cursorAt, projectToLocation = false, force = false
 /**
  * @param cursorAt
  * @param projectToLocation
+ * @param force
  * @returns {Function}
  */
 export function fetchOneAt(cursorAt, projectToLocation = false, force = false) {
   return ({ dispatch, getState }) => dispatch(pointCursorTo(cursorAt, projectToLocation, force))
-    .then(response => {
+    .then(() => {
       const subState = getSubState(getState)
       const { page, perPage } = subState.pagination
       const item = subState.items.get(cursorAt - (page - 1) * perPage - 1)

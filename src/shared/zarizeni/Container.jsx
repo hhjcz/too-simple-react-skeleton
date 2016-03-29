@@ -16,14 +16,14 @@ export class Container extends React.Component {
     params: PropTypes.object,
   };
 
-  // browser fetching:
-  componentDidMount() {
-    const { dispatch, location, params } = this.props
-    Container.fetchActions.forEach((action) => action({ params }))
-  }
-
   // server and client side fetch actions (see render.jsx & componentDidMount):
   static fetchActions = [actions.fetchOne];
+
+  // browser fetching:
+  componentDidMount() {
+    const { params } = this.props
+    Container.fetchActions.forEach((action) => action({ params }))
+  }
 
   render() {
     const { item } = this.props

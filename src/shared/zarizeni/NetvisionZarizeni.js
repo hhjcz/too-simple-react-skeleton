@@ -3,7 +3,9 @@
 import React, { PropTypes } from 'react'
 
 export default class NetvisionZarizeni extends React.Component {
-  static propTypes = {};
+  static propTypes = {
+    id: PropTypes.number
+  };
 
   static defaultProps = {};
 

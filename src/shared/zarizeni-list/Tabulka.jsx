@@ -22,7 +22,7 @@ export default class Tabulka extends React.Component {
   };
 
   render() {
-    const { fetching, seznamZarizeni, pagination, sort, filters, onSortChange, onFilterChange } = this.props
+    const { fetching, seznamZarizeni, pagination, sort, filters, onSortChange, onFilterChange } = this.props // eslint-disable-line max-len
     let offset = (pagination.page - 1) * pagination.perPage + 1
 
     return (
@@ -41,7 +41,9 @@ export default class Tabulka extends React.Component {
         {/* rows */}
         {
           seznamZarizeni.map(zarizeni =>
-            <Radka key={zarizeni.id} zarizeni={zarizeni} columns={columns.toList()} pagination={pagination} pozice={offset++} />
+            <Radka key={zarizeni.id} zarizeni={zarizeni} columns={columns.toList()}
+              pagination={pagination} pozice={offset++}
+            />
           )
         }
         {fetching ? <div className="fetchIndicator glyphicon visible" /> : ''}

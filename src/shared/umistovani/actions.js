@@ -2,7 +2,7 @@
 import rest from '../app/rest'
 import * as zarizeniListActions from '../zarizeni-list/actions'
 
-export const actions = {
+const actions = {
   zarizeniList: zarizeniListActions,
   ...rest.actions,
 }

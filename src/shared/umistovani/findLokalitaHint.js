@@ -29,7 +29,7 @@ const zkratky = {
 
 const zkratkaToObec = zkratkaObce => zkratky[zkratkaObce.toLowerCase()] || zkratkaObce
 
-function LokalitaHint({ id, obec, ulice, cislo, chardop, op, akrlok, ixlok, map, zarizeniName } = {}) {
+function LokalitaHint({ id, obec, ulice, cislo, chardop, op, akrlok, ixlok, map, zarizeniName } = {}) { // eslint-disable-line max-len
   // console.log(obec)
   this.id = id || 0
   this.obec = obec || ''
@@ -61,6 +61,7 @@ LokalitaHint.prototype.fromMapName = function(mapName, force) {
 /**
  * @param {string} name
  * @param {string} mapName
+ * @param {number} id
  * @returns {LokalitaHint}
  */
 export default function findLokalitaHint(name = '', mapName = '', id = 0) {

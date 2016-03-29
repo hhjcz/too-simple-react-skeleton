@@ -21,7 +21,7 @@ export default class PredefinedViews extends React.Component {
 
   constructor(props) {
     super(props)
-    const deletedFilter = props.filters && props.filters.get('deletedAt') && props.filters.get('deletedAt').value
+    const deletedFilter = props.filters && props.filters.get('deletedAt') && props.filters.get('deletedAt').value // eslint-disable-line max-len
     this.state = {
       neumistenaToggled: props.namedFilter === 'neumistena',
       smazanaToggled: !deletedFilter
@@ -34,10 +34,19 @@ export default class PredefinedViews extends React.Component {
     return (
       <div style={PredefinedViews.styles.block}>
         <Toggle label="Neumístěná" toggled={this.state.neumistenaToggled}
-          onToggle={function(e, toggled) { self.setState({ neumistenaToggled: toggled }); onNamedFilterChange(toggled ? 'neumistena' : null) }}
+          onToggle={function(e, toggled) {
+            self.setState({ neumistenaToggled: toggled })
+            onNamedFilterChange(toggled ? 'neumistena' : null)
+          }}
         />
         <Toggle label="I smazaná" toggled={this.state.smazanaToggled}
-          onToggle={function(e, toggled) { self.setState({ smazanaToggled: toggled }); onFilterChange(new Filter({ name: 'deletedAt', value: toggled ? null : true, comparator: 'empty' })) }}
+          onToggle={function(e, toggled) {
+            self.setState({ smazanaToggled: toggled })
+            onFilterChange(new Filter({
+              name: 'deletedAt',
+              value: toggled ? null : true,
+              comparator: 'empty' })
+            )}}
         />
       </div>
     )

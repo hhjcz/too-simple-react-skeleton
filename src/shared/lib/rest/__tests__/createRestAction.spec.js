@@ -2,8 +2,8 @@
 /* eslint-disable no-unused-expressions */
 import { expect } from 'chai'
 import createRestAction from '../createRestAction'
-import actionTypesFor from '../actionTypesFor'
-import actionCreatorsFor from '../actionCreatorsFor'
+import { actionTypesFor } from '../actionTypesFor'
+import { actionCreatorsFor } from '../actionCreatorsFor'
 
 describe('rest lib createRestAction', () => {
 
@@ -42,7 +42,7 @@ describe('rest lib createRestAction', () => {
   it('should handle params', () => {
     const actions = createRestAction(endpointName, config, actionCreators, fnHolder)
     const promise = actions.fetchAll({ params: { someParam: 'someValue' } })
-    const expectedUrl = '/povidky?include=subresource.subsubresource&other_extra_param=someValue&some_param=someValue'
+    const expectedUrl = '/povidky?include=subresource.subsubresource&other_extra_param=someValue&some_param=someValue'  // eslint-disable-line max-len
 
     expect(fetchBuffer.url).to.equal(expectedUrl)
     expect(fetchBuffer.args.method).to.equal('GET')
@@ -54,8 +54,8 @@ describe('rest lib createRestAction', () => {
 
   it('should handle params & body', () => {
     const actions = createRestAction(endpointName, config, actionCreators, fnHolder)
-    const promise = actions.update({ params: { someParam: 'someValue' }, body: { someBody: 'someValue' } })
-    const expectedUrl = '/povidky?include=subresource.subsubresource&other_extra_param=someValue&some_param=someValue'
+    const promise = actions.update({ params: { someParam: 'someValue' }, body: { someBody: 'someValue' } })  // eslint-disable-line max-len
+    const expectedUrl = '/povidky?include=subresource.subsubresource&other_extra_param=someValue&some_param=someValue'  // eslint-disable-line max-len
 
     expect(fetchBuffer.url).to.equal(expectedUrl)
     expect(fetchBuffer.args.method).to.equal('PATCH')

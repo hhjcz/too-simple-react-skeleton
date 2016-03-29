@@ -40,9 +40,11 @@ export class Container extends React.Component {
     const cursorAt = parseInt(params.cursorAt) || 1
 
     const promise = dispatch(actions.zarizeniList.fetchOneAt(cursorAt, false, force))
-      .then(response => {
+      .then(() => {
         const zarizeniId = getState().zarizeni.item.id
-        if (!(zarizeniId > 0)) throw new Error('Fetch chyba: nepodaril se fetch zarizeni s validnim id')
+        if (!(zarizeniId > 0)) {
+          throw new Error('Fetch chyba: nepodaril se fetch zarizeni s validnim id')
+        }
 
         return actions.umisteni.fetchAll({
           params: { zarizeniId },
@@ -99,17 +101,25 @@ export class Container extends React.Component {
         />
         {
           zarizeni.item.id > 0 ?
-            <Umistovani zarizeni={zarizeni.item} seznamUmisteni={seznamUmisteni} actions={{ ...actions, reload: self.reload }} />
+            <Umistovani zarizeni={zarizeni.item} seznamUmisteni={seznamUmisteni}
+              actions={{ ...actions, reload: self.reload }}
+            />
             : ''
         }
         <div style={{ display: 'flex', justifyContent: 'flex-start' }}>
-          <IconButton tooltip="previous" onTouchTap={function() { self.onCursorChange(cursorAt > 1 ? cursorAt - 1 : 1) }}>
+          <IconButton tooltip="previous"
+            onTouchTap={function() { self.onCursorChange(cursorAt > 1 ? cursorAt - 1 : 1) }}
+          >
             <MyIcon color={muiColors.blueGrey600}>arrow_back</MyIcon>
           </IconButton>
           <IconButton tooltip="reload" onTouchTap={function() { self.reload() }}>
             <MyIcon color={muiColors.blueGrey800}>autorenew</MyIcon>
           </IconButton>
-          <IconButton tooltip="next" onTouchTap={function() { self.onCursorChange(cursorAt < zarizeni.pagination.total ? cursorAt + 1 : cursorAt) }}>
+          <IconButton tooltip="next"
+            onTouchTap={function() {
+              self.onCursorChange(cursorAt < zarizeni.pagination.total ? cursorAt + 1 : cursorAt)
+            }}
+          >
             <MyIcon color={muiColors.blueGrey800}>arrow_forward</MyIcon>
           </IconButton>
         </div>
@@ -127,7 +137,9 @@ export class Container extends React.Component {
             </div>
             : null
         }
-        {/* <span className="btn btn-xs btn-danger" onClick={() => self.forceUpdate()}>Rerender</span>*/}
+        {/* <span className="btn btn-xs btn-danger"
+         onClick={() => self.forceUpdate()}
+         > Rerender</span>*/}
       </div>
     )
   }

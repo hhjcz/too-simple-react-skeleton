@@ -3,7 +3,7 @@ import myRest from '../lib/rest/index'
 import createFetch from '../lib/rest/createFetch'
 import { ZarizeniFactory } from './models/Zarizeni'
 import { UmisteniFactory } from './models/Umisteni'
-import Lokalita from './models/Lokalita'
+import { Lokalita } from './models/Lokalita'
 import { Sort } from './models/Sort'
 import { Pagination } from './models/Pagination'
 

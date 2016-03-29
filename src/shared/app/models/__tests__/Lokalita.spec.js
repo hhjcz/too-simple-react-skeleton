@@ -1,6 +1,7 @@
 /** Created by hhj on 2/17/16. */
+/* eslint-disable no-unused-expressions */
 import { expect } from 'chai'
-import Lokalita from '../Lokalita'
+import { Lokalita } from '../Lokalita'
 
 describe('umisteni class Lokalita', () => {
 

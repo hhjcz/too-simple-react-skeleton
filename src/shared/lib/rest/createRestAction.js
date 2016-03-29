@@ -37,9 +37,16 @@ export default function createRestAction(endpointName, config, actionCreators, f
         const queryParams = { ...queryGenerator(state), ...extraParams, ...decamelizeKeys(params) }
         const { fetchUrl, executeFetch } = resource[actionName](queryParams, body)
 
-        const lastFetchMark = state.lastFetchMark ? (state.lastFetchMark.toObject ? state.lastFetchMark.toObject()[actionName] : state.lastFetchMark[actionName]) : null // eslint-disable-line no-nested-ternary
+        let lastFetchMark = null
+        if (state.lastFetchMark) {
+          let lastFetchMarkObj = state.lastFetchMark
+          if (lastFetchMarkObj.toObject) lastFetchMarkObj = lastFetchMarkObj.toObject()
+          lastFetchMark = lastFetchMarkObj[actionName]
+        }
         if (!force && lastFetchMark === fetchUrl) return Promise.resolve(null) // no need to refetch
-        if (history && projectToLocation) projectFetchUrlToLocation(history, urlParse(fetchUrl).search)
+        if (history && projectToLocation) {
+          projectFetchUrlToLocation(history, urlParse(fetchUrl).search)
+        }
 
         dispatch(subActionCreators.requested())
 

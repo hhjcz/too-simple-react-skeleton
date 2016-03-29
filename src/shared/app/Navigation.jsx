@@ -13,7 +13,9 @@ export default class Navigation extends React.Component {
         <Navbar.Collapse>
           <Nav bsStyle="pills">
             <NavbarBrand>Dohlestr ({process.env.NODE_ENV})</NavbarBrand>
-            <IndexLinkContainer to="/"><NavItem><MyIcon color="grey">home</MyIcon></NavItem></IndexLinkContainer>
+            <IndexLinkContainer to="/">
+              <NavItem><MyIcon color="grey">home</MyIcon></NavItem>
+            </IndexLinkContainer>
             <LinkContainer to="/zarizeni"><NavItem>Seznam</NavItem></LinkContainer>
             <LinkContainer to="/umistovani"><NavItem>Umísťovaní</NavItem></LinkContainer>
             <LinkContainer to="/hriste"><NavItem>Hřiště</NavItem></LinkContainer>

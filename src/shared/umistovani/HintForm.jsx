@@ -25,7 +25,9 @@ export default class HintForm extends React.Component {
 
   componentWillReceiveProps(nextProps) {
     // update state from props when zarizeni has changed
-    if (nextProps.lokalitaHint.id !== this.props.lokalitaHint.id) this.setState(nextProps.lokalitaHint)
+    if (nextProps.lokalitaHint.id !== this.props.lokalitaHint.id) {
+      this.setState(nextProps.lokalitaHint)
+    }
   }
 
   onInputChange(label, value) {
@@ -48,11 +50,16 @@ export default class HintForm extends React.Component {
 
     return (
       <div style={{ backgroundColor: muiColors.blueGrey200 }}>
-        {/* <Button label="Hledat" secondary onTouchStart={ function() { searchForUmisteni(lokalitaHint) } }> */}
+        {/* <Button label="Hledat" secondary
+         onTouchStart={ function() { searchForUmisteni(lokalitaHint) } }>
+         */}
         <div className="hintForm">
           {form}
         </div>
-        <span className="btn btn-sm" style={{ backgroundColor: muiColors.blueGrey200, color: 'white', width: '100%' }} onClick={ function() { searchForUmisteni(lokalitaHint) } }>
+        <span className="btn btn-sm"
+          style={{ backgroundColor: muiColors.blueGrey200, color: 'white', width: '100%' }}
+          onClick={ function() { searchForUmisteni(lokalitaHint) } }
+        >
           <MyIcon>search</MyIcon> Hledat
         </span>
       </div>

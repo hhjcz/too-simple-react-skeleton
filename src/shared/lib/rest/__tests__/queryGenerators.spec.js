@@ -12,10 +12,19 @@ describe('rest library queryGenerators', () => {
 
   it('should generate query params', () => {
     const someFilter1 = new Filter({ name: 'nejakyFilter1', value: 'hodnotaFiltru1' })
-    const someFilter2 = new Filter({ name: 'nejakyFilter2', value: 'hodnotaFiltru2', comparator: 'equal' })
+    const someFilter2 = new Filter({
+      name: 'nejakyFilter2',
+      value: 'hodnotaFiltru2',
+      comparator: 'equal'
+    })
     const someFilter3 = new Filter({ name: 'nejakyFilter3', value: false, comparator: 'empty' })
     const someFilter4 = new Filter({ name: 'nejakyFilter4', value: true, comparator: 'empty' })
-    const filters = Map([[someFilter1.name, someFilter1], [someFilter2.name, someFilter2], [someFilter3.name, someFilter3], [someFilter4.name, someFilter4]])
+    const filters = Map([
+      [someFilter1.name, someFilter1],
+      [someFilter2.name, someFilter2],
+      [someFilter3.name, someFilter3],
+      [someFilter4.name, someFilter4]
+    ])
     const sort = new Sort({ dir: true, by: 'nejakySort' })
     const pagination = new Pagination({ page: 66, perPage: 6 })
 
@@ -27,7 +36,7 @@ describe('rest library queryGenerators', () => {
     expect(query.page).to.equal(66)
     expect(query.per_page).to.equal(6)
 
-    expect(qs.stringify(query)).to.equal('_sort=-nejaky_sort&nejaky_filter_1-lk=%25hodnotaFiltru1%25&nejaky_filter_2=hodnotaFiltru2&nejaky_filter_3-not=&nejaky_filter_4-null&page=66&per_page=6')
+    expect(qs.stringify(query)).to.equal('_sort=-nejaky_sort&nejaky_filter_1-lk=%25hodnotaFiltru1%25&nejaky_filter_2=hodnotaFiltru2&nejaky_filter_3-not=&nejaky_filter_4-null&page=66&per_page=6')  // eslint-disable-line max-len
   })
 
   it('should generate from empty object', () => {

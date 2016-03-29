@@ -1,4 +1,5 @@
 /** Created by hhj on 3/11/16. */
+/* eslint-disable max-len */
 import React, { PropTypes } from 'react'
 import uniqBy from 'lodash/uniqBy'
 import Avatar from 'material-ui/lib/avatar'
