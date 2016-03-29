@@ -1,8 +1,20 @@
 /** Created by hhj on 1/12/16. */
-import React from 'react'
+/* eslint-disable react/no-multi-comp */
+import React, { PropTypes } from 'react'
 import { LinkContainer, IndexLinkContainer } from 'react-router-bootstrap'
-import { Navbar, Nav, NavItem, NavbarBrand } from 'react-bootstrap'
+import { Navbar, Nav, NavItem, NavbarBrand, OverlayTrigger, Button } from 'react-bootstrap'
 import MyIcon from '../lib/MyIcon'
+import '../lib/icons.css'
+
+class ColoredIcon extends React.Component {
+  static propTypes = {
+    children: PropTypes.any
+  };
+
+  render() {
+    return <MyIcon color="grey">{this.props.children}</MyIcon>
+  }
+}
 
 export default class Navigation extends React.Component {
   static propTypes = {};
@@ -12,13 +24,30 @@ export default class Navigation extends React.Component {
       <Navbar>
         <Navbar.Collapse>
           <Nav bsStyle="pills">
-            <NavbarBrand>Dohlestr ({process.env.NODE_ENV})</NavbarBrand>
+            <NavbarBrand>
+              {/* <i className="fa fa-music text-success" style={{ fontSize: '1em' }} /> */}
+              Dohlestr ({process.env.NODE_ENV})
+            </NavbarBrand>
             <IndexLinkContainer to="/">
-              <NavItem><MyIcon color="grey">home</MyIcon></NavItem>
+              <NavItem title="Domů">
+                <ColoredIcon>home</ColoredIcon>
+              </NavItem>
             </IndexLinkContainer>
-            <LinkContainer to="/zarizeni"><NavItem>Seznam</NavItem></LinkContainer>
-            <LinkContainer to="/umistovani"><NavItem>Umísťovaní</NavItem></LinkContainer>
-            <LinkContainer to="/hriste"><NavItem>Hřiště</NavItem></LinkContainer>
+            <LinkContainer to="/zarizeni">
+              <NavItem title="Seznam zařízení">
+                <ColoredIcon>list</ColoredIcon>
+              </NavItem>
+            </LinkContainer>
+            <LinkContainer to="/umistovani">
+              <NavItem title="Umísťování">
+                <ColoredIcon>place</ColoredIcon>
+              </NavItem>
+            </LinkContainer>
+            <LinkContainer to="/hriste">
+              <NavItem title="Hřiště">
+                <ColoredIcon>golf_course</ColoredIcon>
+              </NavItem>
+            </LinkContainer>
           </Nav>
         </Navbar.Collapse>
       </Navbar>

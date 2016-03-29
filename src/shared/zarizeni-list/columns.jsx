@@ -2,6 +2,7 @@
 import { Map } from 'immutable'
 import React from 'react'
 import { Link } from 'react-router'
+import MyIcon from '../lib/MyIcon'
 import { Column, columntValueTypes } from '../app/models/Column'
 import MarkedLokalita from '../umistovani/MarkedLokalita'
 
@@ -50,7 +51,7 @@ export const columns = Map(
     }),
     umisteni: new Column({
       name: 'umisteni',
-      caption: 'Umisteni',
+      caption: <MyIcon color="black">place</MyIcon>,
       valueType: columntValueTypes.string,
       width: 6,
       visible: true,
