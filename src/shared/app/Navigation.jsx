@@ -1,6 +1,6 @@
 /** Created by hhj on 1/12/16. */
 import React from 'react'
-import { Link } from 'react-router'
+import { LinkContainer, IndexLinkContainer } from 'react-router-bootstrap'
 import { Navbar, Nav, NavItem, NavbarBrand } from 'react-bootstrap'
 
 export default class Navigation extends React.Component {
@@ -12,10 +12,10 @@ export default class Navigation extends React.Component {
         <Navbar.Collapse>
           <Nav bsStyle="pills">
             <NavbarBrand>Dohlestr ({process.env.NODE_ENV})</NavbarBrand>
-            <NavItem eventKet={1}><Link to="/">Home</Link></NavItem>
-            <NavItem eventKet={2}><Link to="/zarizeni">List</Link></NavItem>
-            <NavItem eventKet={3}><Link to="/umistovani">Umistovani</Link></NavItem>
-            <NavItem eventKet={4}><Link to="/hriste">Hriste</Link></NavItem>
+            <IndexLinkContainer to="/"><NavItem>Home</NavItem></IndexLinkContainer>
+            <LinkContainer to="/zarizeni"><NavItem>List</NavItem></LinkContainer>
+            <LinkContainer to="/umistovani"><NavItem>Umistovani</NavItem></LinkContainer>
+            <LinkContainer to="/hriste"><NavItem>Hriste</NavItem></LinkContainer>
           </Nav>
         </Navbar.Collapse>
       </Navbar>
