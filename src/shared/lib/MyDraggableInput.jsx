@@ -14,11 +14,6 @@ export default class MyDraggableInput extends React.Component {
     return value && value.length >= 0
   }
 
-  static bsStyle(value) {
-    if (value && value.length > 0) return MyDraggableInput.validate(value) ? 'success' : 'error'
-    return ''
-  }
-
   static droppedTo = null;
 
   constructor(props) {
@@ -28,6 +23,7 @@ export default class MyDraggableInput extends React.Component {
     this.onDragOver = this.onDragOver.bind(this)
     this.onDragLeave = this.onDragLeave.bind(this)
     this.onDrop = this.onDrop.bind(this)
+    this.bsStyle = this.bsStyle.bind(this)
 
     this.state = { draggedOver: false }
   }
@@ -60,9 +56,16 @@ export default class MyDraggableInput extends React.Component {
     this.props.onChange(this.props.label, e.dataTransfer.getData('value'))
   }
 
+  bsStyle(value) {
+    const bsStyle = {}
+    if (this.state.draggedOver) bsStyle.bsStyle = 'warning'
+    else if (value && value.length > 0) bsStyle.bsStyle = MyDraggableInput.validate(value) ? 'success' : 'error'
+
+    return bsStyle
+  }
+
   render() {
     const { label, value, onChange } = this.props
-    const bsStyle = this.state.draggedOver || MyDraggableInput.bsStyle(value)
     return (
       <div data-value={value} data-label={label} draggable
         onDragStart={this.onDragStart} onDragEnd={this.onDragEnd}
@@ -73,7 +76,7 @@ export default class MyDraggableInput extends React.Component {
           value={value}
           type="text"
           bsSize={this.props.bsSize || 'small'}
-          bsStyle={bsStyle}
+          {...this.bsStyle(value)}
           draggable
           addonBefore={label}
           addonAfter={<Glyphicon glyph="erase" onClick={function() { onChange(label, '')} } />}
