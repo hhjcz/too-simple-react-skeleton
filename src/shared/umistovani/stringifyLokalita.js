@@ -1,7 +1,6 @@
 /** @param {Lokalita} lokalita */
 function isSerializable(lokalita) {
-  if (lokalita && lokalita.ixlok > 0) return true
-  return false
+  return !!(lokalita && lokalita.ixlok > 0);
 }
 
 /** Created by hhj on 10/13/15. */

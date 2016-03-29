@@ -130,8 +130,8 @@ export function filterChange(filter, projectToLocation = false) {
 }
 
 /**
- * @param {Filter} filter
- * @param projectToLocation
+ * @param {object} paramObj
+ * @param {boolean} projectToLocation
  * @returns {Function}
  */
 export function generalParamChange(paramObj, projectToLocation = false) {

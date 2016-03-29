@@ -16,10 +16,14 @@ export default class HeaderFilter extends React.Component {
     debounce: 500,
   };
 
+  static filterFromProps(props) {
+    return props.filter ? props.filter.value : ''
+  }
+
   constructor(props) {
     super(props)
     this.state = {
-      filterValue: this.filterFromProps(props),
+      filterValue: HeaderFilter.filterFromProps(props),
       filterVisible: false
     }
     if (this.props.debounce > 0) {
@@ -30,16 +34,12 @@ export default class HeaderFilter extends React.Component {
 
   componentWillReceiveProps(nextProps) {
     this.setState({
-      filterValue: this.filterFromProps(nextProps)
+      filterValue: HeaderFilter.filterFromProps(nextProps)
     })
   }
 
   onFilterChange(filterValue) {
     this.props.onFilterChange(new Filter({ name: this.props.column.name, value: filterValue }))
-  }
-
-  filterFromProps(props) {
-    return props.filter ? props.filter.value : ''
   }
 
   toggleFilter() {
