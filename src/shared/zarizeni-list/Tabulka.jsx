@@ -42,7 +42,7 @@ export default class Tabulka extends React.Component {
         {
           seznamZarizeni.map(zarizeni =>
             <Radka key={zarizeni.id} zarizeni={zarizeni} columns={columns.toList()}
-              pagination={pagination} pozice={offset++}
+              pagination={pagination} pozice={offset} highlighted={offset++ === pagination.cursorAt}
             />
           )
         }
