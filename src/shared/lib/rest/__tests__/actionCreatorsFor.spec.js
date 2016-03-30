@@ -20,9 +20,12 @@ describe('actionCreatorsFor', () => {
   })
 
   it('should create valid action creators', () => {
-    expect(actionCreators.fetchCollectionRequested().type).to.equal(actionTypes.fetchCollectionRequested)
-    expect(actionCreators.fetchCollectionSuccess().type).to.equal(actionTypes.fetchCollectionSuccess)
-    expect(actionCreators.fetchCollectionError().type).to.equal(actionTypes.fetchCollectionError)
+    expect(actionCreators.fetchCollectionRequested().type)
+      .to.equal(actionTypes.fetchCollectionRequested)
+    expect(actionCreators.fetchCollectionSuccess().type)
+      .to.equal(actionTypes.fetchCollectionSuccess)
+    expect(actionCreators.fetchCollectionError().type)
+      .to.equal(actionTypes.fetchCollectionError)
   })
 
 })

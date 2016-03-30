@@ -1,5 +1,4 @@
 /** Created by hhj on 1/29/16. */
-import { parse as urlParse } from 'url'
 import { decamelizeKeys } from 'humps'
 import handleError from '../myErrorHandler'
 import createResource from './createResource'
@@ -29,7 +28,7 @@ export default function createRestAction(endpointName, config, actionCreators, f
       return fnHolder.dispatch(({ dispatch, getState }) => {
 
         const state = getThisSubState(getState)
-        const queryParams = { ...queryGenerator(state), ...extraParams, ...decamelizeKeys(params), ...methodExtraParams }
+        const queryParams = { ...queryGenerator(state), ...extraParams, ...decamelizeKeys(params), ...methodExtraParams } // eslint-disable-line max-len
         const { fetchUrl, executeFetch } = resource[fetchMethod](queryParams, body)
 
         let lastFetchMark = null

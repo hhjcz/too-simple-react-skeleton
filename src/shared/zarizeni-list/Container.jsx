@@ -29,9 +29,9 @@ export class Container extends React.Component {
   // server and client side fetch actions (see render.jsx & componentDidMount):
   static get fetchActions() {
     return [Container.fetchZarizeni]
-  };
+  }
 
-  static fetchZarizeni({ params, dispatch, getState, force }) {
+  static fetchZarizeni({ params }) {
     return actions.fetchIds({ params })
       .then(() => actions.fetchCollectionByIds({ params }))
   }
