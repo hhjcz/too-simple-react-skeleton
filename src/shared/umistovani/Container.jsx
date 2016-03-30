@@ -3,12 +3,12 @@ import React, { PropTypes } from 'react'
 import { connect } from 'react-redux'
 import { Pagination } from 'react-bootstrap'
 import IconButton from 'material-ui/lib/icon-button'
-import RefreshIndicator from 'material-ui/lib/refresh-indicator'
 import createMapStateToProps from '../lib/createMapStateToProps'
 import createMapDispatchToProps from '../lib/createMapDispatchToProps'
 import actions from './actions'
 import MyIcon from '../lib/MyIcon'
 import Umistovani from './Umistovani'
+import FetchIndicator from './FetchIndicator'
 import * as muiColors from 'material-ui/lib/styles/colors'
 
 export class Container extends React.Component {
@@ -122,20 +122,7 @@ export class Container extends React.Component {
             <MyIcon color={muiColors.blueGrey800}>arrow_forward</MyIcon>
           </IconButton>
         </div>
-        {
-          zarizeni.fetching || umisteni.fetching ?
-            <div className="text-info">
-              Louduju...
-              <RefreshIndicator
-                size={32}
-                left={10}
-                top={0}
-                status="loading"
-                style={{ display: 'inline-block', position: 'relative' }}
-              />
-            </div>
-            : null
-        }
+        <FetchIndicator fetching={zarizeni.fetching || umisteni.fetching} />
         {/* <span className="btn btn-xs btn-danger"
          onClick={() => self.forceUpdate()}
          > Rerender</span>*/}
