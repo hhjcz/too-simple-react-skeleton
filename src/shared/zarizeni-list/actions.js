@@ -20,32 +20,19 @@ const getSubState = getState => getState().zarizeni
 const updateCollection = () => fetchIds().then(() => fetchCollectionByIds())
 
 /**
- * @param {number} cursorAt
- * @param {boolean} force
- * @returns {Function}
- */
-export function pointCursorTo(cursorAt, force = false) {   // eslint-disable-line no-unused-vars
-  return ({ dispatch }) => {
-    dispatch({ type: POINT_CURSOR_TO, cursorAt })
-
-    return Promise.resolve(null)
-  }
-}
-
-/**
  * @param cursorAt
  * @param force
  * @returns {Function}
  */
 export function fetchOneAt(cursorAt, force = false) {
-
-  return ({ dispatch, getState }) => dispatch(pointCursorTo(cursorAt, force))
-    .then(() => fetchIds())
-    .then(() => {
+  return ({ dispatch, getState }) => {
+    dispatch({ type: POINT_CURSOR_TO, cursorAt })
+    return fetchIds().then(() => {
       const subState = getSubState(getState)
       const id = subState.ids.get(cursorAt - 1) || 1
       return fetchOne({ params: { id }, force })
     })
+  }
 }
 
 /**
@@ -54,13 +41,7 @@ export function fetchOneAt(cursorAt, force = false) {
  */
 export function gotoPage(page) {
   return ({ dispatch }) => {
-
-    dispatch({
-      type: GOTO_PAGE,
-      page
-    })
-
-
+    dispatch({ type: GOTO_PAGE, page })
     return updateCollection()
   }
 }
@@ -71,12 +52,7 @@ export function gotoPage(page) {
  */
 export function setPageSize(perPage) {
   return ({ dispatch }) => {
-
-    dispatch({
-      type: SET_PAGE_SIZE,
-      perPage
-    })
-
+    dispatch({ type: SET_PAGE_SIZE, perPage })
     return updateCollection()
   }
 }
@@ -87,12 +63,7 @@ export function setPageSize(perPage) {
  */
 export function sortChange(sortField) {
   return ({ dispatch }) => {
-
-    dispatch({
-      type: SORT_CHANGE,
-      sortField
-    })
-
+    dispatch({ type: SORT_CHANGE, sortField })
     return updateCollection()
   }
 }
@@ -103,11 +74,7 @@ export function sortChange(sortField) {
  */
 export function filterChange(filter) {
   return ({ dispatch }) => {
-    dispatch({
-      type: FILTER_CHANGE,
-      filter
-    })
-
+    dispatch({ type: FILTER_CHANGE, filter })
     return updateCollection()
   }
 }
@@ -118,11 +85,7 @@ export function filterChange(filter) {
  */
 export function generalParamChange(paramObj) {
   return ({ dispatch }) => {
-    dispatch({
-      type: GENERAL_PARAM_CHANGE,
-      paramObj
-    })
-
+    dispatch({ type: GENERAL_PARAM_CHANGE, paramObj })
     return updateCollection()
   }
 }
