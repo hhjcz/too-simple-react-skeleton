@@ -14,15 +14,15 @@ describe('actionCreatorsFor', () => {
   })
 
   it('should create action creators', () => {
-    expect(typeof actionCreators.fetchAllRequested).to.equal('function')
-    expect(typeof actionCreators.fetchAllSuccess).to.equal('function')
-    expect(typeof actionCreators.fetchAllError).to.equal('function')
+    expect(typeof actionCreators.fetchCollectionRequested).to.equal('function')
+    expect(typeof actionCreators.fetchCollectionSuccess).to.equal('function')
+    expect(typeof actionCreators.fetchCollectionError).to.equal('function')
   })
 
   it('should create valid action creators', () => {
-    expect(actionCreators.fetchAllRequested().type).to.equal(actionTypes.fetchAllRequested)
-    expect(actionCreators.fetchAllSuccess().type).to.equal(actionTypes.fetchAllSuccess)
-    expect(actionCreators.fetchAllError().type).to.equal(actionTypes.fetchAllError)
+    expect(actionCreators.fetchCollectionRequested().type).to.equal(actionTypes.fetchCollectionRequested)
+    expect(actionCreators.fetchCollectionSuccess().type).to.equal(actionTypes.fetchCollectionSuccess)
+    expect(actionCreators.fetchCollectionError().type).to.equal(actionTypes.fetchCollectionError)
   })
 
 })

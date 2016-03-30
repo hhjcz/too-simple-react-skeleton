@@ -14,10 +14,10 @@ module.exports = {
   ...rest.actions.zarizeni,
 }
 
-const { fetchAll, fetchAllByIds, fetchIds, fetchOne } = rest.actions.zarizeni
+const { fetchIds, fetchCollectionByIds, fetchOne } = rest.actions.zarizeni
 
 const getSubState = getState => getState().zarizeni
-const updateCollection = (projectToLocation = false) => fetchIds().then(() => fetchAllByIds())
+const updateCollection = (projectToLocation = false) => fetchIds().then(() => fetchCollectionByIds())
 
 /**
  * @param {number} cursorAt

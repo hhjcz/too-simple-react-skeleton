@@ -31,7 +31,7 @@ describe('zarizeni-list actions', () => {
     rest.use('dispatch', dispatch)
 
     it('should handle null response', () =>
-      dispatch(actions.fetchAll()).then(() => {
+      dispatch(actions.fetchCollection()).then(() => {
         expect(state).to.be.instanceOf(Record)
         expect(state.items).to.be.instanceOf(List)
         expect(state.fetching).to.be.false

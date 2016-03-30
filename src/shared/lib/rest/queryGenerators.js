@@ -66,8 +66,8 @@ function item(state, extraParams = {}) { // eslint-disable-line no-unused-vars
 }
 
 const queryGenerators = {
-  fetchAll: collection,
-  fetchAllByIds: collectionByIds,
+  fetchCollection: collection,
+  fetchCollectionByIds: collectionByIds,
   fetchIds: collection,
   fetchOne: item,
 }

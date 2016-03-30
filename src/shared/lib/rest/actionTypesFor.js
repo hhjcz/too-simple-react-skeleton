@@ -22,13 +22,13 @@ function addGroup(resource, group) {
   return actionTypes
 }
 
-/** @typedef  {{fetchAllRequested, fetchAllSuccess, fetchAllError, fetchOneRequested, fetchOneSuccess, fetchOneError}} ActionTypes */
+/** @typedef  {{fetchCollectionRequested, fetchCollectionSuccess, fetchCollectionError, fetchOneRequested, fetchOneSuccess, fetchOneError}} ActionTypes */
 /**
  * @param resource
  * @returns {ActionTypes}
  */
 export function actionTypesFor(resource) {
-  const actionTypes = ['fetchAll', 'fetchAllByIds', 'fetchIds', 'fetchOne', 'create', 'update', 'destroy'].reduce(
+  const actionTypes = ['fetchCollection', 'fetchCollectionByIds', 'fetchIds', 'fetchOne', 'create', 'update', 'destroy'].reduce(
     (result, key) => ({
       ...result,
       ...addGroup(resource, key)

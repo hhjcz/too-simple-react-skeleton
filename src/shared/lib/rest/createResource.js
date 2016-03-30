@@ -44,14 +44,14 @@ export default function createResource(resourceName, _config, fetchHolder) {
     return fetchMethod
   }
 
-  const fetchAll = createMethod('fetchAll')
+  const fetchCollection = createMethod('fetchCollection')
   const fetchOne = createMethod('fetchOne')
   const create = createMethod('create', 'POST')
   const update = createMethod('update', 'PATCH')
   const destroy = createMethod('destroy', 'DELETE')
 
   return {
-    fetchAll,
+    fetchCollection,
     fetchOne,
     create,
     update,

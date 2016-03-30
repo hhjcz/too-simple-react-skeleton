@@ -32,7 +32,7 @@ function item(response) {
 }
 
 const responseTransformers = {
-  fetchAll: collection,
+  fetchCollection: collection,
   fetchOne: item,
   create: item,
   update: item,

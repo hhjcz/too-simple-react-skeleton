@@ -40,11 +40,11 @@ describe('myRest library', () => {
 
   it('should create actions', () => {
     const { actions, reducers } = rest
-    expect(typeof actions.someEndpoint.fetchAll).to.equal('function')
+    expect(typeof actions.someEndpoint.fetchCollection).to.equal('function')
     expect(typeof reducers.someEndpoint).to.equal('function')
   })
 
   it('should use provided fetch', () => {
-    dispatch(rest.actions.someEndpoint.fetchAll())
+    dispatch(rest.actions.someEndpoint.fetchCollection())
   })
 })

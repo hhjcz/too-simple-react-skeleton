@@ -8,7 +8,7 @@ import { Sort } from '../../../app/models/Sort'
 import { Pagination } from '../../../app/models/Pagination'
 
 describe('rest library queryGenerators', () => {
-  const { fetchAll: collectionGenerator, fetchOne: itemGenerator } = queryGenerators
+  const { fetchCollection: collectionGenerator, fetchOne: itemGenerator } = queryGenerators
 
   it('should generate query params', () => {
     const someFilter1 = new Filter({ name: 'nejakyFilter1', value: 'hodnotaFiltru1' })

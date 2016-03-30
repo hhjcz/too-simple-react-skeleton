@@ -66,24 +66,24 @@ export default function createRestAction(endpointName, config, actionCreators, f
     }
   }
 
-  const fetchAll = createAction('fetchAll')
-  const fetchAllByIds = createAction('fetchAllByIds', 'fetchAll')
-  // fetchIds as a special case of fetchAll:
-  const fetchIds = createAction('fetchIds', 'fetchAll', {
+  // fetchIds uses fetchCollection resource with predefined params:
+  const fetchIds = createAction('fetchIds', 'fetchCollection', {
     _fields: 'id',
     page: 1,
     per_page: 10000000,
     include: null
   })
+  const fetchCollection = createAction('fetchCollection')
+  const fetchCollectionByIds = createAction('fetchCollectionByIds', 'fetchCollection')
   const fetchOne = createAction('fetchOne')
   const create = createAction('create')
   const update = createAction('update')
   const destroy = createAction('destroy')
 
   return {
-    fetchAll,
-    fetchAllByIds,
     fetchIds,
+    fetchCollection,
+    fetchCollectionByIds,
     fetchOne,
     create,
     update,

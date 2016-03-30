@@ -46,7 +46,7 @@ export default class Umistovani extends React.Component {
     if (lokalitaHint.ixlok) params.ixlok = `${lokalitaHint.ixlok}`
     if (lokalitaHint.op) params.op = `${lokalitaHint.op}`
 
-    actions.umisteni.fetchAll({ params }).catch(error => console.info(error))
+    actions.umisteni.fetchCollection({ params }).catch(error => console.info(error))
   }
 
   umistitZarizeni(umisteni) {

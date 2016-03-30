@@ -33,7 +33,7 @@ export class Container extends React.Component {
 
   static fetchZarizeni({ params, dispatch, getState, force }) {
     return actions.fetchIds({ params, projectToLocation: false })
-      .then(() => actions.fetchAllByIds({ params }))
+      .then(() => actions.fetchCollectionByIds({ params }))
   }
 
   constructor(props) {

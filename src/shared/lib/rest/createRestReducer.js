@@ -6,7 +6,7 @@ import Immutable, { List, Record, Map } from 'immutable'
 
 export const InitialState = Record({
   fetching: false,
-  lastFetchMark: { fetchAll: null, fetchOne: null },
+  lastFetchMark: { fetchCollection: null, fetchOne: null },
   ids: List(),
   items: List(),
   item: {},
@@ -45,18 +45,18 @@ export default function createRestReducer(endpointName, config = {}, actionTypes
 
     // TODO - refactor!
     switch (action.type) {
-      case actionTypes.fetchAllRequested:
-      case actionTypes.fetchAllByIdsRequested:
+      case actionTypes.fetchCollectionRequested:
+      case actionTypes.fetchCollectionByIdsRequested:
       case actionTypes.fetchIdsRequested:
       case actionTypes.fetchOneRequested:
       case actionTypes.createRequested:
       case actionTypes.updateRequested:
         return state.set('fetching', true)
 
-      case actionTypes.fetchAllSuccess:
+      case actionTypes.fetchCollectionSuccess:
         return state.set('items', List(action.data).map(itemTransformer))
           .set('fetching', false)
-          .update('lastFetchMark', lastFetchMark => ({ ...lastFetchMark, fetchAll: action.meta.lastFetchMark }))
+          .update('lastFetchMark', lastFetchMark => ({ ...lastFetchMark, fetchCollection: action.meta.lastFetchMark }))
           // .update('pagination', pagination => {   // eslint-disable-line arrow-body-style
           //   return action.meta.pagination
           //     ? new Pagination({ ...pagination.toObject(), ...action.meta.pagination })
@@ -68,10 +68,10 @@ export default function createRestReducer(endpointName, config = {}, actionTypes
               : sort
           })
 
-      case actionTypes.fetchAllByIdsSuccess:
+      case actionTypes.fetchCollectionByIdsSuccess:
         return state.set('items', List(action.data).map(itemTransformer))
           .set('fetching', false)
-          .update('lastFetchMark', lastFetchMark => ({ ...lastFetchMark, fetchAllByIds: action.meta.lastFetchMark }))
+          .update('lastFetchMark', lastFetchMark => ({ ...lastFetchMark, fetchCollectionByIds: action.meta.lastFetchMark }))
 
       case actionTypes.fetchIdsSuccess:
         return state.set('ids', Immutable.fromJS(action.data).map(item => item.get('id')))
@@ -85,10 +85,10 @@ export default function createRestReducer(endpointName, config = {}, actionTypes
             }) : pagination
           })
 
-      case actionTypes.fetchAllError:
+      case actionTypes.fetchCollectionError:
         return state.set('items', List([]))
           .set('fetching', false)
-          .update('lastFetchMark', lastFetchMark => ({ ...lastFetchMark, fetchAll: '' }))
+          .update('lastFetchMark', lastFetchMark => ({ ...lastFetchMark, fetchCollection: '' }))
 
       case actionTypes.fetchOneSuccess:
         return state.set('item', itemTransformer(action.data))

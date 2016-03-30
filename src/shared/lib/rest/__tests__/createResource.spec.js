@@ -7,7 +7,7 @@ describe('myRest library createResource', () => {
   it('should create resource', () => {
     const resource = createResource('someResource')
     expect(typeof resource).to.equal('object')
-    expect(typeof resource.fetchAll).to.equal('function')
+    expect(typeof resource.fetchCollection).to.equal('function')
   })
 
   it('should return promise', () => {

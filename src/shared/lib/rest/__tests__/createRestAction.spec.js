@@ -32,7 +32,9 @@ describe('rest lib createRestAction', () => {
 
   it('should create rest actions', () => {
     const actions = createRestAction(endpointName, config, actionCreators, fnHolder)
-    expect(typeof actions.fetchAll).to.equal('function')
+    expect(typeof actions.fetchIds).to.equal('function')
+    expect(typeof actions.fetchCollection).to.equal('function')
+    expect(typeof actions.fetchCollectionByIds).to.equal('function')
     expect(typeof actions.fetchOne).to.equal('function')
     expect(typeof actions.create).to.equal('function')
     expect(typeof actions.update).to.equal('function')
@@ -41,7 +43,7 @@ describe('rest lib createRestAction', () => {
 
   it('should handle params', () => {
     const actions = createRestAction(endpointName, config, actionCreators, fnHolder)
-    const promise = actions.fetchAll({ params: { someParam: 'someValue' } })
+    const promise = actions.fetchCollection({ params: { someParam: 'someValue' } })
     const expectedUrl = '/povidky?include=subresource.subsubresource&other_extra_param=someValue&some_param=someValue'  // eslint-disable-line max-len
 
     expect(fetchBuffer.url).to.equal(expectedUrl)
