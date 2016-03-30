@@ -20,12 +20,21 @@ export class Container extends React.Component {
     filters: PropTypes.object.isRequired,
     generalParams: PropTypes.object.isRequired,
     actions: PropTypes.object.isRequired,
+    params: PropTypes.object,
+    dispatch: PropTypes.func,
   };
 
   static defaultProps = {};
 
   // server and client side fetch actions (see render.jsx & componentDidMount):
-  static fetchActions = [actions.fetchAll];
+  static get fetchActions() {
+    return [Container.fetchZarizeni]
+  };
+
+  static fetchZarizeni({ params, dispatch, getState, force }) {
+    return actions.fetchIds({ params, projectToLocation: false })
+      .then(() => actions.fetchAllByIds({ params }))
+  }
 
   constructor(props) {
     super(props)
@@ -36,7 +45,11 @@ export class Container extends React.Component {
 
   // browser fetching:
   componentDidMount() {
-    Container.fetchActions.forEach((action) => action({ projectToLocation: true }))
+    Container.fetchActions.forEach(action => action({
+      params: this.props.params,
+      dispatch: this.props.dispatch,
+      getState: () => this.props
+    }))
   }
 
   onSortChange(sortField) {

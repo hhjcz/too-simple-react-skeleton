@@ -14,9 +14,10 @@ module.exports = {
   ...rest.actions.zarizeni,
 }
 
-const { fetchAll, fetchOne } = rest.actions.zarizeni
+const { fetchAll, fetchAllByIds, fetchIds, fetchOne } = rest.actions.zarizeni
 
 const getSubState = getState => getState().zarizeni
+const updateCollection = (projectToLocation = false) => fetchIds().then(() => fetchAllByIds())
 
 /**
  * @param {number} cursorAt
@@ -34,14 +35,7 @@ export function pointCursorTo(cursorAt, projectToLocation = false, force = false
       cursorAt
     })
 
-    let promise
-    if (true || currentPage !== getSubState(getState).pagination.page) {
-      promise = fetchAll({ projectToLocation })
-    } else {
-      promise = Promise.resolve(null)
-    }
-
-    return promise
+    return Promise.resolve(null)
   }
 }
 
@@ -52,13 +46,13 @@ export function pointCursorTo(cursorAt, projectToLocation = false, force = false
  * @returns {Function}
  */
 export function fetchOneAt(cursorAt, projectToLocation = false, force = false) {
+
   return ({ dispatch, getState }) => dispatch(pointCursorTo(cursorAt, projectToLocation, force))
+    .then(() => fetchIds())
     .then(() => {
       const subState = getSubState(getState)
-      const { page, perPage } = subState.pagination
-      const item = subState.items.get(cursorAt - (page - 1) * perPage - 1)
-
-      return fetchOne({ params: { id: item.id }, force })
+      const id = subState.ids.get(cursorAt - 1) || 1
+      return fetchOne({ params: { id }, force })
     })
 }
 
@@ -75,7 +69,8 @@ export function gotoPage(page, projectToLocation = false) {
       page
     })
 
-    return fetchAll({ projectToLocation })
+
+    return updateCollection(projectToLocation)
   }
 }
 
@@ -92,7 +87,7 @@ export function setPageSize(perPage, projectToLocation = false) {
       perPage
     })
 
-    return fetchAll({ projectToLocation })
+    return updateCollection(projectToLocation)
   }
 }
 
@@ -109,7 +104,7 @@ export function sortChange(sortField, projectToLocation = false) {
       sortField
     })
 
-    return fetchAll({ projectToLocation })
+    return updateCollection(projectToLocation)
   }
 }
 
@@ -125,7 +120,7 @@ export function filterChange(filter, projectToLocation = false) {
       filter
     })
 
-    return fetchAll({ projectToLocation })
+    return updateCollection(projectToLocation)
   }
 }
 
@@ -141,6 +136,6 @@ export function generalParamChange(paramObj, projectToLocation = false) {
       paramObj
     })
 
-    return fetchAll({ projectToLocation })
+    return updateCollection(projectToLocation)
   }
 }

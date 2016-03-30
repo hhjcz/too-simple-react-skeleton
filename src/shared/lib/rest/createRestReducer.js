@@ -2,11 +2,12 @@
 /* eslint-disable max-len */
 import { Pagination } from '../../app/models/Pagination'
 import { Sort } from '../../app/models/Sort'
-import { List, Record, Map } from 'immutable'
+import Immutable, { List, Record, Map } from 'immutable'
 
 export const InitialState = Record({
   fetching: false,
   lastFetchMark: { fetchAll: null, fetchOne: null },
+  ids: List(),
   items: List(),
   item: {},
   pagination: new Pagination(),
@@ -21,11 +22,12 @@ export default function createRestReducer(endpointName, config = {}, actionTypes
   const initialState = new InitialState(config.defaultState || {})
 
   // Note how JSON from server is revived to immutable record.
-  const revive = ({ fetching, lastFetchMark, items, item, pagination, sort, filters, generalParams }) => {
+  const revive = ({ fetching, lastFetchMark, ids, items, item, pagination, sort, filters, generalParams }) => {
     const mergeObj = {
       fetching,
       lastFetchMark,
     }
+    if (ids) mergeObj.ids = List(ids)
     if (items) mergeObj.items = List(items).map(itemTransformer)
     if (item) mergeObj.item = itemTransformer(item)
     if (pagination) mergeObj.pagination = new Pagination(pagination)
@@ -41,8 +43,11 @@ export default function createRestReducer(endpointName, config = {}, actionTypes
       return revive(state)
     }
 
+    // TODO - refactor!
     switch (action.type) {
       case actionTypes.fetchAllRequested:
+      case actionTypes.fetchAllByIdsRequested:
+      case actionTypes.fetchIdsRequested:
       case actionTypes.fetchOneRequested:
       case actionTypes.createRequested:
       case actionTypes.updateRequested:
@@ -52,15 +57,32 @@ export default function createRestReducer(endpointName, config = {}, actionTypes
         return state.set('items', List(action.data).map(itemTransformer))
           .set('fetching', false)
           .update('lastFetchMark', lastFetchMark => ({ ...lastFetchMark, fetchAll: action.meta.lastFetchMark }))
-          .update('pagination', pagination => {   // eslint-disable-line arrow-body-style
-            return action.meta.pagination
-              ? new Pagination({ ...pagination.toObject(), ...action.meta.pagination })
-              : pagination
-          })
+          // .update('pagination', pagination => {   // eslint-disable-line arrow-body-style
+          //   return action.meta.pagination
+          //     ? new Pagination({ ...pagination.toObject(), ...action.meta.pagination })
+          //     : pagination
+          // })
           .update('sort', sort => {   // eslint-disable-line arrow-body-style
             return action.meta.sort
               ? new Sort(action.meta.sort)
               : sort
+          })
+
+      case actionTypes.fetchAllByIdsSuccess:
+        return state.set('items', List(action.data).map(itemTransformer))
+          .set('fetching', false)
+          .update('lastFetchMark', lastFetchMark => ({ ...lastFetchMark, fetchAllByIds: action.meta.lastFetchMark }))
+
+      case actionTypes.fetchIdsSuccess:
+        return state.set('ids', Immutable.fromJS(action.data).map(item => item.get('id')))
+          .set('fetching', false)
+          .update('lastFetchMark', lastFetchMark => ({ ...lastFetchMark, fetchIds: action.meta.lastFetchMark }))
+          .update('pagination', pagination => {   // eslint-disable-line arrow-body-style
+            return action.meta.pagination ? new Pagination({
+              ...pagination.toObject(),
+              total: action.meta.pagination.total,
+              totalPages: Math.ceil(action.meta.pagination.total / pagination.toObject().perPage)
+            }) : pagination
           })
 
       case actionTypes.fetchAllError:

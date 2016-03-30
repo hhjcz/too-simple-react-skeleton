@@ -18,7 +18,9 @@ export default function createRestAction(endpointName, config, actionCreators, f
   const resource = createResource(endpointName, config, fnHolder)
   const extraParams = decamelizeKeys(config.extraParams)
 
-  const createAction = actionName => {
+  const createAction = (actionName, fetchMethod = null, methodExtraParams = {}) => {
+    if (!fetchMethod) fetchMethod = actionName
+
     const subActionCreators = {
       requested: actionCreators[`${actionName}Requested`],
       success: actionCreators[`${actionName}Success`],
@@ -34,8 +36,8 @@ export default function createRestAction(endpointName, config, actionCreators, f
       return fnHolder.dispatch(({ dispatch, getState, history }) => {
 
         const state = getThisSubState(getState)
-        const queryParams = { ...queryGenerator(state), ...extraParams, ...decamelizeKeys(params) }
-        const { fetchUrl, executeFetch } = resource[actionName](queryParams, body)
+        const queryParams = { ...queryGenerator(state), ...extraParams, ...decamelizeKeys(params), ...methodExtraParams }
+        const { fetchUrl, executeFetch } = resource[fetchMethod](queryParams, body)
 
         let lastFetchMark = null
         if (state.lastFetchMark) {
@@ -65,6 +67,14 @@ export default function createRestAction(endpointName, config, actionCreators, f
   }
 
   const fetchAll = createAction('fetchAll')
+  const fetchAllByIds = createAction('fetchAllByIds', 'fetchAll')
+  // fetchIds as a special case of fetchAll:
+  const fetchIds = createAction('fetchIds', 'fetchAll', {
+    _fields: 'id',
+    page: 1,
+    per_page: 10000000,
+    include: null
+  })
   const fetchOne = createAction('fetchOne')
   const create = createAction('create')
   const update = createAction('update')
@@ -72,6 +82,8 @@ export default function createRestAction(endpointName, config, actionCreators, f
 
   return {
     fetchAll,
+    fetchAllByIds,
+    fetchIds,
     fetchOne,
     create,
     update,

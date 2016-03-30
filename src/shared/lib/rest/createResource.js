@@ -10,8 +10,8 @@ const defaultConfig = () => ({
 export default function createResource(resourceName, _config, fetchHolder) {
   const config = { ...defaultConfig(), ..._config }
 
-  const createAction = (actionName, method = 'GET') => {
-    const responseTransformer = config.responseTransformers[actionName]
+  const createMethod = (methodName, method = 'GET') => {
+    const responseTransformer = config.responseTransformers[methodName]
 
     const fetchMethod = (params = {}, body = {}) => {
       const url = serializeParamsToUrl(config.url, params)
@@ -44,11 +44,11 @@ export default function createResource(resourceName, _config, fetchHolder) {
     return fetchMethod
   }
 
-  const fetchAll = createAction('fetchAll')
-  const fetchOne = createAction('fetchOne')
-  const create = createAction('create', 'POST')
-  const update = createAction('update', 'PATCH')
-  const destroy = createAction('destroy', 'DELETE')
+  const fetchAll = createMethod('fetchAll')
+  const fetchOne = createMethod('fetchOne')
+  const create = createMethod('create', 'POST')
+  const update = createMethod('update', 'PATCH')
+  const destroy = createMethod('destroy', 'DELETE')
 
   return {
     fetchAll,
