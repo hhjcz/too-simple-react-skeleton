@@ -39,7 +39,7 @@ export class Container extends React.Component {
   static fetchZarizeni({ params, dispatch, getState, force }) {
     const cursorAt = parseInt(params.cursorAt) || 1
 
-    const promise = dispatch(actions.zarizeniList.fetchOneAt(cursorAt, false, force))
+    const promise = dispatch(actions.zarizeniList.fetchOneAt(cursorAt, force))
       .then(() => {
         const zarizeniId = getState().zarizeni.item.id
         if (!(zarizeniId > 0)) {
