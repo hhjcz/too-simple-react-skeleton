@@ -9,12 +9,6 @@ import queryGenerators from './queryGenerators'
 export default function createRestAction(endpointName, config, actionCreators, fnHolder) {
   const getThisSubState = getSubState(endpointName)
 
-  // projects fetch url to window location (via history),
-  // so that on page reload it can be used on server for initial state
-  const projectFetchUrlToLocation = (history, search) => {
-    history.push({ pathname: window.location.pathname, search })
-  }
-
   const resource = createResource(endpointName, config, fnHolder)
   const extraParams = decamelizeKeys(config.extraParams)
 
@@ -29,11 +23,10 @@ export default function createRestAction(endpointName, config, actionCreators, f
     const queryGenerator = queryGenerators[actionName] || (() => ({}))
 
     /* eslint-disable arrow-body-style */
-    return ({ params, body, projectToLocation, force } = {}) => {
-      if (projectToLocation == null) projectToLocation = false // eslint-disable-line
+    return ({ params, body, force } = {}) => {
       if (force == null) force = false // eslint-disable-line
 
-      return fnHolder.dispatch(({ dispatch, getState, history }) => {
+      return fnHolder.dispatch(({ dispatch, getState }) => {
 
         const state = getThisSubState(getState)
         const queryParams = { ...queryGenerator(state), ...extraParams, ...decamelizeKeys(params), ...methodExtraParams }
@@ -46,9 +39,6 @@ export default function createRestAction(endpointName, config, actionCreators, f
           lastFetchMark = lastFetchMarkObj[actionName]
         }
         if (!force && lastFetchMark === fetchUrl) return Promise.resolve(null) // no need to refetch
-        if (history && projectToLocation) {
-          projectFetchUrlToLocation(history, urlParse(fetchUrl).search)
-        }
 
         dispatch(subActionCreators.requested())
 

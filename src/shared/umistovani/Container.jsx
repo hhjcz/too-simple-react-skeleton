@@ -48,7 +48,6 @@ export class Container extends React.Component {
 
         return actions.umisteni.fetchCollection({
           params: { zarizeniId },
-          projectToLocation: false,
           force
         })
       })

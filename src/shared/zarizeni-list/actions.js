@@ -17,23 +17,16 @@ module.exports = {
 const { fetchIds, fetchCollectionByIds, fetchOne } = rest.actions.zarizeni
 
 const getSubState = getState => getState().zarizeni
-const updateCollection = (projectToLocation = false) => fetchIds().then(() => fetchCollectionByIds())
+const updateCollection = () => fetchIds().then(() => fetchCollectionByIds())
 
 /**
  * @param {number} cursorAt
- * @param {boolean} projectToLocation
  * @param {boolean} force
  * @returns {Function}
  */
-export function pointCursorTo(cursorAt, projectToLocation = false, force = false) {   // eslint-disable-line no-unused-vars
-  return ({ dispatch, getState }) => {
-
-    const currentPage = getSubState(getState).pagination.page
-
-    dispatch({
-      type: POINT_CURSOR_TO,
-      cursorAt
-    })
+export function pointCursorTo(cursorAt, force = false) {   // eslint-disable-line no-unused-vars
+  return ({ dispatch }) => {
+    dispatch({ type: POINT_CURSOR_TO, cursorAt })
 
     return Promise.resolve(null)
   }
@@ -41,13 +34,12 @@ export function pointCursorTo(cursorAt, projectToLocation = false, force = false
 
 /**
  * @param cursorAt
- * @param projectToLocation
  * @param force
  * @returns {Function}
  */
-export function fetchOneAt(cursorAt, projectToLocation = false, force = false) {
+export function fetchOneAt(cursorAt, force = false) {
 
-  return ({ dispatch, getState }) => dispatch(pointCursorTo(cursorAt, projectToLocation, force))
+  return ({ dispatch, getState }) => dispatch(pointCursorTo(cursorAt, force))
     .then(() => fetchIds())
     .then(() => {
       const subState = getSubState(getState)
@@ -58,10 +50,9 @@ export function fetchOneAt(cursorAt, projectToLocation = false, force = false) {
 
 /**
  * @param {number} page
- * @param projectToLocation
  * @returns {Function}
  */
-export function gotoPage(page, projectToLocation = false) {
+export function gotoPage(page) {
   return ({ dispatch }) => {
 
     dispatch({
@@ -70,16 +61,15 @@ export function gotoPage(page, projectToLocation = false) {
     })
 
 
-    return updateCollection(projectToLocation)
+    return updateCollection()
   }
 }
 
 /**
  * @param {number} perPage
- * @param projectToLocation
  * @returns {Function}
  */
-export function setPageSize(perPage, projectToLocation = false) {
+export function setPageSize(perPage) {
   return ({ dispatch }) => {
 
     dispatch({
@@ -87,16 +77,15 @@ export function setPageSize(perPage, projectToLocation = false) {
       perPage
     })
 
-    return updateCollection(projectToLocation)
+    return updateCollection()
   }
 }
 
 /**
  * @param {string} sortField
- * @param projectToLocation
  * @returns {Function}
  */
-export function sortChange(sortField, projectToLocation = false) {
+export function sortChange(sortField) {
   return ({ dispatch }) => {
 
     dispatch({
@@ -104,38 +93,36 @@ export function sortChange(sortField, projectToLocation = false) {
       sortField
     })
 
-    return updateCollection(projectToLocation)
+    return updateCollection()
   }
 }
 
 /**
  * @param {Filter} filter
- * @param projectToLocation
  * @returns {Function}
  */
-export function filterChange(filter, projectToLocation = false) {
+export function filterChange(filter) {
   return ({ dispatch }) => {
     dispatch({
       type: FILTER_CHANGE,
       filter
     })
 
-    return updateCollection(projectToLocation)
+    return updateCollection()
   }
 }
 
 /**
  * @param {object} paramObj
- * @param {boolean} projectToLocation
  * @returns {Function}
  */
-export function generalParamChange(paramObj, projectToLocation = false) {
+export function generalParamChange(paramObj) {
   return ({ dispatch }) => {
     dispatch({
       type: GENERAL_PARAM_CHANGE,
       paramObj
     })
 
-    return updateCollection(projectToLocation)
+    return updateCollection()
   }
 }
