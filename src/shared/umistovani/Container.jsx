@@ -2,14 +2,12 @@
 import React, { PropTypes } from 'react'
 import { connect } from 'react-redux'
 import { Pagination } from 'react-bootstrap'
-import IconButton from 'material-ui/lib/icon-button'
 import createMapStateToProps from '../lib/createMapStateToProps'
 import createMapDispatchToProps from '../lib/createMapDispatchToProps'
 import actions from './actions'
-import MyIcon from '../lib/MyIcon'
 import Umistovani from './Umistovani'
 import FetchIndicator from './FetchIndicator'
-import * as muiColors from 'material-ui/lib/styles/colors'
+import Navigation from './Navigation'
 
 export class Container extends React.Component {
 
@@ -88,44 +86,25 @@ export class Container extends React.Component {
 
   render() {
     const self = this
-    const { zarizeni, umisteni, actions } = this.props
-    const seznamUmisteni = umisteni.items
-    const cursorAt = zarizeni.pagination.cursorAt
+    const { zarizeni: zarizeniResource, umisteni: umisteniResource, actions } = this.props
+    const { items: seznamUmisteni } = umisteniResource
+    const { item: zarizeni, pagination: { cursorAt, total: zarizeniCount } } = zarizeniResource
+
     return (
       <div id="zarizeni-list">
         <Pagination
-          items={zarizeni.pagination.total} activePage={cursorAt}
+          items={zarizeniCount} activePage={cursorAt}
           prev next first last ellipsis bsSize="small" maxButtons={9}
           onSelect={function(event, selectedEvent) { self.onCursorChange(selectedEvent.eventKey) }}
         />
-        {
-          zarizeni.item.id > 0 ?
-            <Umistovani zarizeni={zarizeni.item} seznamUmisteni={seznamUmisteni}
-              actions={{ ...actions, reload: self.reload }}
-            />
-            : ''
-        }
-        <div style={{ display: 'flex', justifyContent: 'flex-start' }}>
-          <IconButton tooltip="previous"
-            onTouchTap={function() { self.onCursorChange(cursorAt > 1 ? cursorAt - 1 : 1) }}
-          >
-            <MyIcon color={muiColors.blueGrey600}>arrow_back</MyIcon>
-          </IconButton>
-          <IconButton tooltip="reload" onTouchTap={function() { self.reload() }}>
-            <MyIcon color={muiColors.blueGrey800}>autorenew</MyIcon>
-          </IconButton>
-          <IconButton tooltip="next"
-            onTouchTap={function() {
-              self.onCursorChange(cursorAt < zarizeni.pagination.total ? cursorAt + 1 : cursorAt)
-            }}
-          >
-            <MyIcon color={muiColors.blueGrey800}>arrow_forward</MyIcon>
-          </IconButton>
-        </div>
-        <FetchIndicator fetching={zarizeni.fetching || umisteni.fetching} />
-        {/* <span className="btn btn-xs btn-danger"
-         onClick={() => self.forceUpdate()}
-         > Rerender</span>*/}
+        <Umistovani zarizeni={zarizeni} seznamUmisteni={seznamUmisteni}
+          actions={{ ...actions, reload: self.reload }}
+        />
+        <Navigation cursorAt={cursorAt} total={zarizeniResource.pagination.total}
+          onCursorChange={self.onCursorChange} reload={self.reload}
+        />
+        <FetchIndicator fetching={zarizeniResource.fetching || umisteniResource.fetching} />
+        {/* <span className="btn btn-xs btn-danger" onClick={() => self.forceUpdate()} > Rerender</span>*/}
       </div>
     )
   }
