@@ -5,21 +5,22 @@ import AutoComplete from 'react-autocomplete'
 import { Glyphicon } from 'react-bootstrap'
 
 const renderItems = items => items.map((item, index) => {
+  const group = item.props.group
   const text = item.props.children
-  if (index === 0 || items[index - 1].props.children.charAt(0) !== text.charAt(0)) {
+  if (index === 0 || items[index - 1].props.group !== group) {
     const style = {
       background: '#eee',
       color: '#454545',
       padding: '2px 0.4em',
       fontWeight: 'bold'
     }
-    return [<div style={style}>{text.charAt(0).toUpperCase()}</div>, item]
+    return [<div style={style}>{group.toUpperCase()}</div>, item]
   }
 
   return item
 })
 
-const renderItem = item => <div style={{ padding: '0.1em 0.8em' }} key={item}>{item}</div>
+const renderItem = item => <div style={{ padding: '0.1em 0.8em' }} key={item.value} group={item.group}>{item.value}</div>
 
 
 export default class MyAutoComplete extends React.Component {
@@ -55,7 +56,7 @@ export default class MyAutoComplete extends React.Component {
 
   renderMenu(items, value, style) {
     return (
-      <div style={{ position: 'fixed', background: 'white', ...style, zIndex: 500 }}>
+      <div style={{ position: 'fixed', background: 'white', ...style }}>
         {value === '' ? (
           /* <div style={{ padding: '0.8em' }}></div>*/
           null
@@ -79,7 +80,7 @@ export default class MyAutoComplete extends React.Component {
           value={value}
           inputProps={{ className: 'form-control', draggable }}
           items={this.state.autoCompleteValues}
-          getItemValue={item => item}
+          getItemValue={item => item.value}
           renderItem={renderItem}
           renderMenu={self.renderMenu}
           onChange={function(e, value) { onChange(value) }}

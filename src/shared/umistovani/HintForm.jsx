@@ -42,7 +42,9 @@ export default class HintForm extends React.Component {
   getAutoCompleteValues(label) {
     switch (label) {
       case 'akrlok':
-        return value => this.props.akrloks.filter(akrlok => akrlok.indexOf(value.toLowerCase()) > -1)
+        return value => this.props.akrloks
+          .filter(lokalita => lokalita.akrlok.toLowerCase().indexOf(value.toLowerCase()) > -1)
+          .map(lokalita => ({ value: lokalita.akrlok, group: lokalita.obec }))
 
       default:
         return () => []

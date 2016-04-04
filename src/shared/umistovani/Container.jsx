@@ -2,6 +2,7 @@
 import React, { PropTypes } from 'react'
 import { connect } from 'react-redux'
 import { Pagination } from 'react-bootstrap'
+import uniqBy from 'lodash/uniqBy'
 import createMapStateToProps from '../lib/createMapStateToProps'
 import createMapDispatchToProps from '../lib/createMapDispatchToProps'
 import actions from './actions'
@@ -91,6 +92,7 @@ export class Container extends React.Component {
     const { zarizeni: zarizeniResource, umisteni: umisteniResource, akrloks: akrloksResource, actions } = this.props
     const { items: seznamUmisteni } = umisteniResource
     const { item: zarizeni, pagination: { cursorAt, total: zarizeniCount } } = zarizeniResource
+    const akrloks = akrloksResource.items && akrloksResource.items.toArray ? uniqBy(akrloksResource.items.toArray(), item => item.akrlok) : []
 
     return (
       <div id="zarizeni-list">
@@ -100,7 +102,7 @@ export class Container extends React.Component {
           onSelect={function(event, selectedEvent) { self.onCursorChange(selectedEvent.eventKey) }}
         />
         <Umistovani zarizeni={zarizeni} seznamUmisteni={seznamUmisteni}
-          actions={{ ...actions, reload: self.reload }} akrloks={akrloksResource.items && akrloksResource.items.toArray ? akrloksResource.items.toArray() : []}
+          actions={{ ...actions, reload: self.reload }} akrloks={akrloks}
         />
         <Navigation cursorAt={cursorAt} total={zarizeniCount}
           onCursorChange={self.onCursorChange} reload={self.reload}
