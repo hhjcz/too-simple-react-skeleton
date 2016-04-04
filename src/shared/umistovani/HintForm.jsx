@@ -67,6 +67,7 @@ export default class HintForm extends React.Component {
   }
 
   fetchSeznamUlic(substring) {
+    substring = substring.replace(' ', '')
     if (substring.length < 3) return []
     return this.props.actions.lokalita.fetchCollection({
       params: { 'trimmed_ulice-lk': `${substring}%`, _fields: 'ulice' },

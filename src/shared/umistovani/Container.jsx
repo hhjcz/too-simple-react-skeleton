@@ -92,7 +92,9 @@ export class Container extends React.Component {
     const { zarizeni: zarizeniResource, umisteni: umisteniResource, akrloks: akrloksResource, actions } = this.props
     const { items: seznamUmisteni } = umisteniResource
     const { item: zarizeni, pagination: { cursorAt, total: zarizeniCount } } = zarizeniResource
-    const akrloks = akrloksResource.items && akrloksResource.items.toArray ? uniqBy(akrloksResource.items.toArray(), item => item.akrlok) : []
+    const akrloks = akrloksResource.items && akrloksResource.items.toArray ?
+      uniqBy(akrloksResource.items.toArray(), item => item.akrlok)
+      : []
 
     return (
       <div id="zarizeni-list">

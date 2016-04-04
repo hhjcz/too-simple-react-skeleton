@@ -5,9 +5,10 @@ import AutoComplete from 'react-autocomplete'
 import { Glyphicon } from 'react-bootstrap'
 import debounce from './debounce'
 
+// collection of items as returned by renderItem()
 const renderItems = items => items.map((item, index) => {
   const group = item.props.group
-  const text = item.props.children
+  // const text = item.props.children
   if (index === 0 || items[index - 1].props.group !== group) {
     const style = {
       background: '#eee',
