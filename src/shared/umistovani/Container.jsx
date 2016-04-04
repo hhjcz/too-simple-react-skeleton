@@ -100,7 +100,7 @@ export class Container extends React.Component {
         <Umistovani zarizeni={zarizeni} seznamUmisteni={seznamUmisteni}
           actions={{ ...actions, reload: self.reload }}
         />
-        <Navigation cursorAt={cursorAt} total={zarizeniResource.pagination.total}
+        <Navigation cursorAt={cursorAt} total={zarizeniCount}
           onCursorChange={self.onCursorChange} reload={self.reload}
         />
         <FetchIndicator fetching={zarizeniResource.fetching || umisteniResource.fetching} />
