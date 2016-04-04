@@ -11,19 +11,26 @@ export default class HintForm extends React.Component {
     lokalitaHint: PropTypes.object.isRequired,
     searchForUmisteni: PropTypes.func.isRequired,
     akrloks: PropTypes.array,
+    actions: PropTypes.object.isRequired,
   };
 
   static defaultProps = {
     lokalitaHint: {},
     searchForUmisteni() {
     },
+    actions: {},
   };
 
   constructor(props) {
     super(props)
     this.state = this.props.lokalitaHint
     this.onInputChange = this.onInputChange.bind(this)
-    this.getAutoCompleteValues = this.getAutoCompleteValues.bind(this)
+    this.getAutoCompleteValuesFn = this.getAutoCompleteValuesFn.bind(this)
+
+    this.fetchSeznamAkrloks = this.fetchSeznamAkrloks.bind(this)
+    this.fetchSeznamAkrloks()
+
+    this.fetchSeznamUlic = this.fetchSeznamUlic.bind(this)
   }
 
   componentWillReceiveProps(nextProps) {
@@ -39,8 +46,11 @@ export default class HintForm extends React.Component {
     this.setState(newState)
   }
 
-  getAutoCompleteValues(label) {
+  getAutoCompleteValuesFn(label) {
     switch (label) {
+      case 'ulice':
+        return value => this.fetchSeznamUlic(value)
+
       case 'akrlok':
         return value => this.props.akrloks
           .filter(lokalita => lokalita.akrlok.toLowerCase().indexOf(value.toLowerCase()) > -1)
@@ -51,6 +61,22 @@ export default class HintForm extends React.Component {
     }
   }
 
+  fetchSeznamAkrloks() {
+    if (!(this.props.actions.akrloks && this.props.actions.akrloks.fetchCollection)) return null
+    return this.props.actions.akrloks.fetchCollection({ force: true })
+  }
+
+  fetchSeznamUlic(substring) {
+    if (substring.length < 3) return []
+    return this.props.actions.lokalita.fetchCollection({
+      params: { 'trimmed_ulice-lk': `${substring}%`, _fields: 'ulice' },
+      force: true
+    }).then(response => response.data.map(item => ({
+      value: item.ulice,
+      group: ''
+    })))
+  }
+
   render() {
     const self = this
     const { searchForUmisteni } = this.props
@@ -59,7 +85,7 @@ export default class HintForm extends React.Component {
     const formItems = ['obec', 'ulice', 'cislo', 'akrlok', 'op', 'ixlok'].map(label => {
       const callbacks = {
         onChange: value => self.onInputChange(label, value),
-        getAutoCompleteValues: self.getAutoCompleteValues(label)
+        getAutoCompleteValues: self.getAutoCompleteValuesFn(label)
       }
       const value = lokalitaHint[label]
 

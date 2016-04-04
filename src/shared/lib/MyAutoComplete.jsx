@@ -3,6 +3,7 @@
 import React, { PropTypes } from 'react'
 import AutoComplete from 'react-autocomplete'
 import { Glyphicon } from 'react-bootstrap'
+import debounce from './debounce'
 
 const renderItems = items => items.map((item, index) => {
   const group = item.props.group
@@ -20,7 +21,8 @@ const renderItems = items => items.map((item, index) => {
   return item
 })
 
-const renderItem = item => <div style={{ padding: '0.1em 0.8em' }} key={item.value} group={item.group}>{item.value}</div>
+const renderItem = item =>
+  <div style={{ padding: '0.1em 0.8em' }} key={item.value} group={item.group}>{item.value}</div>
 
 
 export default class MyAutoComplete extends React.Component {
@@ -42,16 +44,19 @@ export default class MyAutoComplete extends React.Component {
   constructor(props) {
     super(props)
     this.renderMenu = this.renderMenu.bind(this)
+    this.getAutoCompleteValues = debounce(this.getAutoCompleteValues, 500, this)
 
-    this.state = this.getAutoCompleteValues(this.props)
+    this.state = { autoCompleteValues: [] }
   }
 
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.value !== this.props.value) this.setState(this.getAutoCompleteValues(nextProps))
+  async componentWillReceiveProps(nextProps) {
+    if (nextProps.value !== this.props.value) {
+      this.setState(await this.getAutoCompleteValues(nextProps))
+    }
   }
 
-  getAutoCompleteValues(props) {
-    return { autoCompleteValues: props.getAutoCompleteValues(props.value) }
+  async getAutoCompleteValues(props) {
+    return { autoCompleteValues: await props.getAutoCompleteValues(props.value) || [] }
   }
 
   renderMenu(items, value, style) {
