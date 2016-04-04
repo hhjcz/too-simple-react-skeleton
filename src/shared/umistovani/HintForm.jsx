@@ -1,7 +1,8 @@
 /** Created by hhj on 2/18/16. */
 import React, { PropTypes } from 'react'
 import MyIcon from '../lib/MyIcon'
-import MyDraggableInput from '../lib/MyDraggableInput'
+import MyDraggable from '../lib/MyDraggable'
+import MyAutoComplete from '../lib/MyAutoComplete'
 import './HintForm.styl'
 import * as muiColors from 'material-ui/lib/styles/colors'
 
@@ -9,6 +10,7 @@ export default class HintForm extends React.Component {
   static propTypes = {
     lokalitaHint: PropTypes.object.isRequired,
     searchForUmisteni: PropTypes.func.isRequired,
+    akrloks: PropTypes.array,
   };
 
   static defaultProps = {
@@ -21,6 +23,7 @@ export default class HintForm extends React.Component {
     super(props)
     this.state = this.props.lokalitaHint
     this.onInputChange = this.onInputChange.bind(this)
+    this.getAutoCompleteValues = this.getAutoCompleteValues.bind(this)
   }
 
   componentWillReceiveProps(nextProps) {
@@ -36,25 +39,41 @@ export default class HintForm extends React.Component {
     this.setState(newState)
   }
 
+  getAutoCompleteValues(label) {
+    switch (label) {
+      case 'akrlok':
+        return value => this.props.akrloks.filter(akrlok => akrlok.indexOf(value.toLowerCase()) > -1)
+
+      default:
+        return () => []
+    }
+  }
+
   render() {
+    const self = this
     const { searchForUmisteni } = this.props
     const lokalitaHint = this.state
-    const eventHandlers = {
-      onChange: this.onInputChange,
-    }
-    const form = ['obec', 'ulice', 'cislo', 'akrlok', 'op', 'ixlok'].map(name =>
-      <div key={name} className="hintFormItem">
-        <MyDraggableInput label={name} value={lokalitaHint[name]} {...eventHandlers} />
-      </div>
-    )
+
+    const formItems = ['obec', 'ulice', 'cislo', 'akrlok', 'op', 'ixlok'].map(label => {
+      const callbacks = {
+        onChange: value => self.onInputChange(label, value),
+        getAutoCompleteValues: self.getAutoCompleteValues(label)
+      }
+      const value = lokalitaHint[label]
+
+      return (
+        <div key={label} className="hintFormItem">
+          <MyDraggable label={label} value={value} {...callbacks}>
+            <MyAutoComplete label={label} value={value} {...callbacks} />
+          </MyDraggable>
+        </div>
+      )
+    })
 
     return (
       <div style={{ backgroundColor: muiColors.blueGrey200 }}>
-        {/* <Button label="Hledat" secondary
-         onTouchStart={ function() { searchForUmisteni(lokalitaHint) } }>
-         */}
         <div className="hintForm">
-          {form}
+          {formItems}
         </div>
         <span className="btn btn-sm"
           style={{ backgroundColor: muiColors.blueGrey200, color: 'white', width: '100%' }}

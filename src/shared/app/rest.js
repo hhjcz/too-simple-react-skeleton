@@ -28,6 +28,12 @@ const rest = myRest({
     itemTransformer: item => new Lokalita(item),
     defaultState: { pagination: new Pagination({ perPage: 20 }) }
   },
+  akrloks: {
+    url: '/lokalita/:id',
+    itemTransformer: item => (item.akrlok ? item.akrlok.toLowerCase() : ''),
+    extraParams: { _fields: 'akrlok', 'akrlok-not-null': true },
+    defaultState: { pagination: new Pagination({ perPage: 10000000 }) }
+  },
   testEndpoint: {
     url: '/test/:id'
   }

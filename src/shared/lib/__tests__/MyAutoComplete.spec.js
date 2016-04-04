@@ -1,15 +1,17 @@
-/** Created by hhj on 3/2/16. */
+/** Created by hhj on 4/4/16. */
 import { expect } from 'chai'
 import React from 'react'
 import sd from 'skin-deep'
-import MyDraggable from '../MyDraggable'
+import MyAutoComplete from '../MyAutoComplete'
 
-describe(' MyDraggable component', () => {
+describe('lib MyAutoComplete component', () => {
   let vdom
+  // let instance
 
   const shallowRender = (props) => {
-    const tree = sd.shallowRender(React.createElement(MyDraggable, props))
-    // const instance = tree.getMountedInstance()
+    const tree = sd.shallowRender(React.createElement(MyAutoComplete, props))
+
+    // instance = tree.getMountedInstance()
     vdom = tree.getRenderOutput()
     // console.log(vdom)
   }

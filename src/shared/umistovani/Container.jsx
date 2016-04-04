@@ -14,6 +14,7 @@ export class Container extends React.Component {
   static propTypes = {
     zarizeni: PropTypes.object,
     umisteni: PropTypes.object,
+    akrloks: PropTypes.object,
     params: PropTypes.object,
     actions: PropTypes.object.isRequired,
     dispatch: PropTypes.func,
@@ -22,6 +23,7 @@ export class Container extends React.Component {
   static defaultProps = {
     zarizeni: { item: {}, pagination: {} },
     umisteni: {},
+    akrloks: {},
     params: {},
   };
 
@@ -86,7 +88,7 @@ export class Container extends React.Component {
 
   render() {
     const self = this
-    const { zarizeni: zarizeniResource, umisteni: umisteniResource, actions } = this.props
+    const { zarizeni: zarizeniResource, umisteni: umisteniResource, akrloks: akrloksResource, actions } = this.props
     const { items: seznamUmisteni } = umisteniResource
     const { item: zarizeni, pagination: { cursorAt, total: zarizeniCount } } = zarizeniResource
 
@@ -98,7 +100,7 @@ export class Container extends React.Component {
           onSelect={function(event, selectedEvent) { self.onCursorChange(selectedEvent.eventKey) }}
         />
         <Umistovani zarizeni={zarizeni} seznamUmisteni={seznamUmisteni}
-          actions={{ ...actions, reload: self.reload }}
+          actions={{ ...actions, reload: self.reload }} akrloks={akrloksResource.items && akrloksResource.items.toArray ? akrloksResource.items.toArray() : []}
         />
         <Navigation cursorAt={cursorAt} total={zarizeniCount}
           onCursorChange={self.onCursorChange} reload={self.reload}

@@ -11,12 +11,15 @@ export default class Umistovani extends React.Component {
   static propTypes = {
     zarizeni: PropTypes.object.isRequired,
     seznamUmisteni: PropTypes.object.isRequired,
+    akrloks: PropTypes.array,
     actions: PropTypes.object,
   };
 
   static defaultProps = {
     zarizeni: {},
     seznamUmisteni: [],
+    akrloks: [],
+    actions: {},
   };
 
   constructor(props) {
@@ -24,10 +27,19 @@ export default class Umistovani extends React.Component {
     this.searchForUmisteni = this.searchForUmisteni.bind(this)
     this.deleteAllUmisteni = this.deleteAllUmisteni.bind(this)
     this.umistitZarizeni = this.umistitZarizeni.bind(this)
+
+    this.fetchAkrloks = this.fetchAkrloks.bind(this)
+    this.fetchAkrloks()
   }
 
   shouldComponentUpdate(nextProps, nextState) {
     return shallowCompare(this, nextProps, nextState)
+  }
+
+  // FIXME - move to container?
+  fetchAkrloks() {
+    const akrloksActions = this.props.actions.akrloks || {}
+    return akrloksActions.fetchCollection ? akrloksActions.fetchCollection({ force: true }) : null
   }
 
   /**
@@ -75,7 +87,7 @@ export default class Umistovani extends React.Component {
     return (
       <div>
         <ZarizeniInfo zarizeni={zarizeni} />
-        <HintForm lokalitaHint={lokalitaHint} searchForUmisteni={this.searchForUmisteni} />
+        <HintForm lokalitaHint={lokalitaHint} searchForUmisteni={this.searchForUmisteni} akrloks={this.props.akrloks} />
         <PotencialniUmisteni
           lokalitaHint={lokalitaHint}
           seznamUmisteni={seznamUmisteni.toArray ? seznamUmisteni.toArray() : seznamUmisteni}
