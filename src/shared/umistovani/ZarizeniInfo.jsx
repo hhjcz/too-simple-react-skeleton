@@ -2,6 +2,7 @@
 import React, { PropTypes } from 'react'
 import { Link } from 'react-router'
 import MarkedLokalita from './MarkedLokalita'
+import MyDraggable from '../lib/MyDraggable'
 import '../lib/Tabulka.styl'
 
 export default class ZarizeniInfo extends React.Component {
@@ -35,11 +36,11 @@ export default class ZarizeniInfo extends React.Component {
         </div>
         <div className="myTableRow">
           <div className="myTableRowItem uFlexGrow-1">Mapa:</div>
-          <div className="myTableRowItem uFlexGrow-4">
+          <MyDraggable value={zarizeni.defaultmap} className="myTableRowItem uFlexGrow-4">
             <a href={`http://orion.cesta/Orion/NetPerfMon/MapView.aspx?Map=${zarizeni.defaultmap}`}>
               {zarizeni.defaultmap}
             </a>
-          </div>
+          </MyDraggable>
         </div>
         {
           // zarizeni.umisteni.lokalita && zarizeni.umisteni.lokalita.ixlok > 0 ?
