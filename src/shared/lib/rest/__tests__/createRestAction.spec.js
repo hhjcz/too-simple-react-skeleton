@@ -50,7 +50,7 @@ describe('rest lib createRestAction', () => {
     expect(fetchBuffer.args.method).to.equal('GET')
 
     return promise.then(response => {
-      expect(response.meta.lastFetchMark).to.equal(expectedUrl)
+      expect(response.meta.lastFetchSignature).to.equal(expectedUrl)
     })
   })
 
@@ -64,7 +64,7 @@ describe('rest lib createRestAction', () => {
     expect(fetchBuffer.args.body).to.equal('{"someBody":"someValue"}')
 
     return promise.then(response => {
-      expect(response.meta.lastFetchMark).to.equal(expectedUrl)
+      expect(response.meta.lastFetchSignature).to.equal(expectedUrl)
     })
   })
 

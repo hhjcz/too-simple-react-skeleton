@@ -31,13 +31,13 @@ export default function createRestAction(endpointName, config, actionCreators, f
         const queryParams = { ...queryGenerator(state), ...extraParams, ...decamelizeKeys(params), ...methodExtraParams } // eslint-disable-line max-len
         const { fetchUrl, executeFetch } = resource[fetchMethod](queryParams, body)
 
-        let lastFetchMark = null
-        if (state.lastFetchMark) {
-          let lastFetchMarkObj = state.lastFetchMark
-          if (lastFetchMarkObj.toObject) lastFetchMarkObj = lastFetchMarkObj.toObject()
-          lastFetchMark = lastFetchMarkObj[actionName]
+        let lastFetchSignature = null
+        if (state.lastFetchSignature) {
+          let lastFetchSignatureObj = state.lastFetchSignature
+          if (lastFetchSignatureObj.toObject) lastFetchSignatureObj = lastFetchSignatureObj.toObject()
+          lastFetchSignature = lastFetchSignatureObj[actionName]
         }
-        if (!force && lastFetchMark === fetchUrl) return Promise.resolve(null) // no need to refetch
+        if (!force && lastFetchSignature === fetchUrl) return Promise.resolve(null) // no need to refetch
 
         dispatch(subActionCreators.requested())
 
