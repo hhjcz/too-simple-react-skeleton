@@ -8,6 +8,11 @@ export default class MyDraggable extends React.Component {
     onChange: PropTypes.func.isRequired,
   };
 
+  static defaultProps = {
+    onChange() {
+    }
+  };
+
   static validate(value) {
     return value && value.length >= 0
   }
@@ -74,8 +79,9 @@ export default class MyDraggable extends React.Component {
     )
 
     return (
-      <div onDragOver={this.onDragOver} onDragLeave={this.onDragLeave} onDrop={this.onDrop}
-        draggable onDragStart={e => this.onDragStart(e, value)} onDragEnd={this.onDragEnd}
+      <div draggable onDragStart={e => this.onDragStart(e, value)} onDragEnd={this.onDragEnd}
+        onDragOver={this.onDragOver} onDragLeave={this.onDragLeave} onDrop={this.onDrop}
+        {...this.props}
       >
         {childrenWithProps}
       </div>
