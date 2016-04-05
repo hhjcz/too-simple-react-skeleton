@@ -68,7 +68,8 @@ export default class HintForm extends React.Component {
 
   fetchSeznamUlic(substring) {
     substring = (substring || '').replace(' ', '').toLowerCase()
-    if (substring.length < 3) return []
+    if (substring.length < 3) return '...alespoň 3 znaky...'
+
     return this.props.actions.lokalita.fetchCollection({
       params: { 'trimmed_ulice-lk': `${substring}%`, _fields: 'ulice' },
       force: true

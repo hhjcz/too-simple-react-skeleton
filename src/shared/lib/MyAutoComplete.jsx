@@ -5,6 +5,26 @@ import AutoComplete from 'react-autocomplete'
 import { Glyphicon } from 'react-bootstrap'
 import debounce from './debounce'
 
+const styles = {
+  item: {
+    padding: '0.1em 0.8em',
+    cursor: 'default'
+  },
+
+  highlightedItem: {
+    padding: '0.1em 0.8em',
+    color: 'white',
+    background: 'hsl(200, 50%, 50%)',
+    cursor: 'default'
+  },
+
+  menu: {
+    border: 'solid 1px #ccc',
+    position: 'fixed',
+    background: 'white'
+  }
+}
+
 // collection of items as returned by renderItem()
 const renderItems = items => items.map((item, index) => {
   const group = item.props.group
@@ -22,8 +42,10 @@ const renderItems = items => items.map((item, index) => {
   return item
 })
 
-const renderItem = item =>
-  <div style={{ padding: '0.1em 0.8em' }} key={item.value} group={item.group}>{item.value}</div>
+const renderItem = (item, isHighlighted) =>
+  <div style={isHighlighted ? styles.highlightedItem : styles.item} key={item.value} group={item.group}>
+    {item.value}
+  </div>
 
 
 export default class MyAutoComplete extends React.Component {
@@ -47,29 +69,41 @@ export default class MyAutoComplete extends React.Component {
     this.renderMenu = this.renderMenu.bind(this)
     this.getAutoCompleteValues = debounce(this.getAutoCompleteValues, 500, this)
 
-    this.state = { autoCompleteValues: [] }
+    this.state = { autoCompleteValues: [], message: '' }
   }
 
   async componentWillReceiveProps(nextProps) {
     if (nextProps.value !== this.props.value) {
+      this.setState({ message: '...hledám...' })
       this.setState(await this.getAutoCompleteValues(nextProps))
     }
   }
 
   async getAutoCompleteValues(props) {
-    return { autoCompleteValues: await props.getAutoCompleteValues(props.value) || [] }
+    const values = await props.getAutoCompleteValues(props.value)
+    if (typeof values === 'string') return {
+      autoCompleteValues: [],
+      message: values
+    }
+    return {
+      autoCompleteValues: values || [],
+      message: ''
+    }
   }
 
   renderMenu(items, value, style) {
     return (
-      <div style={{ position: 'fixed', background: 'white', ...style }}>
+      <div style={{ ...styles.menu, ...style }}>
         {value === '' ? (
-          /* <div style={{ padding: '0.8em' }}></div>*/
           null
-        ) : this.state && this.state.loading ? (
-          <div style={{ padding: '0.8em' }}>Loading...</div>
+          /* <div style={{ padding: '0.8em' }}>...alespoň 3 znaky...</div> */
+          /* <div style={{ padding: '0.8em' }}></div> */
+        ) : this.state && this.state.message ? (
+          <div style={{ padding: '0.8em' }}>{this.state.message}</div>
+        /* ) : this.state && this.state.loading ? ( */
+        /*   <div style={{ padding: '0.8em' }}>...hledám...</div> */
         ) : items.length === 0 ? (
-          null
+          <div style={{ padding: '0.8em' }}>...žádná shoda...</div>
         ) : renderItems(items)}
       </div>
     )
@@ -92,8 +126,8 @@ export default class MyAutoComplete extends React.Component {
           onChange={function(e, value) { onChange(value) }}
           onSelect={function(value) { onChange(value) }}
         />
-        <span className="input-group-addon">
-          <Glyphicon glyph="erase" onClick={function() { onChange('')} } />
+        <span className="input-group-addon" style={{ cursor: 'pointer' }} onClick={function() { onChange('')} }>
+          <Glyphicon glyph="erase" />
         </span>
       </div>
     )
