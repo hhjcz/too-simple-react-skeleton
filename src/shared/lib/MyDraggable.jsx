@@ -73,7 +73,7 @@ export default class MyDraggable extends React.Component {
   }
 
   render() {
-    const { value, children } = this.props
+    const { value, children, onChange, ...propsToPassDown } = this.props  // eslint-disable-line no-unused-vars
     const childrenWithProps = React.Children.map(children, child =>
       React.cloneElement(child, { draggable: true, bsStyle: this.bsStyle(value).bsStyle })
     )
@@ -81,7 +81,7 @@ export default class MyDraggable extends React.Component {
     return (
       <div draggable onDragStart={e => this.onDragStart(e, value)} onDragEnd={this.onDragEnd}
         onDragOver={this.onDragOver} onDragLeave={this.onDragLeave} onDrop={this.onDrop}
-        {...this.props}
+        {...propsToPassDown}
       >
         {childrenWithProps}
       </div>
