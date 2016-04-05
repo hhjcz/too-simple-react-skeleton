@@ -41,9 +41,7 @@ export default class HintForm extends React.Component {
   }
 
   onInputChange(label, value) {
-    const newState = {}
-    newState[label] = value
-    this.setState(newState)
+    if (this.state[label] !== value) this.setState({ [label]: value })
   }
 
   getAutoCompleteValuesFn(label) {
