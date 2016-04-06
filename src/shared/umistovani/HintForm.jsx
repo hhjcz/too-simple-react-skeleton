@@ -3,7 +3,7 @@ import React, { PropTypes } from 'react'
 import MyIcon from '../lib/MyIcon'
 import MyDraggable from '../lib/MyDraggable'
 import MyAutoComplete from '../lib/MyAutoComplete'
-import { propsHolder, fetchSeznamAkrloks, getAutoCompleteValuesFn } from './hintFormCompletion'
+import { propsHolder as helperPropsHolder, fetchSeznamAkrloks, autoCompleteFactory } from './hintFormHelper'
 import './HintForm.styl'
 import * as muiColors from 'material-ui/lib/styles/colors'
 
@@ -30,14 +30,17 @@ export default class HintForm extends React.Component {
     this.state = this.props.lokalitaHint
     this.onInputChange = this.onInputChange.bind(this)
 
-    propsHolder.actions = this.props.actions
-    propsHolder.akrloks = this.props.akrloks
+    // inject props to helper
+    helperPropsHolder.actions = this.props.actions
+    helperPropsHolder.akrloks = this.props.akrloks
 
+    // fetch seznam akrloks
     fetchSeznamAkrloks()
 
+    // generate auto complete getter functions
     this.getAutoCompleteValues = {};
-    fields.forEach(label => {
-      this.getAutoCompleteValues[label] = getAutoCompleteValuesFn(label)
+    fields.forEach(fieldName => {
+      this.getAutoCompleteValues[fieldName] = autoCompleteFactory(fieldName)
     })
   }
 
@@ -48,8 +51,8 @@ export default class HintForm extends React.Component {
     }
   }
 
-  onInputChange(label, value) {
-    if (this.state[label] !== value) this.setState({ [label]: value })
+  onInputChange(fieldName, value) {
+    if (this.state[fieldName] !== value) this.setState({ [fieldName]: value })
   }
 
   render() {
@@ -57,17 +60,17 @@ export default class HintForm extends React.Component {
     const { searchForUmisteni } = this.props
     const lokalitaHint = this.state
 
-    const formItems = fields.map(label => {
+    const formItems = fields.map(fieldName => {
       const callbacks = {
-        onChange: value => self.onInputChange(label, value),
-        getAutoCompleteValues: self.getAutoCompleteValues[label]
+        onChange: value => self.onInputChange(fieldName, value),
+        getAutoCompleteValues: self.getAutoCompleteValues[fieldName]
       }
-      const value = lokalitaHint[label]
+      const value = lokalitaHint[fieldName]
 
       return (
-        <div key={label} className="hintFormItem">
-          <MyDraggable label={label} value={value} {...callbacks}>
-            <MyAutoComplete label={label} value={value} {...callbacks} />
+        <div key={fieldName} className="hintFormItem">
+          <MyDraggable label={fieldName} value={value} {...callbacks}>
+            <MyAutoComplete label={fieldName} value={value} {...callbacks} />
           </MyDraggable>
         </div>
       )

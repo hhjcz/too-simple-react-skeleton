@@ -36,8 +36,8 @@ const fetchSeznamUlic = debounce(substring => {
 }, 500)
 
 
-export function getAutoCompleteValuesFn(label) {
-  switch (label) {
+export function autoCompleteFactory(fieldName) {
+  switch (fieldName) {
     case 'obec':
       return value => {
         if (value.length < 3) return '...alespoň 3 znaky...'
