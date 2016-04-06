@@ -1,5 +1,6 @@
 /** Created by hhj on 2/18/16. */
 import React, { PropTypes } from 'react'
+import debounce from '../lib/debounce'
 import MyIcon from '../lib/MyIcon'
 import MyDraggable from '../lib/MyDraggable'
 import MyAutoComplete from '../lib/MyAutoComplete'
@@ -25,12 +26,13 @@ export default class HintForm extends React.Component {
     super(props)
     this.state = this.props.lokalitaHint
     this.onInputChange = this.onInputChange.bind(this)
-    this.getAutoCompleteValuesFn = this.getAutoCompleteValuesFn.bind(this)
 
-    this.fetchSeznamAkrloks = this.fetchSeznamAkrloks.bind(this)
-    this.fetchSeznamAkrloks()
+    this.fetchSeznamAkrloks.call(this)
 
-    this.fetchSeznamUlic = this.fetchSeznamUlic.bind(this)
+    this.getAutoCompleteValues = [];
+    ['obec', 'ulice', 'cislo', 'akrlok', 'op', 'ixlok'].forEach(label => {
+      this.getAutoCompleteValues[label] = this.getAutoCompleteValuesFn.call(this, label)
+    })
   }
 
   componentWillReceiveProps(nextProps) {
@@ -47,7 +49,11 @@ export default class HintForm extends React.Component {
   getAutoCompleteValuesFn(label) {
     switch (label) {
       case 'ulice':
-        return value => this.fetchSeznamUlic(value)
+        this.fetchSeznamUlic = debounce(this.fetchSeznamUlic, 500, this)
+        return value => {
+          if (value.length < 3) return '...alespoň 3 znaky...'
+          return this.fetchSeznamUlic(value)
+        }
 
       case 'akrlok':
         return value => this.props.akrloks
@@ -66,7 +72,6 @@ export default class HintForm extends React.Component {
 
   fetchSeznamUlic(substring) {
     substring = (substring || '').replace(' ', '').toLowerCase()
-    if (substring.length < 3) return '...alespoň 3 znaky...'
 
     return this.props.actions.lokalita.fetchCollection({
       params: { 'trimmed_ulice-lk': `${substring}%`, _fields: 'ulice' },
@@ -85,7 +90,7 @@ export default class HintForm extends React.Component {
     const formItems = ['obec', 'ulice', 'cislo', 'akrlok', 'op', 'ixlok'].map(label => {
       const callbacks = {
         onChange: value => self.onInputChange(label, value),
-        getAutoCompleteValues: self.getAutoCompleteValuesFn(label)
+        getAutoCompleteValues: self.getAutoCompleteValues[label]
       }
       const value = lokalitaHint[label]
 
