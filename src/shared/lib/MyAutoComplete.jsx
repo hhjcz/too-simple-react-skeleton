@@ -23,7 +23,7 @@ const styles = {
     position: 'fixed',
     zIndex: 500,
     background: 'white',
-    padding: '2px 0',
+    padding: '0 0',
     border: 'solid 1px #ccc',
     boxShadow: '0 2px 12px rgba(0, 0, 0, 0.1)',
     maxHeight: '20em',
@@ -60,13 +60,13 @@ export default class MyAutoComplete extends React.Component {
     label: PropTypes.string.isRequired,
     value: PropTypes.any,
     onChange: PropTypes.func.isRequired,
-    getAutoCompleteValues: PropTypes.func.isRequired,
+    getAutoCompleteValues: PropTypes.func,
     draggable: PropTypes.bool,
     bsStyle: PropTypes.string,
   };
 
   static defaultProps = {
-    getAutoCompleteValues: () => [],
+    getAutoCompleteValues: null,
     draggable: true,
   };
 
@@ -75,18 +75,27 @@ export default class MyAutoComplete extends React.Component {
     this.renderMenu = this.renderMenu.bind(this)
     // this.getAutoCompleteValues = debounce(this.getAutoCompleteValues, 500, this)
     this.getAutoCompleteValues = this.getAutoCompleteValues.bind(this)
-
-    this.state = { autoCompleteValues: [], message: '' }
+    this.state = {}
+    this.initialState.call(this, this.props)
   }
 
+  initialState(props) {
+    this.setState({ value: props.value, autoCompleteValues: [], message: '' })
+  }
+
+  // TODO - clear autoCompleteValues when value is updated from 'outside'
+  //      - did not work for me now, as nexProps.value was always different from this.state.value, so onChange was not working...
   componentWillReceiveProps(nextProps) {
-    if (nextProps.value !== this.props.value) {
-      this.getAutoCompleteValues(nextProps)
+    if (nextProps.value !== this.state.value) {
+      // this.initialState.call(this, nextProps)
+      // this.getAutoCompleteValues(nextProps)
     }
   }
 
-  async getAutoCompleteValues(props) {
-    let values = props.getAutoCompleteValues(props.value)
+  async getAutoCompleteValues(value) {
+    if (typeof this.props.getAutoCompleteValues !== 'function') return
+
+    let values = this.props.getAutoCompleteValues(value)
     if (values instanceof Promise) {
       this.setState({ message: '...hledám...' })
       values = await values
@@ -100,7 +109,7 @@ export default class MyAutoComplete extends React.Component {
     } else {
       this.setState({
         autoCompleteValues: values,
-        message: ''
+        message: values.length === 0 ? '...žádná shoda' : ''
       })
     }
   }
@@ -113,7 +122,8 @@ export default class MyAutoComplete extends React.Component {
         ) : this.state && this.state.message ? (
           <div style={{ padding: '0.8em' }}>{this.state.message}</div>
         ) : items.length === 0 ? (
-          <div style={{ padding: '0.8em' }}>...žádná shoda...</div>
+          null
+          /* <div style={{ padding: '0.8em' }}>...žádná shoda...</div> */
         ) : renderItems(items)}
       </div>
     )
@@ -123,6 +133,11 @@ export default class MyAutoComplete extends React.Component {
     const self = this
     const { label, value, onChange, draggable, bsStyle } = this.props
 
+    const autoCompleteValues =
+      !this.state.message && this.state.autoCompleteValues && this.state.autoCompleteValues.filter ? (
+        this.state.autoCompleteValues
+      ) : []
+
     return (
       <div className={`input-group input-group-sm has-${bsStyle}`}>
         <span className="input-group-addon">{label}</span>
@@ -130,11 +145,11 @@ export default class MyAutoComplete extends React.Component {
           ref="autocomplete"
           value={value}
           inputProps={{ className: 'form-control', draggable }}
-          items={this.state.message ? [] : this.state.autoCompleteValues}
+          items={autoCompleteValues}
           getItemValue={item => item.value}
           renderItem={renderItem}
           renderMenu={self.renderMenu}
-          onChange={function(e, value) { onChange(value) }}
+          onChange={function(e, value) { self.getAutoCompleteValues(value); onChange(value) }}
           onSelect={function(value) { onChange(value) }}
         />
         <span className="input-group-addon" style={{ cursor: 'pointer' }} onClick={function() { onChange('')} }>

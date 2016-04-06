@@ -56,7 +56,7 @@ export function autoCompleteFactory(fieldName) {
         .map(lokalita => ({ value: lokalita.akrlok, group: lokalita.obec }))
 
     default:
-      return () => []
+      return null
   }
 }
 
