@@ -8,9 +8,9 @@ export default function FetchIndicator(props) {
 
   return (
     <div className="text-info">
-      Louduju...
+      {props.text || 'louduju...'}
       <RefreshIndicator
-        size={32}
+        size={props.size || 32}
         left={10}
         top={0}
         status="loading"
