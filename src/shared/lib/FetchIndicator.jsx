@@ -1,6 +1,6 @@
 /** Created by hhj on 3/30/16. */
 /* eslint-disable react/prop-types */
-import RefreshIndicator from 'material-ui/lib/refresh-indicator'
+import RefreshIndicator from '../../../node_modules/material-ui/lib/refresh-indicator'
 import React from 'react'
 
 export default function FetchIndicator(props) {

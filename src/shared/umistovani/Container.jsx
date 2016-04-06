@@ -7,7 +7,7 @@ import createMapStateToProps from '../lib/createMapStateToProps'
 import createMapDispatchToProps from '../lib/createMapDispatchToProps'
 import actions from './actions'
 import Umistovani from './Umistovani'
-import FetchIndicator from './FetchIndicator'
+import FetchIndicator from './../lib/FetchIndicator'
 import Navigation from './Navigation'
 
 export class Container extends React.Component {
