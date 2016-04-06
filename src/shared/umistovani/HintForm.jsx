@@ -1,11 +1,14 @@
 /** Created by hhj on 2/18/16. */
 import React, { PropTypes } from 'react'
-import debounce from '../lib/debounce'
 import MyIcon from '../lib/MyIcon'
 import MyDraggable from '../lib/MyDraggable'
 import MyAutoComplete from '../lib/MyAutoComplete'
+import { propsHolder, fetchSeznamAkrloks, getAutoCompleteValuesFn } from './hintFormCompletion'
 import './HintForm.styl'
 import * as muiColors from 'material-ui/lib/styles/colors'
+
+
+const fields = ['obec', 'ulice', 'cislo', 'akrlok', 'op', 'ixlok']
 
 export default class HintForm extends React.Component {
   static propTypes = {
@@ -27,11 +30,14 @@ export default class HintForm extends React.Component {
     this.state = this.props.lokalitaHint
     this.onInputChange = this.onInputChange.bind(this)
 
-    this.fetchSeznamAkrloks.call(this)
+    propsHolder.actions = this.props.actions
+    propsHolder.akrloks = this.props.akrloks
 
-    this.getAutoCompleteValues = [];
-    ['obec', 'ulice', 'cislo', 'akrlok', 'op', 'ixlok'].forEach(label => {
-      this.getAutoCompleteValues[label] = this.getAutoCompleteValuesFn.call(this, label)
+    fetchSeznamAkrloks()
+
+    this.getAutoCompleteValues = {};
+    fields.forEach(label => {
+      this.getAutoCompleteValues[label] = getAutoCompleteValuesFn(label)
     })
   }
 
@@ -46,48 +52,12 @@ export default class HintForm extends React.Component {
     if (this.state[label] !== value) this.setState({ [label]: value })
   }
 
-  getAutoCompleteValuesFn(label) {
-    switch (label) {
-      case 'ulice':
-        this.fetchSeznamUlic = debounce(this.fetchSeznamUlic, 500, this)
-        return value => {
-          if (value.length < 3) return '...alespoň 3 znaky...'
-          return this.fetchSeznamUlic(value)
-        }
-
-      case 'akrlok':
-        return value => this.props.akrloks
-          .filter(lokalita => lokalita.akrlok.toLowerCase().indexOf(value.toLowerCase()) > -1)
-          .map(lokalita => ({ value: lokalita.akrlok, group: lokalita.obec }))
-
-      default:
-        return () => []
-    }
-  }
-
-  fetchSeznamAkrloks() {
-    if (!(this.props.actions.akrloks && this.props.actions.akrloks.fetchCollection)) return null
-    return this.props.actions.akrloks.fetchCollection({ force: true })
-  }
-
-  fetchSeznamUlic(substring) {
-    substring = (substring || '').replace(' ', '').toLowerCase()
-
-    return this.props.actions.lokalita.fetchCollection({
-      params: { 'trimmed_ulice-lk': `${substring}%`, _fields: 'ulice' },
-      force: true
-    }).then(response => response.data.map(item => ({
-      value: item.ulice,
-      group: ''
-    })))
-  }
-
   render() {
     const self = this
     const { searchForUmisteni } = this.props
     const lokalitaHint = this.state
 
-    const formItems = ['obec', 'ulice', 'cislo', 'akrlok', 'op', 'ixlok'].map(label => {
+    const formItems = fields.map(label => {
       const callbacks = {
         onChange: value => self.onInputChange(label, value),
         getAutoCompleteValues: self.getAutoCompleteValues[label]
