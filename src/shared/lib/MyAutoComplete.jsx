@@ -19,9 +19,13 @@ const styles = {
   },
 
   menu: {
-    border: 'solid 1px #ccc',
     position: 'fixed',
-    background: 'white'
+    background: 'white',
+    padding: '2px 0',
+    border: 'solid 1px #ccc',
+    boxShadow: '0 2px 12px rgba(0, 0, 0, 0.1)',
+    maxHeight: '50%',
+    overflow: 'auto',
   }
 }
 
