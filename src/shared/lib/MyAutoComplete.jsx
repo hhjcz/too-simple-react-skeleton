@@ -21,6 +21,7 @@ const styles = {
 
   menu: {
     position: 'fixed',
+    zIndex: 500,
     background: 'white',
     padding: '2px 0',
     border: 'solid 1px #ccc',
