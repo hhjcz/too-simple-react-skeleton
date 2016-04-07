@@ -1,11 +1,11 @@
 /** Created by hhj on 4/1/16. */
 /* eslint-disable no-nested-ternary */
 import React, { PropTypes } from 'react'
-import AutoComplete from 'react-autocomplete'
+// import AutoComplete from 'react-autocomplete'
+import Select from 'react-select'
 import { Glyphicon } from 'react-bootstrap'
 import debounce from './debounce'
 import FetchIndicator from './FetchIndicator'
-
 const styles = {
   item: {
     padding: '0.1em 0.8em',
@@ -93,9 +93,14 @@ export default class MyAutoComplete extends React.Component {
   }
 
   async getAutoCompleteValues(value) {
-    if (typeof this.props.getAutoCompleteValues !== 'function') return
+    console.log('Value: ', value)
+    if (typeof this.props.getAutoCompleteValues !== 'function') return null
 
     let values = this.props.getAutoCompleteValues(value)
+    console.log(values)
+    return values
+
+
     if (values instanceof Promise) {
       this.setState({ message: '...hledám...' })
       values = await values
@@ -106,11 +111,13 @@ export default class MyAutoComplete extends React.Component {
         autoCompleteValues: [],
         message: values
       })
+      return []
     } else {
       this.setState({
         autoCompleteValues: values,
         message: values.length === 0 ? '...žádná shoda' : ''
       })
+      return values
     }
   }
 
@@ -134,27 +141,26 @@ export default class MyAutoComplete extends React.Component {
     const { label, value, onChange, draggable, bsStyle } = this.props
 
     const autoCompleteValues =
-      !this.state.message && this.state.autoCompleteValues && this.state.autoCompleteValues.filter ? (
+      false && !this.state.message && this.state.autoCompleteValues && this.state.autoCompleteValues.filter ? (
         this.state.autoCompleteValues
       ) : []
 
     return (
-      <div className={`input-group input-group-sm has-${bsStyle}`}>
-        <span className="input-group-addon">{label}</span>
-        <AutoComplete
-          ref="autocomplete"
+      <div width="20em">
+        {/* <div className={`input-group input-group-sm has-${bsStyle}`}>
+         <span className="input-group-addon">{label}</span> */}
+        <Select.Async
           value={value}
-          inputProps={{ className: 'form-control', draggable }}
-          items={autoCompleteValues}
-          getItemValue={item => item.value}
-          renderItem={renderItem}
-          renderMenu={self.renderMenu}
-          onChange={function(e, value) { self.getAutoCompleteValues(value); onChange(value) }}
-          onSelect={function(value) { onChange(value) }}
+          loadOptions={self.getAutoCompleteValues}
+          onChange={function(value) {
+            console.log(value)
+            // self.getAutoCompleteValues(value)
+            onChange(value)
+          }}
         />
-        <span className="input-group-addon" style={{ cursor: 'pointer' }} onClick={function() { onChange('')} }>
-          <Glyphicon glyph="erase" />
-        </span>
+        {/* <span className="input-group-addon" style={{ cursor: 'pointer' }} onClick={function() { onChange('')} }>
+         <Glyphicon glyph="erase" />
+         </span>*/}
       </div>
     )
   }

@@ -68,19 +68,15 @@ export default class HintForm extends React.Component {
       const value = lokalitaHint[fieldName]
 
       return (
-        <div key={fieldName} className="hintFormItem">
-          <MyDraggable label={fieldName} value={value} {...callbacks}>
-            <MyAutoComplete label={fieldName} value={value} {...callbacks} />
-          </MyDraggable>
+        <div key={fieldName} className="">
+          <MyAutoComplete label={fieldName} value={value} {...callbacks} />
         </div>
       )
     })
 
     return (
       <div style={{ backgroundColor: muiColors.blueGrey200 }}>
-        <div className="hintForm">
-          {formItems}
-        </div>
+        {formItems}
         <span className="btn btn-sm"
           style={{ backgroundColor: muiColors.blueGrey200, color: 'white', width: '100%' }}
           onClick={ function() { searchForUmisteni(lokalitaHint) } }
