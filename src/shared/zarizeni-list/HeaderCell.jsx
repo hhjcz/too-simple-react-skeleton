@@ -1,4 +1,5 @@
 /** Created by hhj on 1/20/16. */
+/* eslint-disable no-nested-ternary */
 import React, { PropTypes } from 'react'
 import HeaderFilter from './HeaderFilter'
 import './Header.styl'
@@ -14,8 +15,13 @@ export default class HeaderCell extends React.Component {
 
   render() {
     const { sort, filter, column, onSortChange, onFilterChange } = this.props
-    const arrowDirection = sort.dir ? 'up' : 'down'
-    const arrow = sort.by === column.name ? `glyphicon-arrow-${arrowDirection}` : ''
+    const arrowDirection = sort.dir ? '-alt' : ''
+    const arrow =
+      !column.sortable ? (
+        ''
+      ) : sort.by === column.name ? (
+        `glyphicon-sort-by-attributes${arrowDirection} active`
+      ) : 'glyphicon-sort shadowed'
 
     return (
       <div className={'myTableRowItem' + ` uFlexGrow-${column.width}`}>
