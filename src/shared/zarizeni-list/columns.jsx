@@ -62,6 +62,21 @@ export const columns = Map(
             : 'neumistene'
         }</Link>
     }),
+    previousNetvisionName: new Column({
+      name: 'previousNetvisionName',
+      caption: 'Previous NV name',
+      valueType: columntValueTypes.string,
+      width: 4,
+      visible: true,
+      render: (zarizeni, pozice) => (
+        zarizeni.previousNetvisionName ? (
+          <div>
+            <div>{zarizeni.previousNetvisionName}</div>
+            <div>{zarizeni.name}</div>
+          </div>
+        ) : null
+      )
+    }),
   }
 )
 

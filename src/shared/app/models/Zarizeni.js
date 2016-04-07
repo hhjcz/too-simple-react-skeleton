@@ -11,6 +11,8 @@ export const Zarizeni = Record({
   updatedAt: '',
   deletedAt: '',
   defaultmap: '',
+  previousNetvisionName: '',
+  previousNetvisionIpAddress: '',
   netvisionZarizeni: {
     id: 0,
     name: '',

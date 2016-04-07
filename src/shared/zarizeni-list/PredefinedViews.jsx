@@ -16,15 +16,17 @@ export default class PredefinedViews extends React.Component {
   };
 
   static styles = {
-    block: { maxWidth: '10em' }
+    block: { maxWidth: '20em' }
   };
 
   constructor(props) {
     super(props)
+    const zmenenaFilter = props.filters && props.filters.get('previousNetvisionName') && props.filters.get('previousNetvisionName').value // eslint-disable-line max-len
     const deletedFilter = props.filters && props.filters.get('deletedAt') && props.filters.get('deletedAt').value // eslint-disable-line max-len
     this.state = {
       neumistenaToggled: props.namedFilter === 'neumistena',
-      smazanaToggled: !deletedFilter
+      zmenenaToggled: !zmenenaFilter,
+      smazanaToggled: !deletedFilter,
     }
   }
 
@@ -38,6 +40,15 @@ export default class PredefinedViews extends React.Component {
             self.setState({ neumistenaToggled: toggled })
             onNamedFilterChange(toggled ? 'neumistena' : null)
           }}
+        />
+        <Toggle label="Změněná identita" toggled={this.state.zmenenaToggled}
+          onToggle={function(e, toggled) {
+            self.setState({ zmenenaToggled: toggled })
+            onFilterChange(new Filter({
+              name: 'previousNetvisionName',
+              value: toggled ? false : null,
+              comparator: 'empty' })
+            )}}
         />
         <Toggle label="I smazaná" toggled={this.state.smazanaToggled}
           onToggle={function(e, toggled) {
