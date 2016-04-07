@@ -20,7 +20,7 @@ export default class HeaderCell extends React.Component {
     return (
       <div className={'myTableRowItem' + ` uFlexGrow-${column.width}`}>
         <div className="header">
-          <div className="headerItem uFlexGrow-2" onClick={function() {onSortChange(column.name)}}>
+          <div className="headerItem uFlexGrow-2" onClick={function() {if (column.sortable) onSortChange(column.name)}}>
             {column.caption}
             <div className={`headerItem glyphicon ${arrow}`} />
           </div>

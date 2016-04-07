@@ -55,6 +55,7 @@ export const columns = Map(
       valueType: columntValueTypes.string,
       width: 6,
       visible: true,
+      sortable: false,
       render: (zarizeni, pozice) =>
         <Link to={`/umistovani/${pozice}`}>{
           zarizeni.umisteni && zarizeni.umisteni.lokalita && zarizeni.umisteni.lokalita.ixlok > 0 ?
