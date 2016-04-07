@@ -9,14 +9,19 @@ export const columntValueTypes = {
   ipAddress: 'ipAddress',
 }
 
-export const Column = Record({
-  name: 'column',
-  caption: 'Column',
+export class Column extends Record({
+  name: 'columnName',
+  caption: 'Column Name',
   valueType: columntValueTypes.number,
   defaultValue: null,
   visible: true,
   width: 2,
   render: null
-})
+}) {
+  constructor(args = {}) {
+    args.render = args.render || ((model, pozice) => model[this.name])
+    super(args)
+  }
+}
 
 export default Column
