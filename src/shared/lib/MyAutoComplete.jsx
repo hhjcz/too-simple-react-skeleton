@@ -3,8 +3,6 @@
 import React, { PropTypes } from 'react'
 import AutoComplete from 'react-autocomplete'
 import { Glyphicon } from 'react-bootstrap'
-import debounce from './debounce'
-import FetchIndicator from './FetchIndicator'
 
 const styles = {
   item: {
@@ -79,10 +77,6 @@ export default class MyAutoComplete extends React.Component {
     this.initialState.call(this, this.props)
   }
 
-  initialState(props) {
-    this.setState({ value: props.value, autoCompleteValues: [], message: '' })
-  }
-
   // TODO - clear autoCompleteValues when value is updated from 'outside'
   //      - did not work for me now, as nexProps.value was always different from this.state.value, so onChange was not working...
   componentWillReceiveProps(nextProps) {
@@ -91,7 +85,6 @@ export default class MyAutoComplete extends React.Component {
       // this.getAutoCompleteValues(nextProps)
     }
   }
-
   async getAutoCompleteValues(value) {
     if (typeof this.props.getAutoCompleteValues !== 'function') return
 
@@ -112,6 +105,10 @@ export default class MyAutoComplete extends React.Component {
         message: values.length === 0 ? '...žádná shoda' : ''
       })
     }
+  }
+
+  initialState(props) {
+    this.setState({ value: props.value, autoCompleteValues: [], message: '' })
   }
 
   renderMenu(items, value, style) {
