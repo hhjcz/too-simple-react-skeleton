@@ -50,9 +50,9 @@ export default class HeaderFilter extends React.Component {
     const self = this
     const active = this.state.filterValue ? 'active' : ''
     return (
-      <div>
+      <div className="">
         <div
-          className={`headerItem glyphicon filterIcon ${active}`}
+          className={`glyphicon filterIcon ${active}`}
           onClick={this.toggleFilter}
         />
         <div className={`columnFilter vcenter ${(this.state.filterVisible ? 'visible' : '')}`}>

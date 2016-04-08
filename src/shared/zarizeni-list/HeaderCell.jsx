@@ -2,11 +2,12 @@
 /* eslint-disable no-nested-ternary */
 import React, { PropTypes } from 'react'
 import HeaderFilter from './HeaderFilter'
+import HeaderSort from './HeaderSort'
 import './Header.styl'
 
 export default class HeaderCell extends React.Component {
   static propTypes = {
-    column: PropTypes.object,
+    column: PropTypes.object.isRequired,
     sort: PropTypes.object,
     filter: PropTypes.object,
     onSortChange: PropTypes.func.isRequired,
@@ -14,22 +15,15 @@ export default class HeaderCell extends React.Component {
   };
 
   render() {
-    const { sort, filter, column, onSortChange, onFilterChange } = this.props
-    const arrowDirection = sort.dir ? '-alt' : ''
-    const arrow =
-      !column.sortable ? (
-        ''
-      ) : sort.by === column.name ? (
-        `glyphicon-sort-by-attributes${arrowDirection} active`
-      ) : 'glyphicon-sort shadowed'
+    const { filter, sort, column, onFilterChange, onSortChange } = this.props
 
     return (
-      <div className={'myTableRowItem' + ` uFlexGrow-${column.width}`}>
-        <div className="header">
-          <div className="headerItem uFlexGrow-2" onClick={function() {if (column.sortable) onSortChange(column.name)}}>
-            {column.caption}
-            <div className={`headerItem glyphicon ${arrow}`} />
-          </div>
+      <div className={'myTableRowItem' + ` uFlexGrow-${column.width} header`}>
+        <div className="headerTitle uFlexGrow-3">
+          {column.caption}
+        </div>
+        <div className="headerIcons uFlexGrow-1">
+          <HeaderSort column={column} sort={sort} onSortChange={onSortChange} />
           <HeaderFilter column={column} filter={filter} onFilterChange={onFilterChange} />
         </div>
       </div>

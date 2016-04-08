@@ -1,36 +1,47 @@
+$activeColor = #dc0000
+
 .myTable .header
 
   display flex
-  flex-flow row nowrap
-  width 100%
+  flex-flow row wrap
   position relative
-  //justify-content space-between
+  justify-content flex-start
   align-items center
-  //font-size 1.2rem
   font-weight 700
-  padding 0
-  cursor default
+  padding 0.5em 0.4em 0.5em 0.2em
+  //font-size 1.2rem
+  //width 100%
+  //cursor default
 
-  // .headerItem
-  &Item
-    flex-grow 1
-    align-self center
-    padding 0.3em
-    word-break keep-all
+  &Title
+    display flex
+    flex-flow row nowrap
+    justify-content flex-start
+    padding-right 0.3em
 
-    &.glyphicon.shadowed
+  &Icons
+    display flex
+    flex-flow row nowrap
+    justify-content center
+
+  & .glyphicon
+    cursor pointer
+    padding-right 0.2em
+    display flex
+    align-items center
+    &.shadowed
       color black
       opacity 0.2
-
-    &.glyphicon.active
-      color #dc0000
+    &.active
+      color $activeColor
 
   & .filterIcon
     cursor pointer
+    padding-left 0.2em
     &:before
       content "\e138"
     &.active
-      color red
+      color $activeColor
 
   & .columnFilter
     z-index 1050

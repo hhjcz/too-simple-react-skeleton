@@ -68,7 +68,7 @@ export const columns = Map(
       caption: 'Previous NV name',
       valueType: columntValueTypes.string,
       width: 4,
-      visible: true,
+      visible: false,
       render: (zarizeni, pozice) => (
         zarizeni.previousNetvisionName ? (
           <div>
