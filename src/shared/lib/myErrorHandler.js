@@ -1,6 +1,6 @@
 /** Created by hhj on 3/22/16. */
-import '../../../node_modules/react-redux-toastr/src/toastr/less/index.less'
 import { toastr } from 'react-redux-toastr'
+import './toastr.css'
 
 export default function myErrorHandler(error) {
   if (!error) return
