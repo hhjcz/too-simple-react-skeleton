@@ -14,9 +14,12 @@ export default class Radka extends React.Component {
 
   render() {
     const { zarizeni, columns, pozice, highlighted } = this.props
-    const shadowed = zarizeni.deletedAt !== null
+    const shadowedClass = zarizeni.deletedAt !== null ? 'shadowed' : ''
+    const highlightedClass = highlighted ? 'highlighted' : ''
+    const title = zarizeni.deletedAt !== null ? `${zarizeni.name} deleted at ${zarizeni.deletedAt}` : zarizeni.name
+
     return (
-      <div className={`myTableRow ${highlighted ? 'highlighted' : ''} ${shadowed ? 'shadowed' : ''}`}>
+      <div title={title} className={`myTableRow ${highlightedClass} ${shadowedClass}`}>
         {
           columns.map(col => {    // eslint-disable-line arrow-body-style
             return col.visible ?
