@@ -25,7 +25,7 @@ export default class PredefinedViews extends React.Component {
     const deletedFilter = props.filters && props.filters.get('deletedAt') && props.filters.get('deletedAt').value // eslint-disable-line max-len
     this.state = {
       neumistenaToggled: props.namedFilter === 'neumistena',
-      zmenenaToggled: !zmenenaFilter,
+      zmenenaToggled: zmenenaFilter,
       smazanaToggled: !deletedFilter,
     }
   }
