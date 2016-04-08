@@ -17,7 +17,13 @@ module.exports = {
 const { fetchIds, fetchCollectionByIds, fetchOne } = rest.actions.zarizeni
 
 const getSubState = getState => getState().zarizeni
-const updateCollection = () => fetchIds().then(() => fetchCollectionByIds())
+
+const updateCollection = ({ dispatch, getState }) => {
+  fetchIds.cancelPending()
+  fetchCollectionByIds.cancelPending()
+
+  fetchIds().then(() => fetchCollectionByIds())
+}
 
 /**
  * @param cursorAt
@@ -40,9 +46,9 @@ export function fetchOneAt(cursorAt, force = false) {
  * @returns {Function}
  */
 export function gotoPage(page) {
-  return ({ dispatch }) => {
+  return ({ dispatch, getState }) => {
     dispatch({ type: GOTO_PAGE, page })
-    return updateCollection()
+    return updateCollection({ dispatch, getState })
   }
 }
 
@@ -51,9 +57,9 @@ export function gotoPage(page) {
  * @returns {Function}
  */
 export function setPageSize(perPage) {
-  return ({ dispatch }) => {
+  return ({ dispatch, getState }) => {
     dispatch({ type: SET_PAGE_SIZE, perPage })
-    return updateCollection()
+    return updateCollection({ dispatch, getState })
   }
 }
 
@@ -62,9 +68,9 @@ export function setPageSize(perPage) {
  * @returns {Function}
  */
 export function sortChange(sortField) {
-  return ({ dispatch }) => {
+  return ({ dispatch, getState }) => {
     dispatch({ type: SORT_CHANGE, sortField })
-    return updateCollection()
+    return updateCollection({ dispatch, getState })
   }
 }
 
@@ -73,9 +79,9 @@ export function sortChange(sortField) {
  * @returns {Function}
  */
 export function filterChange(filter) {
-  return ({ dispatch }) => {
+  return ({ dispatch, getState }) => {
     dispatch({ type: FILTER_CHANGE, filter })
-    return updateCollection()
+    return updateCollection({ dispatch, getState })
   }
 }
 
@@ -84,8 +90,8 @@ export function filterChange(filter) {
  * @returns {Function}
  */
 export function generalParamChange(paramObj) {
-  return ({ dispatch }) => {
+  return ({ dispatch, getState }) => {
     dispatch({ type: GENERAL_PARAM_CHANGE, paramObj })
-    return updateCollection()
+    return updateCollection({ dispatch, getState })
   }
 }

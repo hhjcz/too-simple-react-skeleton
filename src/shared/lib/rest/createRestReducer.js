@@ -7,6 +7,7 @@ import Immutable, { List, Record, Map } from 'immutable'
 export const InitialState = Record({
   fetching: false,
   lastFetchSignature: { fetchCollection: null, fetchOne: null },
+  lastActionId: {},
   ids: List(),
   items: List(),
   item: {},
@@ -22,10 +23,11 @@ export default function createRestReducer(endpointName, config = {}, actionTypes
   const initialState = new InitialState(config.defaultState || {})
 
   // Note how JSON from server is revived to immutable record.
-  const revive = ({ fetching, lastFetchSignature, ids, items, item, pagination, sort, filters, generalParams }) => {
+  const revive = ({ fetching, lastFetchSignature, lastActionId, ids, items, item, pagination, sort, filters, generalParams }) => {
     const mergeObj = {
       fetching,
       lastFetchSignature,
+      lastActionId,
     }
     if (ids) mergeObj.ids = List(ids)
     if (items) mergeObj.items = List(items).map(itemTransformer)
@@ -56,7 +58,10 @@ export default function createRestReducer(endpointName, config = {}, actionTypes
       case actionTypes.fetchCollectionSuccess:
         return state.set('items', List(action.data).map(itemTransformer))
           .set('fetching', false)
-          .update('lastFetchSignature', lastFetchSignature => ({ ...lastFetchSignature, fetchCollection: action.meta.lastFetchSignature }))
+          .update('lastFetchSignature', lastFetchSignature => ({
+            ...lastFetchSignature,
+            fetchCollection: action.meta.lastFetchSignature
+          }))
           // .update('pagination', pagination => {   // eslint-disable-line arrow-body-style
           //   return action.meta.pagination
           //     ? new Pagination({ ...pagination.toObject(), ...action.meta.pagination })
@@ -71,12 +76,18 @@ export default function createRestReducer(endpointName, config = {}, actionTypes
       case actionTypes.fetchCollectionByIdsSuccess:
         return state.set('items', List(action.data).map(itemTransformer))
           .set('fetching', false)
-          .update('lastFetchSignature', lastFetchSignature => ({ ...lastFetchSignature, fetchCollectionByIds: action.meta.lastFetchSignature }))
+          .update('lastFetchSignature', lastFetchSignature => ({
+            ...lastFetchSignature,
+            fetchCollectionByIds: action.meta.lastFetchSignature
+          }))
 
       case actionTypes.fetchIdsSuccess:
         return state.set('ids', Immutable.fromJS(action.data).map(item => item.get('id')))
           .set('fetching', false)
-          .update('lastFetchSignature', lastFetchSignature => ({ ...lastFetchSignature, fetchIds: action.meta.lastFetchSignature }))
+          .update('lastFetchSignature', lastFetchSignature => ({
+            ...lastFetchSignature,
+            fetchIds: action.meta.lastFetchSignature
+          }))
           .update('pagination', pagination => {   // eslint-disable-line arrow-body-style
             return action.meta.pagination ? new Pagination({
               ...pagination.toObject(),
@@ -93,7 +104,10 @@ export default function createRestReducer(endpointName, config = {}, actionTypes
       case actionTypes.fetchOneSuccess:
         return state.set('item', itemTransformer(action.data))
           .set('fetching', false)
-          .update('lastFetchSignature', lastFetchSignature => ({ ...lastFetchSignature, fetchOne: action.meta.lastFetchSignature }))
+          .update('lastFetchSignature', lastFetchSignature => ({
+            ...lastFetchSignature,
+            fetchOne: action.meta.lastFetchSignature
+          }))
 
       case actionTypes.fetchOneError:
         return state.set('item', {})

@@ -68,4 +68,11 @@ describe('rest lib createRestAction', () => {
     })
   })
 
+  it('should return action ID in Promise', () => {
+    const actions = createRestAction(endpointName, config, actionCreators, fnHolder)
+    const promise = actions.fetchCollection()
+    expect(typeof promise.actionId).to.equal('number')
+    expect(promise.actionId).to.be.greaterThan(0)
+  })
+
 })
