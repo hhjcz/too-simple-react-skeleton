@@ -32,11 +32,11 @@ describe('rest library queryGenerators', () => {
     expect(query['nejaky_filter_1-lk']).to.equal('%hodnotaFiltru1%')
     expect(query.nejaky_filter_2).to.equal('hodnotaFiltru2')
     // expect(query.nejaky_filter_3).to.equal('')
-    expect(query._sort).to.equal('-nejaky_sort')
+    expect(query.sort).to.equal('-nejaky_sort')
     expect(query.page).to.equal(66)
     expect(query.per_page).to.equal(6)
 
-    expect(qs.stringify(query)).to.equal('_sort=-nejaky_sort&nejaky_filter_1-lk=%25hodnotaFiltru1%25&nejaky_filter_2=hodnotaFiltru2&nejaky_filter_3-not=&nejaky_filter_4-null&page=66&per_page=6')  // eslint-disable-line max-len
+    expect(qs.stringify(query)).to.equal('nejaky_filter_1-lk=%25hodnotaFiltru1%25&nejaky_filter_2=hodnotaFiltru2&nejaky_filter_3-not=&nejaky_filter_4-null&page=66&per_page=6&sort=-nejaky_sort')  // eslint-disable-line max-len
   })
 
   it('should generate from empty object', () => {

@@ -57,7 +57,7 @@ export default function createRestAction(endpointName, config, actionCreators, f
 
   // fetchIds uses fetchCollection resource with predefined params:
   const fetchIds = createAction('fetchIds', 'fetchCollection', {
-    _fields: 'id',
+    fields: 'id',
     page: 1,
     per_page: 10000000,
     include: null

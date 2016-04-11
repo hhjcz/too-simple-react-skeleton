@@ -35,7 +35,7 @@ const rest = myRest({
     url: '/lokalita/:id',
     // itemTransformer: item => (item.akrlok ? item.akrlok.toLowerCase() : ''),
     itemTransformer: item => new Lokalita(item),
-    extraParams: { _fields: 'akrlok,obec', 'akrlok-not': null, _sort: 'obec' },
+    extraParams: { fields: 'akrlok,obec', 'akrlok-not': null, sort: 'obec' },
     defaultState: { pagination: new Pagination({ perPage: 10000000 }) }
   },
   testEndpoint: {
