@@ -16,6 +16,9 @@ const rest = myRest({
     itemTransformer: item => ZarizeniFactory(item),
     defaultState: { sort: new Sort({ dir: true, by: 'createdAt' }) }
   },
+  portyZarizeni: {
+    url: '/zarizeni/:zarizeni_id/netvision/porty'
+  },
   umisteni: {
     url: '/umisteni/:id',
     extraParams: { include: 'lokalita.nepi_opy' },
