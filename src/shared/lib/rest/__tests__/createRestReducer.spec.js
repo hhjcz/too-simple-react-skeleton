@@ -2,7 +2,7 @@
 import { expect } from 'chai'
 import createRestReducer, { InitialState } from '../createRestReducer'
 
-describe('createRestReducer', () => {
+describe.only('createRestReducer', () => {
 
   it('should create reducer', () => {
     const reducer = createRestReducer('someEndpoint', { url: 'someUrl' })

@@ -4,8 +4,10 @@ import createRestAction from './createRestAction'
 import { actionTypesFor } from './actionTypesFor'
 import { actionCreatorsFor } from './actionCreatorsFor'
 
-export default function createMyRest(config = {}, fetch = () => ({}), dispatch = null) {
-  const myRest = { actions: {}, reducers: {} }
+export const collectionTypes = { static: 'static', dynamic: 'dynamic' }
+
+export default function createMyRest(config = {}, collectionsConfig = {}, fetch = () => ({}), dispatch = null) {
+  const myRest = { actions: {}, reducers: {}, entityReducers: {} }
   const fnHolder = { fetch, dispatch }
 
   Object.keys(config).forEach(endpointName => {
@@ -21,6 +23,10 @@ export default function createMyRest(config = {}, fetch = () => ({}), dispatch =
       endpointName,
       config[endpointName],
       actionTypes)
+    myRest.entityReducers[endpointName] = createEntityReducer(
+      endpointName,
+      config[endpointName],
+    )
   })
 
   myRest.use = (key, value) => {
