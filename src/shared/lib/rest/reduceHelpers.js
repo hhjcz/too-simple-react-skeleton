@@ -1,5 +1,6 @@
 /** Created by hhj on 4/12/16. */
 import Immutable, { List, Record, Map } from 'immutable'
+import { compose } from 'redux'
 import { Pagination } from '../../app/models/Pagination'
 import { Sort } from '../../app/models/Sort'
 
@@ -37,19 +38,32 @@ export const revive = (state = {}, initialState = new InitialState({}), itemTran
 export const idsReducer = (items = []) => state =>
   state.set('ids', Immutable.fromJS(items).map(item => item.get('id')))
 
-export const createItemsReducer = (itemTransformer = x => x, idField = 'id') => (items = []) => state => {
+const createEntitiesReducer = (itemTransformer = x => x, idField = 'id') => (items = []) => state => {
   const newEntities = Map(items.reduce((result, item) => {
     result[item[idField]] = itemTransformer(item)
     return result
   }, {}))
 
-  return state.set('items', List(items).map(item => item.id))
-    .update('entities', entities => entities.merge(newEntities))
+  return state.update('entities', entities => entities.merge(newEntities))
 }
 
+export const createItemsReducer = (itemTransformer = x => x, idField = 'id') => {
+  const entitiesReducer = createEntitiesReducer(itemTransformer, idField)
 
-export const createItemReducer = (itemTransformer = x => x, idField = 'id') => (item = {}) => state =>
-  state.set('item', itemTransformer(item))
+  return (items = []) => state => compose(
+    state => state.set('items', List(items).map(item => item[idField])),
+    entitiesReducer(items)
+  )(state)
+}
+
+export const createItemReducer = (itemTransformer = x => x, idField = 'id') => {
+  const entitiesReducer = createEntitiesReducer(itemTransformer, idField)
+
+  return (item = {}) => state => compose(
+    state.set('item', itemTransformer(item)),
+    entitiesReducer([item])
+  )(state)
+}
 
 export const fetchingReducer = fetching => state => state.set('fetching', fetching)
 
