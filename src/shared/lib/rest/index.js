@@ -13,16 +13,21 @@ export default function createMyRest(config = {}, fetch = () => ({}), dispatch =
   Object.keys(config).forEach(endpointName => {
     const actionTypes = actionTypesFor(endpointName)
     const actionCreators = actionCreatorsFor(actionTypes)
-    myRest.actions[endpointName] = createRestAction(
+    const actions = createRestAction(
       endpointName,
       config[endpointName],
       actionCreators,
       fnHolder
     )
-    myRest.reducers[endpointName] = createRestReducer(
+    myRest.actions[endpointName] = actions
+    myRest[endpointName] = { actions }
+
+    const reducer = createRestReducer(
       endpointName,
       config[endpointName],
       actionTypes)
+    myRest.reducers[endpointName] = reducer
+    myRest[endpointName].reducer = reducer
   })
 
   myRest.use = (key, value) => {
