@@ -4,9 +4,9 @@ import { compose } from 'redux'
 import {
   InitialState,
   revive,
-  itemsReducer,
+  createItemsReducer,
   idsReducer,
-  itemReducer,
+  createItemReducer,
   fetchingReducer,
   lastFetchSignatureReducer,
   idsPaginationReducer,
@@ -16,6 +16,9 @@ import {
 
 export default function createRestReducer(endpointName, config = {}, actionTypes = {}) {
   const itemTransformer = config.itemTransformer || (item => item)
+  const idField = config.idField || 'id'
+  const itemsReducer = createItemsReducer(itemTransformer, idField)
+  const itemReducer = createItemReducer(itemTransformer, idField)
 
   const initialState = new InitialState(config.defaultState || {})
 
@@ -36,7 +39,7 @@ export default function createRestReducer(endpointName, config = {}, actionTypes
 
       case actionTypes.fetchCollectionSuccess:
         return compose(
-          itemsReducer(action.data, itemTransformer),
+          itemsReducer(action.data),
           fetchingReducer(false),
           lastFetchSignatureReducer(action.meta.lastFetchSignature, 'fetchCollection'),
           sortReducer(action.meta.sort),
@@ -45,7 +48,7 @@ export default function createRestReducer(endpointName, config = {}, actionTypes
 
       case actionTypes.fetchCollectionByIdsSuccess:
         return compose(
-          itemsReducer(action.data, itemTransformer),
+          itemsReducer(action.data),
           fetchingReducer(false),
           lastFetchSignatureReducer(action.meta.lastFetchSignature, 'fetchCollectionByIds'),
         )(state)
@@ -67,7 +70,7 @@ export default function createRestReducer(endpointName, config = {}, actionTypes
 
       case actionTypes.fetchOneSuccess:
         return compose(
-          itemReducer(action.data, itemTransformer),
+          itemReducer(action.data),
           fetchingReducer(false),
           lastFetchSignatureReducer(action.meta.lastFetchSignature, 'fetchOne'),
         )(state)

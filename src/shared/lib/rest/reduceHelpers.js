@@ -8,6 +8,7 @@ export const InitialState = Record({
   lastFetchSignature: { fetchCollection: null, fetchOne: null },
   ids: List(),
   items: List(),
+  entities: Map(),
   item: {},
   pagination: new Pagination(),
   sort: new Sort(),
@@ -33,13 +34,21 @@ export const revive = (state = {}, initialState = new InitialState({}), itemTran
   return initialState.merge(mergeObj);
 }
 
-export const itemsReducer = (items = [], itemTransformer = x => x) => state =>
-  state.set('items', List(items).map(itemTransformer))
-
 export const idsReducer = (items = []) => state =>
   state.set('ids', Immutable.fromJS(items).map(item => item.get('id')))
 
-export const itemReducer = (item = {}, itemTransformer = x => x) => state =>
+export const createItemsReducer = (itemTransformer = x => x, idField = 'id') => (items = []) => state => {
+  const newEntities = Map(items.reduce((result, item) => {
+    result[item[idField]] = itemTransformer(item)
+    return result
+  }, {}))
+
+  return state.set('items', List(items).map(item => item.id))
+    .update('entities', entities => entities.merge(newEntities))
+}
+
+
+export const createItemReducer = (itemTransformer = x => x, idField = 'id') => (item = {}) => state =>
   state.set('item', itemTransformer(item))
 
 export const fetchingReducer = fetching => state => state.set('fetching', fetching)

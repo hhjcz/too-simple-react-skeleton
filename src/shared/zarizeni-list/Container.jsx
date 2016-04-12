@@ -1,20 +1,20 @@
 /** Created by hhj on 12/28/15. */
 import React, { PropTypes } from 'react'
 import { connect } from 'react-redux'
-
 import createMapStateToProps from '../lib/createMapStateToProps'
 import createMapDispatchToProps from '../lib/createMapDispatchToProps'
-// import createFetchWrapper from '../lib/rest/createFetchWrapper'
 import * as actions from './actions'
 import Tabulka from './Tabulka'
 import Paginator from './Paginator'
 import PredefinedViews from './PredefinedViews'
+// import createFetchWrapper from '../lib/rest/createFetchWrapper'
 
 export class Container extends React.Component {
 
   static propTypes = {
     fetching: PropTypes.bool,
     items: PropTypes.object,
+    entities: PropTypes.object,
     pagination: PropTypes.object.isRequired,
     sort: PropTypes.object.isRequired,
     filters: PropTypes.object.isRequired,
@@ -24,7 +24,9 @@ export class Container extends React.Component {
     dispatch: PropTypes.func,
   };
 
-  static defaultProps = {};
+  static defaultProps = {
+    actions: {}
+  };
 
   // server and client side fetch actions (see render.jsx & componentDidMount):
   static get fetchActions() {
@@ -69,13 +71,17 @@ export class Container extends React.Component {
     const self = this
     const {
       fetching,
-      items: seznamZarizeni,
+      items,
+      entities,
       pagination,
       sort,
       filters,
       generalParams,
       actions
     } = this.props
+
+    const entitiesObj = entities.toObject()
+    const seznamZarizeni = items.map(item => entitiesObj[item] || {})
 
     return (
       <div id="zarizeni-list">
@@ -92,8 +98,8 @@ export class Container extends React.Component {
         />
         <Paginator
           pagination={pagination}
-          onPageChange={function(page) {actions.gotoPage(page, true)}}
-          onPerPageChange={function(perPage) {actions.setPageSize(perPage, true)}}
+          onPageChange={actions.gotoPage}
+          onPerPageChange={actions.setPageSize}
         />
       </div>
     )
