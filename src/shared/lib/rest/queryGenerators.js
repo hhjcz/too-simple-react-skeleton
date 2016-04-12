@@ -40,7 +40,7 @@ function collection(state, extraParams = {}) {
 
   if (page > 0) queryParams.page = page
   if (perPage > 0) queryParams.per_page = perPage
-  if (sort && sort.by) queryParams._sort = `${sort.dir ? '-' : ''}${snakeCase(sort.by)}`
+  if (sort && sort.by) queryParams.sort = `${sort.dir ? '-' : ''}${snakeCase(sort.by)}`
   if (filters && filters.forEach) queryParams = { ...queryParams, ...parseFilters(filters) }
   if (generalParams) queryParams = { ... queryParams, ...generalParams.toObject() }
 
@@ -50,7 +50,7 @@ function collection(state, extraParams = {}) {
 function collectionByIds(state, extraParams = {}) {
   const { ids, pagination, sort } = state
   const queryParams = { page: 1, per_page: 10000000 }
-  if (sort && sort.by) queryParams._sort = `${sort.dir ? '-' : ''}${snakeCase(sort.by)}`
+  if (sort && sort.by) queryParams.sort = `${sort.dir ? '-' : ''}${snakeCase(sort.by)}`
 
   const pageStart = (pagination.page - 1) * pagination.perPage
   const pageEnd = pageStart + pagination.perPage

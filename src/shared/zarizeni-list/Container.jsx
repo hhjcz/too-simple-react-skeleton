@@ -62,7 +62,7 @@ export class Container extends React.Component {
   }
 
   onNamedFilterChange(filterName) {
-    this.props.actions.generalParamChange({ name: '_filter', value: filterName })
+    this.props.actions.generalParamChange({ name: 'filter', value: filterName })
   }
 
   render() {
@@ -81,7 +81,7 @@ export class Container extends React.Component {
       <div id="zarizeni-list">
         <PredefinedViews
           onNamedFilterChange={self.onNamedFilterChange}
-          namedFilter={generalParams.toObject()._filter}
+          namedFilter={generalParams.toObject().filter}
           onFilterChange={self.onFilterChange}
           filters={filters}
         />

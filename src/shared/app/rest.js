@@ -1,5 +1,5 @@
 /** Created by hhj on 1/29/16. */
-import myRest, { collectionTypes } from '../lib/rest/index'
+import myRest from '../lib/rest/index'
 import createFetch from '../lib/rest/createFetch'
 import { ZarizeniFactory } from './models/Zarizeni'
 import { UmisteniFactory } from './models/Umisteni'
@@ -9,43 +9,39 @@ import { Pagination } from './models/Pagination'
 
 const serverBaseUrl = process.env.SERVER_BASE_URL || 'http://localhost:8089/api'
 
-const rest = myRest(
-  {
-    zarizeni: {
-      url: '/zarizeni/:id',
-      extraParams: { include: 'umisteni.lokalita' },
-      itemTransformer: item => ZarizeniFactory(item),
-      defaultState: { sort: new Sort({ dir: true, by: 'createdAt' }) }
-    },
-    umisteni: {
-      url: '/umisteni/:id',
-      extraParams: { include: 'lokalita.nepi_opy' },
-      itemTransformer: item => UmisteniFactory(item),
-      defaultState: { pagination: new Pagination({ perPage: 1000000 }) }
-      // itemTransformer: item => item,
-    },
-    lokalita: {
-      url: '/lokalita/:id',
-      itemTransformer: item => new Lokalita(item),
-      defaultState: { pagination: new Pagination({ perPage: 20 }) }
-    },
-    akrloks: {
-      url: '/lokalita/:id',
-      // itemTransformer: item => (item.akrlok ? item.akrlok.toLowerCase() : ''),
-      itemTransformer: item => new Lokalita(item),
-      extraParams: { _fields: 'akrlok,obec', 'akrlok-not': null, _sort: 'obec' },
-      defaultState: { pagination: new Pagination({ perPage: 10000000 }) }
-    },
-    testEndpoint: {
-      url: '/test/:id'
-    }
+const rest = myRest({
+  zarizeni: {
+    url: '/zarizeni/:id',
+    extraParams: { include: 'umisteni.lokalita' },
+    itemTransformer: item => ZarizeniFactory(item),
+    defaultState: { sort: new Sort({ dir: true, by: 'createdAt' }) }
   },
-  {
-    zarizeni: {
-      type: collectionTypes.static,
-    },
+  portyZarizeni: {
+    url: '/zarizeni/:zarizeni_id/netvision/porty'
   },
-).use('fetch', createFetch(serverBaseUrl))
+  umisteni: {
+    url: '/umisteni/:id',
+    extraParams: { include: 'lokalita.nepi_opy' },
+    itemTransformer: item => UmisteniFactory(item),
+    defaultState: { pagination: new Pagination({ perPage: 1000000 }) }
+    // itemTransformer: item => item,
+  },
+  lokalita: {
+    url: '/lokalita/:id',
+    itemTransformer: item => new Lokalita(item),
+    defaultState: { pagination: new Pagination({ perPage: 20 }) }
+  },
+  akrloks: {
+    url: '/lokalita/:id',
+    // itemTransformer: item => (item.akrlok ? item.akrlok.toLowerCase() : ''),
+    itemTransformer: item => new Lokalita(item),
+    extraParams: { fields: 'akrlok,obec', 'akrlok-not': null, sort: 'obec' },
+    defaultState: { pagination: new Pagination({ perPage: 10000000 }) }
+  },
+  testEndpoint: {
+    url: '/test/:id'
+  }
+}).use('fetch', createFetch(serverBaseUrl))
 
 export default rest
 

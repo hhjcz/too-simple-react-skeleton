@@ -47,10 +47,16 @@ export class Container extends React.Component {
           throw new Error('Fetch chyba: nepodaril se fetch zarizeni s validnim id')
         }
 
-        return actions.umisteni.fetchCollection({
-          params: { zarizeniId },
-          force
-        })
+        return Promise.all([
+          actions.umisteni.fetchCollection({
+            params: { zarizeniId },
+            force
+          }),
+          actions.portyZarizeni.fetchCollection({
+            params: { zarizeniId },
+            force
+          })
+        ])
       })
 
     return promise
