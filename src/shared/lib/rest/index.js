@@ -6,7 +6,7 @@ import { actionCreatorsFor } from './actionCreatorsFor'
 
 export const collectionTypes = { static: 'static', dynamic: 'dynamic' }
 
-export default function createMyRest(config = {}, collectionsConfig = {}, fetch = () => ({}), dispatch = null) {
+export default function createMyRest(config = {}, fetch = () => ({}), dispatch = null) {
   const myRest = { actions: {}, reducers: {}, entityReducers: {} }
   const fnHolder = { fetch, dispatch }
 
@@ -23,10 +23,6 @@ export default function createMyRest(config = {}, collectionsConfig = {}, fetch 
       endpointName,
       config[endpointName],
       actionTypes)
-    myRest.entityReducers[endpointName] = createEntityReducer(
-      endpointName,
-      config[endpointName],
-    )
   })
 
   myRest.use = (key, value) => {

@@ -26,7 +26,7 @@ describe('myRest library', () => {
   }
 
   beforeEach(() => {
-    rest = myRest({}, { someEndpoint: { url: '/someUrl' } }, fetch)
+    rest = myRest({ someEndpoint: { url: '/someUrl' } }, fetch)
     rest.use('dispatch', dispatch)
     reducer = rest.reducers.someEndpoint
   })
