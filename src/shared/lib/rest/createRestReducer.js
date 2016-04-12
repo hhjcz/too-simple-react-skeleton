@@ -4,8 +4,8 @@ import { compose } from 'redux'
 import {
   InitialState,
   revive,
-  createItemsReducer,
   idsReducer,
+  createItemsReducer,
   createItemReducer,
   fetchingReducer,
   lastFetchSignatureReducer,
