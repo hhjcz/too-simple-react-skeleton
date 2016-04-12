@@ -9,7 +9,6 @@ import {
   itemReducer,
   fetchingReducer,
   lastFetchSignatureReducer,
-  paginationReducer,
   idsPaginationReducer,
   sortReducer
 } from './reduceHelpers'

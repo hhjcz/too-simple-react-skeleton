@@ -14,7 +14,7 @@ export const columns = Map(
       valueType: columntValueTypes.number,
       visible: true,
       width: 1,
-      render: (zarizeni) => <Link to={`/zarizeni/${zarizeni.id}`}>{zarizeni.id}</Link>
+      render: zarizeni => <Link to={`/zarizeni/${zarizeni.id}`}>{zarizeni.id}</Link>
     }),
     name: new Column({
       name: 'name',
@@ -22,7 +22,7 @@ export const columns = Map(
       valueType: columntValueTypes.string,
       visible: true,
       width: 4,
-      render: (zarizeni) => <Link to={`/zarizeni/${zarizeni.id}`}>{zarizeni.name}</Link>,
+      render: zarizeni => <Link to={`/zarizeni/${zarizeni.id}`}>{zarizeni.name}</Link>,
     }),
     createdAt: new Column({
       name: 'createdAt',
@@ -69,7 +69,7 @@ export const columns = Map(
       valueType: columntValueTypes.string,
       width: 4,
       visible: false,
-      render: (zarizeni, pozice) => (
+      render: zarizeni => (
         zarizeni.previousNetvisionName ? (
           <div>
             <div>{zarizeni.previousNetvisionName}</div>

@@ -33,23 +33,30 @@ export const revive = (state = {}, initialState = new InitialState({}), itemTran
   return initialState.merge(mergeObj);
 }
 
-export const itemsReducer = (items = [], itemTransformer = x => x) => state => state.set('items', List(items).map(itemTransformer))
+export const itemsReducer = (items = [], itemTransformer = x => x) => state =>
+  state.set('items', List(items).map(itemTransformer))
 
-export const idsReducer = (items = [], itemTransformer = x => x) => state => state.set('ids', Immutable.fromJS(items).map(item => item.get('id')))
+export const idsReducer = (items = []) => state =>
+  state.set('ids', Immutable.fromJS(items).map(item => item.get('id')))
 
-export const itemReducer = (item = {}, itemTransformer = x => x) => state => state.set('item', itemTransformer(item))
+export const itemReducer = (item = {}, itemTransformer = x => x) => state =>
+  state.set('item', itemTransformer(item))
 
 export const fetchingReducer = fetching => state => state.set('fetching', fetching)
 
-export const lastFetchSignatureReducer = (nextFetchSignature, actionType) => state => state.update('lastFetchSignature', lastFetchSignature => ({
-  ...lastFetchSignature,
-  [actionType]: nextFetchSignature
-}))
+export const lastFetchSignatureReducer = (nextFetchSignature, actionType) => state =>
+  state.update('lastFetchSignature', lastFetchSignature => ({
+    ...lastFetchSignature,
+    [actionType]: nextFetchSignature
+  }))
 
 export const sortReducer = nextSort => state => state.update('sort', sort => (nextSort ? new Sort(nextSort) : sort))
 
 export const paginationReducer = nextPagination => state => state.update(
-  'pagination', pagination => (nextPagination ? new Pagination({ ...pagination.toObject(), ...nextPagination }) : pagination)
+  'pagination', pagination => (
+    nextPagination ? (
+      new Pagination({ ...pagination.toObject(), ...nextPagination })
+    ) : pagination)
 )
 
 export const idsPaginationReducer = nextPagination => state => state.update('pagination', pagination =>

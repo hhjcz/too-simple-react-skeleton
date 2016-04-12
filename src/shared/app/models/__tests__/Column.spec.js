@@ -20,10 +20,13 @@ describe('zarizeni-list Column', () => {
   })
 
   it('should render with custom render function', () => {
-    const column = new Column({ name: 'someField', render: (model, pozice) => `rendered ${model.someField}` })
+    const column = new Column({
+      name: 'someField',
+      render: (model, pozice) => `rendered ${model.someField} at ${pozice}`
+    })
     const model = { someField: 'someValue' }
     expect(typeof column.render).to.equal('function')
-    expect(column.render(model)).to.equal('rendered someValue')
+    expect(column.render(model, 5)).to.equal('rendered someValue at 5')
   })
 
 })
