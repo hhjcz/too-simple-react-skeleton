@@ -2,7 +2,6 @@
 import React, { PropTypes } from 'react'
 import { connect } from 'react-redux'
 import { Pagination } from 'react-bootstrap'
-import uniqBy from 'lodash/uniqBy'
 import createMapStateToProps from '../lib/createMapStateToProps'
 import createMapDispatchToProps from '../lib/createMapDispatchToProps'
 import { getItems, getItem } from '../lib/rest'
@@ -97,11 +96,10 @@ export class Container extends React.Component {
   render() {
     const self = this
     const { zarizeni: zarizeniResource, umisteni: umisteniResource, akrloks: akrloksResource, actions } = this.props
-    const seznamUmisteni = getItems(umisteniResource)
     const { pagination: { cursorAt, total: zarizeniCount } } = zarizeniResource
     const zarizeni = getItem(zarizeniResource)
-    // FIXME - don't do on every render - has to be done once after fetch...
-    const akrloks = uniqBy(getItems(akrloksResource).toArray(), item => item.akrlok)
+    const seznamUmisteni = getItems(umisteniResource)
+    const akrloks = getItems(akrloksResource)
 
     return (
       <div id="zarizeni-list">

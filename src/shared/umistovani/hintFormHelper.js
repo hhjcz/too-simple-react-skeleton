@@ -54,6 +54,7 @@ export function autoCompleteFactory(fieldName) {
       return value => propsHolder.akrloks
         .filter(lokalita => lokalita.akrlok.toLowerCase().indexOf(value.toLowerCase()) > -1)
         .map(lokalita => ({ value: lokalita.akrlok, group: lokalita.obec }))
+        .toArray()
 
     default:
       return null

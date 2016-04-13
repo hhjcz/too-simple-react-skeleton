@@ -15,9 +15,10 @@ import {
 
 
 export default function createRestReducer(endpointName, config = {}, actionTypes = {}) {
+  const collectionTransformer = config.collectionTransformer || (collection => collection)
   const itemTransformer = config.itemTransformer || (item => item)
   const idField = config.idField || 'id'
-  const itemsReducer = createItemsReducer(itemTransformer, idField)
+  const itemsReducer = createItemsReducer(collectionTransformer, itemTransformer, idField)
   const itemReducer = createItemReducer(itemTransformer, idField)
 
   const initialState = new InitialState(config.defaultState || {})

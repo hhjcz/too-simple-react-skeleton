@@ -48,13 +48,16 @@ const createEntitiesReducer = (itemTransformer = x => x, idField = 'id') => (ite
   return state.update('entities', entities => entities.merge(newEntities))
 }
 
-export const createItemsReducer = (itemTransformer = x => x, idField = 'id') => {
+export const createItemsReducer = (collectionTransformer = x => x, itemTransformer = x => x, idField = 'id') => {
   const entitiesReducer = createEntitiesReducer(itemTransformer, idField)
 
-  return (items = []) => state => compose(
-    state => state.set('items', List(items).map(item => item[idField])),
-    entitiesReducer(items)
-  )(state)
+  return (items = []) => state => {
+    items = collectionTransformer(items)
+    return compose(
+      state => state.set('items', List(items).map(item => item[idField])),
+      entitiesReducer(items)
+    )(state)
+  }
 }
 
 export const createItemReducer = (itemTransformer = x => x, idField = 'id') => {

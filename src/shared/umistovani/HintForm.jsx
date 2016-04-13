@@ -1,5 +1,6 @@
 /** Created by hhj on 2/18/16. */
 import React, { PropTypes } from 'react'
+import { List } from 'immutable'
 import MyIcon from '../lib/MyIcon'
 import MyDraggable from '../lib/MyDraggable'
 import MyAutoComplete from '../lib/MyAutoComplete'
@@ -14,7 +15,7 @@ export default class HintForm extends React.Component {
   static propTypes = {
     lokalitaHint: PropTypes.object.isRequired,
     searchForUmisteni: PropTypes.func.isRequired,
-    akrloks: PropTypes.array,
+    akrloks: PropTypes.instanceOf(List),
     actions: PropTypes.object.isRequired,
   };
 

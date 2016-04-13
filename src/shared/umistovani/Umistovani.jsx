@@ -1,5 +1,6 @@
 /** Created by hhj on 2/4/16. */
 import React, { PropTypes } from 'react'
+import { List } from 'immutable'
 import shallowCompare from 'react-addons-shallow-compare'
 import findLokalitaHint from './findLokalitaHint'
 import ZarizeniInfo from './ZarizeniInfo'
@@ -11,7 +12,7 @@ export default class Umistovani extends React.Component {
   static propTypes = {
     zarizeni: PropTypes.object.isRequired,
     seznamUmisteni: PropTypes.object.isRequired,
-    akrloks: PropTypes.array,
+    akrloks: PropTypes.instanceOf(List),
     actions: PropTypes.object,
   };
 

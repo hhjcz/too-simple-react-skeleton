@@ -30,19 +30,22 @@ const styles = {
 }
 
 // collection of items as returned by renderItem()
+let previousItemHolder
 const renderItems = items => items.map((item, index) => {
   const group = item.props.group
   // const text = item.props.children
-  if (index === 0 || items[index - 1].props.group !== group) {
+  if (index === 0 || previousItemHolder.props.group !== group) {
     const style = {
       background: '#eee',
       color: '#454545',
       padding: '2px 0.4em',
       fontWeight: 'bold'
     }
+    previousItemHolder = item
     return [<div style={style}>{group.toUpperCase()}</div>, item]
   }
 
+  previousItemHolder = item
   return item
 })
 

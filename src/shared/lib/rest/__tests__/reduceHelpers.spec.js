@@ -75,7 +75,7 @@ describe('rest lib reduceHelpers', () => {
     })
 
     it('should map with custom id field', () => {
-      const itemsReducer = reduceHelpers.createItemsReducer(x => x, 'name')
+      const itemsReducer = reduceHelpers.createItemsReducer(x => x, x => x, 'name')
       const state = itemsReducer(fetchedItems1)(initialState)
       expect(state.entities.toObject()).to.deep.equal({
         someName66: { id: 66, name: 'someName66' },

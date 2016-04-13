@@ -1,4 +1,5 @@
 /** Created by hhj on 1/29/16. */
+import uniqBy from 'lodash/uniqBy'
 import myRest from '../lib/rest/index'
 import createFetch from '../lib/rest/createFetch'
 import { ZarizeniFactory } from './models/Zarizeni'
@@ -34,6 +35,7 @@ const rest = myRest({
   akrloks: {
     url: '/lokalita/:id',
     // itemTransformer: item => (item.akrlok ? item.akrlok.toLowerCase() : ''),
+    collectionTransformer: collection => uniqBy((collection || []), item => item.akrlok),
     itemTransformer: item => new Lokalita(item),
     extraParams: { fields: 'akrlok,obec', 'akrlok-not': null, sort: 'obec' },
     defaultState: { pagination: new Pagination({ perPage: 10000000 }) },
