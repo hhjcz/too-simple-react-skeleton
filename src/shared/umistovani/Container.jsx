@@ -98,11 +98,10 @@ export class Container extends React.Component {
     const self = this
     const { zarizeni: zarizeniResource, umisteni: umisteniResource, akrloks: akrloksResource, actions } = this.props
     const seznamUmisteni = getItems(umisteniResource)
-    const { item: zarizeni, pagination: { cursorAt, total: zarizeniCount } } = {
-      ...zarizeniResource,
-      item: getItem(zarizeniResource)
-    }
-    const akrloks = uniqBy(getItems(akrloksResource), item => item.akrlok)
+    const { pagination: { cursorAt, total: zarizeniCount } } = zarizeniResource
+    const zarizeni = getItem(zarizeniResource)
+    // FIXME - don't do on every render - has to be done once after fetch...
+    const akrloks = uniqBy(getItems(akrloksResource).toArray(), item => item.akrlok)
 
     return (
       <div id="zarizeni-list">
