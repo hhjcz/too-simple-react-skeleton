@@ -10,7 +10,7 @@ export default class Umistovani extends React.Component {
 
   static propTypes = {
     zarizeni: PropTypes.object.isRequired,
-    seznamUmisteni: PropTypes.array.isRequired,
+    seznamUmisteni: PropTypes.object.isRequired,
     akrloks: PropTypes.array,
     actions: PropTypes.object,
   };

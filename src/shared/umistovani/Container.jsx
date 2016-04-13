@@ -126,9 +126,9 @@ export class Container extends React.Component {
 
 export default connect(
   createMapStateToProps(state => ({
-    zarizeni: state.zarizeni.toJS(),
-    umisteni: state.umisteni.toJS(),
-    akrloks: state.akrloks.toJS()
+    zarizeni: state.zarizeni,
+    umisteni: state.umisteni,
+    akrloks: state.akrloks
   })),
   createMapDispatchToProps(actions)
 )(Container)

@@ -6,7 +6,7 @@
  */
 const createMapStateToProps = getSubState => state => {
   let subState = getSubState(state)
-  if (subState.toJS) subState = subState.toJS()
+  if (subState.toObject) subState = subState.toObject()
 
   return subState
 }

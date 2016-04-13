@@ -9,7 +9,7 @@ export default class Tabulka extends React.Component {
 
   static propTypes = {
     fetching: PropTypes.bool,
-    seznamZarizeni: PropTypes.array,
+    seznamZarizeni: PropTypes.object,
     pagination: PropTypes.object,
     sort: PropTypes.object,
     filters: PropTypes.object,
@@ -32,7 +32,7 @@ export default class Tabulka extends React.Component {
           {
             columns.toList().filter(col => col.visible).map(col =>
               <HeaderCell
-                key={col.name} sort={sort} column={col} filter={filters[col.name]}
+                key={col.name} sort={sort} column={col} filter={filters.get(col.name)}
                 onSortChange={onSortChange} onFilterChange={onFilterChange}
               />
             )
