@@ -9,12 +9,13 @@ export const getSubState = endpointName => getState => {
 
 export const getItems = resource => {
   const entities = resource.entities && resource.entities.toObject ? resource.entities.toObject() : resource.entities
-  const items = resource.items.map(item => entities[item] || {}) || []
+  const items = (resource.items || []).map(item => (entities[item] || {}))
 
   return items
 }
 
 export const getItem = resource => {
+  if (!resource.item) return {}
   const entities = resource.entities && resource.entities.toObject ? resource.entities.toObject() : resource.entities
 
   return entities[resource.item] || {}

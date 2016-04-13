@@ -23,7 +23,7 @@ export class Container extends React.Component {
   };
 
   static defaultProps = {
-    zarizeni: { item: {}, pagination: {} },
+    zarizeni: { pagination: {} },
     umisteni: {},
     akrloks: {},
     params: {},

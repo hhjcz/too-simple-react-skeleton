@@ -2,8 +2,6 @@
 import { expect } from 'chai'
 import React from 'react'
 import sd from 'skin-deep'
-import { List, Map } from 'immutable'
-
 import createStore from '../../app/createStore'
 import Connected, { Container } from './../Container'
 import { Pagination } from '../../app/models/Pagination'
@@ -31,9 +29,9 @@ describe('zarizeni-list connected Container component', () => {
 
   it('should connect proper sub state to props', () => {
     expect(typeof vdom.props.items).to.equal('object')
-    expect(vdom.props.items).to.be.instanceof(List)
-    expect(vdom.props.pagination).to.be.instanceof(Pagination)
-    expect(vdom.props.generalParams).to.be.instanceof(Map)
+    expect(vdom.props.items).to.be.an('array')
+    expect(vdom.props.pagination).to.be.an('object')
+    expect(vdom.props.generalParams).to.be.an('object')
   })
 
 })
