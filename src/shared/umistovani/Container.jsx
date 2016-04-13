@@ -48,14 +48,8 @@ export class Container extends React.Component {
         }
 
         return Promise.all([
-          actions.umisteni.fetchCollection({
-            params: { zarizeniId },
-            force
-          }),
-          actions.portyZarizeni.fetchCollection({
-            params: { zarizeniId },
-            force
-          })
+          actions.umisteni.fetchCollection({ params: { zarizeniId }, force }),
+          actions.portyZarizeni.fetchCollection({ params: { zarizeniId }, force })
         ])
       })
 
