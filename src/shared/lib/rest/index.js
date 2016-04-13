@@ -4,6 +4,7 @@ import createRestAction from './createRestAction'
 import { actionTypesFor } from './actionTypesFor'
 import { actionCreatorsFor } from './actionCreatorsFor'
 
+export { getItems } from './utils'
 export const collectionTypes = { static: 'static', dynamic: 'dynamic' }
 
 export default function createMyRest(config = {}, fetch = () => ({}), dispatch = null) {

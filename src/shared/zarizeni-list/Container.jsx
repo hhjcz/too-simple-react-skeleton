@@ -3,6 +3,7 @@ import React, { PropTypes } from 'react'
 import { connect } from 'react-redux'
 import createMapStateToProps from '../lib/createMapStateToProps'
 import createMapDispatchToProps from '../lib/createMapDispatchToProps'
+import { getItems } from '../lib/rest'
 import * as actions from './actions'
 import Tabulka from './Tabulka'
 import Paginator from './Paginator'
@@ -71,17 +72,13 @@ export class Container extends React.Component {
     const self = this
     const {
       fetching,
-      items,
-      entities,
+      items: seznamZarizeni,
       pagination,
       sort,
       filters,
       generalParams,
       actions
     } = this.props
-
-    const entitiesObj = entities.toObject()
-    const seznamZarizeni = items.map(item => entitiesObj[item] || {})
 
     return (
       <div id="zarizeni-list">
@@ -110,6 +107,6 @@ export class Container extends React.Component {
 // const WrappedContainer = createFetchWrapper(actions.getAll)(Container)
 
 export default connect(
-  createMapStateToProps(state => state.zarizeni),
+  createMapStateToProps(state => state.zarizeni.set('items', getItems(state.zarizeni))),
   createMapDispatchToProps(actions)
 )(Container)
