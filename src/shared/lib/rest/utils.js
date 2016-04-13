@@ -1,4 +1,5 @@
 /** Created by hhj on 1/29/16. */
+import { List, Map } from 'immutable'
 
 export const getSubState = endpointName => getState => {
   const state = (typeof getState === 'function') ? getState() : getState
@@ -7,16 +8,16 @@ export const getSubState = endpointName => getState => {
   return subState
 }
 
-export const getItems = resource => {
-  const entities = resource.entities && resource.entities.toObject ? resource.entities.toObject() : resource.entities
-  const items = (resource.items || []).map(item => (entities[item] || {}))
+export const getItems = (resource = {}) => {
+  const entities = resource.entities || Map() // && resource.entities.toObject ? resource.entities.toObject() : resource.entities
+  const items = (resource.items || List()).map(item => entities.get(`${item}`))
 
   return items
 }
 
-export const getItem = resource => {
-  if (!resource.item) return {}
-  const entities = resource.entities && resource.entities.toObject ? resource.entities.toObject() : resource.entities
+export const getItem = (resource = {}) => {
+  // if (!resource.item) return {}
+  const entities = resource.entities || Map() // && resource.entities.toObject ? resource.entities.toObject() : resource.entities
 
-  return entities[resource.item] || {}
+  return entities.get(`${resource.item}`) || {}
 }

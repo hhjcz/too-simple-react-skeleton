@@ -10,9 +10,25 @@ describe('rest lib reduceHelpers', () => {
     initialState = new reduceHelpers.InitialState()
   })
 
-  it('should revive state', () => {
-    const state = reduceHelpers.revive()
-    expect(state).to.be.instanceOf(reduceHelpers.InitialState)
+  describe('revive', () => {
+
+    it('should revive empty state', () => {
+      const state = reduceHelpers.revive()
+      expect(state).to.be.instanceOf(reduceHelpers.InitialState)
+    })
+
+    it('should revive state', () => {
+      const state = reduceHelpers.revive({
+        items: [66, 77],
+        item: 66,
+        entities: { 66: { id: 66, name: 'name66' }, 77: { id: 77, name: 'name77' } }
+      })
+      expect(state).to.be.instanceOf(reduceHelpers.InitialState)
+      expect(state.items).to.equal(List([66, 77]))
+      expect(state.item).to.equal(66)
+      expect(state.entities.get('66')).to.deep.equal({ id: 66, name: 'name66' })
+    })
+
   })
 
 
