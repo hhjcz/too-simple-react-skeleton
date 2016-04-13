@@ -60,7 +60,7 @@ export const createItemReducer = (itemTransformer = x => x, idField = 'id') => {
   const entitiesReducer = createEntitiesReducer(itemTransformer, idField)
 
   return (item = {}) => state => compose(
-    state.set('item', itemTransformer(item)),
+    state => state.set('item', item[idField]),
     entitiesReducer([item])
   )(state)
 }
