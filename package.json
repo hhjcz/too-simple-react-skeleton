@@ -13,6 +13,7 @@
     "dev": "NODE_PATH=$NODE_PATH:./src/shared node --harmony ./src/server/index.js",
     "test": "mocha --compilers js:babel-register --require ./test_helper.js --recursive --watch-extensions jsx 'src/**/*.spec.js'",
     "test:watch": "npm run test -- --watch",
+    "coverage": "istanbul cover _mocha -- --compilers js:babel-register --require ./test_helper.js --recursive --watch-extensions jsx 'src/**/*.spec.js'",
     "pretest": "true || npm run eslint # (auto hook runs with npm run test)",
     "eslint": "eslint --ext=js --ext=jsx src || true"
   },
@@ -83,6 +84,7 @@
     "eslint-plugin-import": "^1.0.0",
     "eslint-plugin-jsx-a11y": "^0.6.2",
     "eslint-plugin-react": "^4.1.0",
+    "istanbul": "^1.0.0-alpha.2",
     "mocha": "^2.3.4",
     "react-addons-test-utils": "^0.14.8",
     "react-transform-hmr": "^1.0.1",
