@@ -14,7 +14,7 @@ export class Container extends React.Component {
 
   static propTypes = {
     fetching: PropTypes.bool,
-    items: PropTypes.object,
+    items: PropTypes.array,
     entities: PropTypes.object,
     pagination: PropTypes.object.isRequired,
     sort: PropTypes.object.isRequired,
@@ -84,7 +84,7 @@ export class Container extends React.Component {
       <div id="zarizeni-list">
         <PredefinedViews
           onNamedFilterChange={self.onNamedFilterChange}
-          namedFilter={generalParams.toObject().filter}
+          namedFilter={generalParams.filter}
           onFilterChange={self.onFilterChange}
           filters={filters}
         />

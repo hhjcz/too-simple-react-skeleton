@@ -10,7 +10,7 @@ export default class Umistovani extends React.Component {
 
   static propTypes = {
     zarizeni: PropTypes.object.isRequired,
-    seznamUmisteni: PropTypes.object.isRequired,
+    seznamUmisteni: PropTypes.array.isRequired,
     akrloks: PropTypes.array,
     actions: PropTypes.object,
   };
@@ -69,10 +69,10 @@ export default class Umistovani extends React.Component {
   }
 
   render() {
+    const self = this
     const { zarizeni, seznamUmisteni, akrloks, actions } = this.props
     if (!(zarizeni.id > 0)) return null
 
-    const self = this
     const lokalitaHint = findLokalitaHint(zarizeni.name, zarizeni.defaultmap, zarizeni.id)
 
     return (

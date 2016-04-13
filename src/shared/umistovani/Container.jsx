@@ -5,6 +5,7 @@ import { Pagination } from 'react-bootstrap'
 import uniqBy from 'lodash/uniqBy'
 import createMapStateToProps from '../lib/createMapStateToProps'
 import createMapDispatchToProps from '../lib/createMapDispatchToProps'
+import { getItems, getItem } from '../lib/rest'
 import actions from './actions'
 import Umistovani from './Umistovani'
 import FetchIndicator from './../lib/FetchIndicator'
@@ -42,7 +43,7 @@ export class Container extends React.Component {
 
     const promise = dispatch(actions.zarizeniList.fetchOneAt(cursorAt, force))
       .then(() => {
-        const zarizeniId = getState().zarizeni.item.id
+        const zarizeniId = getItem(getState().zarizeni).id
         if (!(zarizeniId > 0)) {
           throw new Error('Fetch chyba: nepodaril se fetch zarizeni s validnim id')
         }
@@ -96,11 +97,12 @@ export class Container extends React.Component {
   render() {
     const self = this
     const { zarizeni: zarizeniResource, umisteni: umisteniResource, akrloks: akrloksResource, actions } = this.props
-    const { items: seznamUmisteni } = umisteniResource
-    const { item: zarizeni, pagination: { cursorAt, total: zarizeniCount } } = zarizeniResource
-    const akrloks = akrloksResource.items && akrloksResource.items.toArray ?
-      uniqBy(akrloksResource.items.toArray(), item => item.akrlok)
-      : []
+    const seznamUmisteni = getItems(umisteniResource)
+    const { item: zarizeni, pagination: { cursorAt, total: zarizeniCount } } = {
+      ...zarizeniResource,
+      item: getItem(zarizeniResource)
+    }
+    const akrloks = uniqBy(getItems(akrloksResource), item => item.akrlok)
 
     return (
       <div id="zarizeni-list">
@@ -123,6 +125,10 @@ export class Container extends React.Component {
 }
 
 export default connect(
-  createMapStateToProps(state => state),
+  createMapStateToProps(state => ({
+    zarizeni: state.zarizeni.toJS(),
+    umisteni: state.umisteni.toJS(),
+    akrloks: state.akrloks.toJS()
+  })),
   createMapDispatchToProps(actions)
 )(Container)
