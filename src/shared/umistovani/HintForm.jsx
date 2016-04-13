@@ -21,8 +21,7 @@ export default class HintForm extends React.Component {
 
   static defaultProps = {
     lokalitaHint: {},
-    searchForUmisteni() {
-    },
+    searchForUmisteni() {},
     actions: {},
   };
 

@@ -15,7 +15,6 @@ export class Container extends React.Component {
   static propTypes = {
     fetching: PropTypes.bool,
     items: PropTypes.object,
-    entities: PropTypes.object,
     pagination: PropTypes.object.isRequired,
     sort: PropTypes.object.isRequired,
     filters: PropTypes.object.isRequired,
