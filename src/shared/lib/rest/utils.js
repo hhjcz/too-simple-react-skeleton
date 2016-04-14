@@ -3,7 +3,7 @@ import { List, Map } from 'immutable'
 
 export const getSubState = endpointName => getState => {
   const state = (typeof getState === 'function') ? getState() : getState
-  let subState = state[endpointName]
+  let subState = state.resources[endpointName]
   if (subState.toObject) subState = subState.toObject()
   return subState
 }

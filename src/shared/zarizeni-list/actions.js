@@ -1,5 +1,5 @@
 /** Created by hhj on 20.12.15. */
-import rest from '../app/rest';
+import rest, { getSubState } from '../app/rest';
 
 export const SET_PAGINATION = 'SET_PAGINATION'
 export const POINT_CURSOR_TO = 'POINT_CURSOR_TO'
@@ -16,7 +16,6 @@ module.exports = {
 
 const { fetchIds, fetchCollectionByIds, fetchOne } = rest.actions.zarizeni
 
-const getSubState = getState => getState().zarizeni
 const updateCollection = () => fetchIds().then(() => fetchCollectionByIds())
 
 /**
@@ -28,7 +27,7 @@ export function fetchOneAt(cursorAt, force = false) {
   return ({ dispatch, getState }) => {
     dispatch({ type: POINT_CURSOR_TO, cursorAt })
     return fetchIds().then(() => {
-      const subState = getSubState(getState)
+      const subState = getSubState('zarizeni')(getState)
       const id = subState.ids.get(cursorAt - 1) || 1
       return fetchOne({ params: { id }, force })
     })

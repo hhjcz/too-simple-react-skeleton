@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 import { Pagination } from 'react-bootstrap'
 import createMapStateToProps from '../lib/createMapStateToProps'
 import createMapDispatchToProps from '../lib/createMapDispatchToProps'
-import { getItems, getItem } from '../lib/rest'
+import { getSubState, getItems, getItem } from '../app/rest'
 import actions from './actions'
 import Umistovani from './Umistovani'
 import FetchIndicator from './../lib/FetchIndicator'
@@ -13,18 +13,18 @@ import Navigation from './Navigation'
 export class Container extends React.Component {
 
   static propTypes = {
-    zarizeni: PropTypes.object,
-    umisteni: PropTypes.object,
-    akrloks: PropTypes.object,
+    zarizeniResource: PropTypes.object,
+    umisteniResource: PropTypes.object,
+    akrloksResource: PropTypes.object,
     params: PropTypes.object,
     actions: PropTypes.object.isRequired,
     dispatch: PropTypes.func,
   };
 
   static defaultProps = {
-    zarizeni: { pagination: {} },
-    umisteni: {},
-    akrloks: {},
+    zarizeniResource: { pagination: {} },
+    umisteniResource: {},
+    akrloksResource: {},
     params: {},
   };
 
@@ -37,12 +37,15 @@ export class Container extends React.Component {
     return [Container.fetchZarizeni]
   }
 
+  // FIXME - refactor without the need for getState() - direct use of response from action?
+  //       - for first try to make a separate action from this
   static fetchZarizeni({ params, dispatch, getState, force }) {
     const cursorAt = parseInt(params.cursorAt) || 1
 
     const promise = dispatch(actions.zarizeniList.fetchOneAt(cursorAt, force))
       .then(() => {
-        const zarizeniId = getItem(getState().zarizeni).id
+        const zarizeni = getItem(getSubState('zarizeni')(getState))
+        const zarizeniId = zarizeni.id
         if (!(zarizeniId > 0)) {
           throw new Error('Fetch chyba: nepodaril se fetch zarizeni s validnim id')
         }
@@ -65,9 +68,10 @@ export class Container extends React.Component {
   componentDidMount() {
     // browser fetching:
     Container.fetchActions.forEach(action => action({
-      params: { cursorAt: this.props.zarizeni.pagination.cursorAt, ...this.props.params },
+      params: { cursorAt: this.props.zarizeniResource.pagination.cursorAt, ...this.props.params },
       dispatch: this.props.dispatch,
-      getState: () => this.props
+      // FIXME - refactor, adds dependency to state structure and is complicated
+      getState: () => ({ resources: { zarizeni: this.props.zarizeniResource } })
     }))
   }
 
@@ -75,7 +79,8 @@ export class Container extends React.Component {
     Container.fetchZarizeni({
       params: { cursorAt },
       dispatch: this.props.dispatch,
-      getState: () => this.props,
+      // FIXME - refactor, adds dependency to state structure and is complicated
+      getState: () => ({ resources: { zarizeni: this.props.zarizeniResource } }),
       force
     })
 
@@ -84,12 +89,12 @@ export class Container extends React.Component {
   }
 
   reload() {
-    this.onCursorChange(this.props.zarizeni.pagination.cursorAt, true)
+    this.onCursorChange(this.props.zarizeniResource.pagination.cursorAt, true)
   }
 
   render() {
     const self = this
-    const { zarizeni: zarizeniResource, umisteni: umisteniResource, akrloks: akrloksResource, actions } = this.props
+    const { zarizeniResource, umisteniResource, akrloksResource, actions } = this.props
     const { pagination: { cursorAt, total: zarizeniCount } } = zarizeniResource
     const zarizeni = getItem(zarizeniResource)
     const seznamUmisteni = getItems(umisteniResource)
@@ -117,9 +122,9 @@ export class Container extends React.Component {
 
 export default connect(
   createMapStateToProps(state => ({
-    zarizeni: state.zarizeni,
-    umisteni: state.umisteni,
-    akrloks: state.akrloks
+    zarizeniResource: state.resources.zarizeni,
+    umisteniResource: state.resources.umisteni,
+    akrloksResource: state.resources.akrloks
   })),
   createMapDispatchToProps(actions)
 )(Container)

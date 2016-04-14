@@ -106,6 +106,6 @@ export class Container extends React.Component {
 // const WrappedContainer = createFetchWrapper(actions.getAll)(Container)
 
 export default connect(
-  createMapStateToProps(state => state.zarizeni.set('items', getItems(state.zarizeni))),
+  createMapStateToProps(state => state.resources.zarizeni.set('items', getItems(state.resources.zarizeni))),
   createMapDispatchToProps(actions)
 )(Container)
