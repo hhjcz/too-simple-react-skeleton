@@ -1,9 +1,10 @@
 /** Created by hhj on 12/30/15. */
 import React, { PropTypes } from 'react'
+import Zarizeni from '../app/models/Zarizeni'
 
-export default class Zarizeni extends React.Component {
+export default class ZarizeniDetail extends React.Component {
   static propTypes = {
-    zarizeni: PropTypes.object.isRequired,
+    zarizeni: PropTypes.instanceOf(Zarizeni).isRequired,
   };
 
   render() {

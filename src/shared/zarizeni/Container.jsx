@@ -3,16 +3,13 @@ import React, { PropTypes } from 'react'
 import { connect } from 'react-redux'
 import createMapStateToProps from '../lib/createMapStateToProps'
 import createMapDispatchToProps from '../lib/createMapDispatchToProps'
+import { getItem } from '../lib/rest'
 import * as actions from '../zarizeni-list/actions'
-import Zarizeni from './Zarizeni'
+import ZarizeniDetail from './ZarizeniDetail'
 
 export class Container extends React.Component {
 
   static propTypes = {
-    fetching: PropTypes.bool,
-    item: PropTypes.object,
-    dispatch: PropTypes.func.isRequired,
-    location: PropTypes.object,
     params: PropTypes.object,
   };
 
@@ -26,16 +23,16 @@ export class Container extends React.Component {
   }
 
   render() {
-    const { item } = this.props
+    const zarizeni = getItem(this.props)
     return (
       <div id="zarizeni">
-        <Zarizeni zarizeni={item} />
+        <ZarizeniDetail zarizeni={zarizeni} />
       </div>
     )
   }
 }
 
 export default connect(
-  createMapStateToProps(state => state.zarizeni),
+  createMapStateToProps(state => state.resources.zarizeni),
   createMapDispatchToProps(actions)
 )(Container)
