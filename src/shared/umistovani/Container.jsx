@@ -39,6 +39,7 @@ export class Container extends React.Component {
 
   static fetchZarizeni({ params, dispatch, getState, force }) {
     const cursorAt = parseInt(params.cursorAt) || 1
+    // retrieve getState from dispatch, if not defined
     getState = getState || dispatch(({ getState }) => getState)
 
     const promise = dispatch(actions.zarizeniList.fetchOneAt(cursorAt, force))
