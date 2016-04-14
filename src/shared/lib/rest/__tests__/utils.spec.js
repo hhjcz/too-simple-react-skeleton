@@ -2,7 +2,7 @@
 import { expect } from 'chai'
 import { List } from 'immutable'
 import { revive } from '../reduceHelpers'
-import { getSubState, getItems, getItem, _subStateStub } from '../utils'
+import { getSubState, getItems, getItem, generateSubState } from '../utils'
 
 describe('rest utils', () => {
 
@@ -10,14 +10,14 @@ describe('rest utils', () => {
 
     it('should get this substate using function', () => {
       const subState = { someVariable: 'someValue' }
-      const getState = () => _subStateStub({ someSubState: subState })
+      const getState = () => generateSubState({ someSubState: subState })
       const getThisSubState = getSubState('someSubState')
       expect(getThisSubState(getState)).to.equal(subState)
     })
 
     it('should get this substate from object', () => {
       const subState = { someVariable: 'someValue' }
-      const getState = _subStateStub({ someSubState: subState })
+      const getState = generateSubState({ someSubState: subState })
       const getThisSubState = getSubState('someSubState')
       expect(getThisSubState(getState)).to.equal(subState)
     })

@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 import { Pagination } from 'react-bootstrap'
 import createMapStateToProps from '../lib/createMapStateToProps'
 import createMapDispatchToProps from '../lib/createMapDispatchToProps'
-import { getSubState, getItems, getItem } from '../app/rest'
+import { getSubState as getResourceSubState, getItems, getItem } from '../app/rest'
 import actions from './actions'
 import Umistovani from './Umistovani'
 import FetchIndicator from './../lib/FetchIndicator'
@@ -37,14 +37,15 @@ export class Container extends React.Component {
     return [Container.fetchZarizeni]
   }
 
-  // FIXME - refactor without the need for getState() - direct use of response from action?
-  //       - for first try to make a separate action from this
   static fetchZarizeni({ params, dispatch, getState, force }) {
     const cursorAt = parseInt(params.cursorAt) || 1
+    // retrieve getState from dispatch, if not defined
+    getState = getState || dispatch(({ getState }) => getState)
 
     const promise = dispatch(actions.zarizeniList.fetchOneAt(cursorAt, force))
       .then(() => {
-        const zarizeni = getItem(getSubState('zarizeni')(getState))
+        const zarizeniResource = getResourceSubState('zarizeni')(getState)
+        const zarizeni = getItem(zarizeniResource)
         const zarizeniId = zarizeni.id
         if (!(zarizeniId > 0)) {
           throw new Error('Fetch chyba: nepodaril se fetch zarizeni s validnim id')
@@ -70,8 +71,6 @@ export class Container extends React.Component {
     Container.fetchActions.forEach(action => action({
       params: { cursorAt: this.props.zarizeniResource.pagination.cursorAt, ...this.props.params },
       dispatch: this.props.dispatch,
-      // FIXME - refactor, adds dependency to state structure and is complicated
-      getState: () => ({ resources: { zarizeni: this.props.zarizeniResource } })
     }))
   }
 
@@ -79,8 +78,6 @@ export class Container extends React.Component {
     Container.fetchZarizeni({
       params: { cursorAt },
       dispatch: this.props.dispatch,
-      // FIXME - refactor, adds dependency to state structure and is complicated
-      getState: () => ({ resources: { zarizeni: this.props.zarizeniResource } }),
       force
     })
 

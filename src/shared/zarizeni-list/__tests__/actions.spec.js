@@ -4,7 +4,7 @@ import { expect } from 'chai'
 import { Record, List } from 'immutable'
 import actions from '../actions'
 import rest from '../../app/rest'
-import { _subStateStub } from '../../lib/rest/utils'
+import { generateSubState } from '../../lib/rest/utils'
 import reducer from '../reducer'
 
 describe('zarizeni-list actions', () => {
@@ -18,7 +18,7 @@ describe('zarizeni-list actions', () => {
 
     const fetch = () => Promise.resolve({ nullResponse })
 
-    const getState = () => _subStateStub({ zarizeni })
+    const getState = () => generateSubState({ zarizeni })
 
     const dispatch = action => {
       if (typeof action === 'function') return action({ dispatch, getState })
