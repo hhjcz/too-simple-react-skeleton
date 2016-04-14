@@ -3,6 +3,7 @@ import { expect } from 'chai'
 import React from 'react'
 import sd from 'skin-deep'
 import { List, Map } from 'immutable'
+import { getSubState } from '../../app/rest'
 import createStore from '../../app/createStore'
 import Connected, { Container } from './../Container'
 import { Pagination } from '../../app/models/Pagination'
@@ -44,7 +45,7 @@ describe('zarizeni-list Container component', () => {
   beforeEach(() => {
     const store = createStore()
     const tree = sd.shallowRender(
-      React.createElement(Container, { ...store.getState().zarizeni.toObject() })
+      React.createElement(Container)
     )
 
     // instance = tree.getMountedInstance()

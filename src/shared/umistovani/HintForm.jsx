@@ -34,14 +34,17 @@ export default class HintForm extends React.Component {
     helperPropsHolder.actions = this.props.actions
     helperPropsHolder.akrloks = this.props.akrloks
 
-    // fetch seznam akrloks
-    fetchSeznamAkrloks()
 
     // generate auto complete getter functions
     this.getAutoCompleteValues = {};
     fields.forEach(fieldName => {
       this.getAutoCompleteValues[fieldName] = autoCompleteFactory(fieldName)
     })
+  }
+
+  componentDidMount() {
+    // fetch seznam akrloks
+    fetchSeznamAkrloks()
   }
 
   componentWillReceiveProps(nextProps) {

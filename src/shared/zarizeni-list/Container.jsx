@@ -1,6 +1,7 @@
 /** Created by hhj on 12/28/15. */
 import React, { PropTypes } from 'react'
 import { connect } from 'react-redux'
+import { List } from 'immutable'
 import createMapStateToProps from '../lib/createMapStateToProps'
 import createMapDispatchToProps from '../lib/createMapDispatchToProps'
 import { getItems } from '../lib/rest'
@@ -25,7 +26,8 @@ export class Container extends React.Component {
   };
 
   static defaultProps = {
-    actions: {}
+    actions: {},
+    generalParams: List()
   };
 
   // server and client side fetch actions (see render.jsx & componentDidMount):
@@ -83,7 +85,7 @@ export class Container extends React.Component {
       <div id="zarizeni-list">
         <PredefinedViews
           onNamedFilterChange={self.onNamedFilterChange}
-          namedFilter={generalParams.toObject().filter}
+          namedFilter={generalParams.get('filter')}
           onFilterChange={self.onFilterChange}
           filters={filters}
         />
@@ -106,6 +108,6 @@ export class Container extends React.Component {
 // const WrappedContainer = createFetchWrapper(actions.getAll)(Container)
 
 export default connect(
-  createMapStateToProps(state => state.zarizeni.set('items', getItems(state.zarizeni))),
+  createMapStateToProps(state => state.resources.zarizeni.set('items', getItems(state.resources.zarizeni))),
   createMapDispatchToProps(actions)
 )(Container)

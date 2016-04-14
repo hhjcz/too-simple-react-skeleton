@@ -84,7 +84,7 @@ export default class Umistovani extends React.Component {
         />
         <PotencialniUmisteni
           lokalitaHint={lokalitaHint}
-          seznamUmisteni={seznamUmisteni.toArray ? seznamUmisteni.toArray() : seznamUmisteni}
+          seznamUmisteni={seznamUmisteni}
           umistiZarizeni={self.umistitZarizeni}
           deleteAllUmisteni={self.deleteAllUmisteni}
         />
