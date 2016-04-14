@@ -8,7 +8,7 @@ import IconButton from 'material-ui/lib/icon-button'
 // import FloatingButton from 'material-ui/lib/floating-action-button'
 import Divider from 'material-ui/lib/divider'
 import sortBy from 'lodash/sortBy'
-
+import { List } from 'immutable'
 import MarkedLokalita from './MarkedLokalita'
 import NepiOpy from './NepiOpy'
 import MyIcon from '../lib/MyIcon'
@@ -16,19 +16,19 @@ import './PotencialniUmisteni.styl'
 
 export default class PotencialniUmisteni extends React.Component {
   static propTypes = {
-    seznamUmisteni: PropTypes.array.isRequired,
+    seznamUmisteni: PropTypes.instanceOf(List).isRequired,
     lokalitaHint: PropTypes.object.isRequired,
     umistiZarizeni: PropTypes.func.isRequired,
     deleteAllUmisteni: PropTypes.func.isRequired,
   };
 
   static defaultProps = {
-    seznamUmisteni: [],
+    seznamUmisteni: List(),
   };
 
   render() {
     const { seznamUmisteni, lokalitaHint, umistiZarizeni, deleteAllUmisteni } = this.props
-    const sortedSeznamUmisteni = sortBy(seznamUmisteni, umisteni => -umisteni.lokalita.nepiOpy.size)
+    const sortedSeznamUmisteni = sortBy(seznamUmisteni.toArray(), umisteni => -umisteni.lokalita.nepiOpy.size)
 
     return (
       <div>

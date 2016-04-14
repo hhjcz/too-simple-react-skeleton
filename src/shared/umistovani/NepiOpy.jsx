@@ -1,23 +1,23 @@
 /** Created by hhj on 3/11/16. */
 /* eslint-disable max-len */
 import React, { PropTypes } from 'react'
+import { List } from 'immutable'
 import uniqBy from 'lodash/uniqBy'
 import Avatar from 'material-ui/lib/avatar'
 import * as muiColors from 'material-ui/lib/styles/colors'
 
 export default class NepiOpy extends React.Component {
   static propTypes = {
-    nepiOpy: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
+    nepiOpy: PropTypes.instanceOf(List),
   };
 
   static defaultProps = {
-    nepiOpy: [],
+    nepiOpy: List(),
   };
 
   render() {
-    let { nepiOpy } = this.props
-    nepiOpy = nepiOpy.toArray ? nepiOpy.toArray() : nepiOpy
-    const uniqNepiOpy = uniqBy(nepiOpy, nepiOp => nepiOp.ixop)
+    const { nepiOpy } = this.props
+    const uniqNepiOpy = uniqBy(nepiOpy.toArray(), nepiOp => nepiOp.ixop)
     const slicedNepiOpy = uniqNepiOpy.slice(0, 10)
 
     const listItems = slicedNepiOpy.map(nepiOp =>

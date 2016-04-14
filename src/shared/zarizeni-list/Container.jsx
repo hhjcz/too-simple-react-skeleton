@@ -85,7 +85,7 @@ export class Container extends React.Component {
       <div id="zarizeni-list">
         <PredefinedViews
           onNamedFilterChange={self.onNamedFilterChange}
-          namedFilter={generalParams.toObject().filter}
+          namedFilter={generalParams.get('filter')}
           onFilterChange={self.onFilterChange}
           filters={filters}
         />
