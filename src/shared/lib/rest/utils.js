@@ -21,3 +21,13 @@ export const getItem = (resource = {}) => {
 
   return entities.get(`${resource.item}`) || {}
 }
+
+/**
+ * @description For testing purposes
+ *
+ * @param resourcesObj
+ * @private
+ */
+export const _subStateStub = resourcesObj => ({
+  resources: resourcesObj
+})

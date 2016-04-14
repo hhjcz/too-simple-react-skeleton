@@ -1,6 +1,7 @@
 /** Created by hhj on 2/1/16. */
 import { expect } from 'chai'
 import myRest from '../index'
+import { _subStateStub } from '../utils'
 
 describe('myRest library', () => {
 
@@ -12,7 +13,7 @@ describe('myRest library', () => {
 
   const fetch = () => Promise.resolve(nullResponse)
 
-  const getState = () => ({ someEndpoint })
+  const getState = () => _subStateStub({ someEndpoint })
 
   const dispatch = action => {
     if (typeof action === 'function') return action({ dispatch, getState })

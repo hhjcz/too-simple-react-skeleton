@@ -1,6 +1,7 @@
 /** Created by hhj on 12/28/15. */
 import React, { PropTypes } from 'react'
 import { connect } from 'react-redux'
+import { List } from 'immutable'
 import createMapStateToProps from '../lib/createMapStateToProps'
 import createMapDispatchToProps from '../lib/createMapDispatchToProps'
 import { getItems } from '../lib/rest'
@@ -25,7 +26,8 @@ export class Container extends React.Component {
   };
 
   static defaultProps = {
-    actions: {}
+    actions: {},
+    generalParams: List()
   };
 
   // server and client side fetch actions (see render.jsx & componentDidMount):
