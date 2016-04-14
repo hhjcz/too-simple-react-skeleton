@@ -9,7 +9,7 @@ export const getSubState = endpointName => getState => {
 }
 
 export const getItems = (resource = {}) => {
-  const entities = resource.entities || Map() // && resource.entities.toObject ? resource.entities.toObject() : resource.entities
+  const entities = resource.entities || Map()
   const items = (resource.items || List()).map(item => entities.get(`${item}`))
 
   return items
@@ -17,7 +17,7 @@ export const getItems = (resource = {}) => {
 
 export const getItem = (resource = {}) => {
   // if (!resource.item) return {}
-  const entities = resource.entities || Map() // && resource.entities.toObject ? resource.entities.toObject() : resource.entities
+  const entities = resource.entities || Map()
 
   return entities.get(`${resource.item}`) || {}
 }
