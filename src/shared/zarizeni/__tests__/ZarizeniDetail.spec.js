@@ -3,15 +3,15 @@ import { expect } from 'chai'
 import React from 'react'
 import sd from 'skin-deep'
 
-import Zarizeni from '../Zarizeni'
+import ZarizeniDetail from '../ZarizeniDetail'
 
-describe('zarizeni Zarizeni component', () => {
+describe('zarizeni ZarizeniDetail component', () => {
   let tree
   let vdom
   let instance   // eslint-disable-line no-unused-vars
 
   beforeEach(() => {
-    tree = sd.shallowRender(React.createElement(Zarizeni, { zarizeni: { id: 666 } }))
+    tree = sd.shallowRender(React.createElement(ZarizeniDetail, { zarizeni: { id: 666 } }))
 
     instance = tree.getMountedInstance()
     vdom = tree.getRenderOutput()
