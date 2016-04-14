@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 import { Pagination } from 'react-bootstrap'
 import createMapStateToProps from '../lib/createMapStateToProps'
 import createMapDispatchToProps from '../lib/createMapDispatchToProps'
-import { getSubState, getItems, getItem } from '../app/rest'
+import { getSubState, getItems, getItem, generateSubState as resourcesSubState } from '../app/rest'
 import actions from './actions'
 import Umistovani from './Umistovani'
 import FetchIndicator from './../lib/FetchIndicator'
@@ -71,7 +71,7 @@ export class Container extends React.Component {
       params: { cursorAt: this.props.zarizeniResource.pagination.cursorAt, ...this.props.params },
       dispatch: this.props.dispatch,
       // FIXME - refactor, adds dependency to state structure and is complicated
-      getState: () => ({ resources: { zarizeni: this.props.zarizeniResource } })
+      getState: () => resourcesSubState({ zarizeni: this.props.zarizeniResource })
     }))
   }
 
@@ -80,7 +80,7 @@ export class Container extends React.Component {
       params: { cursorAt },
       dispatch: this.props.dispatch,
       // FIXME - refactor, adds dependency to state structure and is complicated
-      getState: () => ({ resources: { zarizeni: this.props.zarizeniResource } }),
+      getState: () => resourcesSubState({ zarizeni: this.props.zarizeniResource }),
       force
     })
 

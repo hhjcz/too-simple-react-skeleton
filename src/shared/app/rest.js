@@ -8,7 +8,7 @@ import { Lokalita } from './models/Lokalita'
 import { Sort } from './models/Sort'
 import { Pagination } from './models/Pagination'
 
-export { getSubState, getItem, getItems } from '../lib/rest'
+export { getSubState, getItem, getItems, generateSubState } from '../lib/rest'
 
 const serverBaseUrl = process.env.SERVER_BASE_URL || 'http://localhost:8089/api'
 

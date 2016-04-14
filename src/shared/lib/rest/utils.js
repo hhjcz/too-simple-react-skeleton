@@ -28,6 +28,6 @@ export const getItem = (resource = {}) => {
  * @param resourcesObj
  * @private
  */
-export const _subStateStub = resourcesObj => ({
+export const generateSubState = resourcesObj => ({
   resources: resourcesObj
 })
