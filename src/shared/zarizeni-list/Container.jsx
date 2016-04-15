@@ -9,7 +9,6 @@ import * as actions from './actions'
 import Tabulka from './Tabulka'
 import Paginator from './Paginator'
 import PredefinedViews from './PredefinedViews'
-// import createFetchWrapper from '../lib/rest/createFetchWrapper'
 
 export class Container extends React.Component {
 
@@ -57,12 +56,12 @@ export class Container extends React.Component {
   }
 
   onSortChange(sortField) {
-    this.props.actions.sortChange(sortField, true)
+    this.props.actions.sortChange(sortField)
   }
 
   /** @param {Filter} filter */
   onFilterChange(filter) {
-    this.props.actions.filterChange(filter, true)
+    this.props.actions.filterChange(filter)
   }
 
   onNamedFilterChange(filterName) {
@@ -103,9 +102,6 @@ export class Container extends React.Component {
     )
   }
 }
-
-// TODO - not used for now, does not work
-// const WrappedContainer = createFetchWrapper(actions.getAll)(Container)
 
 export default connect(
   createMapStateToProps(state => state.resources.zarizeni.set('items', getItems(state.resources.zarizeni))),
