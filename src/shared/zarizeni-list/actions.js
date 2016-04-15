@@ -1,5 +1,6 @@
 /** Created by hhj on 20.12.15. */
 import rest, { getSubState } from '../app/rest';
+import handleError from '../lib/myErrorHandler'
 
 export const SET_PAGINATION = 'SET_PAGINATION'
 export const POINT_CURSOR_TO = 'POINT_CURSOR_TO'
@@ -26,11 +27,12 @@ const updateCollection = () => fetchIds().then(() => fetchCollectionByIds())
 export function fetchOneAt(cursorAt, force = false) {
   return ({ dispatch, getState }) => {
     dispatch({ type: POINT_CURSOR_TO, cursorAt })
-    return fetchIds().then(() => {
-      const subState = getSubState('zarizeni')(getState)
-      const id = subState.ids.get(cursorAt - 1) || 1
-      return fetchOne({ params: { id }, force })
-    })
+
+    const subState = getSubState('zarizeni')(getState)
+    const id = subState.ids.get(cursorAt - 1)
+    if (!id) handleError(`No valid zarizeni found at position ${cursorAt}`)
+
+    return fetchOne({ params: { id }, force })
   }
 }
 
@@ -41,7 +43,7 @@ export function fetchOneAt(cursorAt, force = false) {
 export function gotoPage(page) {
   return ({ dispatch }) => {
     dispatch({ type: GOTO_PAGE, page })
-    return updateCollection()
+    return fetchCollectionByIds()
   }
 }
 

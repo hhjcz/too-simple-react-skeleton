@@ -34,9 +34,11 @@ export class Container extends React.Component {
     return [Container.fetchZarizeni]
   }
 
-  static fetchZarizeni({ params }) {
-    return actions.fetchIds({ params })
-      .then(() => actions.fetchCollectionByIds({ params }))
+  static fetchZarizeni({ params, getState }) {
+    // if on server -> initial fetch of ids
+    // TODO - when on server, test whether ids is empty, then also fetch
+    const idsFetched = getState ? actions.fetchIds() : Promise.resolve(null)
+    return idsFetched.then(() => actions.fetchCollectionByIds({ params }))
   }
 
   constructor(props) {
@@ -48,11 +50,7 @@ export class Container extends React.Component {
 
   // browser fetching:
   componentDidMount() {
-    Container.fetchActions.forEach(action => action({
-      params: this.props.params,
-      dispatch: this.props.dispatch,
-      getState: () => this.props
-    }))
+    Container.fetchActions.forEach(action => action({ params: this.props.params }))
   }
 
   onSortChange(sortField) {

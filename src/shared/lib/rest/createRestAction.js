@@ -23,7 +23,7 @@ export default function createRestAction(endpointName, config, actionCreators, f
 
     /* eslint-disable arrow-body-style */
     return ({ params, body, force } = {}) => {
-      if (force == null) force = false // eslint-disable-line
+      // if (force == null) force = false // eslint-disable-line
 
       return fnHolder.dispatch(({ dispatch, getState }) => {
 
@@ -31,13 +31,13 @@ export default function createRestAction(endpointName, config, actionCreators, f
         const queryParams = { ...queryGenerator(state), ...extraParams, ...decamelizeKeys(params), ...methodExtraParams } // eslint-disable-line max-len
         const { fetchUrl, executeFetch } = resource[fetchMethod](queryParams, body)
 
-        let lastFetchSignature = null
-        if (state.lastFetchSignature) {
-          let lastFetchSignatureObj = state.lastFetchSignature
-          if (lastFetchSignatureObj.toObject) lastFetchSignatureObj = lastFetchSignatureObj.toObject()
-          lastFetchSignature = lastFetchSignatureObj[actionName]
-        }
-        if (!force && lastFetchSignature === fetchUrl) return Promise.resolve(null) // no need to refetch
+        // let lastFetchSignature = null
+        // if (state.lastFetchSignature) {
+        //   let lastFetchSignatureObj = state.lastFetchSignature
+        //   if (lastFetchSignatureObj.toObject) lastFetchSignatureObj = lastFetchSignatureObj.toObject()
+        //   lastFetchSignature = lastFetchSignatureObj[actionName]
+        // }
+        // if (!force && lastFetchSignature === fetchUrl) return Promise.resolve(null) // no need to refetch
 
         dispatch(subActionCreators.requested())
 
