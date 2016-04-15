@@ -21,10 +21,9 @@ const updateCollection = () => fetchIds().then(() => fetchCollectionByIds())
 
 /**
  * @param cursorAt
- * @param force
  * @returns {Function}
  */
-export function fetchOneAt(cursorAt, force = false) {
+export function fetchOneAt(cursorAt) {
   return ({ dispatch, getState }) => {
     dispatch({ type: POINT_CURSOR_TO, cursorAt })
 
@@ -32,7 +31,7 @@ export function fetchOneAt(cursorAt, force = false) {
     const id = subState.ids.get(cursorAt - 1)
     if (!id) handleError(`No valid zarizeni found at position ${cursorAt}`)
 
-    return fetchOne({ params: { id }, force })
+    return fetchOne({ params: { id } })
   }
 }
 
