@@ -4,6 +4,7 @@ import { expect } from 'chai'
 import createRestAction from '../createRestAction'
 import { actionTypesFor } from '../actionTypesFor'
 import { actionCreatorsFor } from '../actionCreatorsFor'
+import { generateSubState } from '../utils'
 
 describe('rest lib createRestAction', () => {
 
@@ -16,7 +17,7 @@ describe('rest lib createRestAction', () => {
   }
   const actionTypes = actionTypesFor(endpointName)
   const actionCreators = actionCreatorsFor(actionTypes)
-  const getState = () => ({ povidky: {} })
+  const getState = () => generateSubState({ povidky: {} })
   const dispatch = action => {
     if (typeof action === 'function') return action({ dispatch, getState, history: {} })
     return action

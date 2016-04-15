@@ -1,5 +1,6 @@
 /** Created by hhj on 2/18/16. */
 import React, { PropTypes } from 'react'
+import { List } from 'immutable'
 import MyIcon from '../lib/MyIcon'
 import MyDraggable from '../lib/MyDraggable'
 import MyAutoComplete from '../lib/MyAutoComplete'
@@ -14,14 +15,13 @@ export default class HintForm extends React.Component {
   static propTypes = {
     lokalitaHint: PropTypes.object.isRequired,
     searchForUmisteni: PropTypes.func.isRequired,
-    akrloks: PropTypes.array,
+    akrloks: PropTypes.instanceOf(List),
     actions: PropTypes.object.isRequired,
   };
 
   static defaultProps = {
     lokalitaHint: {},
-    searchForUmisteni() {
-    },
+    searchForUmisteni() {},
     actions: {},
   };
 
@@ -34,14 +34,17 @@ export default class HintForm extends React.Component {
     helperPropsHolder.actions = this.props.actions
     helperPropsHolder.akrloks = this.props.akrloks
 
-    // fetch seznam akrloks
-    fetchSeznamAkrloks()
 
     // generate auto complete getter functions
     this.getAutoCompleteValues = {};
     fields.forEach(fieldName => {
       this.getAutoCompleteValues[fieldName] = autoCompleteFactory(fieldName)
     })
+  }
+
+  componentDidMount() {
+    // fetch seznam akrloks
+    fetchSeznamAkrloks()
   }
 
   componentWillReceiveProps(nextProps) {

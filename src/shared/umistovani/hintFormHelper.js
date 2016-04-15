@@ -14,7 +14,7 @@ const fetchSeznamObci = debounce(substring => {
   substring = (substring || '').replace(' ', '').toLowerCase()
 
   return propsHolder.actions.lokalita.fetchCollection({
-    params: { 'obec-lk': `${substring}%`, _fields: 'obec' },
+    params: { 'obec-lk': `${substring}%`, fields: 'obec' },
     force: true
   }).then(response => response.data.map(item => ({
     value: item.obec,
@@ -27,7 +27,7 @@ const fetchSeznamUlic = debounce(substring => {
   substring = (substring || '').replace(' ', '').toLowerCase()
 
   return propsHolder.actions.lokalita.fetchCollection({
-    params: { 'trimmed_ulice-lk': `${substring}%`, _fields: 'ulice' },
+    params: { 'trimmed_ulice-lk': `${substring}%`, fields: 'ulice' },
     force: true
   }).then(response => response.data.map(item => ({
     value: item.ulice,
@@ -54,6 +54,7 @@ export function autoCompleteFactory(fieldName) {
       return value => propsHolder.akrloks
         .filter(lokalita => lokalita.akrlok.toLowerCase().indexOf(value.toLowerCase()) > -1)
         .map(lokalita => ({ value: lokalita.akrlok, group: lokalita.obec }))
+        .toArray()
 
     default:
       return null

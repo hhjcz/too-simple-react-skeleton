@@ -1,10 +1,10 @@
 /** Created by hhj on 12/28/15. */
 import React, { PropTypes } from 'react'
 import { connect } from 'react-redux'
-
+import { List } from 'immutable'
 import createMapStateToProps from '../lib/createMapStateToProps'
 import createMapDispatchToProps from '../lib/createMapDispatchToProps'
-// import createFetchWrapper from '../lib/rest/createFetchWrapper'
+import { getItems } from '../lib/rest'
 import * as actions from './actions'
 import Tabulka from './Tabulka'
 import Paginator from './Paginator'
@@ -24,16 +24,21 @@ export class Container extends React.Component {
     dispatch: PropTypes.func,
   };
 
-  static defaultProps = {};
+  static defaultProps = {
+    actions: {},
+    generalParams: List()
+  };
 
   // server and client side fetch actions (see render.jsx & componentDidMount):
   static get fetchActions() {
     return [Container.fetchZarizeni]
   }
 
-  static fetchZarizeni({ params }) {
-    return actions.fetchIds({ params })
-      .then(() => actions.fetchCollectionByIds({ params }))
+  static fetchZarizeni({ params, getState }) {
+    // if on server -> initial fetch of ids
+    // TODO - when on server, test whether ids is empty, then also fetch
+    const idsFetched = getState ? actions.fetchIds() : Promise.resolve(null)
+    return idsFetched.then(() => actions.fetchCollectionByIds({ params }))
   }
 
   constructor(props) {
@@ -45,24 +50,20 @@ export class Container extends React.Component {
 
   // browser fetching:
   componentDidMount() {
-    Container.fetchActions.forEach(action => action({
-      params: this.props.params,
-      dispatch: this.props.dispatch,
-      getState: () => this.props
-    }))
+    Container.fetchActions.forEach(action => action({ params: this.props.params }))
   }
 
   onSortChange(sortField) {
-    this.props.actions.sortChange(sortField, true)
+    this.props.actions.sortChange(sortField)
   }
 
   /** @param {Filter} filter */
   onFilterChange(filter) {
-    this.props.actions.filterChange(filter, true)
+    this.props.actions.filterChange(filter)
   }
 
   onNamedFilterChange(filterName) {
-    this.props.actions.generalParamChange({ name: '_filter', value: filterName })
+    this.props.actions.generalParamChange({ name: 'filter', value: filterName })
   }
 
   render() {
@@ -81,7 +82,7 @@ export class Container extends React.Component {
       <div id="zarizeni-list">
         <PredefinedViews
           onNamedFilterChange={self.onNamedFilterChange}
-          namedFilter={generalParams.toObject()._filter}
+          namedFilter={generalParams.get('filter')}
           onFilterChange={self.onFilterChange}
           filters={filters}
         />
@@ -92,18 +93,15 @@ export class Container extends React.Component {
         />
         <Paginator
           pagination={pagination}
-          onPageChange={function(page) {actions.gotoPage(page, true)}}
-          onPerPageChange={function(perPage) {actions.setPageSize(perPage, true)}}
+          onPageChange={actions.gotoPage}
+          onPerPageChange={actions.setPageSize}
         />
       </div>
     )
   }
 }
 
-// TODO - not used for now, does not work
-// const WrappedContainer = createFetchWrapper(actions.getAll)(Container)
-
 export default connect(
-  createMapStateToProps(state => state.zarizeni),
+  createMapStateToProps(state => state.resources.zarizeni.set('items', getItems(state.resources.zarizeni))),
   createMapDispatchToProps(actions)
 )(Container)

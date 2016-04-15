@@ -1,7 +1,6 @@
 /** Created by hhj on 12/30/15. */
 import React, { PropTypes } from 'react'
 import { Record } from 'immutable'
-
 import Bunka from './Bunka'
 
 export default class Radka extends React.Component {

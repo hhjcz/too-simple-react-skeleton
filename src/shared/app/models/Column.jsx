@@ -20,7 +20,7 @@ export class Column extends Record({
   render: null
 }) {
   constructor(args = {}) {
-    args.render = args.render || ((model, pozice) => model[this.name])
+    args.render = args.render || ((model, pozice) => model[this.name])  // eslint-disable-line no-unused-vars
     super(args)
   }
 }

@@ -2,9 +2,9 @@
 import React, { PropTypes } from 'react'
 import { connect } from 'react-redux'
 import { Pagination } from 'react-bootstrap'
-import uniqBy from 'lodash/uniqBy'
 import createMapStateToProps from '../lib/createMapStateToProps'
 import createMapDispatchToProps from '../lib/createMapDispatchToProps'
+import { getSubState as getResourceSubState, getItems, getItem } from '../app/rest'
 import actions from './actions'
 import Umistovani from './Umistovani'
 import FetchIndicator from './../lib/FetchIndicator'
@@ -13,18 +13,18 @@ import Navigation from './Navigation'
 export class Container extends React.Component {
 
   static propTypes = {
-    zarizeni: PropTypes.object,
-    umisteni: PropTypes.object,
-    akrloks: PropTypes.object,
+    zarizeniResource: PropTypes.object,
+    umisteniResource: PropTypes.object,
+    akrloksResource: PropTypes.object,
     params: PropTypes.object,
     actions: PropTypes.object.isRequired,
     dispatch: PropTypes.func,
   };
 
   static defaultProps = {
-    zarizeni: { item: {}, pagination: {} },
-    umisteni: {},
-    akrloks: {},
+    zarizeniResource: { pagination: {} },
+    umisteniResource: {},
+    akrloksResource: {},
     params: {},
   };
 
@@ -39,18 +39,22 @@ export class Container extends React.Component {
 
   static fetchZarizeni({ params, dispatch, getState, force }) {
     const cursorAt = parseInt(params.cursorAt) || 1
+    // retrieve getState from dispatch, if not defined
+    getState = getState || dispatch(({ getState }) => getState)
 
     const promise = dispatch(actions.zarizeniList.fetchOneAt(cursorAt, force))
       .then(() => {
-        const zarizeniId = getState().zarizeni.item.id
+        const zarizeniResource = getResourceSubState('zarizeni')(getState)
+        const zarizeni = getItem(zarizeniResource)
+        const zarizeniId = zarizeni.id
         if (!(zarizeniId > 0)) {
           throw new Error('Fetch chyba: nepodaril se fetch zarizeni s validnim id')
         }
 
-        return actions.umisteni.fetchCollection({
-          params: { zarizeniId },
-          force
-        })
+        return Promise.all([
+          actions.umisteni.fetchCollection({ params: { zarizeniId }, force }),
+          actions.portyZarizeni.fetchCollection({ params: { zarizeniId }, force })
+        ])
       })
 
     return promise
@@ -65,9 +69,8 @@ export class Container extends React.Component {
   componentDidMount() {
     // browser fetching:
     Container.fetchActions.forEach(action => action({
-      params: { cursorAt: this.props.zarizeni.pagination.cursorAt, ...this.props.params },
+      params: { cursorAt: this.props.zarizeniResource.pagination.cursorAt, ...this.props.params },
       dispatch: this.props.dispatch,
-      getState: () => this.props
     }))
   }
 
@@ -75,7 +78,6 @@ export class Container extends React.Component {
     Container.fetchZarizeni({
       params: { cursorAt },
       dispatch: this.props.dispatch,
-      getState: () => this.props,
       force
     })
 
@@ -84,17 +86,16 @@ export class Container extends React.Component {
   }
 
   reload() {
-    this.onCursorChange(this.props.zarizeni.pagination.cursorAt, true)
+    this.onCursorChange(this.props.zarizeniResource.pagination.cursorAt, true)
   }
 
   render() {
     const self = this
-    const { zarizeni: zarizeniResource, umisteni: umisteniResource, akrloks: akrloksResource, actions } = this.props
-    const { items: seznamUmisteni } = umisteniResource
-    const { item: zarizeni, pagination: { cursorAt, total: zarizeniCount } } = zarizeniResource
-    const akrloks = akrloksResource.items && akrloksResource.items.toArray ?
-      uniqBy(akrloksResource.items.toArray(), item => item.akrlok)
-      : []
+    const { zarizeniResource, umisteniResource, akrloksResource, actions } = this.props
+    const { pagination: { cursorAt, total: zarizeniCount } } = zarizeniResource
+    const zarizeni = getItem(zarizeniResource)
+    const seznamUmisteni = getItems(umisteniResource)
+    const akrloks = getItems(akrloksResource)
 
     return (
       <div id="zarizeni-list">
@@ -117,6 +118,10 @@ export class Container extends React.Component {
 }
 
 export default connect(
-  createMapStateToProps(state => state),
+  createMapStateToProps(state => ({
+    zarizeniResource: state.resources.zarizeni,
+    umisteniResource: state.resources.umisteni,
+    akrloksResource: state.resources.akrloks
+  })),
   createMapDispatchToProps(actions)
 )(Container)

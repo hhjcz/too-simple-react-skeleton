@@ -22,7 +22,16 @@ function addGroup(resource, group) {
   return actionTypes
 }
 
-/** @typedef  {{fetchCollectionRequested, fetchCollectionSuccess, fetchCollectionError, fetchOneRequested, fetchOneSuccess, fetchOneError}} ActionTypes */
+/** @typedef  {{
+*               fetchCollectionRequested, fetchCollectionSuccess, fetchCollectionError,
+*               fetchCollectionByIdsRequested, fetchCollectionByIdsSuccess, fetchCollectionByIdsError,
+*               fetchIdsRequested, fetchIdsSuccess, fetchIdsError,
+*               fetchCollectionRequested, fetchCollectionSuccess, fetchCollectionError,
+*               fetchOneRequested, fetchOneSuccess, fetchOneError,
+*               createRequested, createSuccess, createError,
+*               updateRequested, updateSuccess, updateError,
+*               destroyRequested, destroySuccess, destroyError
+*             }} ActionTypes */
 /**
  * @param resource
  * @returns {ActionTypes}

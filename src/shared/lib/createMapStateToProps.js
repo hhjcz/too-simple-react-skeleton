@@ -4,8 +4,8 @@
  * @param getSubStateFn Function that selects sub tree from state tree
  *        (e.g. state => state.mySubState)
  */
-const createMapStateToProps = getSubStateFn => state => {
-  let subState = getSubStateFn(state)
+const createMapStateToProps = getSubState => state => {
+  let subState = getSubState(state)
   if (subState.toObject) subState = subState.toObject()
 
   return subState

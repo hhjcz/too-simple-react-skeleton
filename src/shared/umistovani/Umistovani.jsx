@@ -1,5 +1,6 @@
 /** Created by hhj on 2/4/16. */
 import React, { PropTypes } from 'react'
+import { List } from 'immutable'
 import shallowCompare from 'react-addons-shallow-compare'
 import findLokalitaHint from './findLokalitaHint'
 import ZarizeniInfo from './ZarizeniInfo'
@@ -10,15 +11,15 @@ export default class Umistovani extends React.Component {
 
   static propTypes = {
     zarizeni: PropTypes.object.isRequired,
-    seznamUmisteni: PropTypes.object.isRequired,
-    akrloks: PropTypes.array,
+    seznamUmisteni: PropTypes.instanceOf(List).isRequired,
+    akrloks: PropTypes.instanceOf(List),
     actions: PropTypes.object,
   };
 
   static defaultProps = {
     zarizeni: {},
-    seznamUmisteni: [],
-    akrloks: [],
+    seznamUmisteni: List(),
+    akrloks: List(),
     actions: {},
   };
 
@@ -69,10 +70,10 @@ export default class Umistovani extends React.Component {
   }
 
   render() {
+    const self = this
     const { zarizeni, seznamUmisteni, akrloks, actions } = this.props
     if (!(zarizeni.id > 0)) return null
 
-    const self = this
     const lokalitaHint = findLokalitaHint(zarizeni.name, zarizeni.defaultmap, zarizeni.id)
 
     return (
@@ -83,7 +84,7 @@ export default class Umistovani extends React.Component {
         />
         <PotencialniUmisteni
           lokalitaHint={lokalitaHint}
-          seznamUmisteni={seznamUmisteni.toArray ? seznamUmisteni.toArray() : seznamUmisteni}
+          seznamUmisteni={seznamUmisteni}
           umistiZarizeni={self.umistitZarizeni}
           deleteAllUmisteni={self.deleteAllUmisteni}
         />

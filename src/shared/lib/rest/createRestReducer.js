@@ -1,49 +1,34 @@
 /** Created by hhj on 1/29/16. */
 /* eslint-disable max-len */
-import { Pagination } from '../../app/models/Pagination'
-import { Sort } from '../../app/models/Sort'
-import Immutable, { List, Record, Map } from 'immutable'
+import { compose } from 'redux'
+import {
+  InitialState,
+  revive,
+  idsReducer,
+  createItemsReducer,
+  createItemReducer,
+  fetchingReducer,
+  lastFetchSignatureReducer,
+  idsPaginationReducer,
+  sortReducer
+} from './reduceHelpers'
 
-export const InitialState = Record({
-  fetching: false,
-  lastFetchSignature: { fetchCollection: null, fetchOne: null },
-  ids: List(),
-  items: List(),
-  item: {},
-  pagination: new Pagination(),
-  sort: new Sort(),
-  filters: Map(),
-  generalParams: Map(),
-})
 
 export default function createRestReducer(endpointName, config = {}, actionTypes = {}) {
+  const collectionTransformer = config.collectionTransformer || (collection => collection)
   const itemTransformer = config.itemTransformer || (item => item)
+  const idField = config.idField || 'id'
+  const itemsReducer = createItemsReducer(collectionTransformer, itemTransformer, idField)
+  const itemReducer = createItemReducer(itemTransformer, idField)
 
   const initialState = new InitialState(config.defaultState || {})
 
-  // Note how JSON from server is revived to immutable record.
-  const revive = ({ fetching, lastFetchSignature, ids, items, item, pagination, sort, filters, generalParams }) => {
-    const mergeObj = {
-      fetching,
-      lastFetchSignature,
-    }
-    if (ids) mergeObj.ids = List(ids)
-    if (items) mergeObj.items = List(items).map(itemTransformer)
-    if (item) mergeObj.item = itemTransformer(item)
-    if (pagination) mergeObj.pagination = new Pagination(pagination)
-    if (sort) mergeObj.sort = new Sort(sort)
-    if (filters) mergeObj.filters = Map(filters)
-    if (generalParams) mergeObj.generalParams = Map(generalParams)
-
-    return initialState.merge(mergeObj);
-  }
-
   return function reducer(state = {}, action) {
+    // Note how JSON from server is revived to immutable record.
     if (!(state instanceof InitialState)) {
-      return revive(state)
+      return revive(state, initialState, itemTransformer)
     }
 
-    // TODO - refactor!
     switch (action.type) {
       case actionTypes.fetchCollectionRequested:
       case actionTypes.fetchCollectionByIdsRequested:
@@ -51,60 +36,58 @@ export default function createRestReducer(endpointName, config = {}, actionTypes
       case actionTypes.fetchOneRequested:
       case actionTypes.createRequested:
       case actionTypes.updateRequested:
-        return state.set('fetching', true)
+        return fetchingReducer(true)(state)
 
       case actionTypes.fetchCollectionSuccess:
-        return state.set('items', List(action.data).map(itemTransformer))
-          .set('fetching', false)
-          .update('lastFetchSignature', lastFetchSignature => ({ ...lastFetchSignature, fetchCollection: action.meta.lastFetchSignature }))
-          // .update('pagination', pagination => {   // eslint-disable-line arrow-body-style
-          //   return action.meta.pagination
-          //     ? new Pagination({ ...pagination.toObject(), ...action.meta.pagination })
-          //     : pagination
-          // })
-          .update('sort', sort => {   // eslint-disable-line arrow-body-style
-            return action.meta.sort
-              ? new Sort(action.meta.sort)
-              : sort
-          })
+        return compose(
+          itemsReducer(action.data),
+          fetchingReducer(false),
+          lastFetchSignatureReducer(action.meta.lastFetchSignature, 'fetchCollection'),
+          sortReducer(action.meta.sort),
+          // paginationReducer(action.meta.pagination),
+        )(state)
 
       case actionTypes.fetchCollectionByIdsSuccess:
-        return state.set('items', List(action.data).map(itemTransformer))
-          .set('fetching', false)
-          .update('lastFetchSignature', lastFetchSignature => ({ ...lastFetchSignature, fetchCollectionByIds: action.meta.lastFetchSignature }))
+        return compose(
+          itemsReducer(action.data),
+          fetchingReducer(false),
+          lastFetchSignatureReducer(action.meta.lastFetchSignature, 'fetchCollectionByIds'),
+        )(state)
 
       case actionTypes.fetchIdsSuccess:
-        return state.set('ids', Immutable.fromJS(action.data).map(item => item.get('id')))
-          .set('fetching', false)
-          .update('lastFetchSignature', lastFetchSignature => ({ ...lastFetchSignature, fetchIds: action.meta.lastFetchSignature }))
-          .update('pagination', pagination => {   // eslint-disable-line arrow-body-style
-            return action.meta.pagination ? new Pagination({
-              ...pagination.toObject(),
-              total: action.meta.pagination.total,
-              totalPages: Math.ceil(action.meta.pagination.total / pagination.toObject().perPage)
-            }) : pagination
-          })
+        return compose(
+          idsReducer(action.data),
+          fetchingReducer(false),
+          lastFetchSignatureReducer(action.meta.lastFetchSignature, 'fetchIds'),
+          idsPaginationReducer(action.meta.pagination),
+        )(state)
 
       case actionTypes.fetchCollectionError:
-        return state.set('items', List([]))
-          .set('fetching', false)
-          .update('lastFetchSignature', lastFetchSignature => ({ ...lastFetchSignature, fetchCollection: '' }))
+        return compose(
+          itemsReducer([]),
+          fetchingReducer(false),
+          lastFetchSignatureReducer('', 'fetchCollection')
+        )(state)
 
       case actionTypes.fetchOneSuccess:
-        return state.set('item', itemTransformer(action.data))
-          .set('fetching', false)
-          .update('lastFetchSignature', lastFetchSignature => ({ ...lastFetchSignature, fetchOne: action.meta.lastFetchSignature }))
+        return compose(
+          itemReducer(action.data),
+          fetchingReducer(false),
+          lastFetchSignatureReducer(action.meta.lastFetchSignature, 'fetchOne'),
+        )(state)
 
       case actionTypes.fetchOneError:
-        return state.set('item', {})
-          .set('fetching', false)
-          .update('lastFetchSignature', lastFetchSignature => ({ ...lastFetchSignature, fetchOne: '' }))
+        return compose(
+          itemReducer({}),
+          fetchingReducer(false),
+          lastFetchSignatureReducer('', 'fetchOne')
+        )(state)
 
       case actionTypes.createSuccess:
       case actionTypes.updateSuccess:
       case actionTypes.createError:
       case actionTypes.updateError:
-        return state.set('fetching', false)
+        return fetchingReducer(false)(state)
 
       default:
         return state

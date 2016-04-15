@@ -22,22 +22,13 @@ export default function createRestAction(endpointName, config, actionCreators, f
     const queryGenerator = queryGenerators[actionName] || (() => ({}))
 
     /* eslint-disable arrow-body-style */
-    return ({ params, body, force } = {}) => {
-      if (force == null) force = false // eslint-disable-line
+    return ({ params, body } = {}) => {
 
       return fnHolder.dispatch(({ dispatch, getState }) => {
 
         const state = getThisSubState(getState)
         const queryParams = { ...queryGenerator(state), ...extraParams, ...decamelizeKeys(params), ...methodExtraParams } // eslint-disable-line max-len
-        const { fetchUrl, executeFetch } = resource[fetchMethod](queryParams, body)
-
-        let lastFetchSignature = null
-        if (state.lastFetchSignature) {
-          let lastFetchSignatureObj = state.lastFetchSignature
-          if (lastFetchSignatureObj.toObject) lastFetchSignatureObj = lastFetchSignatureObj.toObject()
-          lastFetchSignature = lastFetchSignatureObj[actionName]
-        }
-        if (!force && lastFetchSignature === fetchUrl) return Promise.resolve(null) // no need to refetch
+        const { executeFetch } = resource[fetchMethod](queryParams, body)
 
         dispatch(subActionCreators.requested())
 
@@ -57,7 +48,7 @@ export default function createRestAction(endpointName, config, actionCreators, f
 
   // fetchIds uses fetchCollection resource with predefined params:
   const fetchIds = createAction('fetchIds', 'fetchCollection', {
-    _fields: 'id',
+    fields: 'id',
     page: 1,
     per_page: 10000000,
     include: null

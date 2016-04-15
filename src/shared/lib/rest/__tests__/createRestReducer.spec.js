@@ -1,6 +1,7 @@
 /** Created by hhj on 2/1/16. */
 import { expect } from 'chai'
-import createRestReducer, { InitialState } from '../createRestReducer'
+import createRestReducer from '../createRestReducer'
+import { InitialState } from '../reduceHelpers'
 
 describe('createRestReducer', () => {
 

@@ -5,8 +5,10 @@ import { reducer as toastr } from 'react-redux-toastr'
 import rest from './rest'
 
 const combinedReducer = combineReducers({
-  ...rest.reducers,
-  zarizeni,
+  resources: combineReducers({
+    ...rest.reducers,
+    zarizeni
+  }),
   toastr,
 })
 
