@@ -1,7 +1,7 @@
 /** Created by hhj on 1/12/16. */
 import React from 'react'
 import { Image } from 'react-bootstrap'
-import FontIcon from 'material-ui/lib/font-icon'
+import FontIcon from 'material-ui/FontIcon'
 import './fonts.css'
 import MyIcon from '../lib/MyIcon'
 

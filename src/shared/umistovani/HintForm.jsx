@@ -6,7 +6,7 @@ import MyDraggable from '../lib/MyDraggable'
 import MyAutoComplete from '../lib/MyAutoComplete'
 import { propsHolder as helperPropsHolder, fetchSeznamAkrloks, autoCompleteFactory } from './hintFormHelper'
 import './HintForm.styl'
-import * as muiColors from 'material-ui/lib/styles/colors'
+import * as muiColors from 'material-ui/styles/colors'
 
 
 const fields = ['obec', 'ulice', 'cislo', 'akrlok', 'op', 'ixlok']

@@ -3,8 +3,8 @@
 import React, { PropTypes } from 'react'
 import { List } from 'immutable'
 import uniqBy from 'lodash/uniqBy'
-import Avatar from 'material-ui/lib/avatar'
-import * as muiColors from 'material-ui/lib/styles/colors'
+import Avatar from 'material-ui/Avatar'
+import * as muiColors from 'material-ui/styles/colors'
 
 export default class NepiOpy extends React.Component {
   static propTypes = {

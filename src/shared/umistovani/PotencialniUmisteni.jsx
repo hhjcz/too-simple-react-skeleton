@@ -1,12 +1,12 @@
 /** Created by hhj on 3/17/16. */
 /* eslint-disable max-len */
 import React, { PropTypes } from 'react'
-import * as muiColors from 'material-ui/lib/styles/colors'
+import * as muiColors from 'material-ui/styles/colors'
 // import FlatButton from 'material-ui/lib/flat-button'
-import IconButton from 'material-ui/lib/icon-button'
+import IconButton from 'material-ui/IconButton'
 // import RaisedButton from 'material-ui/lib/raised-button'
 // import FloatingButton from 'material-ui/lib/floating-action-button'
-import Divider from 'material-ui/lib/divider'
+import Divider from 'material-ui/Divider'
 import sortBy from 'lodash/sortBy'
 import { List } from 'immutable'
 import MarkedLokalita from './MarkedLokalita'
