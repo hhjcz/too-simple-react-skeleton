@@ -4,10 +4,8 @@ RUN mkdir -p /usr/src/app
 WORKDIR /usr/src/app
 
 ADD package.json package.json
-RUN npm install
 ADD . .
-RUN npm run build
-
+RUN npm install
 
 EXPOSE 8080
 EXPOSE 3000
