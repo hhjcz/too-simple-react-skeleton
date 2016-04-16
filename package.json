@@ -5,9 +5,7 @@
   "description": "hhj - redux/react dohlestr from scratch based on https://medium.com/front-end-developers/handcrafting-an-isomorphic-redux-application-with-love-40ada4468af4#.dyjo0n2px",
   "main": "index.js",
   "scripts": {
-    "postinstall": "npm run build && npm run test",
     "start": "NODE_ENV=production PORT=8080 NODE_PATH=$NODE_PATH:./src/shared node --harmony ./src/server/index.js",
-    "prestart": "npm run build",
     "build": "NODE_ENV=production NODE_PATH=$NODE_PATH:./src/shared node --harmony ./src/server/build.js",
     "clean": "rm -r dist/*",
     "dev": "NODE_PATH=$NODE_PATH:./src/shared node --harmony ./src/server/index.js",
