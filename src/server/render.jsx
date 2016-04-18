@@ -63,6 +63,7 @@ export default function render(req, res, next) {
       <!--<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">-->
       <script>
         window.__INITIAL_STATE__ = ${JSON.stringify(initialState)};
+        window.SERVER_BASE_URL = ${JSON.stringify(process.env.SERVER_BASE_URL)};
       </script>
     </head>
     <body>
