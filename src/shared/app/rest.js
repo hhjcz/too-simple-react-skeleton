@@ -10,6 +10,7 @@ import { Pagination } from './models/Pagination'
 
 export { getSubState, getItem, getItems } from '../lib/rest'
 
+console.log(process.env)
 const serverBaseUrl = process.env.SERVER_BASE_URL || 'http://localhost:8089/api'
 
 const rest = myRest({
