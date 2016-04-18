@@ -6,7 +6,6 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin')
 const IsomorphicToolsPlugin = require('webpack-isomorphic-tools/plugin')
 const isomorphicToolsConfig = require('./webpack-isomorphic-tools.config.js')
 
-console.log(process.env)
 const isomorphicToolsPlugin = new IsomorphicToolsPlugin(isomorphicToolsConfig)
 const prefixLoaders = 'css-loader!postcss-loader'
 
