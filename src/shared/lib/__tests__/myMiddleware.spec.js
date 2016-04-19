@@ -8,7 +8,7 @@ describe('lib myMiddleware', () => {
   let store
   const initialState = {}
   const deps = { someDependency: 'SOME_DEP' }
-  const reducer = (state = {}, action) => ({ ...state })
+  const reducer = (state = {}, action) => ({ ...state, action })
 
   const plainAction = { type: 'SOME_ACTION' }
 
