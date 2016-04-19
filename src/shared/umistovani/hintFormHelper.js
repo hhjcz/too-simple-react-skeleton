@@ -6,7 +6,7 @@ export const propsHolder = {}
 export function fetchSeznamAkrloks() {
   const actions = propsHolder.actions
   if (!(actions.akrloks && actions.akrloks.fetchCollection)) return null
-  return actions.akrloks.fetchCollection({ force: true })
+  return actions.akrloks.fetchCollection()
 }
 
 
@@ -15,7 +15,6 @@ const fetchSeznamObci = debounce(substring => {
 
   return propsHolder.actions.lokalita.fetchCollection({
     params: { 'obec-lk': `${substring}%`, fields: 'obec' },
-    force: true
   }).then(response => response.data.map(item => ({
     value: item.obec,
     group: ''
@@ -28,7 +27,6 @@ const fetchSeznamUlic = debounce(substring => {
 
   return propsHolder.actions.lokalita.fetchCollection({
     params: { 'trimmed_ulice-lk': `${substring}%`, fields: 'ulice' },
-    force: true
   }).then(response => response.data.map(item => ({
     value: item.ulice,
     group: ''

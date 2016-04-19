@@ -13,6 +13,7 @@ export default class Umistovani extends React.Component {
     zarizeni: PropTypes.object.isRequired,
     seznamUmisteni: PropTypes.instanceOf(List).isRequired,
     akrloks: PropTypes.instanceOf(List),
+    fetching: PropTypes.bool,
     actions: PropTypes.object,
   };
 
@@ -20,6 +21,7 @@ export default class Umistovani extends React.Component {
     zarizeni: {},
     seznamUmisteni: List(),
     akrloks: List(),
+    fetching: false,
     actions: {},
   };
 
@@ -31,7 +33,7 @@ export default class Umistovani extends React.Component {
   }
 
   shouldComponentUpdate(nextProps, nextState) {
-    return shallowCompare(this, nextProps, nextState)
+    return !nextProps.fetching && shallowCompare(this, nextProps, nextState)
   }
 
   /**

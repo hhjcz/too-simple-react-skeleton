@@ -37,12 +37,12 @@ export class Container extends React.Component {
     return [Container.fetchZarizeni]
   }
 
-  static fetchZarizeni({ params, dispatch, getState, force }) {
+  static fetchZarizeni({ params, dispatch, getState }) {
     const cursorAt = parseInt(params.cursorAt) || 1
     // retrieve getState from dispatch, if not defined
     getState = getState || dispatch(({ getState }) => getState)
 
-    const promise = dispatch(actions.zarizeniList.fetchOneAt(cursorAt, force))
+    const promise = dispatch(actions.zarizeniList.fetchOneAt(cursorAt))
       .then(() => {
         const zarizeniResource = getResourceSubState('zarizeni')(getState)
         const zarizeni = getItem(zarizeniResource)
@@ -52,8 +52,8 @@ export class Container extends React.Component {
         }
 
         return Promise.all([
-          actions.umisteni.fetchCollection({ params: { zarizeniId }, force }),
-          actions.portyZarizeni.fetchCollection({ params: { zarizeniId }, force })
+          actions.umisteni.fetchCollection({ params: { zarizeniId } }),
+          actions.portyZarizeni.fetchCollection({ params: { zarizeniId } })
         ])
       })
 
@@ -74,11 +74,10 @@ export class Container extends React.Component {
     }))
   }
 
-  onCursorChange(cursorAt, force = false) {
+  onCursorChange(cursorAt) {
     Container.fetchZarizeni({
       params: { cursorAt },
       dispatch: this.props.dispatch,
-      force
     })
 
     // TODO - workaround, depends on url path (should at least use location.pathname ...)
@@ -86,7 +85,7 @@ export class Container extends React.Component {
   }
 
   reload() {
-    this.onCursorChange(this.props.zarizeniResource.pagination.cursorAt, true)
+    this.onCursorChange(this.props.zarizeniResource.pagination.cursorAt)
   }
 
   render() {
@@ -104,14 +103,14 @@ export class Container extends React.Component {
           prev next first last ellipsis bsSize="small" maxButtons={9}
           onSelect={function(event, selectedEvent) { self.onCursorChange(selectedEvent.eventKey) }}
         />
-        <Umistovani zarizeni={zarizeni} seznamUmisteni={seznamUmisteni}
-          actions={{ ...actions, reload: self.reload }} akrloks={akrloks}
+        <Umistovani zarizeni={zarizeni} seznamUmisteni={seznamUmisteni} akrloks={akrloks}
+          fetching={zarizeniResource.fetching || umisteniResource.fetching}
+          actions={{ ...actions, reload: self.reload }}
         />
         <Navigation cursorAt={cursorAt} total={zarizeniCount}
           onCursorChange={self.onCursorChange} reload={self.reload}
         />
         <FetchIndicator fetching={zarizeniResource.fetching || umisteniResource.fetching} />
-        {/* <span className="btn btn-xs btn-danger" onClick={() => self.forceUpdate()} > Rerender</span>*/}
       </div>
     )
   }

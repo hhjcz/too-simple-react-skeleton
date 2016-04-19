@@ -12,7 +12,7 @@ const combinedReducer = combineReducers({
   toastr,
 })
 
-let reduxStorageActions
+let reduxStorageActions = {}
 if (process.env.IS_BROWSER) {
   reduxStorageActions = require('redux-localstorage').actionTypes
 }
