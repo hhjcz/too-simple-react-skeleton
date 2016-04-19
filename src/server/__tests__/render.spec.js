@@ -3,7 +3,7 @@
 import { expect } from 'chai'
 import render from '../render'
 
-describe.only('server render', () => {
+describe('server render', () => {
   const req = {
     url: '/'
   }
