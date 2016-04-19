@@ -43,7 +43,7 @@ describe('zarizeni-list', () => {
     // let instance  // eslint-disable-line no-unused-vars
 
     beforeEach(() => {
-      const store = createStore()
+      // const store = createStore()
       const tree = sd.shallowRender(
         React.createElement(Container)
       )
