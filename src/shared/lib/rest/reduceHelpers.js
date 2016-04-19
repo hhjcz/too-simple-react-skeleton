@@ -20,10 +20,9 @@ export const InitialState = Record({
 // Note how JSON from server is revived to immutable record.
 export const revive = (state = {}, initialState = new InitialState({}), itemTransformer = x => x) => {
   const { fetching, lastFetchSignature, ids, items, entities, item, pagination, sort, filters, generalParams } = state
-  const mergeObj = {
-    fetching,
-    lastFetchSignature,
-  }
+  const mergeObj = {}
+  if (fetching !== undefined) mergeObj.fetching = fetching
+  if (lastFetchSignature) mergeObj.lastFetchSignature = lastFetchSignature
   if (ids) mergeObj.ids = List(ids)
   if (items) mergeObj.items = List(items)
   if (item) mergeObj.item = item
