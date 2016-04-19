@@ -30,6 +30,9 @@ export default class Hriste extends React.Component {
           Font Awesome in FontIcon:
           <FontIcon className="fa fa-bicycle" style={{ fontSize: '3em' }} />
         </div>
+        <div>
+          Pridavam radku...
+        </div>
       </div>
     )
   }
