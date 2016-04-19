@@ -31,7 +31,7 @@ export default class Hriste extends React.Component {
           <FontIcon className="fa fa-bicycle" style={{ fontSize: '3em' }} />
         </div>
         <div>
-          Pridavam radku...
+          Pridavam radku... a slovo...
         </div>
       </div>
     )
