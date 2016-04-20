@@ -22,7 +22,6 @@ export default class MyIcon extends React.Component {
 
   render() {
     const style = { ...MyIcon.defaultStyle, ...this.props.style, ...this.props.forcedStyle }
-    console.log(style)
 
     return (
       <FontIcon className="material-icons" {...this.props} style={style}>
