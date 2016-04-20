@@ -2,24 +2,34 @@
 import React, { PropTypes } from 'react'
 import { Image } from 'react-bootstrap'
 import FontIcon from 'material-ui/lib/font-icon'
+import IconButton from 'material-ui/lib/icon-button'
 import { connect } from 'react-redux'
 import './fonts.css'
 import MyIcon from '../lib/MyIcon'
+import rest from '../app/rest'
 
 export class Hriste extends React.Component {
   static propTypes = {
     state: PropTypes.object.isRequired,
+    actions: PropTypes.object.isRequired,
+    dispatch: PropTypes.func.isRequired,
   };
 
   static defaultProps = {
-    state: {}
+    state: {},
+    actions: {},
   };
 
   render() {
+    const clearEntities = rest.actions.zarizeni.clearEntities
+
     return (
       <div>
         <div style={{ fontSize: '3em' }}>
           State size: {JSON.stringify(this.props.state).length} chars long
+          <IconButton tooltip="Vycistit state (entities)!" style={{ padding: '0px' }} onTouchTap={ () => clearEntities() }>
+            <MyIcon color="red" forcedStyle={{ fontSize: '40px' }}>refresh</MyIcon>
+          </IconButton>
         </div>
         <div>
           <img alt="50x50 placeholder" src={require('./50x50.png')} />
@@ -48,4 +58,7 @@ export class Hriste extends React.Component {
   }
 }
 
-export default connect(state => ({ state }))(Hriste)
+export default connect(
+  state => ({ state }),
+  dispatch => ({ dispatch })
+)(Hriste)

@@ -84,4 +84,24 @@ describe('rest lib reduceHelpers', () => {
     })
   })
 
+
+  describe('clearEntities', () => {
+
+    it('should clear entities', () => {
+      const fetchedItems1 = [
+        { id: 66, name: 'someName66' },
+        { id: 77, name: 'someName77' }
+      ]
+      const state = reduceHelpers.createItemsReducer()(fetchedItems1)(initialState)
+      expect(state.entities).to.be.instanceOf(Map)
+      expect(state.entities.toObject()).to.deep.equal({
+        '66': { id: 66, name: 'someName66' },
+        '77': { id: 77, name: 'someName77' }
+      })
+      const nextState = reduceHelpers.clearEntities(state)
+      expect(nextState.entities).to.be.instanceOf(Map)
+      expect(nextState.entities.toObject()).to.deep.equal({})
+    })
+  })
+
 })
