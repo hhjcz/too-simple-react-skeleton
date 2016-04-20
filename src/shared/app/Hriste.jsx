@@ -1,16 +1,26 @@
 /** Created by hhj on 1/12/16. */
-import React from 'react'
+import React, { PropTypes } from 'react'
 import { Image } from 'react-bootstrap'
 import FontIcon from 'material-ui/lib/font-icon'
+import { connect } from 'react-redux'
 import './fonts.css'
 import MyIcon from '../lib/MyIcon'
 
-export default class Hriste extends React.Component {
-  static propTypes = {};
+export class Hriste extends React.Component {
+  static propTypes = {
+    state: PropTypes.object.isRequired,
+  };
+
+  static defaultProps = {
+    state: {}
+  };
 
   render() {
     return (
       <div>
+        <div style={{ fontSize: '3em' }}>
+          State size: {JSON.stringify(this.props.state).length} chars long
+        </div>
         <div>
           <img alt="50x50 placeholder" src={require('./50x50.png')} />
           <Image alt="50x50 placeholder" src={require('./50x50.png')} circle />
@@ -37,3 +47,5 @@ export default class Hriste extends React.Component {
     )
   }
 }
+
+export default connect(state => ({ state }))(Hriste)
