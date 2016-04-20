@@ -2124,9 +2124,9 @@
       "resolved": "https://registry.npmjs.org/hawk/-/hawk-3.1.3.tgz"
     },
     "history": {
-      "version": "2.0.2",
-      "from": "history@>=2.0.2 <3.0.0",
-      "resolved": "https://registry.npmjs.org/history/-/history-2.0.2.tgz",
+      "version": "2.1.0",
+      "from": "history@2.1.0",
+      "resolved": "https://registry.npmjs.org/history/-/history-2.1.0.tgz",
       "dependencies": {
         "query-string": {
           "version": "3.0.3",
@@ -3551,7 +3551,7 @@
     },
     "react": {
       "version": "0.14.8",
-      "from": "react@>=0.14.8 <0.15.0",
+      "from": "react@0.14.8",
       "resolved": "https://registry.npmjs.org/react/-/react-0.14.8.tgz"
     },
     "react-addons-create-fragment": {
@@ -3566,7 +3566,7 @@
     },
     "react-addons-shallow-compare": {
       "version": "0.14.8",
-      "from": "react-addons-shallow-compare@>=0.14.8 <0.15.0",
+      "from": "react-addons-shallow-compare@0.14.8",
       "resolved": "https://registry.npmjs.org/react-addons-shallow-compare/-/react-addons-shallow-compare-0.14.8.tgz"
     },
     "react-addons-transition-group": {
@@ -3582,7 +3582,28 @@
     "react-autocomplete": {
       "version": "1.0.0-rc2",
       "from": "react-autocomplete@>=1.0.0-rc1 <2.0.0",
-      "resolved": "https://registry.npmjs.org/react-autocomplete/-/react-autocomplete-1.0.0-rc2.tgz"
+      "resolved": "https://registry.npmjs.org/react-autocomplete/-/react-autocomplete-1.0.0-rc2.tgz",
+      "dependencies": {
+        "fbjs": {
+          "version": "0.6.1",
+          "from": "fbjs@>=0.6.1 <0.7.0",
+          "resolved": "https://registry.npmjs.org/fbjs/-/fbjs-0.6.1.tgz"
+        },
+        "react": {
+          "version": "0.14.8",
+          "from": "react@>=0.14.7 <0.15.0",
+          "resolved": "https://registry.npmjs.org/react/-/react-0.14.8.tgz"
+        },
+        "react-dom": {
+          "version": "0.14.8",
+          "from": "react-dom@>=0.14.7 <0.15.0",
+          "resolved": "https://registry.npmjs.org/react-dom/-/react-dom-0.14.8.tgz"
+        },
+        "whatwg-fetch": {
+          "version": "0.9.0",
+          "from": "whatwg-fetch@>=0.9.0 <0.10.0"
+        }
+      }
     },
     "react-bootstrap": {
       "version": "0.28.5",
@@ -3615,7 +3636,7 @@
     },
     "react-dom": {
       "version": "0.14.8",
-      "from": "react-dom@>=0.14.8 <0.15.0",
+      "from": "react-dom@0.14.8",
       "resolved": "https://registry.npmjs.org/react-dom/-/react-dom-0.14.8.tgz"
     },
     "react-event-listener": {
@@ -3696,7 +3717,7 @@
     },
     "react-tap-event-plugin": {
       "version": "0.2.2",
-      "from": "react-tap-event-plugin@>=0.2.2 <0.3.0",
+      "from": "react-tap-event-plugin@0.2.2",
       "resolved": "https://registry.npmjs.org/react-tap-event-plugin/-/react-tap-event-plugin-0.2.2.tgz",
       "dependencies": {
         "fbjs": {
@@ -3776,9 +3797,9 @@
       }
     },
     "redux": {
-      "version": "3.4.0",
-      "from": "redux@>=3.0.5 <4.0.0",
-      "resolved": "https://registry.npmjs.org/redux/-/redux-3.4.0.tgz"
+      "version": "3.5.0",
+      "from": "redux@3.5.0",
+      "resolved": "https://registry.npmjs.org/redux/-/redux-3.5.0.tgz"
     },
     "redux-devtools-themes": {
       "version": "1.0.0",
@@ -4195,6 +4216,11 @@
       "version": "0.6.4",
       "from": "svgo@>=0.6.1 <0.7.0",
       "resolved": "https://registry.npmjs.org/svgo/-/svgo-0.6.4.tgz"
+    },
+    "symbol-observable": {
+      "version": "0.2.2",
+      "from": "symbol-observable@>=0.2.1 <0.3.0",
+      "resolved": "https://registry.npmjs.org/symbol-observable/-/symbol-observable-0.2.2.tgz"
     },
     "table": {
       "version": "3.7.8",
