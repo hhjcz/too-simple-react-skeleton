@@ -10,7 +10,7 @@ import { Pagination } from './models/Pagination'
 
 export { getSubState, getItem, getItems } from '../lib/rest'
 
-const serverBaseUrl = process.env.SERVER_BASE_URL || window.SERVER_BASE_URL || 'http://localhost:8089/api'
+const serverBaseUrl = process.env.SERVER_BASE_URL || (process.env.IS_BROWSER ? window.SERVER_BASE_URL : null) || 'http://localhost:8089/api'
 
 const rest = myRest({
   zarizeni: {
