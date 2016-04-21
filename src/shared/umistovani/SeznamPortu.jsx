@@ -2,7 +2,7 @@
 import React, { PropTypes } from 'react'
 import { List } from 'immutable'
 import MyDraggable from '../lib/MyDraggable'
-import * as muiColors from 'material-ui/lib/styles/colors'
+import colors from '../app/colors'
 
 export default class SeznamPortu extends React.Component {
   static propTypes = {
@@ -21,7 +21,7 @@ export default class SeznamPortu extends React.Component {
       marked = (
         <span>
           {string.substring(0, match.index)}
-          <MyDraggable value={match} style={{ background: muiColors.deepOrangeA100 }}>
+          <MyDraggable value={match} style={{ background: colors.deepOrangeA100 }}>
             {match[0]}
           </MyDraggable>
           {string.substring(match.index + match[0].length, string.length)}

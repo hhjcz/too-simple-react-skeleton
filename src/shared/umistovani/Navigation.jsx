@@ -2,7 +2,7 @@
 import React, { PropTypes } from 'react'
 import IconButton from 'material-ui/lib/icon-button'
 import MyIcon from '../lib/MyIcon'
-import * as muiColors from 'material-ui/lib/styles/colors'
+import colors from '../app/colors'
 
 export default class Navigation extends React.Component {
   static propTypes = {
@@ -22,11 +22,11 @@ export default class Navigation extends React.Component {
         <IconButton tooltip="previous"
           onTouchTap={function() { onCursorChange(cursorAt > 1 ? cursorAt - 1 : 1) }}
         >
-          <MyIcon color={muiColors.blueGrey600}>arrow_back</MyIcon>
+          <MyIcon color={colors.blueGrey600}>arrow_back</MyIcon>
         </IconButton>
 
         <IconButton tooltip="reload" onTouchTap={function() { reload() }}>
-          <MyIcon color={muiColors.blueGrey800}>autorenew</MyIcon>
+          <MyIcon color={colors.blueGrey800}>autorenew</MyIcon>
         </IconButton>
 
         <IconButton tooltip="next"
@@ -34,7 +34,7 @@ export default class Navigation extends React.Component {
             onCursorChange(cursorAt < total ? cursorAt + 1 : cursorAt)
           }}
         >
-          <MyIcon color={muiColors.blueGrey800}>arrow_forward</MyIcon>
+          <MyIcon color={colors.blueGrey800}>arrow_forward</MyIcon>
         </IconButton>
 
       </div>
