@@ -1,6 +1,8 @@
 /** Created by hhj on 4/21/16. */
 import React, { PropTypes } from 'react'
 import { List } from 'immutable'
+import MyDraggable from '../lib/MyDraggable'
+import * as muiColors from 'material-ui/lib/styles/colors'
 
 export default class SeznamPortu extends React.Component {
   static propTypes = {
@@ -11,14 +13,33 @@ export default class SeznamPortu extends React.Component {
     seznamPortu: List(),
   };
 
+  static markPotencialniNepiop(string) {
+    // TODO - works with single match - should do multiple with /\d{4,6}/gi
+    const match = string.match(/\d{4,6}/)
+    let marked = null
+    if (match) {
+      marked = (
+        <span>
+          {string.substring(0, match.index)}
+          <MyDraggable value={match} style={{ background: muiColors.deepOrangeA100 }}>
+            {match[0]}
+          </MyDraggable>
+          {string.substring(match.index + match[0].length, string.length)}
+        </span>
+      )
+    }
+
+    return marked
+  };
+
   render() {
     const { seznamPortu } = this.props
     return (
       <div>
         {
           seznamPortu.map(port =>
-            <div>
-              {port.name} / {port.infoName}
+            <div key={port.id}>
+              {SeznamPortu.markPotencialniNepiop(port.infoName)}
             </div>
           )
         }
