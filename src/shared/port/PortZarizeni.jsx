@@ -2,9 +2,9 @@
 
 import React, { PropTypes } from 'react'
 
-export default class Ports extends React.Component {
+export default class PortZarizeni extends React.Component {
   static propTypes = {
-    params: PropTypes.object,
+    params: PropTypes.object
   };
 
   static defaultProps = {};
@@ -12,7 +12,7 @@ export default class Ports extends React.Component {
   render() {
     return (
       <div>
-        Porty na zarizeni id: {this.props.params.id}
+        Port #{this.props.params.portId} na zarizeni {this.props.params.id}
       </div>
     )
   }

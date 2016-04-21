@@ -6,8 +6,8 @@ import ZarizeniList from '../zarizeni-list/Container'
 import Zarizeni from '../zarizeni/Container'
 import NetvisionZarizeni from '../zarizeni/NetvisionZarizeni'
 import Umistovani from '../umistovani/Container'
-import Ports from '../port/Ports'
-import Port from '../port/Port'
+import PortyZarizeni from '../port/PortyZarizeni'
+import PortZarizeni from '../port/PortZarizeni'
 import Hriste from './Hriste'
 import App from './index'
 
@@ -19,8 +19,8 @@ export default (
         <IndexRoute component={Zarizeni} />
         <Route component={NetvisionZarizeni} path="netvision" />
         <Route path="ports">
-          <IndexRoute component={Ports} />
-          <Route component={Port} path=":portId" />
+          <IndexRoute component={PortyZarizeni} />
+          <Route component={PortZarizeni} path=":portId" />
         </Route>
       </Route>
     </Route>
