@@ -9,8 +9,5 @@ RUN npm install
 ADD . /usr/src/app/
 RUN npm run build
 
-EXPOSE 8080
-EXPOSE 3000
-
 CMD [ "npm", "start" ]
 
