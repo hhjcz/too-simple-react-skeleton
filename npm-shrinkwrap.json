@@ -1,6 +1,6 @@
 {
   "name": "dohlestr-frontend-scratch",
-  "version": "1.0.25",
+  "version": "1.0.26",
   "dependencies": {
     "abbrev": {
       "version": "1.0.7",
