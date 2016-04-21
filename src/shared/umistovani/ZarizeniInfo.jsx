@@ -17,7 +17,7 @@ export default class ZarizeniInfo extends React.Component {
   render() {
     const { zarizeni } = this.props
     return (
-      <div className="myTable" style={{ width: '80%' }}>
+      <div className="col col-xs-6 myTable">
         <div className="myTableRow">
           <div className="myTableRowItem uFlexGrow-1">Jméno:</div>
           <div className="myTableRowItem uFlexGrow-4 text-info">

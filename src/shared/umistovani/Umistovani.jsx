@@ -83,11 +83,13 @@ export default class Umistovani extends React.Component {
 
     return (
       <div>
-        <ZarizeniInfo zarizeni={zarizeni} />
+        <div className="row">
+          <ZarizeniInfo zarizeni={zarizeni} />
+          <SeznamPortu seznamPortu={seznamPortu} />
+        </div>
         <HintForm lokalitaHint={lokalitaHint} searchForUmisteni={this.searchForUmisteni}
           akrloks={akrloks} actions={actions}
         />
-        <SeznamPortu seznamPortu={seznamPortu} />
         <PotencialniUmisteni
           lokalitaHint={lokalitaHint}
           seznamUmisteni={seznamUmisteni}

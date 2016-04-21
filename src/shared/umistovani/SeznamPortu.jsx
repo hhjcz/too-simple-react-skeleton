@@ -14,6 +14,7 @@ export default class SeznamPortu extends React.Component {
   };
 
   static markPotencialniNepiop(string) {
+    if (!string) return null
     // TODO - works with single match - should do multiple with /\d{4,6}/gi
     const match = string.match(/\d{4,6}/)
     let marked = null
@@ -35,11 +36,11 @@ export default class SeznamPortu extends React.Component {
   render() {
     const { seznamPortu } = this.props
     return (
-      <div>
+      <div className="col col-xs-6">
         {
           seznamPortu.map(port =>
             <div key={port.id}>
-              {SeznamPortu.markPotencialniNepiop(port.infoName)}
+              {SeznamPortu.markPotencialniNepiop(port.name)} {SeznamPortu.markPotencialniNepiop(port.infoName)}
             </div>
           )
         }
