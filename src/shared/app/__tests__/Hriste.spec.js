@@ -33,7 +33,7 @@ describe('app Hriste', () => {
     let vdom
     // let instance
 
-    const shallowRender = (props) => {
+    const shallowRender = () => {
       const tree = sd.shallowRender(React.createElement(Hriste))
 
       // instance = tree.getMountedInstance()
@@ -42,7 +42,7 @@ describe('app Hriste', () => {
     }
 
     it('should render with default props', () => {
-      const store = createStore()
+      createStore()
       shallowRender()
       expect(vdom.type).to.equal('div')
       // expect(typeof vdom.props.dispatch).to.equal('function')

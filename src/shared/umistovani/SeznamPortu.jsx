@@ -31,7 +31,7 @@ export default class SeznamPortu extends React.Component {
     }
 
     return marked
-  };
+  }
 
   render() {
     const { seznamPortu } = this.props
