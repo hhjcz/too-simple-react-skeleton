@@ -7,6 +7,8 @@ describe.only('umistovani markUtils', () => {
 
   it('should mark nepi op', () => {
     markUtils.markPotencialniNepiop('neco 123456 neco2 98765neco3')
+    markUtils.markPotencialniNepiop('123456')
+    markUtils.markPotencialniNepiop(123456)
   })
 
 })

@@ -10,7 +10,9 @@ export function markPotencialniNepiop(string) {
 
   const regExp = /(\d{4,6})/
 
-  const marked = string.split(regExp).reduce((markedElement, match) => {
+  const splitted = JSON.stringify(string).split(regExp)
+
+  const marked = splitted.reduce((markedElement, match) => {
     if (match.match(regExp)) {
       markedElement = (<span>
         {markedElement}
