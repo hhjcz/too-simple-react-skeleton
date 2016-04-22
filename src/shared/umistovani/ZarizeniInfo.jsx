@@ -3,6 +3,7 @@ import React, { PropTypes } from 'react'
 import { Link } from 'react-router'
 import MarkedLokalita from './MarkedLokalita'
 import MyDraggable from '../lib/MyDraggable'
+import { markPotencialniNepiop } from './markUtils'
 import '../lib/Tabulka.styl'
 
 export default class ZarizeniInfo extends React.Component {
@@ -21,13 +22,13 @@ export default class ZarizeniInfo extends React.Component {
         <div className="myTableRow">
           <div className="myTableRowItem uFlexGrow-1">Jméno:</div>
           <div className="myTableRowItem uFlexGrow-4 text-info">
-            <Link to={`/zarizeni/${zarizeni.id}`}>{zarizeni.name}</Link>
+            <Link to={`/zarizeni/${zarizeni.id}`}>{markPotencialniNepiop(zarizeni.name)}</Link>
           </div>
         </div>
         <div className="myTableRow">
           <div className="myTableRowItem uFlexGrow-1">Info jméno:</div>
           <div className="myTableRowItem uFlexGrow-4 text-info">
-            <Link to={`/zarizeni/${zarizeni.id}`}>{zarizeni.infoName}</Link>
+            <Link to={`/zarizeni/${zarizeni.id}`}>{markPotencialniNepiop(zarizeni.infoName)}</Link>
           </div>
         </div>
         <div className="myTableRow">
