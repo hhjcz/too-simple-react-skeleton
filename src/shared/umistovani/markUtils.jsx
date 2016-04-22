@@ -12,16 +12,11 @@ export function markPotencialniNepiop(stringToMark, regExp = /((?:SA-)?(?:ETH)?\
 
   const splitted = stringToMark.split(regExp)
 
-  return splitted.reduce((markedElement, subString) => {
-    if (subString.match(regExp)) {
-      markedElement = (<span>
-        {markedElement}
-        <MyDraggable value={subString} style={style}>{subString}</MyDraggable>
-      </span>)
-    } else {
-      markedElement = <span>{markedElement}{subString}</span>
+  return splitted.reduce((markedElement, subElement) => {
+    if (subElement.match(regExp)) {
+      subElement = <MyDraggable value={subElement} style={style}>{subElement}</MyDraggable>
     }
 
-    return markedElement
+    return <span>{markedElement}{subElement}</span>
   }, null)
 }
