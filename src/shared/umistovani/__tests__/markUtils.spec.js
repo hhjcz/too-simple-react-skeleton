@@ -3,10 +3,10 @@
 import { expect } from 'chai'
 import * as markUtils from '../markUtils'
 
-describe('umistovani markUtils', () => {
+describe.only('umistovani markUtils', () => {
 
   it('should mark nepi op', () => {
-    markUtils.markPotencialniNepiop('123456')
+    markUtils.markPotencialniNepiop('neco 123456 neco2 98765neco3')
   })
 
 })
