@@ -9,6 +9,8 @@ describe('umistovani markUtils', () => {
     markUtils.markPotencialniNepiop('neco 123456 neco2 98765neco3')
     markUtils.markPotencialniNepiop('123456')
     markUtils.markPotencialniNepiop(123456)
+    markUtils.markPotencialniNepiop('neco SA-3456 neco2')
+    markUtils.markPotencialniNepiop('neco ETH3456 neco29876')
   })
 
 })
