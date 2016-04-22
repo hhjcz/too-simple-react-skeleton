@@ -5,6 +5,7 @@ import { List } from 'immutable'
 import uniqBy from 'lodash/uniqBy'
 import Avatar from 'material-ui/lib/avatar'
 import colors from '../app/colors'
+import { markPotencialniNepiop } from './markUtils'
 
 export default class NepiOpy extends React.Component {
   static propTypes = {
@@ -22,7 +23,7 @@ export default class NepiOpy extends React.Component {
 
     const listItems = slicedNepiOpy.map(nepiOp =>
       <div style={{ paddingLeft: '1em' }} key={nepiOp.ixop}>
-        {nepiOp.ixop} {nepiOp.akronym} "{nepiOp.nazevFirmy}"
+        {markPotencialniNepiop(nepiOp.ixop)} {markPotencialniNepiop(nepiOp.akronym)} "{nepiOp.nazevFirmy}"
       </div>
     )
 
