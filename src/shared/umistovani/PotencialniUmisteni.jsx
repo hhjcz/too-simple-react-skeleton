@@ -38,7 +38,7 @@ export default class PotencialniUmisteni extends React.Component {
                 <IconButton tooltip="Umístit!" style={{ padding: '0px' }} onTouchTap={ function () { umistiZarizeni(umisteni) } }>
                   <MyIcon color={colors.blue400}>done</MyIcon>
                 </IconButton>
-                {/* 
+                {/*
                 <IconButton tooltip="Smazat!" onTouchTap={ function () { umistiZarizeni(umisteni) } }>
                   <MyIcon color={colors.blue400}>delete</MyIcon>
                 </IconButton>
