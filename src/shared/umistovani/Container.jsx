@@ -6,6 +6,7 @@ import createMapStateToProps from '../lib/createMapStateToProps'
 import createMapDispatchToProps from '../lib/createMapDispatchToProps'
 import { getSubState as getResourceSubState, getItems, getItem } from '../app/rest'
 import actions from './actions'
+import NedavneLokality from './NedavneLokality'
 import Umistovani from './Umistovani'
 import FetchIndicator from './../lib/FetchIndicator'
 import Navigation from './Navigation'
@@ -39,6 +40,7 @@ export class Container extends React.Component {
     return [Container.fetchZarizeni]
   }
 
+  // TODO - refactor: move to actions
   static fetchZarizeni({ params, dispatch, getState }) {
     const cursorAt = parseInt(params.cursorAt) || 1
     // retrieve getState from dispatch, if not defined
@@ -101,11 +103,18 @@ export class Container extends React.Component {
 
     return (
       <div id="zarizeni-list">
-        <Pagination
-          items={zarizeniCount} activePage={cursorAt}
-          prev next first last ellipsis bsSize="small" maxButtons={9}
-          onSelect={function(event, selectedEvent) { self.onCursorChange(selectedEvent.eventKey) }}
-        />
+        <div className="row">
+          <div className="col col-xs-6">
+            <Pagination
+              items={zarizeniCount} activePage={cursorAt}
+              prev next first last ellipsis bsSize="small" maxButtons={9}
+              onSelect={function(event, selectedEvent) { self.onCursorChange(selectedEvent.eventKey) }}
+            />
+          </div>
+          <div className="col col-xs-6">
+            <NedavneLokality />
+          </div>
+        </div>
         <Umistovani zarizeni={zarizeni} seznamUmisteni={seznamUmisteni} seznamPortu={seznamPortu} akrloks={akrloks}
           fetching={zarizeniResource.fetching || umisteniResource.fetching}
           actions={{ ...actions, reload: self.reload }}
