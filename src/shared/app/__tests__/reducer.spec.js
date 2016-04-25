@@ -8,4 +8,9 @@ describe('app reducer', () => {
     expect(typeof reducer).to.equal('function')
   })
 
+  it('should reduce', () => {
+    const nextState = reducer({}, {})
+    expect(typeof nextState).to.equal('object')
+  })
+
 })

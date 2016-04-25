@@ -26,7 +26,7 @@ describe('rest lib createRestAction', () => {
   const fetch = (url, args) => {
     fetchBuffer.url = url
     fetchBuffer.args = args
-    return Promise.resolve(url, ...args)
+    return Promise.resolve(url)
   }
   const fnHolder = { fetch, dispatch }
 

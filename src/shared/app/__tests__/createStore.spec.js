@@ -1,7 +1,7 @@
 /** Created by hhj on 4/19/16. */
 /* eslint-disable no-unused-expressions */
 import { expect } from 'chai'
-import createStore from '../createStore'
+import createStore, { getStore } from '../createStore'
 
 describe('app createStore', () => {
 
@@ -24,7 +24,13 @@ describe('app createStore', () => {
       const action = { type: 'SOME_ACTION' }
       expect(store.dispatch(action)).to.equal(action)
     })
+  })
 
+  describe('store getStore', () => {
+    it('returns store', () => {
+      const store = createStore()
+      expect(getStore()).to.equal(store)
+    })
   })
 
 })

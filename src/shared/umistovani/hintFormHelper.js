@@ -1,7 +1,7 @@
 /** Created by hhj on 4/6/16. */
 import debounce from '../lib/debounce'
 
-export const propsHolder = {}
+export const propsHolder = { actions: {} }
 
 export function fetchSeznamAkrloks() {
   const actions = propsHolder.actions
@@ -38,13 +38,13 @@ export function autoCompleteFactory(fieldName) {
   switch (fieldName) {
     case 'obec':
       return value => {
-        if (value.length < 3) return '...alespoň 3 znaky...'
+        if ((value || '').length < 3) return '...alespoň 3 znaky...'
         return fetchSeznamObci(value)
       }
 
     case 'ulice':
       return value => {
-        if (value.length < 3) return '...alespoň 3 znaky...'
+        if ((value || '').length < 3) return '...alespoň 3 znaky...'
         return fetchSeznamUlic(value)
       }
 
