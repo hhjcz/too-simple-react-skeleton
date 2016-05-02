@@ -147,7 +147,7 @@ export default class MyAutoComplete extends React.Component {
           onChange={function(e, value) { self.getAutoCompleteValues(value); onChange(value) }}
           onSelect={function(value) { onChange(value) }}
         />
-        <span className="input-group-addon" style={{ cursor: 'pointer' }} onClick={function() { onChange('')} }>
+        <span className="input-group-addon" style={{ cursor: 'pointer' }} onClick={function() { onChange('') }}>
           <Glyphicon glyph="erase" />
         </span>
       </div>

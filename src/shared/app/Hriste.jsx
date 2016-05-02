@@ -27,9 +27,10 @@ export class Hriste extends React.Component {
       <div>
         <div style={{ fontSize: '3em' }}>
           State size: {JSON.stringify(this.props.state).length} chars long
-          <IconButton tooltip="Vycistit state (entities)!"
+          <IconButton
+            tooltip="Vycistit state (entities)!"
             style={{ padding: '0px' }}
-            onTouchTap={ () => clearEntities() }
+            onTouchTap={() => clearEntities()}
           >
             <MyIcon color="red" forcedStyle={{ fontSize: '40px' }}>refresh</MyIcon>
           </IconButton>

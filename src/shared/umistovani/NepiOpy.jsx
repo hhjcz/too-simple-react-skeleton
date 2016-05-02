@@ -32,10 +32,10 @@ export default class NepiOpy extends React.Component {
     return listItems.length > 0 ?
       <div style={{ display: 'flex', alignItems: 'center', paddingLeft: '2em' }}>
         <Avatar size={20} backgroundColor={colors.green300} color={colors.grey50}>
-          { uniqNepiOpy.length }
+          {uniqNepiOpy.length}
         </Avatar>
         <div style={{ display: 'flex', flexFlow: 'column wrap', justifyContent: 'center', height: `${divHeight}em` }}>
-          { listItems }
+          {listItems}
         </div>
       </div>
       : <div />

@@ -8,8 +8,8 @@ describe('server render', () => {
     url: '/'
   }
   const res = {
-    status: () => {console.log(arguments)},
-    end: () => {console.log(arguments)}
+    status: () => { console.log(arguments) },
+    end: () => { console.log(arguments) }
   }
 
   it('should render html page', () => {

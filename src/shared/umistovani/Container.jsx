@@ -106,11 +106,13 @@ export class Container extends React.Component {
           prev next first last ellipsis bsSize="small" maxButtons={9}
           onSelect={function(event, selectedEvent) { self.onCursorChange(selectedEvent.eventKey) }}
         />
-        <Umistovani zarizeni={zarizeni} seznamUmisteni={seznamUmisteni} seznamPortu={seznamPortu} akrloks={akrloks}
+        <Umistovani
+          zarizeni={zarizeni} seznamUmisteni={seznamUmisteni} seznamPortu={seznamPortu} akrloks={akrloks}
           fetching={zarizeniResource.fetching || umisteniResource.fetching}
           actions={{ ...actions, reload: self.reload }}
         />
-        <Navigation cursorAt={cursorAt} total={zarizeniCount}
+        <Navigation
+          cursorAt={cursorAt} total={zarizeniCount}
           onCursorChange={self.onCursorChange} reload={self.reload}
         />
         <FetchIndicator fetching={zarizeniResource.fetching || umisteniResource.fetching} />

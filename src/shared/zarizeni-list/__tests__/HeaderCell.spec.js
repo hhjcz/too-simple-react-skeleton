@@ -5,7 +5,7 @@ import sd from 'skin-deep'
 
 import HeaderCell from '../HeaderCell'
 import { Sort } from '../../app/models/Sort'
-import { columns } from '../columns'
+import columns from '../columns'
 
 describe('zarizeni-list HeaderCell component', () => {
   let vdom

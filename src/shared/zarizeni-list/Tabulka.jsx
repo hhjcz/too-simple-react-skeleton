@@ -3,7 +3,7 @@ import React, { PropTypes } from 'react'
 import '../lib/Tabulka.styl'
 import HeaderCell from './HeaderCell'
 import Radka from './Radka'
-import { columns } from './columns'
+import columns from './columns'
 
 export default class Tabulka extends React.Component {
 
@@ -41,7 +41,8 @@ export default class Tabulka extends React.Component {
         {/* rows */}
         {
           seznamZarizeni.map(zarizeni =>
-            <Radka key={zarizeni.id} zarizeni={zarizeni} columns={columns.toList()}
+            <Radka
+              key={zarizeni.id} zarizeni={zarizeni} columns={columns.toList()}
               pagination={pagination} pozice={offset} highlighted={offset++ === pagination.cursorAt}
             />
           )

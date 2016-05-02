@@ -83,9 +83,10 @@ export default class HintForm extends React.Component {
         <div className="hintForm">
           {formItems}
         </div>
-        <span className="btn btn-sm"
+        <span
+          className="btn btn-sm"
           style={{ backgroundColor: colors.blueGrey200, color: 'white', width: '100%' }}
-          onClick={ function() { searchForUmisteni(lokalitaHint) } }
+          onClick={function() { searchForUmisteni(lokalitaHint) }}
         >
           <MyIcon>search</MyIcon> Hledat
         </span>
