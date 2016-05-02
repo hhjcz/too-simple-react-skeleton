@@ -1,7 +1,7 @@
 /** Created by hhj on 12/23/15. */
 import React, { PropTypes } from 'react'
-
 import Navigation from './Navigation'
+import getMuiTheme from 'material-ui/styles/getMuiTheme'
 
 export default class App extends React.Component {
 
@@ -10,19 +10,24 @@ export default class App extends React.Component {
   };
 
   static contextTypes = {
-    router: React.PropTypes.object.isRequired
+    router: React.PropTypes.object.isRequired,
   };
 
   static childContextTypes = {
-    router: React.PropTypes.object
+    router: React.PropTypes.object,
+    muiTheme: React.PropTypes.object
   };
 
   getChildContext() {
-    return { router: this.context.router }
+    return {
+      router: this.context.router,
+      muiTheme: getMuiTheme()
+    }
   }
 
   render() {
     let devTools = ''
+
     // defined in webpack configuration or node runtime environment
     if (process.env.NODE_ENV !== 'production') {
       const DevTools = require('./DevTools').default

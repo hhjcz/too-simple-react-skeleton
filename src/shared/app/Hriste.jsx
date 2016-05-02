@@ -1,8 +1,8 @@
 /** Created by hhj on 1/12/16. */
 import React, { PropTypes } from 'react'
 import { Image } from 'react-bootstrap'
-import FontIcon from 'material-ui/lib/font-icon'
-import IconButton from 'material-ui/lib/icon-button'
+import FontIcon from 'material-ui/FontIcon'
+import IconButton from 'material-ui/IconButton'
 import { connect } from 'react-redux'
 import './fonts.css'
 import MyIcon from '../lib/MyIcon'
