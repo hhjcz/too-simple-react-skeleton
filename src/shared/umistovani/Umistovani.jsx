@@ -87,7 +87,8 @@ export default class Umistovani extends React.Component {
           <ZarizeniInfo zarizeni={zarizeni} />
           <SeznamPortu seznamPortu={seznamPortu} />
         </div>
-        <HintForm lokalitaHint={lokalitaHint} searchForUmisteni={this.searchForUmisteni}
+        <HintForm
+          lokalitaHint={lokalitaHint} searchForUmisteni={this.searchForUmisteni}
           akrloks={akrloks} actions={actions}
         />
         <PotencialniUmisteni

@@ -1,4 +1,5 @@
 /** Created by hhj on 12/23/15. */
+/* eslint-disable import/no-named-as-default */
 import React from 'react'
 import { Route, IndexRoute } from 'react-router'
 

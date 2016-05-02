@@ -54,8 +54,8 @@ describe('zarizeni-list Paginator component (testing using real DOM)', () => {
     this.component = TestUtils.renderIntoDocument(
       <Paginator
         pagination={new Pagination}
-        onPageChange={ function(page) {console.log('page: ', page)}}
-        onPerPageChange={ function(perPage) {console.log(perPage)}}
+        onPageChange={function(page) { console.log('page: ', page) }}
+        onPerPageChange={function(perPage) { console.log(perPage) }}
       />
     )
     this.renderedDOM = () => ReactDOM.findDOMNode(this.component)

@@ -6,7 +6,7 @@ import MyIcon from '../lib/MyIcon'
 import { Column, columntValueTypes } from '../app/models/Column'
 import MarkedLokalita from '../umistovani/MarkedLokalita'
 
-export const columns = Map(
+const columns = Map(
   {
     id: new Column({
       name: 'id',

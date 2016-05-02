@@ -83,7 +83,8 @@ export default class MyDraggable extends React.Component {
       ) : child))
 
     return (
-      <span draggable onDragStart={e => this.onDragStart(e, value)} onDragEnd={this.onDragEnd}
+      <span
+        draggable onDragStart={e => this.onDragStart(e, value)} onDragEnd={this.onDragEnd}
         onDragOver={this.onDragOver} onDragLeave={this.onDragLeave} onDrop={this.onDrop}
         {...propsToPassDown}
         style={{ cursor: 'move', ...style }}

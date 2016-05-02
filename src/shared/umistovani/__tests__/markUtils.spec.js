@@ -1,5 +1,5 @@
 /** Created by hhj on 4/22/16. */
-/* eslint-disable no-unused-expressions */
+/* eslint-disable no-unused-expressions, no-unused-vars */
 import { expect } from 'chai'
 import * as markUtils from '../markUtils'
 
