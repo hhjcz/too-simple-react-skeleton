@@ -1,7 +1,7 @@
 /** Created by hhj on 4/25/16. */
 import React, { PropTypes } from 'react'
 import Panel from 'react-bootstrap/lib/Panel'
-import IconButton from 'material-ui/lib/icon-button'
+import IconButton from 'material-ui/IconButton'
 import MyIcon from '../lib/MyIcon'
 import colors from '../app/colors'
 
