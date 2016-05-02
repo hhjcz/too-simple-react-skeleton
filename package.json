@@ -47,7 +47,7 @@
     "node-sass": "^3.5.3",
     "postcss-loader": "^0.9.1",
     "query-string": "^4.0.2",
-    "react": "^0.14.8",
+    "react": "^15.0.2",
     "react-addons-shallow-compare": "^0.14.8",
     "react-autocomplete": "^1.0.0-rc1",
     "react-bootstrap": "~0.28.1",
