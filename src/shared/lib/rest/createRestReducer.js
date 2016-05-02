@@ -10,7 +10,8 @@ import {
   fetchingReducer,
   lastFetchSignatureReducer,
   idsPaginationReducer,
-  sortReducer
+  sortReducer,
+  clearEntities
 } from './reduceHelpers'
 
 
@@ -88,6 +89,10 @@ export default function createRestReducer(endpointName, config = {}, actionTypes
       case actionTypes.createError:
       case actionTypes.updateError:
         return fetchingReducer(false)(state)
+
+      // FIXME - define as a constant in actionTypesFor ?
+      case 'CLEAR_ENTITIES':
+        return clearEntities(state)
 
       default:
         return state

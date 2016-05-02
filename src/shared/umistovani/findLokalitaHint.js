@@ -91,15 +91,11 @@ export default function findLokalitaHint(name = '', mapName = '', id = 0) {
     }
   }
 
-  for (let i = 6; i >= 4; i--) {
-    const re = new RegExp(`(SA-)*(\\d{${i},})`, 'i');
-    match = re.exec(name);
-    if (match !== null) {
-      const op = (match[1] || '') + match[2]
-      if (lokalitaHint) lokalitaHint.op = op
-      else lokalitaHint = new LokalitaHint({ id, op })
-      break
-    }
+  match = name.match(/((?:SA-)?\d{4,6})/)
+  if (match !== null) {
+    const op = (match[0] || '')
+    if (lokalitaHint) lokalitaHint.op = op
+    else lokalitaHint = new LokalitaHint({ id, op })
   }
 
   lokalitaHint = lokalitaHint || new LokalitaHint({ id })

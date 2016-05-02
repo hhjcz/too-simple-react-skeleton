@@ -47,6 +47,8 @@ const createEntitiesReducer = (itemTransformer = x => x, idField = 'id') => (ite
   return state.update('entities', entities => entities.merge(newEntities))
 }
 
+export const clearEntities = state => state.set('entities', (new InitialState()).entities)
+
 export const createItemsReducer = (collectionTransformer = x => x, itemTransformer = x => x, idField = 'id') => {
   const entitiesReducer = createEntitiesReducer(itemTransformer, idField)
 

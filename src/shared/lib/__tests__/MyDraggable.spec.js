@@ -16,7 +16,7 @@ describe(' MyDraggable component', () => {
 
   it('should render with default props', () => {
     shallowRender()
-    expect(vdom.type).to.equal('div')
+    expect(vdom.type).to.equal('span')
     // expect(vdom.props.children.type).to.equal('');
   })
 

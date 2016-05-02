@@ -1,7 +1,7 @@
 /** Created by hhj on 3/17/16. */
 /* eslint-disable max-len */
 import React, { PropTypes } from 'react'
-import * as muiColors from 'material-ui/styles/colors'
+import colors from '../app/colors'
 // import FlatButton from 'material-ui/lib/flat-button'
 import IconButton from 'material-ui/IconButton'
 // import RaisedButton from 'material-ui/lib/raised-button'
@@ -33,14 +33,17 @@ export default class PotencialniUmisteni extends React.Component {
     return (
       <div>
         {
-          sortedSeznamUmisteni.map(umisteni => <div key={umisteni.id}>
+          sortedSeznamUmisteni.map(umisteni =>
+            <div key={umisteni.id}>
               <div className="umistovani adresa">
-                <IconButton tooltip="Umístit!" style={{ padding: '0px' }} onTouchTap={ function () { umistiZarizeni(umisteni) } }>
-                  <MyIcon color={muiColors.blue400}>done</MyIcon>
+                <IconButton tooltip="Umístit!" style={{ padding: '0px' }} onTouchTap={function () { umistiZarizeni(umisteni) }}>
+                  <MyIcon color={colors.blue400}>done</MyIcon>
                 </IconButton>
-                <IconButton tooltip="Smazat!" onTouchTap={ function () { umistiZarizeni(umisteni) } }>
-                  <MyIcon color={muiColors.blue400}>delete</MyIcon>
-                </IconButton>
+                {/*
+                 <IconButton tooltip="Smazat!" onTouchTap={ function () { umistiZarizeni(umisteni) } }>
+                 <MyIcon color={colors.blue400}>delete</MyIcon>
+                 </IconButton>
+                 */}
                 <MarkedLokalita lokalitaHint={lokalitaHint} lokalita={umisteni.lokalita} key={umisteni.id} />
                 <NepiOpy nepiOpy={umisteni.lokalita.nepiOpy} />
               </div>
@@ -51,7 +54,7 @@ export default class PotencialniUmisteni extends React.Component {
         {
           sortedSeznamUmisteni.length > 0 ?
             <div style={{ paddingTop: '1em', display: 'flex', justifyContent: 'center' }}>
-              <IconButton tooltip="Smazat všechna umístění" primary onTouchTap={ deleteAllUmisteni }><MyIcon color={muiColors.red300}>delete</MyIcon></IconButton>
+              <IconButton tooltip="Smazat všechna umístění" primary onTouchTap={deleteAllUmisteni}><MyIcon color={colors.red300}>delete</MyIcon></IconButton>
             </div>
             : null
         }

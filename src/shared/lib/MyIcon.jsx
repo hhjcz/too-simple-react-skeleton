@@ -7,6 +7,7 @@ export default class MyIcon extends React.Component {
   static propTypes = {
     children: PropTypes.oneOfType([PropTypes.string, PropTypes.object]).isRequired,
     style: PropTypes.object,
+    forcedStyle: PropTypes.object,
     color: PropTypes.string,
   };
 
@@ -20,11 +21,10 @@ export default class MyIcon extends React.Component {
   };
 
   render() {
+    const style = { ...MyIcon.defaultStyle, ...this.props.style, ...this.props.forcedStyle }
+
     return (
-      <FontIcon className="material-icons"
-        {...this.props}
-        style={{ ...MyIcon.defaultStyle, ...this.props.style }}
-      >
+      <FontIcon className="material-icons" {...this.props} style={style}>
         {this.props.children}
       </FontIcon>
     )

@@ -18,7 +18,7 @@ export default class HeaderCell extends React.Component {
     const { filter, sort, column, onFilterChange, onSortChange } = this.props
 
     return (
-      <div className={'myTableRowItem' + ` uFlexGrow-${column.width} header`}>
+      <div className={`myTableRowItem uFlexGrow-${column.width} header`}>
         <div className="headerTitle uFlexGrow-3">
           {column.caption}
         </div>

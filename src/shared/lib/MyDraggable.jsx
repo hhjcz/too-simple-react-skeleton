@@ -6,11 +6,12 @@ export default class MyDraggable extends React.Component {
     value: PropTypes.any.isRequired,
     children: PropTypes.any.isRequired,
     onChange: PropTypes.func.isRequired,
+    style: PropTypes.object,
   };
 
   static defaultProps = {
-    onChange() {
-    }
+    onChange() {},
+    style: {},
   };
 
   static validate(value) {
@@ -73,19 +74,23 @@ export default class MyDraggable extends React.Component {
   }
 
   render() {
-    const { value, children, onChange, ...propsToPassDown } = this.props  // eslint-disable-line no-unused-vars
-    const childrenWithProps = React.Children.map(children, child =>
-      React.cloneElement(child, { draggable: true, bsStyle: this.bsStyle(value).bsStyle })
-    )
+    const { value, children, onChange, style, ...propsToPassDown } = this.props  // eslint-disable-line no-unused-vars
+    const childrenWithProps = React.Children.map(children, child => (
+      child.type !== undefined ? (
+        React.cloneElement(child, {
+          draggable: true, bsStyle: this.bsStyle(value).bsStyle
+        })
+      ) : child))
 
     return (
-      <div draggable onDragStart={e => this.onDragStart(e, value)} onDragEnd={this.onDragEnd}
+      <span
+        draggable onDragStart={e => this.onDragStart(e, value)} onDragEnd={this.onDragEnd}
         onDragOver={this.onDragOver} onDragLeave={this.onDragLeave} onDrop={this.onDrop}
         {...propsToPassDown}
-        style={{ cursor: 'move' }}
+        style={{ cursor: 'move', ...style }}
       >
         {childrenWithProps}
-      </div>
+      </span>
     )
   }
 }

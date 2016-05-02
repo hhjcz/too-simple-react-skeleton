@@ -6,8 +6,7 @@ import MyDraggable from '../lib/MyDraggable'
 import MyAutoComplete from '../lib/MyAutoComplete'
 import { propsHolder as helperPropsHolder, fetchSeznamAkrloks, autoCompleteFactory } from './hintFormHelper'
 import './HintForm.styl'
-import * as muiColors from 'material-ui/styles/colors'
-
+import colors from '../app/colors'
 
 const fields = ['obec', 'ulice', 'cislo', 'akrlok', 'op', 'ixlok']
 
@@ -80,13 +79,14 @@ export default class HintForm extends React.Component {
     })
 
     return (
-      <div style={{ backgroundColor: muiColors.blueGrey200 }}>
+      <div style={{ backgroundColor: colors.blueGrey200 }}>
         <div className="hintForm">
           {formItems}
         </div>
-        <span className="btn btn-sm"
-          style={{ backgroundColor: muiColors.blueGrey200, color: 'white', width: '100%' }}
-          onClick={ function() { searchForUmisteni(lokalitaHint) } }
+        <span
+          className="btn btn-sm"
+          style={{ backgroundColor: colors.blueGrey200, color: 'white', width: '100%' }}
+          onClick={function() { searchForUmisteni(lokalitaHint) }}
         >
           <MyIcon>search</MyIcon> Hledat
         </span>

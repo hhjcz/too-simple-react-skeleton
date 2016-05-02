@@ -1,5 +1,5 @@
 /** Created by hhj on 4/19/16. */
-/* eslint-disable no-unused-expressions */
+/* eslint-disable no-unused-expressions,no-unused-vars */
 import { expect } from 'chai'
 import render from '../render'
 
@@ -8,12 +8,12 @@ describe('server render', () => {
     url: '/'
   }
   const res = {
-    status: () => {console.log(arguments)},
-    end: () => {console.log(arguments)}
+    status: () => { console.log(arguments) },
+    end: () => { console.log(arguments) }
   }
 
   it('should render html page', () => {
-    const html = render(req, res, () => {})
+    render(req, res, () => {})
     // console.log(html)
   })
 

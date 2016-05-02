@@ -15,6 +15,7 @@ export class Container extends React.Component {
   static propTypes = {
     zarizeniResource: PropTypes.object,
     umisteniResource: PropTypes.object,
+    portyZarizeniResource: PropTypes.object,
     akrloksResource: PropTypes.object,
     params: PropTypes.object,
     actions: PropTypes.object.isRequired,
@@ -23,6 +24,7 @@ export class Container extends React.Component {
 
   static defaultProps = {
     zarizeniResource: { pagination: {} },
+    portyZarizeniResource: {},
     umisteniResource: {},
     akrloksResource: {},
     params: {},
@@ -90,10 +92,11 @@ export class Container extends React.Component {
 
   render() {
     const self = this
-    const { zarizeniResource, umisteniResource, akrloksResource, actions } = this.props
+    const { zarizeniResource, umisteniResource, akrloksResource, portyZarizeniResource, actions } = this.props
     const { pagination: { cursorAt, total: zarizeniCount } } = zarizeniResource
     const zarizeni = getItem(zarizeniResource)
     const seznamUmisteni = getItems(umisteniResource)
+    const seznamPortu = getItems(portyZarizeniResource)
     const akrloks = getItems(akrloksResource)
 
     return (
@@ -103,11 +106,13 @@ export class Container extends React.Component {
           prev next first last ellipsis bsSize="small" maxButtons={9}
           onSelect={function(event, selectedEvent) { self.onCursorChange(selectedEvent.eventKey) }}
         />
-        <Umistovani zarizeni={zarizeni} seznamUmisteni={seznamUmisteni} akrloks={akrloks}
+        <Umistovani
+          zarizeni={zarizeni} seznamUmisteni={seznamUmisteni} seznamPortu={seznamPortu} akrloks={akrloks}
           fetching={zarizeniResource.fetching || umisteniResource.fetching}
           actions={{ ...actions, reload: self.reload }}
         />
-        <Navigation cursorAt={cursorAt} total={zarizeniCount}
+        <Navigation
+          cursorAt={cursorAt} total={zarizeniCount}
           onCursorChange={self.onCursorChange} reload={self.reload}
         />
         <FetchIndicator fetching={zarizeniResource.fetching || umisteniResource.fetching} />
@@ -119,6 +124,7 @@ export class Container extends React.Component {
 export default connect(
   createMapStateToProps(state => ({
     zarizeniResource: state.resources.zarizeni,
+    portyZarizeniResource: state.resources.portyZarizeni,
     umisteniResource: state.resources.umisteni,
     akrloksResource: state.resources.akrloks
   })),

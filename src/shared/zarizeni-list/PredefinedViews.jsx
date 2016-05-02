@@ -35,29 +35,32 @@ export default class PredefinedViews extends React.Component {
     const { onNamedFilterChange, onFilterChange } = this.props
     return (
       <div style={PredefinedViews.styles.block}>
-        <Toggle label="Neumístěná" toggled={this.state.neumistenaToggled}
+        <Toggle
+          label="Neumístěná" toggled={this.state.neumistenaToggled}
           onToggle={function(e, toggled) {
             self.setState({ neumistenaToggled: toggled })
             onNamedFilterChange(toggled ? 'neumistena' : null)
           }}
         />
-        <Toggle label="Změněná identita" toggled={this.state.zmenenaToggled}
+        <Toggle
+          label="Změněná identita" toggled={this.state.zmenenaToggled}
           onToggle={function(e, toggled) {
             self.setState({ zmenenaToggled: toggled })
             onFilterChange(new Filter({
               name: 'previousNetvisionName',
               value: toggled ? false : null,
               comparator: 'empty' })
-            )}}
+            ) }}
         />
-        <Toggle label="I smazaná" toggled={this.state.smazanaToggled}
+        <Toggle
+          label="I smazaná" toggled={this.state.smazanaToggled}
           onToggle={function(e, toggled) {
             self.setState({ smazanaToggled: toggled })
             onFilterChange(new Filter({
               name: 'deletedAt',
               value: toggled ? null : true,
               comparator: 'empty' })
-            )}}
+            ) }}
         />
       </div>
     )

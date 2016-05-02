@@ -10,7 +10,9 @@ export const getSubState = endpointName => getState => {
 
 export const getItems = (resource = {}) => {
   const entities = resource.entities || Map()
-  const items = (resource.items || List()).map(item => entities.get(`${item}`))
+  const items = (resource.items || List())
+    .filter(item => entities.get(`${item}`) !== undefined)
+    .map(item => entities.get(`${item}`))
 
   return items
 }

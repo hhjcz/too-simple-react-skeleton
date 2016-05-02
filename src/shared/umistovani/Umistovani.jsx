@@ -6,12 +6,14 @@ import findLokalitaHint from './findLokalitaHint'
 import ZarizeniInfo from './ZarizeniInfo'
 import HintForm from './HintForm'
 import PotencialniUmisteni from './PotencialniUmisteni'
+import SeznamPortu from './SeznamPortu'
 
 export default class Umistovani extends React.Component {
 
   static propTypes = {
     zarizeni: PropTypes.object.isRequired,
     seznamUmisteni: PropTypes.instanceOf(List).isRequired,
+    seznamPortu: PropTypes.instanceOf(List).isRequired,
     akrloks: PropTypes.instanceOf(List),
     fetching: PropTypes.bool,
     actions: PropTypes.object,
@@ -20,6 +22,7 @@ export default class Umistovani extends React.Component {
   static defaultProps = {
     zarizeni: {},
     seznamUmisteni: List(),
+    seznamPortu: List(),
     akrloks: List(),
     fetching: false,
     actions: {},
@@ -73,15 +76,19 @@ export default class Umistovani extends React.Component {
 
   render() {
     const self = this
-    const { zarizeni, seznamUmisteni, akrloks, actions } = this.props
+    const { zarizeni, seznamUmisteni, seznamPortu, akrloks, actions } = this.props
     if (!(zarizeni.id > 0)) return null
 
     const lokalitaHint = findLokalitaHint(zarizeni.name, zarizeni.defaultmap, zarizeni.id)
 
     return (
       <div>
-        <ZarizeniInfo zarizeni={zarizeni} />
-        <HintForm lokalitaHint={lokalitaHint} searchForUmisteni={this.searchForUmisteni}
+        <div className="row">
+          <ZarizeniInfo zarizeni={zarizeni} />
+          <SeznamPortu seznamPortu={seznamPortu} />
+        </div>
+        <HintForm
+          lokalitaHint={lokalitaHint} searchForUmisteni={this.searchForUmisteni}
           akrloks={akrloks} actions={actions}
         />
         <PotencialniUmisteni

@@ -1,16 +1,18 @@
-/** Created by hhj on 2/18/16. */
+/** Created by hhj on 4/21/16. */
+/* eslint-disable no-unused-expressions */
 import { expect } from 'chai'
 import React from 'react'
 import sd from 'skin-deep'
-import HintForm from '../HintForm'
+import SeznamPortu from '../SeznamPortu'
 
-describe('umistovani HintForm component', () => {
+describe('umistovani SeznamPortu component', () => {
   let vdom
+  // let instance
 
   const shallowRender = (props) => {
-    const tree = sd.shallowRender(React.createElement(HintForm, props))
+    const tree = sd.shallowRender(React.createElement(SeznamPortu, props))
 
-    // const instance = tree.getMountedInstance()
+    // instance = tree.getMountedInstance()
     vdom = tree.getRenderOutput()
     // console.log(vdom)
   }

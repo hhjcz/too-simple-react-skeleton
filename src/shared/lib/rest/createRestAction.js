@@ -59,6 +59,9 @@ export default function createRestAction(endpointName, config, actionCreators, f
   const create = createAction('create')
   const update = createAction('update')
   const destroy = createAction('destroy')
+  // FIXME - should be set global for all resources?
+  //       - define as a constant it in actionTypes
+  const clearEntities = () => fnHolder.dispatch({ type: 'CLEAR_ENTITIES' })
 
   return {
     fetchIds,
@@ -68,5 +71,6 @@ export default function createRestAction(endpointName, config, actionCreators, f
     create,
     update,
     destroy,
+    clearEntities,
   }
 }

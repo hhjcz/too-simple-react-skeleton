@@ -4,7 +4,8 @@ import React, { PropTypes } from 'react'
 import { List } from 'immutable'
 import uniqBy from 'lodash/uniqBy'
 import Avatar from 'material-ui/Avatar'
-import * as muiColors from 'material-ui/styles/colors'
+import colors from '../app/colors'
+import { markPotencialniNepiop } from './markUtils'
 
 export default class NepiOpy extends React.Component {
   static propTypes = {
@@ -22,7 +23,7 @@ export default class NepiOpy extends React.Component {
 
     const listItems = slicedNepiOpy.map(nepiOp =>
       <div style={{ paddingLeft: '1em' }} key={nepiOp.ixop}>
-        {nepiOp.ixop} {nepiOp.akronym} "{nepiOp.nazevFirmy}"
+        {markPotencialniNepiop(nepiOp.ixop)} {markPotencialniNepiop(nepiOp.akronym)} "{nepiOp.nazevFirmy}"
       </div>
     )
 
@@ -30,11 +31,11 @@ export default class NepiOpy extends React.Component {
 
     return listItems.length > 0 ?
       <div style={{ display: 'flex', alignItems: 'center', paddingLeft: '2em' }}>
-        <Avatar size={20} backgroundColor={muiColors.green300} color={muiColors.grey50}>
-          { uniqNepiOpy.length }
+        <Avatar size={20} backgroundColor={colors.green300} color={colors.grey50}>
+          {uniqNepiOpy.length}
         </Avatar>
         <div style={{ display: 'flex', flexFlow: 'column wrap', justifyContent: 'center', height: `${divHeight}em` }}>
-          { listItems }
+          {listItems}
         </div>
       </div>
       : <div />
