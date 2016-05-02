@@ -22,7 +22,10 @@ export default class NedavneLokality extends React.Component {
     return (
       <div>
         <div style={{ display: 'flex', alignItems: 'center' }}>
-          <IconButton tooltip={this.state.open ? 'sbalit' : 'rozbalit'} onTouchTap={function() {self.setState({ open: !self.state.open })}}>
+          <IconButton
+            tooltip={this.state.open ? 'sbalit' : 'rozbalit'}
+            onTouchTap={function() { self.setState({ open: !self.state.open }) }}
+          >
             <MyIcon color={colors.green100}>{this.state.open ? 'expand_less' : 'expand_more'}</MyIcon>
           </IconButton>
           nedávno přiřazené lokality
