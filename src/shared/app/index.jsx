@@ -27,6 +27,7 @@ export default class App extends React.Component {
 
   render() {
     let devTools = ''
+
     // defined in webpack configuration or node runtime environment
     if (process.env.NODE_ENV !== 'production') {
       const DevTools = require('./DevTools').default
