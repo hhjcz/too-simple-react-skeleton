@@ -19,33 +19,39 @@ export default class PredefinedViews extends React.Component {
     block: { maxWidth: '20em' }
   };
 
-  constructor(props) {
-    super(props)
-    const zmenenaFilter = props.filters && props.filters.get('previousNetvisionName') && props.filters.get('previousNetvisionName').value // eslint-disable-line max-len
+  computeToggleState(props) {
+    const zmenenaFilter = props.filters && props.filters.get('previousNetvisionName') && props.filters.get('previousNetvisionName').value === false // eslint-disable-line max-len
     const deletedFilter = props.filters && props.filters.get('deletedAt') && props.filters.get('deletedAt').value // eslint-disable-line max-len
-    this.state = {
+    console.log(zmenenaFilter)
+    return {
       neumistenaToggled: props.namedFilter === 'neumistena',
+      umistenaBezOpToggled: props.namedFilter === 'umistenaBezOp',
       zmenenaToggled: zmenenaFilter,
       smazanaToggled: !deletedFilter,
     }
   }
 
   render() {
-    const self = this
     const { onNamedFilterChange, onFilterChange } = this.props
+    const toggleState = this.computeToggleState(this.props)
+
     return (
       <div style={PredefinedViews.styles.block}>
         <Toggle
-          label="Neumístěná" toggled={this.state.neumistenaToggled}
+          label="Neumístěná" toggled={toggleState.neumistenaToggled}
           onToggle={function(e, toggled) {
-            self.setState({ neumistenaToggled: toggled })
             onNamedFilterChange(toggled ? 'neumistena' : null)
           }}
         />
         <Toggle
-          label="Změněná identita" toggled={this.state.zmenenaToggled}
+          label="UmístěnáBezOP" toggled={toggleState.umistenaBezOpToggled}
           onToggle={function(e, toggled) {
-            self.setState({ zmenenaToggled: toggled })
+            onNamedFilterChange(toggled ? 'umistenaBezOp' : null)
+          }}
+        />
+        <Toggle
+          label="Změněná identita" toggled={toggleState.zmenenaToggled}
+          onToggle={function(e, toggled) {
             onFilterChange(new Filter({
               name: 'previousNetvisionName',
               value: toggled ? false : null,
@@ -53,9 +59,8 @@ export default class PredefinedViews extends React.Component {
             ) }}
         />
         <Toggle
-          label="I smazaná" toggled={this.state.smazanaToggled}
+          label="I smazaná" toggled={toggleState.smazanaToggled}
           onToggle={function(e, toggled) {
-            self.setState({ smazanaToggled: toggled })
             onFilterChange(new Filter({
               name: 'deletedAt',
               value: toggled ? null : true,
