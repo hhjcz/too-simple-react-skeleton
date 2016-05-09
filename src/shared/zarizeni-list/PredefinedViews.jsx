@@ -44,7 +44,7 @@ export default class PredefinedViews extends React.Component {
           }}
         />
         <Toggle
-          label="UmístěnáBezOP" toggled={toggleState.umistenaBezOpToggled}
+          label="Umístěná na lokalitě bez OP" toggled={toggleState.umistenaBezOpToggled}
           onToggle={function(e, toggled) {
             onNamedFilterChange(toggled ? 'umistenaBezOp' : null)
           }}
