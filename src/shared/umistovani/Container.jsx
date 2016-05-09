@@ -108,7 +108,7 @@ export class Container extends React.Component {
             <Pagination
               items={zarizeniCount} activePage={cursorAt}
               prev next first last ellipsis bsSize="small" maxButtons={9}
-              onSelect={function(event, selectedEvent) { self.onCursorChange(selectedEvent.eventKey) }}
+              onSelect={function(eventKey) { self.onCursorChange(eventKey) }}
             />
           </div>
           <div className="col col-xs-6">

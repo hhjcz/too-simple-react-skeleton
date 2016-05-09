@@ -31,7 +31,7 @@ describe('zarizeni-list Paginator component (testing using shallow render)', () 
   })
 
   it('should handle change of perPage input', () => {
-    const perPageInput = vdom.props.children.props.children[2].props.children
+    const perPageInput = vdom.props.children.props.children[2].props.children.props.children.props.children[1]
     perPageInput.props.onChange({ target: { value: '66' } })
     expect(spyChange).to.be.called.once.with(66)
   })
@@ -43,8 +43,8 @@ describe('zarizeni-list Paginator component (testing using shallow render)', () 
 
   it('should set input style to error', () => {
     tree = sd.shallowRender(React.createElement(Paginator, { pagination: { perPage: 'abc' } }))
-    const perPageInput = tree.getRenderOutput().props.children.props.children[2].props.children
-    expect(perPageInput.props.bsStyle).to.equal('error')
+    const perPageFormGroup = tree.getRenderOutput().props.children.props.children[2].props.children
+    expect(perPageFormGroup.props.validationState).to.equal('error')
   })
 
 })

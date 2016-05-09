@@ -1,6 +1,6 @@
 /** Created by hhj on 12/29/15. */
 import React, { PropTypes } from 'react'
-import { Pagination, Input } from 'react-bootstrap'
+import { Pagination, FormGroup, FormControl, InputGroup } from 'react-bootstrap'
 
 import debounce from '../lib/debounce'
 
@@ -51,8 +51,8 @@ export default class Paginator extends React.Component {
   }
 
   render() {
-    const { pagination, onPageChange, bsSize, maxButtons } = this.props
     const self = this
+    const { pagination, onPageChange, bsSize, maxButtons } = this.props
     return (
       <div className="container-fluid">
         <div className="row">
@@ -62,36 +62,38 @@ export default class Paginator extends React.Component {
               activePage={pagination.page}
               prev next first last ellipsis
               bsSize={bsSize} maxButtons={maxButtons}
-              onSelect={function(event, selectedEvent) {
-                if (pagination.page !== selectedEvent.eventKey) onPageChange(selectedEvent.eventKey)
+              onSelect={function(eventKey) {
+                if (pagination.page !== eventKey) onPageChange(eventKey)
               }}
             />
           </div>
           <div className="col col-xs-2 vcenter" ref="totalInput">
-            <Input
-              type="text"
-              addonBefore="total"
-              value={pagination.total}
-              bsStyle="success"
-              bsSize={bsSize} disabled
-            />
+            <FormGroup bsSize={bsSize} validationState="success" bsSize={bsSize}>
+              <InputGroup>
+                <InputGroup.Addon>total</InputGroup.Addon>
+                <FormControl type="text" value={pagination.total} disabled />
+              </InputGroup>
+            </FormGroup>
           </div>
           <div className="col col-xs-2 vcenter" ref="perPageInput">
-            <Input
-              id="perPageInput"
-              type="text"
-              ref="perPage"
-              addonBefore="page size"
-              value={this.state.perPage}
-              bsStyle={Paginator.validatePageSize(this.state.perPage) ? 'success' : 'error'}
+            <FormGroup
               bsSize={bsSize}
-              onChange={function(event) {
-                if (event.persist) event.persist()
-                const perPage = event.target.value
-                self.setState({ perPage })
-                self.onPerPageChange(perPage)
-              }}
-            />
+              validationState={Paginator.validatePageSize(this.state.perPage) ? 'success' : 'error'}
+            >
+              <InputGroup>
+                <InputGroup.Addon>page size</InputGroup.Addon>
+                <FormControl
+                  type="text" id="perPageInput" ref="perPage"
+                  value={this.state.perPage}
+                  onChange={function(event) {
+                    if (event.persist) event.persist()
+                    const perPage = event.target.value
+                    self.setState({ perPage })
+                    self.onPerPageChange(perPage)
+                  }}
+                />
+              </InputGroup>
+            </FormGroup>
           </div>
         </div>
       </div>
