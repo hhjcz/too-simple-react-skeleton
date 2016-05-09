@@ -22,7 +22,7 @@ export default class PredefinedViews extends React.Component {
   computeToggleState(props) {
     const zmenenaFilter = props.filters && props.filters.get('previousNetvisionName') && props.filters.get('previousNetvisionName').value === false // eslint-disable-line max-len
     const deletedFilter = props.filters && props.filters.get('deletedAt') && props.filters.get('deletedAt').value // eslint-disable-line max-len
-    console.log(zmenenaFilter)
+
     return {
       neumistenaToggled: props.namedFilter === 'neumistena',
       umistenaBezOpToggled: props.namedFilter === 'umistenaBezOp',
