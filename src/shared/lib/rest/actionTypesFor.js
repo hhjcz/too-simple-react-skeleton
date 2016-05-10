@@ -1,17 +1,23 @@
 /** Created by hhj on 2/3/16. */
 import snakeCase from 'lodash/snakeCase'
 
-const actionPrefix = '@@my-rest'
+const actionPrefix = '@my-rest'
 
-function addGroup(resource, group) {
+function syncAction(resource, action, subAction = null) {
   const upperResource = snakeCase(resource).toUpperCase()
-  const upperGroup = snakeCase(group).toUpperCase()
+  const upperAction = snakeCase(action).toUpperCase()
+  const upperSubAction = subAction ? `_${subAction.toUpperCase()}` : ''
 
+  const type = `${actionPrefix}/${upperResource}_${upperAction}${upperSubAction}`
+  const alias = `${action}${subAction || ''}`
+
+  return { type, alias }
+}
+
+function asyncSubActions(resource, action) {
   const actionTypes = ['Requested', 'Success', 'Error'].reduce(
-    (result, key) => {
-      const upperKey = key.toUpperCase()
-      const type = `${actionPrefix}/${upperResource}_${upperGroup}_${upperKey}`
-      const alias = `${group}${key}`
+    (result, subAction) => {
+      const { type, alias } = syncAction(resource, action, subAction)
       /* eslint-disable no-param-reassign */
       result[type] = type
       result[alias] = type
@@ -30,20 +36,34 @@ function addGroup(resource, group) {
 *               fetchOneRequested, fetchOneSuccess, fetchOneError,
 *               createRequested, createSuccess, createError,
 *               updateRequested, updateSuccess, updateError,
-*               destroyRequested, destroySuccess, destroyError
+*               destroyRequested, destroySuccess, destroyError,
+*               gotoPage, setPagination, pointCursorTo, setPageSize,
+*               sortChange, filterChange, generalParamChange,
+*               clearEntities
 *             }} ActionTypes */
 /**
  * @param resource
  * @returns {ActionTypes}
  */
 export function actionTypesFor(resource) {
-  const actionTypes = [
+  const asyncActionTypes = [
     'fetchCollection', 'fetchCollectionByIds', 'fetchIds',
     'fetchOne', 'create', 'update', 'destroy'
-  ].reduce((result, key) => ({
+  ].reduce((result, action) => ({
     ...result,
-    ...addGroup(resource, key)
+    ...asyncSubActions(resource, action)
   }), {})
+
+  const actionTypes = [
+    'gotoPage', 'setPagination', 'pointCursorTo', 'setPageSize',
+    'sortChange', 'filterChange', 'generalParamChange',
+    'clearEntities'
+  ].reduce((result, action) => {
+    const { type, alias } = syncAction(resource, action, null)
+    result[type] = type
+    result[alias] = type
+    return result
+  }, asyncActionTypes)
 
   return actionTypes
 }

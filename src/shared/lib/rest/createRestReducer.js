@@ -1,6 +1,9 @@
 /** Created by hhj on 1/29/16. */
 /* eslint-disable max-len */
+/* eslint-disable no-case-declarations */
 import { compose } from 'redux'
+import { Pagination, setPage, setPageSize } from '../../app/models/Pagination'
+import { Sort } from '../../app/models/Sort'
 import {
   InitialState,
   revive,
@@ -15,6 +18,12 @@ import {
 } from './reduceHelpers'
 
 
+/**
+ * @param endpointName
+ * @param config
+ * @param {ActionTypes} actionTypes
+ * @returns {reducer}
+ */
 export default function createRestReducer(endpointName, config = {}, actionTypes = {}) {
   const collectionTransformer = config.collectionTransformer || (collection => collection)
   const itemTransformer = config.itemTransformer || (item => item)
@@ -90,8 +99,43 @@ export default function createRestReducer(endpointName, config = {}, actionTypes
       case actionTypes.updateError:
         return fetchingReducer(false)(state)
 
-      // FIXME - define as a constant in actionTypesFor ?
-      case 'CLEAR_ENTITIES':
+      case actionTypes.gotoPage:
+        return state.update('pagination', pagination => setPage(pagination, action.page))
+
+      case actionTypes.setPagination:
+        return state.set('pagination', action.pagination)
+
+      case actionTypes.pointCursorTo:
+        const page = Math.ceil(action.cursorAt / state.pagination.perPage)
+        return state.update('pagination', pagination => new Pagination({
+          ...pagination.toObject(),
+          cursorAt: action.cursorAt,
+          page,
+        }))
+
+      case actionTypes.setPageSize:
+        return state.update('pagination', pagination => setPageSize(pagination, action.perPage))
+
+      case actionTypes.sortChange:
+        let dir = state.sort.dir === true
+        if (state.sort.by === action.sortField) dir = !dir
+        return state.update('sort', () => new Sort({ dir, by: action.sortField }))
+
+      case actionTypes.filterChange:
+        return state.update('filters', filters => {
+          if (action.filter.value === '' || action.filter.value === null) {
+            return filters.delete(action.filter.name)
+          }
+          return filters.set(action.filter.name, action.filter)
+        })
+
+      case actionTypes.generalParamChange:
+        return state.update('generalParams', generalParams => {
+          if (action.paramObj.value === '') return generalParams.delete(action.paramObj.name)
+          return generalParams.set(action.paramObj.name, action.paramObj.value)
+        })
+
+      case actionTypes.clearEntities:
         return clearEntities(state)
 
       default:

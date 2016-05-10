@@ -11,7 +11,10 @@ export default function createRestAction(endpointName, config, actionCreators, f
   const resource = createResource(endpointName, config, fnHolder)
   const extraParams = decamelizeKeys(config.extraParams)
 
-  const createAction = (actionName, fetchMethod = null, methodExtraParams = {}) => {
+  /**
+   *  create ASYNC action creators
+   */
+  const createAsyncAction = (actionName, fetchMethod = null, methodExtraParams = {}) => {
     if (!fetchMethod) fetchMethod = actionName
 
     const subActionCreators = {
@@ -47,20 +50,64 @@ export default function createRestAction(endpointName, config, actionCreators, f
   }
 
   // fetchIds uses fetchCollection resource with predefined params:
-  const fetchIds = createAction('fetchIds', 'fetchCollection', {
+  const fetchIds = createAsyncAction('fetchIds', 'fetchCollection', {
     fields: 'id',
     page: 1,
     per_page: 10000000,
     include: null
   })
-  const fetchCollection = createAction('fetchCollection')
-  const fetchCollectionByIds = createAction('fetchCollectionByIds', 'fetchCollection')
-  const fetchOne = createAction('fetchOne')
-  const create = createAction('create')
-  const update = createAction('update')
-  const destroy = createAction('destroy')
-  // FIXME - should be set global for all resources?
-  //       - define as a constant it in actionTypes
+  const fetchCollection = createAsyncAction('fetchCollection')
+  const fetchCollectionByIds = createAsyncAction('fetchCollectionByIds', 'fetchCollection')
+  const fetchOne = createAsyncAction('fetchOne')
+  const create = createAsyncAction('create')
+  const update = createAsyncAction('update')
+  const destroy = createAsyncAction('destroy')
+
+
+  const updateCollection = () => fetchIds().then(() => fetchCollectionByIds())
+
+  // ***** SYNC action creators ***** */
+
+  const fetchOneAt = cursorAt => ({ dispatch, getState }) => {
+    dispatch(actionCreators.pointCursorTo({ cursorAt }))
+
+    const subState = getSubState('zarizeni')(getState)
+    const id = subState.ids.get(cursorAt - 1)
+    if (!id) handleError(`No valid zarizeni found at position ${cursorAt}`)
+
+    return fetchOne({ params: { id } })
+  }
+
+  const gotoPage = page => ({ dispatch }) => {
+    dispatch(actionCreators.gotoPage({ page }))
+    return fetchCollectionByIds()
+  }
+
+  const setPagination = pagination => ({ dispatch }) => {
+    dispatch(actionCreators.setPagination({ pagination }))
+    return fetchCollectionByIds()
+  }
+
+  const setPageSize = perPage => ({ dispatch }) => {
+    dispatch(actionCreators.setPageSize({ perPage }))
+    return updateCollection()
+  }
+
+  const sortChange = sortField => ({ dispatch }) => {
+    dispatch(actionCreators.sortChange({ sortField }))
+    return updateCollection()
+  }
+
+  const filterChange = filter => ({ dispatch }) => {
+    dispatch(actionCreators.filterChange({ filter }))
+    return updateCollection()
+  }
+
+  const generalParamChange = paramObj => ({ dispatch }) => {
+    dispatch(actionCreators.generalParamChange({ paramObj }))
+    return updateCollection()
+  }
+
   const clearEntities = () => fnHolder.dispatch({ type: 'CLEAR_ENTITIES' })
 
   return {
@@ -71,6 +118,13 @@ export default function createRestAction(endpointName, config, actionCreators, f
     create,
     update,
     destroy,
+    fetchOneAt,
+    gotoPage,
+    setPagination,
+    setPageSize,
+    sortChange,
+    filterChange,
+    generalParamChange,
     clearEntities,
   }
 }
