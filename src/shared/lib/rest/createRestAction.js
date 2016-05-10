@@ -69,7 +69,7 @@ export default function createRestAction(endpointName, config, actionCreators, f
   // ***** SYNC action creators ***** */
 
   const fetchOneAt = cursorAt => ({ dispatch, getState }) => {
-    dispatch(actionCreators.pointCursorTo(cursorAt))
+    dispatch(actionCreators.pointCursorTo({ cursorAt }))
 
     const subState = getSubState('zarizeni')(getState)
     const id = subState.ids.get(cursorAt - 1)
