@@ -108,7 +108,7 @@ export default function createRestAction(endpointName, config, actionCreators, f
     return updateCollection()
   }
 
-  const clearEntities = () => fnHolder.dispatch({ type: 'CLEAR_ENTITIES' })
+  const clearEntities = () => fnHolder.dispatch(actionCreators.clearEntities())
 
   return {
     fetchIds,
