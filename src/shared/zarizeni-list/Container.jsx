@@ -108,14 +108,9 @@ export class Container extends React.Component {
 }
 
 export default connect(
-  createMapStateToProps(state => {
-    console.log('state.zarizeniList: ', state.zarizeniList.toObject())
-    const subState = {
-      ...(state.resources.zarizeni.set('items', getItems(state.resources.zarizeni)).toObject()),
-      ...(state.zarizeniList.toObject())
-    }
-    console.log('subState: ', subState)
-    return subState
-  }),
+  createMapStateToProps(state => ({
+    ...(state.resources.zarizeni.set('items', getItems(state.resources.zarizeni)).toObject()),
+    ...(state.zarizeniList.toObject())
+  })),
   createMapDispatchToProps(actions)
 )(Container)

@@ -42,27 +42,25 @@ export default class PredefinedViews extends React.Component {
         <Toggle
           label="Neumístěná" toggled={toggleState.neumistenaToggled}
           onToggle={function(e, toggled) {
-            if (toggled) hideColumn('umisteni')
-            else showColumn('umisteni')
             onNamedFilterChange(toggled ? 'neumistena' : null)
           }}
         />
         <Toggle
           label="Umístěná na lokalitě bez OP" toggled={toggleState.umistenaBezOpToggled}
           onToggle={function(e, toggled) {
-            if (toggled) showColumn('previousNetvisionName')
-            else hideColumn('previousNetvisionName')
             onNamedFilterChange(toggled ? 'umistenaBezOp' : null)
           }}
         />
         <Toggle
           label="Změněná identita" toggled={toggleState.zmenenaToggled}
           onToggle={function(e, toggled) {
+            if (toggled) showColumn('previousNetvisionName')
+            else hideColumn('previousNetvisionName')
             onFilterChange(new Filter({
               name: 'previousNetvisionName',
               value: toggled ? false : null,
               comparator: 'empty' })
-            ) }}
+           ) }}
         />
         <Toggle
           label="I smazaná" toggled={toggleState.smazanaToggled}
@@ -71,7 +69,10 @@ export default class PredefinedViews extends React.Component {
               name: 'deletedAt',
               value: toggled ? null : true,
               comparator: 'empty' })
-            ) }}
+            )
+            if (toggled) showColumn('deletedAt')
+            else hideColumn('deletedAt')
+          }}
         />
       </div>
     )
