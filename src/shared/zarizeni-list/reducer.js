@@ -16,9 +16,8 @@ const revive = (state = {}, initialState = new InitialState({})) => {
 }
 
 export default function reducer(state = {}, action) {
-  const initialState = new InitialState({})
   if (!(state instanceof InitialState)) {
-    return revive(state, initialState)
+    return revive()
   }
 
   switch (action.type) {

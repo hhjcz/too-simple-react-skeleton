@@ -26,9 +26,6 @@ export default class Tabulka extends React.Component {
     const { fetching, seznamZarizeni, pagination, sort, filters, onSortChange, onFilterChange, columns } = this.props // eslint-disable-line max-len
     let offset = (pagination.page - 1) * pagination.perPage + 1
 
-    console.log(columns.toJS())
-    console.log(columns2.toList().toJS())
-
     return (
       <div className={`myTable${(fetching ? ' fetching' : '')}`}>
         {/* header */}

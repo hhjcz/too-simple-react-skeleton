@@ -81,9 +81,6 @@ export class Container extends React.Component {
       actions
     } = this.props
 
-    console.log(this.props)
-    console.log(columns.toJS())
-
     return (
       <div id="zarizeni-list">
         <PredefinedViews
@@ -111,9 +108,14 @@ export class Container extends React.Component {
 }
 
 export default connect(
-  createMapStateToProps(state => ({
-    ...state.resources.zarizeni.set('items', getItems(state.resources.zarizeni)).toObject(),
-    ...state.zarizeniList.toObject()
-  })),
+  createMapStateToProps(state => {
+    console.log('state.zarizeniList: ', state.zarizeniList.toObject())
+    const subState = {
+      ...(state.resources.zarizeni.set('items', getItems(state.resources.zarizeni)).toObject()),
+      ...(state.zarizeniList.toObject())
+    }
+    console.log('subState: ', subState)
+    return subState
+  }),
   createMapDispatchToProps(actions)
 )(Container)
