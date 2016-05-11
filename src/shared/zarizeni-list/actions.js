@@ -1,6 +1,6 @@
 /** Created by hhj on 20.12.15. */
 import rest from '../app/rest'
-import defaultColumns from './columns'
+import defaultColumns from './defaultColumns'
 
 export const COLUMN_VISIBILITY = 'COLUMN_VISIBILITY'
 export const SET_COLUMN_WIDTH = 'SET_COLUMN_WIDTH'

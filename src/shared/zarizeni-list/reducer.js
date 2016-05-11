@@ -2,10 +2,10 @@
 /* eslint-disable no-case-declarations */
 import { Record } from 'immutable'
 import { Column } from '../app/models/Column'
-import columns from './columns'
+import defaultColumns from './defaultColumns'
 import * as actions from './actions'
 
-const InitialState = Record({ columns })
+const InitialState = Record({ columns: defaultColumns })
 
 const revive = (state = {}, initialState = new InitialState({})) => {
   const { columns } = state

@@ -6,7 +6,7 @@ import MyIcon from '../lib/MyIcon'
 import { Column, columntValueTypes } from '../app/models/Column'
 import MarkedLokalita from '../umistovani/MarkedLokalita'
 
-const columns = Map(
+const defaultColumns = Map(
   {
     id: new Column({
       name: 'id',
@@ -81,4 +81,4 @@ const columns = Map(
   }
 )
 
-export default columns
+export default defaultColumns

@@ -4,7 +4,7 @@ import { expect } from 'chai'
 import { Record } from 'immutable'
 import * as actions from '../actions'
 import reducer from '../reducer'
-import defaultColumns from '../columns'
+import defaultColumns from '../defaultColumns'
 
 describe('zarizeni-list actions', () => {
 

@@ -1,9 +1,9 @@
 /** Created by hhj on 2/26/16. */
 import { expect } from 'chai'
 import { Record, Map } from 'immutable'
-import columns from '../columns'
+import columns from '../defaultColumns'
 
-describe('zarizen-list columns', () => {
+describe('zarizen-list default columns defs', () => {
 
   it('should define iterable columns collection', () => {
     expect(columns instanceof Map).to.equal(true)
