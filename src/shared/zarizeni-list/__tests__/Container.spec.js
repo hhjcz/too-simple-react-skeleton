@@ -45,7 +45,7 @@ describe('zarizeni-list', () => {
     beforeEach(() => {
       // const store = createStore()
       const tree = sd.shallowRender(
-        React.createElement(Container)
+        React.createElement(Container, { columns: Map() })
       )
 
       // instance = tree.getMountedInstance()

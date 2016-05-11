@@ -1,9 +1,9 @@
 /** Created by hhj on 12/28/15. */
 import React, { PropTypes } from 'react'
+import { List } from 'immutable'
 import '../lib/Tabulka.styl'
 import HeaderCell from './HeaderCell'
 import Radka from './Radka'
-import columns2 from './columns'
 
 export default class Tabulka extends React.Component {
 
@@ -19,6 +19,7 @@ export default class Tabulka extends React.Component {
   };
 
   static defaultProps = {
+    columns: List(),
     pagination: {},
   };
 
