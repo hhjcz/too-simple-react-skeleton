@@ -34,6 +34,7 @@ describe('zarizeni-list', () => {
       expect(vdom.props.items).to.be.instanceof(List)
       expect(vdom.props.pagination).to.be.instanceof(Pagination)
       expect(vdom.props.generalParams).to.be.instanceof(Map)
+      expect(vdom.props.columns).to.be.instanceof(Map)
     })
 
   })
