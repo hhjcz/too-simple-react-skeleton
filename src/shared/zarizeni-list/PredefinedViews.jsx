@@ -11,6 +11,7 @@ export default class PredefinedViews extends React.Component {
     filters: PropTypes.object,
     showColumn: PropTypes.func.isRequired,
     hideColumn: PropTypes.func.isRequired,
+    setColumnWidth: PropTypes.func.isRequired,
   };
 
   static defaultProps = {
@@ -34,7 +35,7 @@ export default class PredefinedViews extends React.Component {
   }
 
   render() {
-    const { onNamedFilterChange, onFilterChange, showColumn, hideColumn } = this.props
+    const { onNamedFilterChange, onFilterChange, showColumn, hideColumn, setColumnWidth } = this.props
     const toggleState = this.computeToggleState(this.props)
 
     return (
@@ -43,6 +44,8 @@ export default class PredefinedViews extends React.Component {
           label="Neumístěná" toggled={toggleState.neumistenaToggled}
           onToggle={function(e, toggled) {
             onNamedFilterChange(toggled ? 'neumistena' : null)
+            if (toggled) setColumnWidth('umisteni', 1)
+            else setColumnWidth('umisteni')
           }}
         />
         <Toggle
@@ -54,8 +57,13 @@ export default class PredefinedViews extends React.Component {
         <Toggle
           label="Změněná identita" toggled={toggleState.zmenenaToggled}
           onToggle={function(e, toggled) {
-            if (toggled) showColumn('previousNetvisionName')
-            else hideColumn('previousNetvisionName')
+            if (toggled) {
+              showColumn('previousNetvisionName')
+              hideColumn('name')
+            } else {
+              hideColumn('previousNetvisionName')
+              showColumn('name')
+            }
             onFilterChange(new Filter({
               name: 'previousNetvisionName',
               value: toggled ? false : null,

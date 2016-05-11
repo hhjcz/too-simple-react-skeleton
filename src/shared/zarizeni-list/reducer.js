@@ -28,6 +28,13 @@ export default function reducer(state = {}, action) {
         )
       )
 
+    case actions.SET_COLUMN_WIDTH:
+      return state.update('columns', columns =>
+        columns.update(action.columnName, column =>
+          new Column({ ...column.toObject(), width: action.width })
+        )
+      )
+
     default:
       return state
   }

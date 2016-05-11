@@ -90,6 +90,7 @@ export class Container extends React.Component {
           filters={filters}
           hideColumn={actions.hideColumn}
           showColumn={actions.showColumn}
+          setColumnWidth={actions.setColumnWidth}
         />
         <Tabulka
           columns={columns.toList()}
