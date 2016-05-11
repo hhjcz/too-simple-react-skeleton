@@ -13,6 +13,7 @@ import PredefinedViews from './PredefinedViews'
 export class Container extends React.Component {
 
   static propTypes = {
+    columns: PropTypes.object.isRequired,
     fetching: PropTypes.bool,
     items: PropTypes.object,
     pagination: PropTypes.object.isRequired,
@@ -25,6 +26,7 @@ export class Container extends React.Component {
   };
 
   static defaultProps = {
+    columns: {},
     actions: {},
     generalParams: List()
   };
@@ -69,6 +71,7 @@ export class Container extends React.Component {
   render() {
     const self = this
     const {
+      columns,
       fetching,
       items: seznamZarizeni,
       pagination,
@@ -78,6 +81,9 @@ export class Container extends React.Component {
       actions
     } = this.props
 
+    console.log(this.props)
+    console.log(columns.toJS())
+
     return (
       <div id="zarizeni-list">
         <PredefinedViews
@@ -85,8 +91,11 @@ export class Container extends React.Component {
           namedFilter={generalParams.get('filter')}
           onFilterChange={self.onFilterChange}
           filters={filters}
+          hideColumn={actions.hideColumn}
+          showColumn={actions.showColumn}
         />
         <Tabulka
+          columns={columns.toList()}
           seznamZarizeni={seznamZarizeni} sort={sort}
           fetching={fetching} filters={filters} pagination={pagination}
           onSortChange={self.onSortChange} onFilterChange={self.onFilterChange}
@@ -102,6 +111,9 @@ export class Container extends React.Component {
 }
 
 export default connect(
-  createMapStateToProps(state => state.resources.zarizeni.set('items', getItems(state.resources.zarizeni))),
+  createMapStateToProps(state => ({
+    ...state.resources.zarizeni.set('items', getItems(state.resources.zarizeni)).toObject(),
+    ...state.zarizeniList.toObject()
+  })),
   createMapDispatchToProps(actions)
 )(Container)

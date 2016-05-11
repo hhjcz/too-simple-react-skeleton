@@ -3,11 +3,12 @@ import React, { PropTypes } from 'react'
 import '../lib/Tabulka.styl'
 import HeaderCell from './HeaderCell'
 import Radka from './Radka'
-import columns from './columns'
+import columns2 from './columns'
 
 export default class Tabulka extends React.Component {
 
   static propTypes = {
+    columns: PropTypes.object.isRequired,
     fetching: PropTypes.bool,
     seznamZarizeni: PropTypes.object,
     pagination: PropTypes.object,
@@ -22,15 +23,18 @@ export default class Tabulka extends React.Component {
   };
 
   render() {
-    const { fetching, seznamZarizeni, pagination, sort, filters, onSortChange, onFilterChange } = this.props // eslint-disable-line max-len
+    const { fetching, seznamZarizeni, pagination, sort, filters, onSortChange, onFilterChange, columns } = this.props // eslint-disable-line max-len
     let offset = (pagination.page - 1) * pagination.perPage + 1
+
+    console.log(columns.toJS())
+    console.log(columns2.toList().toJS())
 
     return (
       <div className={`myTable${(fetching ? ' fetching' : '')}`}>
         {/* header */}
         <div className="myTableRow">
           {
-            columns.toList().filter(col => col.visible).map(col =>
+            columns.filter(col => col.visible).map(col =>
               <HeaderCell
                 key={col.name} sort={sort} column={col} filter={filters.get(col.name)}
                 onSortChange={onSortChange} onFilterChange={onFilterChange}

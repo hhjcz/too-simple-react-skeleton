@@ -9,6 +9,8 @@ export default class PredefinedViews extends React.Component {
     namedFilter: PropTypes.string,
     onFilterChange: PropTypes.func.isRequired,
     filters: PropTypes.object,
+    showColumn: PropTypes.func.isRequired,
+    hideColumn: PropTypes.func.isRequired,
   };
 
   static defaultProps = {
@@ -32,7 +34,7 @@ export default class PredefinedViews extends React.Component {
   }
 
   render() {
-    const { onNamedFilterChange, onFilterChange } = this.props
+    const { onNamedFilterChange, onFilterChange, showColumn, hideColumn } = this.props
     const toggleState = this.computeToggleState(this.props)
 
     return (
@@ -40,12 +42,16 @@ export default class PredefinedViews extends React.Component {
         <Toggle
           label="Neumístěná" toggled={toggleState.neumistenaToggled}
           onToggle={function(e, toggled) {
+            if (toggled) hideColumn('umisteni')
+            else showColumn('umisteni')
             onNamedFilterChange(toggled ? 'neumistena' : null)
           }}
         />
         <Toggle
           label="Umístěná na lokalitě bez OP" toggled={toggleState.umistenaBezOpToggled}
           onToggle={function(e, toggled) {
+            if (toggled) showColumn('previousNetvisionName')
+            else hideColumn('previousNetvisionName')
             onNamedFilterChange(toggled ? 'umistenaBezOp' : null)
           }}
         />
