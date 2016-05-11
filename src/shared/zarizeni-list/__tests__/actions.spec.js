@@ -1,7 +1,7 @@
 /** Created by hhj on 1/26/16. */
 /* eslint-disable no-unused-expressions */
 import { expect } from 'chai'
-import { List, Record } from 'immutable'
+import { Record } from 'immutable'
 import * as actions from '../actions'
 import reducer from '../reducer'
 import defaultColumns from '../columns'

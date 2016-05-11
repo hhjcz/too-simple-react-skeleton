@@ -1,7 +1,6 @@
 /** Created by hhj on 3/15/16. */
 /* eslint-disable no-unused-expressions */
 import { expect } from 'chai'
-import { Record, List } from 'immutable'
 import createRestAction from '../createRestAction'
 import { actionTypesFor } from '../actionTypesFor'
 import { actionCreatorsFor } from '../actionCreatorsFor'

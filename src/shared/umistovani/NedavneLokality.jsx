@@ -6,7 +6,9 @@ import MyIcon from '../lib/MyIcon'
 import colors from '../app/colors'
 
 export default class NedavneLokality extends React.Component {
-  static propTypes = {};
+  static propTypes = {
+    lokality: PropTypes.object
+  };
 
   static defaultProps = {};
 
