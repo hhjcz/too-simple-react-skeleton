@@ -7,7 +7,7 @@ import MyIcon from '../lib/MyIcon'
 import colors from '../app/colors'
 import { Column, columntValueTypes } from '../app/models/Column'
 import MarkedLokalita from '../umistovani/MarkedLokalita'
-import rest from '../app/rest'
+import * as actions from './actions'
 
 const defaultColumns = Map(
   {
@@ -31,7 +31,7 @@ const defaultColumns = Map(
       name: 'createdAt',
       caption: 'Created at',
       valueType: columntValueTypes.date,
-      visible: true
+      visible: false
     }),
     updatedAt: new Column({
       name: 'updatedAt',
@@ -70,24 +70,23 @@ const defaultColumns = Map(
       name: 'previousNetvisionName',
       caption: 'Previous NV name',
       valueType: columntValueTypes.string,
-      width: 4,
+      width: 6,
       visible: false,
       render: zarizeni => (
         zarizeni.previousNetvisionName ? (
-          <div>
-            <div>
+          <div className="row">
+            <div className="col col-xs-2">
               <IconButton
                 tooltip="Potvrdit!" style={{ padding: '0px' }}
-                onTouchTap={function () {
-                  rest.actions.previousNetvisionIdentity.destroy({ params: { zarizeni_id: zarizeni.id } })
-                    .then(() => rest.actions.zarizeni.fetchOne({ params: { id: zarizeni.id } }))
-                }}
+                onTouchTap={() => actions.confirmZmenenaIdentita(zarizeni)}
               >
                 <MyIcon color={colors.blue400}>done</MyIcon>
               </IconButton>
             </div>
-            <div>{zarizeni.previousNetvisionName}</div>
-            <div>{zarizeni.name}</div>
+            <div className="col col-xs-10">
+              <div>{zarizeni.previousNetvisionName}</div>
+              <div>{zarizeni.name}</div>
+            </div>
           </div>
         ) : null
       )

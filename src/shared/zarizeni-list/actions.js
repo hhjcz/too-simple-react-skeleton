@@ -14,6 +14,15 @@ export const setColumnWidth = (columnName, width = null) => {
   return ({ type: SET_COLUMN_WIDTH, columnName, width })
 }
 
+export const confirmZmenenaIdentita = zarizeni => {
+  rest.actions.previousNetvisionIdentity.destroy({
+    params: { zarizeni_id: zarizeni.id }
+  }).then(() =>
+    rest.actions.zarizeni.fetchOne({
+      params: { id: zarizeni.id }
+    }))
+}
+
 module.exports = {
   ...module.exports,
   ...rest.actions.zarizeni,
