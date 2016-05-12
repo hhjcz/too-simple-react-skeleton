@@ -2,9 +2,12 @@
 import { Map } from 'immutable'
 import React from 'react'
 import { Link } from 'react-router'
+import IconButton from 'material-ui/IconButton'
 import MyIcon from '../lib/MyIcon'
+import colors from '../app/colors'
 import { Column, columntValueTypes } from '../app/models/Column'
 import MarkedLokalita from '../umistovani/MarkedLokalita'
+import rest from '../app/rest'
 
 const defaultColumns = Map(
   {
@@ -72,6 +75,17 @@ const defaultColumns = Map(
       render: zarizeni => (
         zarizeni.previousNetvisionName ? (
           <div>
+            <div>
+              <IconButton
+                tooltip="Potvrdit!" style={{ padding: '0px' }}
+                onTouchTap={function () {
+                  rest.actions.previousNetvisionIdentity.destroy({ params: { zarizeni_id: zarizeni.id } })
+                    .then(() => rest.actions.zarizeni.fetchOne({ params: { id: zarizeni.id } }))
+                }}
+              >
+                <MyIcon color={colors.blue400}>done</MyIcon>
+              </IconButton>
+            </div>
             <div>{zarizeni.previousNetvisionName}</div>
             <div>{zarizeni.name}</div>
           </div>

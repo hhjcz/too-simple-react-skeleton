@@ -24,6 +24,9 @@ const rest = myRest({
   portyZarizeni: {
     url: '/zarizeni/:zarizeni_id/netvision/porty'
   },
+  previousNetvisionIdentity: {
+    url: '/zarizeni/:zarizeni_id/previous_netvision_identity'
+  },
   umisteni: {
     url: '/umisteni/:id',
     extraParams: { include: 'lokalita.nepi_opy' },
