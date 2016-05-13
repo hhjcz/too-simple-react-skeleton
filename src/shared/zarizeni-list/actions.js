@@ -5,9 +5,11 @@ import defaultColumns from './defaultColumns'
 export const COLUMN_VISIBILITY = 'COLUMN_VISIBILITY'
 export const SET_COLUMN_WIDTH = 'SET_COLUMN_WIDTH'
 
-export const showColumn = columnName => ({ type: COLUMN_VISIBILITY, columnName, visibility: true })
+export const setColumnVisibility = (columnName, visible) => ({ type: COLUMN_VISIBILITY, columnName, visible })
 
-export const hideColumn = columnName => ({ type: COLUMN_VISIBILITY, columnName, visibility: false })
+export const showColumn = columnName => setColumnVisibility(columnName, true)
+
+export const hideColumn = columnName => setColumnVisibility(columnName, false)
 
 export const setColumnWidth = (columnName, width = null) => {
   if (!width) width = defaultColumns.get(columnName).width

@@ -24,7 +24,7 @@ export default function reducer(state = {}, action) {
     case actions.COLUMN_VISIBILITY:
       return state.update('columns', columns =>
         columns.update(action.columnName, column =>
-          new Column({ ...column.toObject(), visible: action.visibility })
+          new Column({ ...column.toObject(), visible: action.visible })
         )
       )
 

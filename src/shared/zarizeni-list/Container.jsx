@@ -9,6 +9,7 @@ import * as actions from './actions'
 import Tabulka from './Tabulka'
 import Paginator from './Paginator'
 import PredefinedViews from './PredefinedViews'
+import ColumnsControl from './ColumnsControl'
 
 export class Container extends React.Component {
 
@@ -92,6 +93,7 @@ export class Container extends React.Component {
           showColumn={actions.showColumn}
           setColumnWidth={actions.setColumnWidth}
         />
+        <ColumnsControl columns={columns} setColumnVisibility={actions.setColumnVisibility} />
         <Tabulka
           columns={columns.toList()}
           seznamZarizeni={seznamZarizeni} sort={sort}
