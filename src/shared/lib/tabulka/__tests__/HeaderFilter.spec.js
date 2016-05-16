@@ -3,10 +3,10 @@ import chai, { expect } from 'chai'
 import React from 'react'
 import sd from 'skin-deep'
 
-import { Filter } from '../../app/models/Filter'
+import { Filter } from '../../../app/models/Filter'
 import HeaderFilter from '../HeaderFilter'
 
-describe('zarizeni-list HeaderFilter component', () => {
+describe('lib tabulka HeaderFilter component', () => {
   let tree
   let vdom
   let instance   // eslint-disable-line no-unused-vars

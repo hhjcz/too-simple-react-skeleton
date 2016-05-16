@@ -3,7 +3,7 @@ import { expect } from 'chai'
 import { Record } from 'immutable'
 import { Column, columntValueTypes } from '../Column'
 
-describe('zarizeni-list Column', () => {
+describe('lib tabulka Column', () => {
 
   it('should instantiate with default values', () => {
     const column = new Column()

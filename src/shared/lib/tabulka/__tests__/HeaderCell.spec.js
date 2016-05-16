@@ -4,10 +4,10 @@ import React from 'react'
 import sd from 'skin-deep'
 
 import HeaderCell from '../HeaderCell'
-import { Sort } from '../../app/models/Sort'
-import columns from '../defaultColumns'
+import { Sort } from '../../../app/models/Sort'
+import columns from '../../../zarizeni-list/defaultColumns'
 
-describe('zarizeni-list HeaderCell component', () => {
+describe('lib tabulka HeaderCell component', () => {
   let vdom
   let instance   // eslint-disable-line no-unused-vars
 

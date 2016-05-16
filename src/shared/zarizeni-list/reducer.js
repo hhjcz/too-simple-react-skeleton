@@ -1,7 +1,7 @@
 /** Created by hhj on 20.12.15. */
 /* eslint-disable no-case-declarations */
 import { Record } from 'immutable'
-import { Column } from '../app/models/Column'
+import { Column } from '../lib/tabulka/Column'
 import defaultColumns from './defaultColumns'
 import * as actions from './actions'
 

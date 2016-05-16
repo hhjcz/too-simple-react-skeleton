@@ -7,9 +7,9 @@ import createMapDispatchToProps from '../lib/createMapDispatchToProps'
 import { getItems } from '../lib/rest'
 import * as actions from './actions'
 import Tabulka from './Tabulka'
-import Paginator from './Paginator'
+import Paginator from '../lib/tabulka/Paginator'
 import PredefinedViews from './PredefinedViews'
-import ColumnsControl from './ColumnsControl'
+import ColumnsControl from '../lib/tabulka/ColumnsControl'
 
 export class Container extends React.Component {
 

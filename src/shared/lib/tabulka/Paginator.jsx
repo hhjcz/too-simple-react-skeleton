@@ -2,7 +2,7 @@
 import React, { PropTypes } from 'react'
 import { Pagination, FormGroup, FormControl, InputGroup } from 'react-bootstrap'
 
-import debounce from '../lib/debounce'
+import debounce from '../debounce'
 
 export default class Paginator extends React.Component {
   static propTypes = {

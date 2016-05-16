@@ -2,8 +2,8 @@
 import React, { PropTypes } from 'react'
 import { List } from 'immutable'
 import '../lib/Tabulka.styl'
-import HeaderCell from './HeaderCell'
-import Radka from './Radka'
+import HeaderCell from '../lib/tabulka/HeaderCell'
+import Radka from '../lib/tabulka/Radka'
 
 export default class Tabulka extends React.Component {
 
@@ -44,7 +44,7 @@ export default class Tabulka extends React.Component {
         {
           seznamZarizeni.map(zarizeni =>
             <Radka
-              key={zarizeni.id} zarizeni={zarizeni} columns={columns.toList()}
+              key={zarizeni.id} model={zarizeni} columns={columns.toList()}
               pagination={pagination} pozice={offset} highlighted={offset++ === pagination.cursorAt}
             />
           )

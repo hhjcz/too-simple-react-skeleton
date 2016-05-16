@@ -3,18 +3,18 @@ import { expect } from 'chai'
 import React from 'react'
 import sd from 'skin-deep'
 
-import { ZarizeniFactory } from '../../app/models/Zarizeni'
+import { ZarizeniFactory } from '../../../app/models/Zarizeni'
 import Radka from '../Radka'
-import columns from '../defaultColumns'
+import columns from '../../../zarizeni-list/defaultColumns'
 
-describe('zarizeni-list Radka component', () => {
+describe('lib tabulka Radka component', () => {
   let vdom
   let instance // eslint-disable-line no-unused-vars
 
   beforeEach(() => {
     const zarizeni = ZarizeniFactory({ id: 666 })
     const tree = sd.shallowRender(
-      React.createElement(Radka, { zarizeni, columns: columns.toList() })
+      React.createElement(Radka, { model: zarizeni, columns: columns.toList() })
     )
 
     instance = tree.getMountedInstance()

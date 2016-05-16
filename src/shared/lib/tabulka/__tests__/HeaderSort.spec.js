@@ -5,7 +5,7 @@ import React from 'react'
 import sd from 'skin-deep'
 import HeaderSort from '../HeaderSort'
 
-describe('zarizeni-list HeaderSort component', () => {
+describe('lib tabulka HeaderSort component', () => {
   let vdom
   // let instance
 

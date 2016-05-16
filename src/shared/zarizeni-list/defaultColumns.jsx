@@ -5,7 +5,7 @@ import { Link } from 'react-router'
 import IconButton from 'material-ui/IconButton'
 import MyIcon from '../lib/MyIcon'
 import colors from '../app/colors'
-import { Column, columntValueTypes } from '../app/models/Column'
+import { Column, columntValueTypes } from '../lib/tabulka/Column'
 import MarkedLokalita from '../umistovani/MarkedLokalita'
 import * as actions from './actions'
 

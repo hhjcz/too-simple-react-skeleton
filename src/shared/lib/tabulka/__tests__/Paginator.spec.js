@@ -5,10 +5,10 @@ import ReactDOM from 'react-dom'
 import TestUtils from 'react-addons-test-utils'
 import sd from 'skin-deep'
 
-import { Pagination } from '../../app/models/Pagination'
+import { Pagination } from '../../../app/models/Pagination'
 import Paginator from '../Paginator'
 
-describe('zarizeni-list Paginator component (testing using shallow render)', () => {
+describe('lib tabulka Paginator component (testing using shallow render)', () => {
   let tree
   let vdom
   let instance   // eslint-disable-line no-unused-vars
@@ -49,7 +49,7 @@ describe('zarizeni-list Paginator component (testing using shallow render)', () 
 
 })
 
-describe('zarizeni-list Paginator component (testing using real DOM)', () => {
+describe('lib tabulka Paginator component (testing using real DOM)', () => {
   beforeEach(() => {
     this.component = TestUtils.renderIntoDocument(
       <Paginator

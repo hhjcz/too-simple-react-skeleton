@@ -1,16 +1,16 @@
-/** Created by hhj on 5/13/16. */
+/** Created by hhj on 5/16/16. */
 /* eslint-disable no-unused-expressions */
 import { expect } from 'chai'
 import React from 'react'
 import sd from 'skin-deep'
-import ColumnsControl from '../ColumnsControl'
+import Bunka from '../Bunka'
 
-describe('zarizeni-list ColumnsControl component', () => {
+describe('lib tabulka Bunka component', () => {
   let vdom
   // let instance
 
   const shallowRender = (props) => {
-    const tree = sd.shallowRender(React.createElement(ColumnsControl, props))
+    const tree = sd.shallowRender(React.createElement(Bunka, props))
 
     // instance = tree.getMountedInstance()
     vdom = tree.getRenderOutput()

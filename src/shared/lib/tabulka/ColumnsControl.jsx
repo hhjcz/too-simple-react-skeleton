@@ -4,8 +4,8 @@ import { Map } from 'immutable'
 import Panel from 'react-bootstrap/lib/Panel'
 import Checkbox from 'material-ui/Checkbox'
 import IconButton from 'material-ui/IconButton'
-import MyIcon from '../lib/MyIcon'
-import colors from '../app/colors'
+import MyIcon from '../MyIcon'
+import colors from '../../app/colors'
 
 export default class ColumnsControl extends React.Component {
   static propTypes = {
