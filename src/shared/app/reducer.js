@@ -1,6 +1,7 @@
 /** Created by hhj on 12/28/15. */
 import { combineReducers } from 'redux'
 import zarizeniList from '../zarizeni-list/reducer'
+import lokalitaList from '../lokalita-list/reducer'
 import { reducer as toastr } from 'react-redux-toastr'
 import rest from './rest'
 
@@ -9,6 +10,7 @@ const combinedReducer = combineReducers({
     ...rest.reducers,
   }),
   zarizeniList,
+  lokalitaList,
   toastr,
 })
 
