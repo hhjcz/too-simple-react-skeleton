@@ -84,16 +84,22 @@ export class Container extends React.Component {
 
     return (
       <div id="zarizeni-list">
-        <PredefinedViews
-          onNamedFilterChange={self.onNamedFilterChange}
-          namedFilter={generalParams.get('filter')}
-          onFilterChange={self.onFilterChange}
-          filters={filters}
-          hideColumn={actions.hideColumn}
-          showColumn={actions.showColumn}
-          setColumnWidth={actions.setColumnWidth}
-        />
-        <ColumnsControl columns={columns} setColumnVisibility={actions.setColumnVisibility} />
+        <div className="row">
+          <div className="col col-xs-8">
+            <PredefinedViews
+              onNamedFilterChange={self.onNamedFilterChange}
+              namedFilter={generalParams.get('filter')}
+              onFilterChange={self.onFilterChange}
+              filters={filters}
+              hideColumn={actions.hideColumn}
+              showColumn={actions.showColumn}
+              setColumnWidth={actions.setColumnWidth}
+            />
+          </div>
+          <div className="col col-xs-4">
+            <ColumnsControl columns={columns} setColumnVisibility={actions.setColumnVisibility} />
+          </div>
+        </div>
         <Tabulka
           columns={columns.toList()}
           seznamZarizeni={seznamZarizeni} sort={sort}

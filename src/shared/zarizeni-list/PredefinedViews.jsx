@@ -39,7 +39,7 @@ export default class PredefinedViews extends React.Component {
 
     return (
       <div className="row">
-        <div className="col col-xs-3">
+        <div className="col col-xs-5">
           <Toggle
             label="Neumístěná" toggled={toggleState.neumistenaToggled}
             onToggle={
@@ -73,7 +73,7 @@ export default class PredefinedViews extends React.Component {
           />
         </div>
         <div className="col col-xs-1" />
-        <div className="col col-xs-2">
+        <div className="col col-xs-4">
           <Toggle
             label="I smazaná" toggled={toggleState.smazanaToggled}
             onToggle={function(e, toggled) {
