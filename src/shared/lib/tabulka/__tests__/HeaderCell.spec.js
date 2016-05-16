@@ -5,6 +5,7 @@ import sd from 'skin-deep'
 
 import HeaderCell from '../HeaderCell'
 import { Sort } from '../../../app/models/Sort'
+// TODO - remove dependency on zarizeni-list
 import columns from '../../../zarizeni-list/defaultColumns'
 
 describe('lib tabulka HeaderCell component', () => {
