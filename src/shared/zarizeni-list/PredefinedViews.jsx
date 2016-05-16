@@ -72,8 +72,7 @@ export default class PredefinedViews extends React.Component {
             ) }}
           />
         </div>
-        <div className="col col-xs-1" />
-        <div className="col col-xs-4">
+        <div className="col col-xs-4 col-xs-offset-1">
           <Toggle
             label="I smazaná" toggled={toggleState.smazanaToggled}
             onToggle={function(e, toggled) {

@@ -96,7 +96,7 @@ export class Container extends React.Component {
               setColumnWidth={actions.setColumnWidth}
             />
           </div>
-          <div className="col col-xs-4">
+          <div className="col col-xs-3 col-xs-offset-1">
             <ColumnsControl columns={columns} setColumnVisibility={actions.setColumnVisibility} />
           </div>
         </div>
