@@ -10,6 +10,7 @@ export default function createRestAction(endpointName, config, actionCreators, f
 
   const resource = createResource(endpointName, config, fnHolder)
   const extraParams = decamelizeKeys(config.extraParams)
+  const isStaticCollection = config.isStaticCollection || false
 
   /**
    *  create ASYNC action creators
@@ -64,7 +65,10 @@ export default function createRestAction(endpointName, config, actionCreators, f
   const destroy = createAsyncAction('destroy')
 
 
-  const updateCollection = () => fetchIds().then(() => fetchCollectionByIds())
+  const updateCollection = () => {
+    if (isStaticCollection) return fetchIds().then(() => fetchCollectionByIds())
+    else return fetchCollection()
+  }
 
   // ***** SYNC action creators ***** */
 
@@ -80,12 +84,14 @@ export default function createRestAction(endpointName, config, actionCreators, f
 
   const gotoPage = page => ({ dispatch }) => {
     dispatch(actionCreators.gotoPage({ page }))
-    return fetchCollectionByIds()
+    if (isStaticCollection) return fetchCollectionByIds()
+    else return fetchCollection()
   }
 
   const setPagination = pagination => ({ dispatch }) => {
     dispatch(actionCreators.setPagination({ pagination }))
-    return fetchCollectionByIds()
+    if (isStaticCollection) return fetchCollectionByIds()
+    else return fetchCollection()
   }
 
   const setPageSize = perPage => ({ dispatch }) => {

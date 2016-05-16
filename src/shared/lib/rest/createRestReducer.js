@@ -13,6 +13,7 @@ import {
   fetchingReducer,
   lastFetchSignatureReducer,
   idsPaginationReducer,
+  paginationReducer,
   sortReducer,
   clearEntities
 } from './reduceHelpers'
@@ -54,7 +55,7 @@ export default function createRestReducer(endpointName, config = {}, actionTypes
           fetchingReducer(false),
           lastFetchSignatureReducer(action.meta.lastFetchSignature, 'fetchCollection'),
           sortReducer(action.meta.sort),
-          // paginationReducer(action.meta.pagination),
+          paginationReducer(action.meta.pagination),
         )(state)
 
       case actionTypes.fetchCollectionByIdsSuccess:
