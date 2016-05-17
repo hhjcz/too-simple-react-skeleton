@@ -1,6 +1,7 @@
 /** Created by hhj on 2/16/16. */
-import { Record } from 'immutable'
+import { Record, List } from 'immutable'
 import { NepiOpyFactory } from './NepiOpy'
+import { ZarizeniFactory } from './Zarizeni'
 
 export class Lokalita extends Record({
   id: 0,
@@ -19,11 +20,19 @@ export class Lokalita extends Record({
   bunka: 0,
   nepiOpy: NepiOpyFactory(),
   nepiOpyCount: 0,
+  umistenaZarizeni: List(),
 }) {
   constructor(args = {}) {
     if (args && args.nepiOpy) args.nepiOpy = NepiOpyFactory(args.nepiOpy.data || args.nepiOpy)
     if (args.cisdop) args.chardop = String.fromCharCode('a'.charCodeAt(0) + args.cisdop - 1)
     if (args.nepiOpyCount) args.nepiOpyCount = args.nepiOpyCount[0]
+    if (args && args.umistenaZarizeni) {
+      args.umistenaZarizeni = List(
+        (args.umistenaZarizeni.data || args.umistenaZarizeni)
+          .filter(umisteni => umisteni.zarizeni && umisteni.zarizeni.id > 0)
+          .map(umisteni => ZarizeniFactory(umisteni.zarizeni))
+      )
+    }
     super(args)
   }
 }

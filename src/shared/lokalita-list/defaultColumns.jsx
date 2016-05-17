@@ -22,7 +22,7 @@ const defaultColumns = Map(
       name: 'adresa',
       caption: <MyIcon color="black">place</MyIcon>,
       valueType: columntValueTypes.string,
-      width: 4,
+      width: 2,
       visible: true,
       sortable: false,
       render: lokalita => <MarkedLokalita lokalita={lokalita} />
@@ -31,10 +31,30 @@ const defaultColumns = Map(
       name: 'opy',
       caption: 'OPy',
       valueType: columntValueTypes.string,
-      width: 8,
+      width: 4,
       visible: true,
       sortable: false,
       render: lokalita => <NepiOpy nepiOpy={lokalita.nepiOpy} />
+    }),
+    umistenaZarizeni: new Column({
+      name: 'umistenaZarizeni',
+      caption: 'Umístěná zařízení',
+      valueType: columntValueTypes.string,
+      width: 4,
+      visible: true,
+      sortable: false,
+      render: lokalita => (
+        <div className="row">
+          <div className="col col-xs-2">{lokalita.umistenaZarizeni.count()}</div>
+          <div className="col col-xs-10">
+            {
+              lokalita.umistenaZarizeni.map(zarizeni =>
+                <div key={zarizeni.id}>{zarizeni.name}</div>
+              )
+            }
+          </div>
+        </div>
+      )
     })
   }
 )

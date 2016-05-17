@@ -42,7 +42,13 @@ export default class PredefinedViews extends React.Component {
                 name: 'op',
                 value: toggled ? false : null,
                 comparator: 'empty' })
-            ) }}
+              )
+              onFilterChange(new Filter({
+                name: 'zarizeni',
+                value: toggled ? false : null,
+                comparator: 'empty' })
+              )
+            }}
           />
         </div>
       </div>

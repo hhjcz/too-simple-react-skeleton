@@ -37,7 +37,7 @@ const rest = myRest({
   },
   lokalita: {
     url: '/lokalita/:id',
-    extraParams: { include: 'nepi_opy' },
+    extraParams: { include: 'nepi_opy,umistena_zarizeni.zarizeni' },
     itemTransformer: item => new Lokalita(item),
     defaultState: { pagination: new Pagination({ perPage: 20 }) }
   },
