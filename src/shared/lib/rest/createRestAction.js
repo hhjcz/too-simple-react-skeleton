@@ -84,14 +84,16 @@ export default function createRestAction(endpointName, config, actionCreators, f
 
   const gotoPage = page => ({ dispatch }) => {
     dispatch(actionCreators.gotoPage({ page }))
-    if (isStaticCollection) return fetchCollectionByIds()
-    else return fetchCollection()
+
+    const fetchFn = isStaticCollection ? fetchCollectionByIds : fetchCollection
+    return fetchFn()
   }
 
   const setPagination = pagination => ({ dispatch }) => {
     dispatch(actionCreators.setPagination({ pagination }))
-    if (isStaticCollection) return fetchCollectionByIds()
-    else return fetchCollection()
+
+    const fetchFn = isStaticCollection ? fetchCollectionByIds : fetchCollection
+    return fetchFn()
   }
 
   const setPageSize = perPage => ({ dispatch }) => {
@@ -104,8 +106,11 @@ export default function createRestAction(endpointName, config, actionCreators, f
     return updateCollection()
   }
 
+  /**
+   * @param {Array||Filter} filter
+   */
   const filterChange = filter => ({ dispatch }) => {
-    if (typeof filter.map !== 'function') filter = [filter]
+    if (filter.constructor !== Array) filter = [filter]
     filter.forEach(filter => dispatch(actionCreators.filterChange({ filter })))
     return updateCollection()
   }
