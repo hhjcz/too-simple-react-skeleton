@@ -83,7 +83,7 @@ export const sortReducer = nextSort => state => state.update('sort', sort => (ne
 export const paginationReducer = nextPagination => state => state.update(
   'pagination', pagination => (
     nextPagination ? (
-      new Pagination({ ...pagination.toObject(), ...nextPagination })
+      new Pagination({ ...pagination.toObject(), total: nextPagination.total, totalPages: nextPagination.totalPages })
     ) : pagination)
 )
 
