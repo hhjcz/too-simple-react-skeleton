@@ -5,6 +5,7 @@ import { Link } from 'react-router'
 import MyIcon from '../lib/MyIcon'
 import { Column, columntValueTypes } from '../lib/tabulka/Column'
 import MarkedLokalita from '../umistovani/MarkedLokalita'
+import NepiOpy from '../umistovani/NepiOpy'
 
 const defaultColumns = Map(
   {
@@ -21,11 +22,20 @@ const defaultColumns = Map(
       name: 'adresa',
       caption: <MyIcon color="black">place</MyIcon>,
       valueType: columntValueTypes.string,
-      width: 6,
+      width: 4,
       visible: true,
       sortable: false,
       render: lokalita => <MarkedLokalita lokalita={lokalita} />
     }),
+    opy: new Column({
+      name: 'opy',
+      caption: 'OPy',
+      valueType: columntValueTypes.string,
+      width: 8,
+      visible: true,
+      sortable: false,
+      render: lokalita => <NepiOpy nepiOpy={lokalita.nepiOpy} />
+    })
   }
 )
 
