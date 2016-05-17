@@ -38,16 +38,16 @@ export default class PredefinedViews extends React.Component {
           <Toggle
             label="Jen s OP" toggled={toggleState.lokalitaOpToggled}
             onToggle={function(e, toggled) {
-              onFilterChange(new Filter({
-                name: 'op',
-                value: toggled ? false : null,
-                comparator: 'empty' })
-              )
-              onFilterChange(new Filter({
-                name: 'zarizeni',
-                value: toggled ? false : null,
-                comparator: 'empty' })
-              )
+              onFilterChange([
+                new Filter({
+                  name: 'op',
+                  value: toggled ? false : null,
+                  comparator: 'empty' }),
+                new Filter({
+                  name: 'zarizeni',
+                  value: toggled ? false : null,
+                  comparator: 'empty' })
+              ])
             }}
           />
         </div>

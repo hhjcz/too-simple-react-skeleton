@@ -105,7 +105,8 @@ export default function createRestAction(endpointName, config, actionCreators, f
   }
 
   const filterChange = filter => ({ dispatch }) => {
-    dispatch(actionCreators.filterChange({ filter }))
+    if (typeof filter.map !== 'function') filter = [filter]
+    filter.forEach(filter => dispatch(actionCreators.filterChange({ filter })))
     return updateCollection()
   }
 
