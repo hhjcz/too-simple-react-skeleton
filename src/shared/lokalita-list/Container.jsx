@@ -8,8 +8,8 @@ import { getItems } from '../lib/rest'
 import * as actions from './actions'
 import Tabulka from './Tabulka'
 import Paginator from '../lib/tabulka/Paginator'
-// import PredefinedViews from './PredefinedViews'
-// import ColumnsControl from './ColumnsControl'
+import PredefinedViews from './PredefinedViews'
+import ColumnsControl from '../lib/tabulka/ColumnsControl'
 
 export class Container extends React.Component {
 
@@ -84,7 +84,6 @@ export class Container extends React.Component {
 
     return (
       <div id="lokalita-list">
-        {/*
         <div className="row">
           <div className="col col-xs-8">
             <PredefinedViews
@@ -101,7 +100,6 @@ export class Container extends React.Component {
             <ColumnsControl columns={columns} setColumnVisibility={actions.setColumnVisibility} />
           </div>
         </div>
-        */}
         <Tabulka
           columns={columns.toList()}
           seznamZarizeni={seznamZarizeni} sort={sort}
