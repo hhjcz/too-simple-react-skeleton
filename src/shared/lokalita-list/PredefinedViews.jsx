@@ -20,11 +20,13 @@ export default class PredefinedViews extends React.Component {
 
   static computeToggleState(props) {
     const filters = props.filters
-    const lokalitaOpFilter = filters && filters.get('op') && filters.get('op').value === false // eslint-disable-line max-len
+    const nepiOpFilter = filters && filters.get('op') && filters.get('op').value === false // eslint-disable-line max-len
+    const umistenaZarizeniFilter = filters && filters.get('zarizeni') && filters.get('zarizeni').value === false // eslint-disable-line max-len
 
     return {
       // neumistenaToggled: props.namedFilter === 'neumistena',
-      lokalitaOpToggled: lokalitaOpFilter,
+      nepiOpToggled: nepiOpFilter,
+      umistenaZarizeniToggled: umistenaZarizeniFilter,
     }
   }
 
@@ -36,18 +38,23 @@ export default class PredefinedViews extends React.Component {
       <div className="row">
         <div className="col col-xs-5">
           <Toggle
-            label="Jen s OP" toggled={toggleState.lokalitaOpToggled}
+            label="Jen s OP" toggled={toggleState.nepiOpToggled}
             onToggle={function(e, toggled) {
-              onFilterChange([
-                new Filter({
-                  name: 'op',
-                  value: toggled ? false : null,
-                  comparator: 'empty' }),
-                new Filter({
-                  name: 'zarizeni',
-                  value: toggled ? false : null,
-                  comparator: 'empty' })
-              ])
+              onFilterChange(new Filter({
+                name: 'op',
+                value: toggled ? false : null,
+                comparator: 'empty' })
+              )
+            }}
+          />
+          <Toggle
+            label="Jen s umístěným zařízením" toggled={toggleState.umistenaZarizeniToggled}
+            onToggle={function(e, toggled) {
+              onFilterChange(new Filter({
+                name: 'zarizeni',
+                value: toggled ? false : null,
+                comparator: 'empty' })
+              )
             }}
           />
         </div>
