@@ -2,8 +2,8 @@
 import rest from '../app/rest'
 import defaultColumns from './defaultColumns'
 
-export const COLUMN_VISIBILITY = 'COLUMN_VISIBILITY'
-export const SET_COLUMN_WIDTH = 'SET_COLUMN_WIDTH'
+export const COLUMN_VISIBILITY = 'LOKALITA_LIST/COLUMN_VISIBILITY'
+export const SET_COLUMN_WIDTH = 'LOKALITA_LIST/SET_COLUMN_WIDTH'
 
 export const setColumnVisibility = (columnName, visible) => ({ type: COLUMN_VISIBILITY, columnName, visible })
 
