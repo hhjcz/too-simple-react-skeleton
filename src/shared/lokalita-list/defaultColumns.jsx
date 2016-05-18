@@ -19,6 +19,24 @@ const defaultColumns = Map(
       width: 1,
       render: lokalita => <Link to={`/lokalita/${lokalita.id}`}>{lokalita.id}</Link>
     }),
+    obec: new Column({
+      name: 'obec',
+      caption: 'obec',
+      valueType: columntValueTypes.string,
+      visible: true,
+      sortable: true,
+      width: 2,
+      // render: lokalita => lokalita.obec
+    }),
+    ulice: new Column({
+      name: 'ulice',
+      caption: 'ulice',
+      valueType: columntValueTypes.string,
+      visible: true,
+      sortable: true,
+      width: 2,
+      // render: lokalita => lokalita.obec
+    }),
     adresa: new Column({
       name: 'adresa',
       caption: <MyIcon color="black">place</MyIcon>,
