@@ -1,18 +1,20 @@
 /** Created by hhj on 12/30/15. */
 import React, { PropTypes } from 'react'
-import { Zarizeni } from '../app/models/Zarizeni'
+import { Lokalita } from '../app/models/Lokalita'
 import NepiOpy from '../umistovani/NepiOpy'
 import UmistenaZarizeni from '../lokalita-list/UmistenaZarizeni'
+import MarkedLokalita from '../umistovani/MarkedLokalita'
 
-export default class ZarizeniDetail extends React.Component {
+export default class LokalitaDetail extends React.Component {
   static propTypes = {
-    lokalita: PropTypes.instanceOf(Zarizeni).isRequired,
+    lokalita: PropTypes.instanceOf(Lokalita).isRequired,
   };
 
   render() {
     const { lokalita } = this.props
     return (
       <div>
+        <MarkedLokalita lokalita={lokalita} />
         <div>id: {lokalita.id}</div>
         <div>obec: {lokalita.obec}</div>
         <div>ulice: {lokalita.ulice}</div>
