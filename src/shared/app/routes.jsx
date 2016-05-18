@@ -10,6 +10,7 @@ import Umistovani from '../umistovani/Container'
 import PortyZarizeni from '../port/PortyZarizeni'
 import PortZarizeni from '../port/PortZarizeni'
 import LokalitaList from '../lokalita-list/Container'
+import Lokalita from '../lokalita-detail/Container'
 import Hriste from './Hriste'
 import App from './index'
 
@@ -32,6 +33,9 @@ export default (
     </Route>
     <Route path="lokalita">
       <IndexRoute component={LokalitaList} />
+      <Route path=":id">
+        <IndexRoute component={Lokalita} />
+      </Route>
     </Route>
     <Route path="hriste" component={Hriste} />
   </Route>
