@@ -6,6 +6,7 @@ import MyIcon from '../lib/MyIcon'
 import { Column, columntValueTypes } from '../lib/tabulka/Column'
 import MarkedLokalita from '../umistovani/MarkedLokalita'
 import NepiOpy from '../umistovani/NepiOpy'
+import UmistenaZarizeni from './UmistenaZarizeni'
 
 const defaultColumns = Map(
   {
@@ -43,18 +44,7 @@ const defaultColumns = Map(
       width: 4,
       visible: true,
       sortable: false,
-      render: lokalita => (
-        <div className="row">
-          <div className="col col-xs-2">{lokalita.umistenaZarizeni.count()}</div>
-          <div className="col col-xs-10">
-            {
-              lokalita.umistenaZarizeni.map(zarizeni =>
-                <div key={zarizeni.id}>{zarizeni.name}</div>
-              )
-            }
-          </div>
-        </div>
-      )
+      render: lokalita => <UmistenaZarizeni umistenaZarizeni={lokalita.umistenaZarizeni} />
     })
   }
 )
