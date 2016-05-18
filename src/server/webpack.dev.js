@@ -38,7 +38,7 @@ export default function(app) {
   const config = {
     ...prodCfg,
     ...{
-      devtool: 'eval',
+      devtool: 'cheap-eval-source-map',
       entry: {
         main: [
           'webpack-hot-middleware/client',
