@@ -7,11 +7,6 @@ const config = require('./webpack.prod.js')
 
 const compiler = webpack(config)
 
-if (process.env.NODE_ENV === 'development') {
-  console.log('NODE_ENV set to development, skipping build of client bundle (will use dev middleware on server)')
-  return
-}
-
 console.info(`Building webpack bundle... (NODE_ENV=${process.env.NODE_ENV})`)
 
 function handleError(error) {
