@@ -97,7 +97,7 @@ export class Container extends React.Component {
             />
           </div>
           <div className="col col-xs-3 col-xs-offset-1">
-            <ColumnsControl columns={columns} setColumnVisibility={actions.setColumnVisibility} />
+            <ColumnsControl columns={columns.toList()} setColumnVisibility={actions.setColumnVisibility} />
           </div>
         </div>
         <Tabulka
