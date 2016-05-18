@@ -38,7 +38,7 @@ export default function(app) {
   const config = {
     ...prodCfg,
     ...{
-      devtool: 'inline-source-map',
+      devtool: 'eval',
       entry: {
         main: [
           'webpack-hot-middleware/client',
