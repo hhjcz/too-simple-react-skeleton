@@ -10,7 +10,7 @@
   "scripts": {
     "postinstall": "npm run build",
     "start": "NODE_ENV=production NODE_PATH=$NODE_PATH:./src/shared node --harmony ./src/server/index.js",
-    "build": "NODE_ENV=production NODE_PATH=$NODE_PATH:./src/shared node --harmony ./src/server/build.js",
+    "build": "NODE_PATH=$NODE_PATH:./src/shared node --harmony ./src/server/build.js",
     "dev": "NODE_PATH=$NODE_PATH:./src/shared node --harmony ./src/server/index.js",
     "pretest": "true || npm run eslint # (auto hook runs with npm run test)",
     "test": "mocha --compilers js:babel-register --require ./test_helper.js --reporter spec --recursive --watch-extensions jsx 'src/**/*.spec.js'",

@@ -35,11 +35,11 @@ export default class Navigation extends React.Component {
             </IndexLinkContainer>
             <LinkContainer to="/zarizeni">
               <NavItem title="Seznam zařízení">
-                <ColoredIcon>list</ColoredIcon>
+                <ColoredIcon>devices</ColoredIcon>
               </NavItem>
             </LinkContainer>
-            <LinkContainer to="/umistovani">
-              <NavItem title="Umísťování">
+            <LinkContainer to="/lokalita">
+              <NavItem title="Seznam lokalit">
                 <ColoredIcon>place</ColoredIcon>
               </NavItem>
             </LinkContainer>

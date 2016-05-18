@@ -7,7 +7,7 @@ const config = require('./webpack.prod.js')
 
 const compiler = webpack(config)
 
-console.info('Building webpack bundle...')
+console.info(`Building webpack bundle... (NODE_ENV=${process.env.NODE_ENV})`)
 
 function handleError(error) {
   console.error('Webpack build error: ', error)

@@ -14,7 +14,7 @@ const fetchSeznamObci = debounce(substring => {
   substring = (substring || '').replace(' ', '').toLowerCase()
 
   return propsHolder.actions.lokalita.fetchCollection({
-    params: { 'obec-lk': `${substring}%`, fields: 'obec' },
+    params: { 'obec-lk': `${substring}%`, fields: 'obec', page: 1, perPage: 10000 },
   }).then(response => response.data.map(item => ({
     value: item.obec,
     group: ''
@@ -26,7 +26,7 @@ const fetchSeznamUlic = debounce(substring => {
   substring = (substring || '').replace(' ', '').toLowerCase()
 
   return propsHolder.actions.lokalita.fetchCollection({
-    params: { 'trimmed_ulice-lk': `${substring}%`, fields: 'ulice' },
+    params: { 'trimmed_ulice-lk': `${substring}%`, fields: 'ulice', page: 1, perPage: 10000 },
   }).then(response => response.data.map(item => ({
     value: item.ulice,
     group: ''

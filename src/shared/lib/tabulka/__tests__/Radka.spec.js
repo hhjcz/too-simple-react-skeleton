@@ -3,9 +3,11 @@ import { expect } from 'chai'
 import React from 'react'
 import sd from 'skin-deep'
 
+// TODO - remove dependency on zarizeni
 import { ZarizeniFactory } from '../../../app/models/Zarizeni'
-import Radka from '../Radka'
+// TODO - remove dependency on zarizeni-list
 import columns from '../../../zarizeni-list/defaultColumns'
+import Radka from '../Radka'
 
 describe('lib tabulka Radka component', () => {
   let vdom

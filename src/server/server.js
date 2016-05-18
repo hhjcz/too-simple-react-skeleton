@@ -21,7 +21,7 @@ app.use('/favicon.ico', express.static('src/server/favicon.ico', { maxAge: '200d
 app.use('/', render)
 
 app.listen(PORT, () => {
-  console.log('Server listening on', PORT)
+  console.log('Server listening on', PORT, ', NODE_ENV:', process.env.NODE_ENV)
 })
 
 export default app

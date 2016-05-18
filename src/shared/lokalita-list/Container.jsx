@@ -40,8 +40,8 @@ export class Container extends React.Component {
   static fetchZarizeni({ params, getState }) {
     // if on server -> initial fetch of ids
     // TODO - when on server, test whether ids is empty, then also fetch
-    const idsFetched = getState ? actions.fetchIds() : Promise.resolve(null)
-    return idsFetched.then(() => actions.fetchCollectionByIds({ params }))
+    // const idsFetched = getState ? actions.fetchIds() : Promise.resolve(null)
+    return actions.fetchCollection({ params })
   }
 
   constructor(props) {
@@ -83,7 +83,7 @@ export class Container extends React.Component {
     } = this.props
 
     return (
-      <div id="zarizeni-list">
+      <div id="lokalita-list">
         <div className="row">
           <div className="col col-xs-8">
             <PredefinedViews
@@ -118,8 +118,8 @@ export class Container extends React.Component {
 
 export default connect(
   createMapStateToProps(state => ({
-    ...(state.resources.zarizeni.set('items', getItems(state.resources.zarizeni)).toObject()),
-    ...(state.zarizeniList.toObject())
+    ...(state.resources.lokalita.set('items', getItems(state.resources.lokalita)).toObject()),
+    ...(state.lokalitaList.toObject())
   })),
   createMapDispatchToProps(actions)
 )(Container)

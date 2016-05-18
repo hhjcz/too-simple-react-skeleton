@@ -19,7 +19,8 @@ const rest = myRest({
     url: '/zarizeni/:id',
     extraParams: { include: 'umisteni.lokalita' },
     itemTransformer: item => ZarizeniFactory(item),
-    defaultState: { sort: new Sort({ dir: true, by: 'createdAt' }) }
+    defaultState: { sort: new Sort({ dir: true, by: 'createdAt' }) },
+    isStaticCollection: true
   },
   portyZarizeni: {
     url: '/zarizeni/:zarizeni_id/netvision/porty'
@@ -36,8 +37,9 @@ const rest = myRest({
   },
   lokalita: {
     url: '/lokalita/:id',
+    extraParams: { include: 'nepi_opy,umistena_zarizeni.zarizeni' },
     itemTransformer: item => new Lokalita(item),
-    defaultState: { pagination: new Pagination({ perPage: 20 }) }
+    defaultState: { pagination: new Pagination({ perPage: 10 }) }
   },
   akrloks: {
     url: '/lokalita/:id',
