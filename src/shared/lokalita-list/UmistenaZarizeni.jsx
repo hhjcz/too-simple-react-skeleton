@@ -17,8 +17,8 @@ export default class UmistenaZarizeni extends React.Component {
 
     return (
       <div className="row">
-        <div className="col col-xs-2">{count}</div>
-        <div className="col col-xs-10">
+        <div className="col col-xs-1">{count}</div>
+        <div className="col col-xs-11">
           {
             umistenaZarizeni.map(zarizeni =>
               <div key={zarizeni.id}>{zarizeni.name}</div>
