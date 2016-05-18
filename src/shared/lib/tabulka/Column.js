@@ -21,6 +21,7 @@ export class Column extends Record({
 }) {
   constructor(args = {}) {
     args.render = args.render || ((model, pozice) => model[this.name])  // eslint-disable-line no-unused-vars
+    args.caption = args.caption || args.name
     super(args)
   }
 }
