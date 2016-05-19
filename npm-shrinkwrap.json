@@ -2729,9 +2729,9 @@
       "resolved": "https://registry.npmjs.org/json5/-/json5-0.4.0.tgz"
     },
     "jsonfile": {
-      "version": "2.3.0",
+      "version": "2.3.1",
       "from": "jsonfile@>=2.1.0 <3.0.0",
-      "resolved": "https://registry.npmjs.org/jsonfile/-/jsonfile-2.3.0.tgz"
+      "resolved": "https://registry.npmjs.org/jsonfile/-/jsonfile-2.3.1.tgz"
     },
     "jsonify": {
       "version": "0.0.0",
@@ -4244,9 +4244,9 @@
       }
     },
     "stylus-loader": {
-      "version": "2.0.0",
-      "from": "stylus-loader@2.0.0",
-      "resolved": "https://registry.npmjs.org/stylus-loader/-/stylus-loader-2.0.0.tgz"
+      "version": "2.1.0",
+      "from": "stylus-loader@2.1.0",
+      "resolved": "https://registry.npmjs.org/stylus-loader/-/stylus-loader-2.1.0.tgz"
     },
     "supports-color": {
       "version": "3.1.2",
@@ -4539,16 +4539,9 @@
       "resolved": "https://registry.npmjs.org/webpack-hot-middleware/-/webpack-hot-middleware-2.10.0.tgz"
     },
     "webpack-isomorphic-tools": {
-      "version": "2.2.50",
-      "from": "webpack-isomorphic-tools@2.2.50",
-      "resolved": "https://registry.npmjs.org/webpack-isomorphic-tools/-/webpack-isomorphic-tools-2.2.50.tgz",
-      "dependencies": {
-        "babel-runtime": {
-          "version": "5.8.38",
-          "from": "babel-runtime@>=5.6.20 <6.0.0",
-          "resolved": "https://registry.npmjs.org/babel-runtime/-/babel-runtime-5.8.38.tgz"
-        }
-      }
+      "version": "2.3.0",
+      "from": "webpack-isomorphic-tools@2.3.0",
+      "resolved": "https://registry.npmjs.org/webpack-isomorphic-tools/-/webpack-isomorphic-tools-2.3.0.tgz"
     },
     "webpack-sources": {
       "version": "0.1.1",
