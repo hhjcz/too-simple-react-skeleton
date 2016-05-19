@@ -37,10 +37,7 @@ export class Container extends React.Component {
     return [Container.fetchZarizeni]
   }
 
-  static fetchZarizeni({ params, getState }) {
-    // if on server -> initial fetch of ids
-    // TODO - when on server, test whether ids is empty, then also fetch
-    // const idsFetched = getState ? actions.fetchIds() : Promise.resolve(null)
+  static fetchZarizeni({ params }) {
     return actions.fetchCollection({ params })
   }
 

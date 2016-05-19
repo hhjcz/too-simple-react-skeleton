@@ -31,7 +31,7 @@ export default class PredefinedViews extends React.Component {
   }
 
   render() {
-    const { onNamedFilterChange, onFilterChange, showColumn, hideColumn, setColumnWidth } = this.props
+    const { onNamedFilterChange, onFilterChange, showColumn, hideColumn, setColumnWidth } = this.props // eslint-disable-line no-unused-vars
     const toggleState = PredefinedViews.computeToggleState(this.props)
 
     return (

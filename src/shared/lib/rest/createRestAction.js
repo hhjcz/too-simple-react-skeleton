@@ -67,7 +67,8 @@ export default function createRestAction(endpointName, config, actionCreators, f
 
   const updateCollection = () => {
     if (isStaticCollection) return fetchIds().then(() => fetchCollectionByIds())
-    else return fetchCollection()
+
+    return fetchCollection()
   }
 
   // ***** SYNC action creators ***** */
