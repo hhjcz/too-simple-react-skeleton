@@ -37,6 +37,15 @@ const defaultColumns = Map(
       width: 2,
       // render: lokalita => lokalita.obec
     }),
+    akrlok: new Column({
+      name: 'akrlok',
+      caption: 'akrlok',
+      valueType: columntValueTypes.string,
+      visible: true,
+      sortable: true,
+      width: 2,
+      // render: lokalita => lokalita.obec
+    }),
     adresa: new Column({
       name: 'adresa',
       caption: <MyIcon color="black">place</MyIcon>,
