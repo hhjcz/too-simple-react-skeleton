@@ -1,4 +1,5 @@
 /** Created by hhj on 2/5/16. */
+/* eslint-disable camelcase */
 
 const zkratky = {
   prg: 'Praha',
