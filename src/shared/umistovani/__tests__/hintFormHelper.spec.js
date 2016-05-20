@@ -27,7 +27,7 @@ describe('umistovani hintFormHelper', () => {
 
     beforeEach(() => {
       hintFormHelper.propsHolder.actions = {
-        lokalita: {
+        lokalitaForAutocomplete: {
           fetchCollection: () => Promise.resolve({
             data: [{ obec: 'prvniObec', ulice: 'prvniUlice' }, { obec: 'druhaObec', ulice: 'druhaUlice' }]
           })

@@ -38,7 +38,7 @@ describe('umistovani findLokalitaHint', () => {
       expect(lokalitaHint.cispop).to.equal(nameMatch[3])
       expect(lokalitaHint.cisori).to.equal(nameMatch[3])
       expect(lokalitaHint.chardop).to.equal(nameMatch[4])
-      expect(lokalitaHint.op).to.equal(nameMatch[5])
+      expect(lokalitaHint.ixop_or_akronym).to.equal(nameMatch[5])
     })
   })
 
