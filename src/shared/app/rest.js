@@ -37,9 +37,14 @@ const rest = myRest({
   },
   lokalita: {
     url: '/lokalita/:id',
-    extraParams: { include: 'nepi_opy,umistena_zarizeni.zarizeni' },
+    extraParams: { include: 'nepi_opy_count,umistena_zarizeni_count' },
     itemTransformer: item => new Lokalita(item),
     defaultState: { pagination: new Pagination({ perPage: 10 }) }
+  },
+  lokalitaForAutocomplete: {
+    url: '/lokalita/:id',
+    itemTransformer: item => new Lokalita(item),
+    defaultState: { pagination: new Pagination({ perPage: 1000 }) }
   },
   akrloks: {
     url: '/lokalita/:id',
