@@ -50,17 +50,35 @@ const defaultColumns = Map(
       name: 'adresa',
       caption: <MyIcon color="black">place</MyIcon>,
       valueType: columntValueTypes.string,
-      width: 2,
+      width: 4,
       visible: true,
       sortable: false,
       render: lokalita => <MarkedLokalita lokalita={lokalita} />
     }),
-    opy: new Column({
+    nepiOpyCount: new Column({
+      name: 'nepiOpyCount',
+      caption: 'Počet OP',
+      valueType: columntValueTypes.number,
+      width: 1,
+      visible: true,
+      sortable: true,
+      // render: lokalita => lokalita.nepiOpyCount,
+    }),
+    nepiOpyCount2: new Column({
+      name: 'nepiOpyCount2',
+      caption: 'Počet OP (2)',
+      valueType: columntValueTypes.number,
+      width: 1,
+      visible: true,
+      sortable: true,
+      render: lokalita => lokalita.nepiOpy.count(),
+    }),
+    nepiOpy: new Column({
       name: 'opy',
       caption: 'OPy',
       valueType: columntValueTypes.string,
       width: 4,
-      visible: true,
+      visible: false,
       sortable: false,
       render: lokalita => <NepiOpy nepiOpy={lokalita.nepiOpy} />
     }),
@@ -69,7 +87,7 @@ const defaultColumns = Map(
       caption: 'Umístěná zařízení',
       valueType: columntValueTypes.string,
       width: 4,
-      visible: true,
+      visible: false,
       sortable: false,
       render: lokalita => <UmistenaZarizeni umistenaZarizeni={lokalita.umistenaZarizeni} />
     })
