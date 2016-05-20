@@ -8,7 +8,7 @@ import { propsHolder as helperPropsHolder, fetchSeznamAkrloks, autoCompleteFacto
 import './HintForm.styl'
 import colors from '../app/colors'
 
-const fields = ['obec', 'ulice', 'cislo', 'akrlok', 'op', 'ixlok']
+const fields = ['obec', 'ulice', 'cislo', 'akrlok', { fieldName: 'ixop_or_akronym', caption: 'op' }, 'ixlok']
 
 export default class HintForm extends React.Component {
   static propTypes = {
@@ -20,7 +20,8 @@ export default class HintForm extends React.Component {
 
   static defaultProps = {
     lokalitaHint: {},
-    searchForUmisteni() {},
+    searchForUmisteni() {
+    },
     actions: {},
   };
 
@@ -62,7 +63,12 @@ export default class HintForm extends React.Component {
     const { searchForUmisteni } = this.props
     const lokalitaHint = this.state
 
-    const formItems = fields.map(fieldName => {
+    const formItems = fields.map(field => {
+      const { fieldName, caption } =
+        (typeof field === 'object') ? (
+          field
+        ) : { fieldName: field, caption: field }
+
       const callbacks = {
         onChange: value => self.onInputChange(fieldName, value),
         getAutoCompleteValues: self.getAutoCompleteValues[fieldName]
@@ -71,8 +77,8 @@ export default class HintForm extends React.Component {
 
       return (
         <div key={fieldName} className="hintFormItem">
-          <MyDraggable label={fieldName} value={value} {...callbacks}>
-            <MyAutoComplete label={fieldName} value={value} {...callbacks} />
+          <MyDraggable value={value} {...callbacks}>
+            <MyAutoComplete label={caption} value={value} {...callbacks} />
           </MyDraggable>
         </div>
       )

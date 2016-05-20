@@ -53,7 +53,7 @@ export default class Umistovani extends React.Component {
     if (lokalitaHint.ulice) params['trimmedUlice-lk'] = `%${lokalitaHint.ulice.toLowerCase().replace(' ', '')}%`
     if (lokalitaHint.akrlok) params['akrlok-lk'] = `%${lokalitaHint.akrlok}%`
     if (lokalitaHint.ixlok) params.ixlok = lokalitaHint.ixlok
-    if (lokalitaHint.op) params.op = lokalitaHint.op
+    if (lokalitaHint.ixop_or_akronym) params.ixop_or_akronym = lokalitaHint.ixop_or_akronym
 
     actions.umisteni.fetchCollection({ params }).catch(error => console.info(error))
   }

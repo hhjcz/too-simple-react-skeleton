@@ -29,7 +29,7 @@ const zkratky = {
 
 const zkratkaToObec = zkratkaObce => zkratky[zkratkaObce.toLowerCase()] || zkratkaObce
 
-function LokalitaHint({ id, obec, ulice, cislo, chardop, op, akrlok, ixlok, map, zarizeniName } = {}) { // eslint-disable-line max-len
+function LokalitaHint({ id, obec, ulice, cislo, chardop, ixop_or_akronym, akrlok, ixlok, map, zarizeniName } = {}) { // eslint-disable-line max-len
   // console.log(obec)
   this.id = id || 0
   this.obec = obec || ''
@@ -38,7 +38,7 @@ function LokalitaHint({ id, obec, ulice, cislo, chardop, op, akrlok, ixlok, map,
   this.cispop = this.cislo
   this.cisori = this.cislo
   this.chardop = chardop || ''
-  this.op = op || ''
+  this.ixop_or_akronym = ixop_or_akronym || ''
   this.akrlok = akrlok || ''
   this.ixlok = ixlok || ''
   this.map = map || ''
@@ -47,7 +47,7 @@ function LokalitaHint({ id, obec, ulice, cislo, chardop, op, akrlok, ixlok, map,
 
 LokalitaHint.prototype.toString = function() {
   return (this.obec ? `${this.obec}, ` : '') + (this.ulice ? `${this.ulice} ` : '')
-    + (this.cislo ? `${this.cislo} ` : '') + this.chardop + (this.op ? `OP#${this.op}` : '')
+    + (this.cislo ? `${this.cislo} ` : '') + this.chardop + (this.ixop_or_akronym ? `OP#${this.ixop_or_akronym}` : '')
 }
 
 LokalitaHint.prototype.fromMapName = function(mapName, force) {
@@ -93,9 +93,9 @@ export default function findLokalitaHint(name = '', mapName = '', id = 0) {
 
   match = name.match(/((?:SA-)?\d{4,6})/)
   if (match !== null) {
-    const op = (match[0] || '')
-    if (lokalitaHint) lokalitaHint.op = op
-    else lokalitaHint = new LokalitaHint({ id, op })
+    const ixop_or_akronym = (match[0] || '')
+    if (lokalitaHint) lokalitaHint.ixop_or_akronym = ixop_or_akronym
+    else lokalitaHint = new LokalitaHint({ id, ixop_or_akronym })
   }
 
   lokalitaHint = lokalitaHint || new LokalitaHint({ id })
