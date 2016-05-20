@@ -13,7 +13,7 @@ export function fetchSeznamAkrloks() {
 const fetchSeznamObci = debounce(substring => {
   substring = (substring || '').replace(' ', '').toLowerCase()
 
-  return propsHolder.actions.lokalita.fetchCollection({
+  return propsHolder.actions.lokalitaForAutocomplete.fetchCollection({
     params: { 'obec-lk': `${substring}%`, fields: 'obec', page: 1, perPage: 10000 },
   }).then(response => response.data.map(item => ({
     value: item.obec,
@@ -25,7 +25,7 @@ const fetchSeznamObci = debounce(substring => {
 const fetchSeznamUlic = debounce(substring => {
   substring = (substring || '').replace(' ', '').toLowerCase()
 
-  return propsHolder.actions.lokalita.fetchCollection({
+  return propsHolder.actions.lokalitaForAutocomplete.fetchCollection({
     params: { 'trimmed_ulice-lk': `${substring}%`, fields: 'ulice', page: 1, perPage: 10000 },
   }).then(response => response.data.map(item => ({
     value: item.ulice,
