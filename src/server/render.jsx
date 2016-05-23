@@ -25,12 +25,10 @@ export default function render(req, res, next) {
 
     if (!renderProps) return res.status(400).end('Ajvaj, Not fouuunddd')
 
-    let initialState
-    let componentHtml
-    if (process.env.NO_SERVER_REACT || renderProps.params.no_server_react) {
+    let initialState = {}
+    let componentHtml = ''
+    if (process.env.NO_SERVER_REACT || (renderProps.location && renderProps.location.query && renderProps.location.query.no_server_react)) {
       console.log('Skipping server react rendering...')
-      initialState = {}
-      componentHtml = ''
     } else {
 
       try {
