@@ -19,7 +19,7 @@ export class Container extends React.Component {
   // browser fetching:
   componentDidMount() {
     const { params } = this.props
-    Container.fetchActions.forEach((action) => action({ params }))
+    Container.fetchActions.forEach((action) => action({ params: { ...params, include: 'nepi_opy_count,umistena_zarizeni_count,nepi_opy,umistena_zarizeni' } }))
   }
 
   render() {

@@ -22,7 +22,7 @@ export default class LokalitaDetail extends React.Component {
         <div>číslo orientační: {lokalita.cisori}</div>
         <div>číslo doplňkové: {lokalita.cisdop}</div>
         <div>akrlok: {lokalita.akrlok}</div>
-        <NepiOpy nepiOpy={lokalita.nepiOpy} />
+        <NepiOpy nepiOpy={lokalita.nepiOpy} size={100000} />
         <UmistenaZarizeni umistenaZarizeni={lokalita.umistenaZarizeni} />
       </div>
     )
