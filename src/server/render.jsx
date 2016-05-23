@@ -25,22 +25,30 @@ export default function render(req, res, next) {
 
     if (!renderProps) return res.status(400).end('Ajvaj, Not fouuunddd')
 
-    try {
-      await fetchAsyncData(store, renderProps)  // eslint-disable-line no-use-before-define
-    } catch (e) {
-      console.log(e)
-      next(e)
+    let initialState
+    let componentHtml
+    if (process.env.NO_SERVER_REACT || renderProps.params.no_server_react) {
+      console.log('Skipping server react rendering...')
+      initialState = {}
+      componentHtml = ''
+    } else {
+
+      try {
+        await fetchAsyncData(store, renderProps)  // eslint-disable-line no-use-before-define
+      } catch (e) {
+        console.log(e)
+        next(e)
+      }
+
+      const InitialComponent = (
+        <Provider store={store}>
+          <RouterContext {...renderProps} />
+        </Provider>
+      )
+
+      initialState = store.getState()
+      componentHtml = renderToString(InitialComponent)
     }
-
-    const InitialComponent = (
-      <Provider store={store}>
-        <RouterContext {...renderProps} />
-      </Provider>
-    )
-
-    const initialState = store.getState()
-
-    const componentHtml = renderToString(InitialComponent)
 
     // webpackIsomorphicTools defined globally in index.js
     const {
