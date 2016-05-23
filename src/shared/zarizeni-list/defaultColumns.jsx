@@ -16,6 +16,7 @@ const defaultColumns = Map(
       caption: 'ID',
       valueType: columntValueTypes.number,
       visible: true,
+      position: 10,
       width: 1,
       render: zarizeni => <Link to={`/zarizeni/${zarizeni.id}`}>{zarizeni.id}</Link>
     }),
@@ -24,6 +25,7 @@ const defaultColumns = Map(
       caption: 'Name',
       valueType: columntValueTypes.string,
       visible: true,
+      position: 20,
       width: 4,
       render: zarizeni => <Link to={`/zarizeni/${zarizeni.id}`}>{zarizeni.name}</Link>,
     }),
@@ -31,18 +33,21 @@ const defaultColumns = Map(
       name: 'createdAt',
       caption: 'Created at',
       valueType: columntValueTypes.date,
-      visible: false
+      visible: false,
+      position: 30,
     }),
     updatedAt: new Column({
       name: 'updatedAt',
       caption: 'Updated at',
       valueType: columntValueTypes.date,
-      visible: true
+      visible: true,
+      position: 30,
     }),
     deletedAt: new Column({
       name: 'deletedAt',
       caption: 'Deleted at',
       valueType: columntValueTypes.date,
+      position: 40,
       width: 1,
       visible: false
     }),
@@ -50,12 +55,14 @@ const defaultColumns = Map(
       name: 'ipAddress',
       caption: 'IP address',
       valueType: columntValueTypes.ipAddress,
-      visible: true
+      visible: true,
+      position: 50,
     }),
     umisteni: new Column({
       name: 'umisteni',
       caption: <MyIcon color="black">place</MyIcon>,
       valueType: columntValueTypes.string,
+      position: 60,
       width: 6,
       visible: true,
       sortable: false,
@@ -70,6 +77,7 @@ const defaultColumns = Map(
       name: 'previousNetvisionName',
       caption: 'Previous NV name',
       valueType: columntValueTypes.string,
+      position: 70,
       width: 6,
       visible: false,
       render: zarizeni => (

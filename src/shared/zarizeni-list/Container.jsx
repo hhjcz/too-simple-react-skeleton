@@ -82,6 +82,8 @@ export class Container extends React.Component {
       actions
     } = this.props
 
+    const columnsList = columns.toList().sortBy(column => column.position)
+
     return (
       <div id="zarizeni-list">
         <div className="row">
@@ -97,11 +99,11 @@ export class Container extends React.Component {
             />
           </div>
           <div className="col col-xs-3 col-xs-offset-1">
-            <ColumnsControl columns={columns.toList()} setColumnVisibility={actions.setColumnVisibility} />
+            <ColumnsControl columns={columnsList} setColumnVisibility={actions.setColumnVisibility} />
           </div>
         </div>
         <Tabulka
-          columns={columns.toList()}
+          columns={columnsList}
           seznamZarizeni={seznamZarizeni} sort={sort}
           fetching={fetching} filters={filters} pagination={pagination}
           onSortChange={self.onSortChange} onFilterChange={self.onFilterChange}

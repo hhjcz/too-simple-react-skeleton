@@ -16,6 +16,7 @@ export class Column extends Record({
   defaultValue: null,
   visible: true,
   sortable: true,
+  position: 1,
   width: 2,
   render: null
 }) {
