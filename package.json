@@ -54,7 +54,7 @@
     "react-addons-shallow-compare": "^15.0.1",
     "react-autocomplete": "https://github.com/hhjcz/react-autocomplete/tarball/master",
     "react-bootstrap": "^0.29.3",
-    "react-dom": "^15.0.1",
+    "react-dom": "^15.1.0",
     "react-redux": "^4.4.5",
     "react-redux-toastr": "^3.0.5",
     "react-router": "^2.4.0",
