@@ -21,6 +21,7 @@ export class Lokalita extends Record({
   nepiOpy: NepiOpyFactory(),
   nepiOpyCount: 0,
   umistenaZarizeni: List(),
+  umistenaZarizeniCount: 0,
 }) {
   constructor(args = {}) {
     if (args && args.nepiOpy) args.nepiOpy = NepiOpyFactory(args.nepiOpy.data || args.nepiOpy)

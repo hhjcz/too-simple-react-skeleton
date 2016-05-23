@@ -82,7 +82,9 @@ export class Container extends React.Component {
       actions
     } = this.props
 
-    const columnsList = columns.toList().sortBy(column => column.position)
+    const columnsList = columns.toList()
+      .filter(column => !column.disabled)
+      .sortBy(column => column.position)
 
     return (
       <div id="zarizeni-list">

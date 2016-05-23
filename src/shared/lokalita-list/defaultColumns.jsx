@@ -2,7 +2,6 @@
 import { Map } from 'immutable'
 import React from 'react'
 import { Link } from 'react-router'
-import MyIcon from '../lib/MyIcon'
 import { Column, columntValueTypes } from '../lib/tabulka/Column'
 import MarkedLokalita from '../umistovani/MarkedLokalita'
 import NepiOpy from '../umistovani/NepiOpy'
@@ -12,17 +11,17 @@ const defaultColumns = Map(
   {
     ixlok: new Column({
       name: 'ixlok',
-      caption: 'ixlok',
+      caption: 'ID',
       valueType: columntValueTypes.number,
       visible: true,
-      sortable: false,
+      sortable: true,
       position: 10,
       width: 1,
       render: lokalita => <Link to={`/lokalita/${lokalita.id}`}>{lokalita.id}</Link>
     }),
     obec: new Column({
       name: 'obec',
-      caption: 'obec',
+      caption: 'Obec',
       valueType: columntValueTypes.string,
       visible: true,
       sortable: true,
@@ -32,7 +31,7 @@ const defaultColumns = Map(
     }),
     ulice: new Column({
       name: 'ulice',
-      caption: 'ulice',
+      caption: 'Ulice',
       valueType: columntValueTypes.string,
       visible: true,
       sortable: true,
@@ -42,7 +41,7 @@ const defaultColumns = Map(
     }),
     akrlok: new Column({
       name: 'akrlok',
-      caption: 'akrlok',
+      caption: 'Akronym lokality',
       valueType: columntValueTypes.string,
       visible: true,
       sortable: true,
@@ -52,7 +51,7 @@ const defaultColumns = Map(
     }),
     adresa: new Column({
       name: 'adresa',
-      caption: <MyIcon color="black">place</MyIcon>,
+      caption: 'Adresa',
       valueType: columntValueTypes.string,
       visible: true,
       sortable: false,
@@ -70,30 +69,32 @@ const defaultColumns = Map(
       width: 1,
       // render: lokalita => lokalita.nepiOpyCount,
     }),
-    nepiOpyCount2: new Column({
-      name: 'nepiOpyCount2',
-      caption: 'Počet OP (2)',
-      valueType: columntValueTypes.number,
-      visible: true,
-      sortable: true,
-      position: 70,
-      width: 1,
-      render: lokalita => lokalita.nepiOpy.count(),
-    }),
     nepiOpy: new Column({
-      name: 'opy',
+      name: 'nepiOpy',
       caption: 'OPy',
       valueType: columntValueTypes.string,
+      disabled: true,
       visible: false,
       sortable: false,
       position: 80,
       width: 4,
       render: lokalita => <NepiOpy nepiOpy={lokalita.nepiOpy} />
     }),
+    umistenaZarizeniCount: new Column({
+      name: 'umistenaZarizeniCount',
+      caption: 'Počet zařízení',
+      valueType: columntValueTypes.number,
+      visible: true,
+      sortable: true,
+      position: 85,
+      width: 1,
+      // render: lokalita => <UmistenaZarizeni umistenaZarizeni={lokalita.umistenaZarizeni} />
+    }),
     umistenaZarizeni: new Column({
       name: 'umistenaZarizeni',
       caption: 'Umístěná zařízení',
       valueType: columntValueTypes.string,
+      disabled: true,
       visible: false,
       sortable: false,
       position: 90,

@@ -14,6 +14,7 @@ export class Column extends Record({
   caption: 'Column Name',
   valueType: columntValueTypes.number,
   defaultValue: null,
+  disabled: false,
   visible: true,
   sortable: true,
   position: 1,
