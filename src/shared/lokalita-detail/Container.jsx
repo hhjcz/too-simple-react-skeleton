@@ -11,6 +11,11 @@ export class Container extends React.Component {
 
   static propTypes = {
     params: PropTypes.object,
+    lokalitaResource: PropTypes.object,
+  };
+
+  static defaultProps = {
+    lokalitaResource: {}
   };
 
   // server and client side fetch actions (see render.jsx & componentDidMount):
@@ -19,11 +24,16 @@ export class Container extends React.Component {
   // browser fetching:
   componentDidMount() {
     const { params } = this.props
-    Container.fetchActions.forEach((action) => action({ params: { ...params, include: 'nepi_opy_count,umistena_zarizeni_count,nepi_opy,umistena_zarizeni' } }))
+    Container.fetchActions.forEach((action) => action({
+      params: {
+        ...params,
+        include: 'nepi_opy_count,umistena_zarizeni_count,nepi_opy,umistena_zarizeni'
+      }
+    }))
   }
 
   render() {
-    const lokalita = getItem(this.props)
+    const lokalita = getItem(this.props.lokalitaResource)
     return (
       <div id="lokalita-detail">
         <LokalitaDetail lokalita={lokalita} />
@@ -33,6 +43,6 @@ export class Container extends React.Component {
 }
 
 export default connect(
-  createMapStateToProps(state => state.resources.lokalita),
+  createMapStateToProps(state => ({ lokalitaResource: state.resources.lokalita })),
   createMapDispatchToProps(actions)
 )(Container)
