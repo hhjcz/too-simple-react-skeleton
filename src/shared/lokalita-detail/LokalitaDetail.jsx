@@ -73,8 +73,8 @@ export default class LokalitaDetail extends React.Component {
             <MyIcon color={colors.green100}>{this.state.nepiOpyExpanded ? 'expand_less' : 'expand_more'}</MyIcon>
           </IconButton>
         </div>
-        <Panel collapsible expanded={this.state.zarizeniExpanded}>
-          <NepiOpy nepiOpy={lokalita.nepiOpy} size={10} />
+        <Panel collapsible expanded={this.state.nepiOpyExpanded}>
+          <NepiOpy nepiOpy={nepiOpy} size={10000} />
         </Panel>
 
       </div>

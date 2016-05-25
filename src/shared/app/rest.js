@@ -55,6 +55,7 @@ const rest = myRest({
   nepiOpyNaLokalite: {
     url: '/nepi_op/:id',
     itemTransformer: item => new NepiOp(item),
+    idField: 'ixop',
     defaultState: { pagination: new Pagination({ perPage: 10000 }) }
   },
   akrloks: {
