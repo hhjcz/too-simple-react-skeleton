@@ -25,7 +25,7 @@ describe('zarizeni-detail', () => {
       expect(typeof vdom.props.store).to.equal('object')
       expect(typeof vdom.props.dispatch).to.equal('function')
       expect(typeof vdom.props.actions).to.equal('object')
-      expect(typeof vdom.props.actions.gotoPage).to.equal('function')
+      expect(typeof vdom.props.actions.lokalita.fetchOne).to.equal('function')
     })
 
     it('should connect proper sub state to props', () => {

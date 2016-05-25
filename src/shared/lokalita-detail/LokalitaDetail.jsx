@@ -8,10 +8,19 @@ import MarkedLokalita from '../umistovani/MarkedLokalita'
 export default class LokalitaDetail extends React.Component {
   static propTypes = {
     lokalita: PropTypes.instanceOf(Lokalita).isRequired,
+    fetchZarizeni: PropTypes.func.isRequired,
+    zarizeni: PropTypes.object,
   };
 
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.lokalita.ixlok !== this.props.lokalita.ixlok) {
+      this.props.fetchZarizeni(nextProps.lokalita.ixlok)
+    }
+  }
+
   render() {
-    const { lokalita } = this.props
+    const { lokalita, zarizeni } = this.props
+    console.log(zarizeni)
     return (
       <div>
         <MarkedLokalita lokalita={lokalita} />
@@ -22,8 +31,8 @@ export default class LokalitaDetail extends React.Component {
         <div>číslo orientační: {lokalita.cisori}</div>
         <div>číslo doplňkové: {lokalita.cisdop}</div>
         <div>akrlok: {lokalita.akrlok}</div>
-        <NepiOpy nepiOpy={lokalita.nepiOpy} size={100000} />
-        <UmistenaZarizeni umistenaZarizeni={lokalita.umistenaZarizeni} />
+        <NepiOpy nepiOpy={lokalita.nepiOpy} size={10} />
+        <UmistenaZarizeni umistenaZarizeni={zarizeni} />
       </div>
     )
   }
