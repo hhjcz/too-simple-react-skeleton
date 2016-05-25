@@ -59,34 +59,13 @@ const defaultColumns = Map(
       width: 4,
       render: lokalita => <MarkedLokalita lokalita={lokalita} />
     }),
-    nepiOpyCount: new Column({
-      name: 'nepiOpyCount',
-      caption: 'Počet OP',
-      valueType: columntValueTypes.number,
-      visible: true,
-      sortable: true,
-      position: 60,
-      width: 1,
-      // render: lokalita => lokalita.nepiOpyCount,
-    }),
-    nepiOpy: new Column({
-      name: 'nepiOpy',
-      caption: 'OPy',
-      valueType: columntValueTypes.string,
-      disabled: true,
-      visible: false,
-      sortable: false,
-      position: 80,
-      width: 4,
-      render: lokalita => <NepiOpy nepiOpy={lokalita.nepiOpy} />
-    }),
     umistenaZarizeniCount: new Column({
       name: 'umistenaZarizeniCount',
       caption: 'Počet zařízení',
       valueType: columntValueTypes.number,
       visible: true,
       sortable: true,
-      position: 85,
+      position: 60,
       width: 1,
       // render: lokalita => <UmistenaZarizeni umistenaZarizeni={lokalita.umistenaZarizeni} />
     }),
@@ -97,10 +76,31 @@ const defaultColumns = Map(
       disabled: true,
       visible: false,
       sortable: false,
-      position: 90,
+      position: 70,
       width: 4,
       render: lokalita => <UmistenaZarizeni umistenaZarizeni={lokalita.umistenaZarizeni} />
-    })
+    }),
+    nepiOpyCount: new Column({
+      name: 'nepiOpyCount',
+      caption: 'Počet OP',
+      valueType: columntValueTypes.number,
+      visible: true,
+      sortable: true,
+      position: 80,
+      width: 1,
+      // render: lokalita => lokalita.nepiOpyCount,
+    }),
+    nepiOpy: new Column({
+      name: 'nepiOpy',
+      caption: 'OPy',
+      valueType: columntValueTypes.string,
+      disabled: true,
+      visible: false,
+      sortable: false,
+      position: 90,
+      width: 4,
+      render: lokalita => <NepiOpy nepiOpy={lokalita.nepiOpy} />
+    }),
   }
 )
 
