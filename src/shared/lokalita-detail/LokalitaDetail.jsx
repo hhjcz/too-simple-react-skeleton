@@ -1,5 +1,9 @@
 /** Created by hhj on 12/30/15. */
 import React, { PropTypes } from 'react'
+import Panel from 'react-bootstrap/lib/Panel'
+import IconButton from 'material-ui/IconButton'
+import MyIcon from '../lib/MyIcon'
+import colors from '../app/colors'
 import { Lokalita } from '../app/models/Lokalita'
 import NepiOpy from '../umistovani/NepiOpy'
 import UmistenaZarizeni from '../lokalita-list/UmistenaZarizeni'
@@ -12,14 +16,20 @@ export default class LokalitaDetail extends React.Component {
     zarizeni: PropTypes.object,
   };
 
+  constructor(props) {
+    super(props)
+    this.state = { zarizeniExpanded: false }
+  }
+
   componentWillReceiveProps(nextProps) {
-    if (nextProps.lokalita.ixlok !== this.props.lokalita.ixlok) {
-      this.props.fetchZarizeni(nextProps.lokalita.ixlok)
-    }
+    // if (nextProps.lokalita.ixlok !== this.props.lokalita.ixlok) {
+    //   this.props.fetchZarizeni(nextProps.lokalita.ixlok)
+    // }
   }
 
   render() {
-    const { lokalita, zarizeni } = this.props
+    const self = this
+    const { lokalita, zarizeni, fetchZarizeni } = this.props
     console.log(zarizeni)
     return (
       <div>
@@ -31,8 +41,27 @@ export default class LokalitaDetail extends React.Component {
         <div>číslo orientační: {lokalita.cisori}</div>
         <div>číslo doplňkové: {lokalita.cisdop}</div>
         <div>akrlok: {lokalita.akrlok}</div>
+
         <NepiOpy nepiOpy={lokalita.nepiOpy} size={10} />
-        <UmistenaZarizeni umistenaZarizeni={zarizeni} />
+
+        <div style={{ display: 'flex', alignItems: 'center' }}>
+          <IconButton
+            tooltip={this.state.zarizeniExpanded ? 'sbalit' : 'rozbalit'}
+            onTouchTap={function() {
+              if (!self.state.zarizeniExpanded) {
+                fetchZarizeni(lokalita.id).then(() => self.setState({ zarizeniExpanded: true }))
+              } else {
+                self.setState({ zarizeniExpanded: false })
+              }
+            }}
+          >
+            <MyIcon color={colors.green100}>{this.state.open ? 'expand_less' : 'expand_more'}</MyIcon>
+          </IconButton>
+          umístěná zařízení: {lokalita.umistenaZarizeniCount}
+        </div>
+        <Panel collapsible expanded={this.state.zarizeniExpanded}>
+          <UmistenaZarizeni umistenaZarizeni={zarizeni} />
+        </Panel>
       </div>
     )
   }
