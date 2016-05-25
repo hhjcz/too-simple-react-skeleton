@@ -5,6 +5,7 @@ import createFetch from '../lib/rest/createFetch'
 import { ZarizeniFactory } from './models/Zarizeni'
 import { UmisteniFactory } from './models/Umisteni'
 import { Lokalita } from './models/Lokalita'
+import { NepiOp } from './models/NepiOp'
 import { Sort } from './models/Sort'
 import { Pagination } from './models/Pagination'
 
@@ -49,6 +50,11 @@ const rest = myRest({
   zarizeniNaLokalite: {
     url: '/zarizeni/:id',
     itemTransformer: item => ZarizeniFactory(item),
+    defaultState: { pagination: new Pagination({ perPage: 10000 }) }
+  },
+  nepiOpyNaLokalite: {
+    url: '/nepi_op/:id',
+    itemTransformer: item => new NepiOp(item),
     defaultState: { pagination: new Pagination({ perPage: 10000 }) }
   },
   akrloks: {

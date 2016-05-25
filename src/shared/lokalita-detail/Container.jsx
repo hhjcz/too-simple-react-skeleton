@@ -13,12 +13,14 @@ export class Container extends React.Component {
     params: PropTypes.object,
     lokalitaResource: PropTypes.object,
     zarizeniNaLokaliteResource: PropTypes.object,
+    nepiOpyNaLokaliteResource: PropTypes.object,
     actions: PropTypes.object,
   };
 
   static defaultProps = {
     lokalitaResource: {},
     zarizeniNaLokaliteResource: {},
+    nepiOpyNaLokaliteResource: {},
   };
 
   // server and client side fetch actions (see render.jsx & componentDidMount):
@@ -27,6 +29,7 @@ export class Container extends React.Component {
   constructor(props) {
     super(props)
     this.fetchZarizeni = this.fetchZarizeni.bind(this)
+    this.fetchNepiOpy = this.fetchNepiOpy.bind(this)
   }
 
   // browser fetching:
@@ -44,13 +47,22 @@ export class Container extends React.Component {
     return this.props.actions.zarizeniNaLokalite.fetchCollection({ params: { lokalita: lokalitaId } })
   }
 
+  fetchNepiOpy(lokalitaId) {
+    return this.props.actions.nepiOpyNaLokalite.fetchCollection({ params: { lokalita: lokalitaId } })
+  }
+
   render() {
     const lokalita = getItem(this.props.lokalitaResource)
     const zarizeni = getItems(this.props.zarizeniNaLokaliteResource)
+    const nepiOpy = getItems(this.props.nepiOpyNaLokaliteResource)
 
     return (
       <div id="lokalita-detail">
-        <LokalitaDetail lokalita={lokalita} fetchZarizeni={this.fetchZarizeni} zarizeni={zarizeni} />
+        <LokalitaDetail
+          lokalita={lokalita}
+          fetchZarizeni={this.fetchZarizeni} zarizeni={zarizeni}
+          fetchNepiOpy={this.fetchNepiOpy} nepiOpy={nepiOpy}
+        />
       </div>
     )
   }
@@ -59,7 +71,8 @@ export class Container extends React.Component {
 export default connect(
   createMapStateToProps(state => ({
     lokalitaResource: state.resources.lokalita,
-    zarizeniNaLokaliteResource: state.resources.zarizeniNaLokalite
+    zarizeniNaLokaliteResource: state.resources.zarizeniNaLokalite,
+    nepiOpyNaLokaliteResource: state.resources.nepiOpyNaLokalite,
   })),
   createMapDispatchToProps(actions)
 )(Container)
