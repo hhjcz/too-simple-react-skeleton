@@ -27,7 +27,9 @@ export default function render(req, res, next) {
 
     let initialState = {}
     let componentHtml = ''
-    if (process.env.NO_SERVER_REACT || (renderProps.location && renderProps.location.query && renderProps.location.query.no_server_react)) {
+    if (process.env.NO_SERVER_REACT ||
+      (renderProps.location && renderProps.location.query && renderProps.location.query.no_server_react)
+    ) {
       console.log('Skipping server react rendering...')
     } else {
 
