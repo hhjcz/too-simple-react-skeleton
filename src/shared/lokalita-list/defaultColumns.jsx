@@ -26,7 +26,7 @@ const defaultColumns = Map(
       visible: true,
       sortable: true,
       position: 20,
-      width: 2,
+      width: 1,
       // render: lokalita => lokalita.obec
     }),
     ulice: new Column({
@@ -41,22 +41,22 @@ const defaultColumns = Map(
     }),
     akrlok: new Column({
       name: 'akrlok',
-      caption: 'Akronym lokality',
+      caption: 'Akronym',
       valueType: columntValueTypes.string,
       visible: true,
       sortable: true,
       position: 40,
-      width: 2,
+      width: 1,
       // render: lokalita => lokalita.obec
     }),
     adresa: new Column({
       name: 'adresa',
       caption: 'Adresa',
       valueType: columntValueTypes.string,
-      visible: true,
+      visible: false,
       sortable: false,
       position: 50,
-      width: 4,
+      width: 3,
       render: lokalita => <MarkedLokalita lokalita={lokalita} />
     }),
     umistenaZarizeniCount: new Column({

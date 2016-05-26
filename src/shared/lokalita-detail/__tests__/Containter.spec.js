@@ -25,13 +25,13 @@ describe('zarizeni-detail', () => {
       expect(typeof vdom.props.store).to.equal('object')
       expect(typeof vdom.props.dispatch).to.equal('function')
       expect(typeof vdom.props.actions).to.equal('object')
-      expect(typeof vdom.props.actions.gotoPage).to.equal('function')
+      expect(typeof vdom.props.actions.lokalita.fetchOne).to.equal('function')
     })
 
     it('should connect proper sub state to props', () => {
-      expect(typeof vdom.props.items).to.equal('object')
-      expect(vdom.props.items).to.be.instanceof(List)
-      expect(vdom.props.generalParams).to.be.instanceof(Map)
+      expect(typeof vdom.props.lokalitaResource.items).to.equal('object')
+      expect(vdom.props.lokalitaResource.items).to.be.instanceof(List)
+      expect(vdom.props.lokalitaResource.generalParams).to.be.instanceof(Map)
     })
 
   })

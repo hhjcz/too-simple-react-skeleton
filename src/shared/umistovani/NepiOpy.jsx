@@ -10,16 +10,23 @@ import { markPotencialniNepiop } from './markUtils'
 export default class NepiOpy extends React.Component {
   static propTypes = {
     nepiOpy: PropTypes.instanceOf(List),
+    size: PropTypes.number,
   };
 
   static defaultProps = {
     nepiOpy: List(),
+    size: 10
   };
 
+  constructor(props) {
+    super(props)
+    this.state = { open: false }
+  }
+
   render() {
-    const { nepiOpy } = this.props
+    const { nepiOpy, size } = this.props
     const uniqNepiOpy = uniqBy(nepiOpy.toArray(), nepiOp => nepiOp.ixop)
-    const slicedNepiOpy = uniqNepiOpy.slice(0, 10)
+    const slicedNepiOpy = uniqNepiOpy.slice(0, size)
 
     const listItems = slicedNepiOpy.map(nepiOp =>
       <div style={{ paddingLeft: '1em' }} key={nepiOp.ixop}>
