@@ -17,11 +17,11 @@ export const getItems = (resource = {}) => {
   return items
 }
 
-export const getItem = (resource = {}) => {
+export const getItem = (resource = {}, defaultValue = {}) => {
   // if (!resource.item) return {}
   const entities = resource.entities || Map()
 
-  return entities.get(`${resource.item}`) || {}
+  return entities.get(`${resource.item}`) || defaultValue
 }
 
 /**
