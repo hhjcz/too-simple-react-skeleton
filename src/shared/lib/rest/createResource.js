@@ -15,6 +15,7 @@ export default function createResource(resourceName, _config, fetchHolder) {
 
     const fetchMethod = (params = {}, body = {}) => {
       const url = serializeParamsToUrl(config.url, params)
+      const bodyObj = ['GET', 'HEAD'].indexOf(method) === -1 ? { body: JSON.stringify(body) } : {}
 
       const executeFetch = () => fetchHolder
         .fetch(url, {
@@ -24,9 +25,8 @@ export default function createResource(resourceName, _config, fetchHolder) {
             // 'Content-Type': 'application/x-www-form-url-encoded',
             'Accept': 'application/json',
           },
-          mode: 'opaque',
-          // body: ['GET', 'HEAD'].indexOf(method) === -1 ? qs.stringify(body) : null
-          body: ['GET', 'HEAD'].indexOf(method) === -1 ? JSON.stringify(body) : null
+          // mode: 'opaque',
+          ...bodyObj
         })
         .then(response => {
           const normalizedResponse = responseTransformer(response)
