@@ -11,7 +11,7 @@ import MarkedLokalita from '../umistovani/MarkedLokalita'
 
 export default class LokalitaDetail extends React.Component {
   static propTypes = {
-    lokalita: PropTypes.instanceOf(Lokalita).isRequired,
+    lokalita: PropTypes.oneOfType([PropTypes.object, PropTypes.instanceOf(Lokalita)]).isRequired,
     fetchZarizeni: PropTypes.func.isRequired,
     zarizeni: PropTypes.object,
     fetchNepiOpy: PropTypes.func.isRequired,
