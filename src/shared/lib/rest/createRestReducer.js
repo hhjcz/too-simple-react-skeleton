@@ -122,8 +122,8 @@ export default function createRestReducer(endpointName, config = {}, actionTypes
         if (state.sort.by !== action.sortField) {
           newSort = new Sort({ dir: true, by: action.sortField })
         } else {
-          if (state.sort.dir === false) newSort = new Sort()
-          else newSort = new Sort({ dir: !state.sort.dir, by: action.sortField })
+          if (state.sort.dir === true) newSort = new Sort({ dir: false, by: action.sortField })
+          else newSort = new Sort()  // clear sort field (tri-state)
         }
 
         return state.update('sort', () => newSort)
