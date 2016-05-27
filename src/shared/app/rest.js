@@ -17,7 +17,7 @@ const serverBaseUrl = process.env.SERVER_BASE_URL
 
 const rest = myRest({
   zarizeni: {
-    url: '/zarizeni/:id',
+    url: '/zarizeni/:id/:nested',
     extraParams: { include: 'umisteni.lokalita' },
     itemTransformer: item => ZarizeniFactory(item),
     defaultState: { sort: new Sort({ dir: true, by: 'createdAt' }) },

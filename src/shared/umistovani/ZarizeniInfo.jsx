@@ -1,6 +1,9 @@
 /** Created by hhj on 3/15/16. */
 import React, { PropTypes } from 'react'
 import { Link } from 'react-router'
+import IconButton from 'material-ui/IconButton'
+import MyIcon from '../lib/MyIcon'
+import colors from '../app/colors'
 import MarkedLokalita from './MarkedLokalita'
 import MyDraggable from '../lib/MyDraggable'
 import { markPotencialniNepiop } from './markUtils'
@@ -8,7 +11,8 @@ import '../lib/Tabulka.styl'
 
 export default class ZarizeniInfo extends React.Component {
   static propTypes = {
-    zarizeni: PropTypes.object.isRequired
+    zarizeni: PropTypes.object.isRequired,
+    zrusitUmisteni: PropTypes.func.isRequired,
   };
 
   static defaultProps = {
@@ -16,7 +20,7 @@ export default class ZarizeniInfo extends React.Component {
   };
 
   render() {
-    const { zarizeni } = this.props
+    const { zarizeni, zrusitUmisteni } = this.props
     return (
       <div className="col col-xs-6 myTable">
         <div className="myTableRow">
@@ -43,16 +47,19 @@ export default class ZarizeniInfo extends React.Component {
             </a>
           </MyDraggable>
         </div>
-        {
-          // zarizeni.umisteni.lokalita && zarizeni.umisteni.lokalita.ixlok > 0 ?
-          <div className="myTableRow">
-            <div className="myTableRowItem uFlexGrow-1">Umístění:</div>
-            <div className="myTableRowItem uFlexGrow-4">
-              <MarkedLokalita lokalita={zarizeni.umisteni.lokalita} />
-            </div>
-          </div>
-          // : null
-        }
+        <div className="myTableRow">
+          <div className="myTableRowItem uFlexGrow-1">Umístění:</div>
+          {
+            zarizeni.umisteni.lokalita && zarizeni.umisteni.lokalita.ixlok > 0 ? (
+              <div className="myTableRowItem uFlexGrow-4">
+                <Link to={`/lokalita/${zarizeni.umisteni.lokalita.ixlok}`}>
+                  <MarkedLokalita lokalita={zarizeni.umisteni.lokalita} />
+                </Link>
+                <IconButton tooltip="Zrušit umístění" primary onTouchTap={zrusitUmisteni}><MyIcon color={colors.red200}>delete</MyIcon></IconButton>
+              </div>
+            ) : null
+          }
+        </div>
       </div>
     )
   }

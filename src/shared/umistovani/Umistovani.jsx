@@ -32,6 +32,7 @@ export default class Umistovani extends React.Component {
     super(props)
     this.searchForUmisteni = this.searchForUmisteni.bind(this)
     this.deleteAllUmisteni = this.deleteAllUmisteni.bind(this)
+    this.zrusitUmisteni = this.zrusitUmisteni.bind(this)
     this.umistitZarizeni = this.umistitZarizeni.bind(this)
   }
 
@@ -66,6 +67,14 @@ export default class Umistovani extends React.Component {
       .then(actions.reload)
   }
 
+  zrusitUmisteni() {
+    const { actions } = this.props
+    const params = { id: this.props.zarizeni.id, nested: 'umisteni' }
+    this.props.actions.zarizeni.destroy({ params })
+      .then(actions.reload)
+      .catch(actions.reload)
+  }
+
   deleteAllUmisteni() {
     const { actions } = this.props
     const params = { zarizeni_id: this.props.zarizeni.id }
@@ -84,7 +93,7 @@ export default class Umistovani extends React.Component {
     return (
       <div>
         <div className="row">
-          <ZarizeniInfo zarizeni={zarizeni} />
+          <ZarizeniInfo zarizeni={zarizeni} zrusitUmisteni={self.zrusitUmisteni} />
           <SeznamPortu seznamPortu={seznamPortu} />
         </div>
         <HintForm
