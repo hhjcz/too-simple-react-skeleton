@@ -22,11 +22,42 @@ export default class LokalitaDetail extends React.Component {
   constructor(props) {
     super(props)
     this.state = { zarizeniExpanded: false, nepiOpyExpanded: false }
+    this.expandZarizeni = this.expandZarizeni.bind(this)
+    this.expandNepiOp = this.expandNepiOp.bind(this)
+  }
+
+  expandNepiOp() {
+    const { lokalita, fetchNepiOpy } = this.props
+    if (!this.state.nepiOpyExpanded) {
+      fetchNepiOpy(lokalita.id).then(() => this.setState({ nepiOpyExpanded: true }))
+    } else {
+      this.setState({ nepiOpyExpanded: false })
+    }
+  }
+
+  expandZarizeni() {
+    const { lokalita, fetchZarizeni } = this.props
+    if (!this.state.zarizeniExpanded) {
+      fetchZarizeni(lokalita.id).then(() => this.setState({ zarizeniExpanded: true }))
+    } else {
+      this.setState({ zarizeniExpanded: false })
+    }
   }
 
   render() {
-    const self = this
-    const { lokalita, zarizeni, fetchZarizeni, nepiOpy, fetchNepiOpy } = this.props
+    const { lokalita, zarizeni, nepiOpy } = this.props
+
+    const nepiOpLabel = lokalita.nepiOpyCount === 0 ? (
+      'žádný obchodní případ'
+    ) : this.state.nepiOpyExpanded ? (
+      `${nepiOpy.count()} obchodní případ(y)`
+    ) : 'obchodní případy'
+
+    const zarizeniLabel = !(lokalita.umistenaZarizeniCount > 0) ? (
+      'žádná umístěná zařízení'
+    ) : this.state.zarizeniExpanded ? (
+      `${zarizeni.count()} zařízení`
+    ) : 'umístěná zařízení'
 
     return (
       <div>
@@ -39,25 +70,9 @@ export default class LokalitaDetail extends React.Component {
         <div>číslo doplňkové: {lokalita.cisdop}</div>
         <div>akrlok: {lokalita.akrlok}</div>
 
-
-        <div style={{ display: 'flex', alignItems: 'center' }}>
-          {
-            !(lokalita.umistenaZarizeniCount > 0) ? (
-              'žádná umístěná zařízení'
-            ) : self.state.zarizeniExpanded ? (
-              `${zarizeni.count()} zařízení`
-            ) : 'umístěná zařízení'
-          }
-          <IconButton
-            tooltip={this.state.zarizeniExpanded ? 'sbalit' : 'rozbalit'}
-            onTouchTap={function() {
-              if (!self.state.zarizeniExpanded) {
-                fetchZarizeni(lokalita.id).then(() => self.setState({ zarizeniExpanded: true }))
-              } else {
-                self.setState({ zarizeniExpanded: false })
-              }
-            }}
-          >
+        <div style={{ display: 'flex', alignItems: 'center', cursor: 'pointer' }} onClick={this.expandZarizeni}>
+          {zarizeniLabel}
+          <IconButton tooltip={this.state.zarizeniExpanded ? 'sbalit' : 'rozbalit'}>
             <MyIcon color={colors.green100}>{this.state.zarizeniExpanded ? 'expand_less' : 'expand_more'}</MyIcon>
           </IconButton>
         </div>
@@ -65,24 +80,9 @@ export default class LokalitaDetail extends React.Component {
           <UmistenaZarizeni umistenaZarizeni={zarizeni} />
         </Panel>
 
-        <div style={{ display: 'flex', alignItems: 'center' }}>
-          {
-            lokalita.nepiOpyCount === 0 ? (
-              'žádný obchodní případ'
-            ) : self.state.nepiOpyExpanded ? (
-              `${nepiOpy.count()} obchodní případ(y)`
-            ) : 'obchodní případy'
-          }
-          <IconButton
-            tooltip={this.state.nepiOpyExpanded ? 'sbalit' : 'rozbalit'}
-            onTouchTap={function() {
-              if (!self.state.nepiOpyExpanded) {
-                fetchNepiOpy(lokalita.id).then(() => self.setState({ nepiOpyExpanded: true }))
-              } else {
-                self.setState({ nepiOpyExpanded: false })
-              }
-            }}
-          >
+        <div style={{ display: 'flex', alignItems: 'center', cursor: 'pointer' }} onClick={this.expandNepiOp}>
+          {nepiOpLabel}
+          <IconButton tooltip={this.state.nepiOpyExpanded ? 'sbalit' : 'rozbalit'}>
             <MyIcon color={colors.green100}>{this.state.nepiOpyExpanded ? 'expand_less' : 'expand_more'}</MyIcon>
           </IconButton>
         </div>
