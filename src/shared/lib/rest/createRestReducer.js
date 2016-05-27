@@ -118,9 +118,14 @@ export default function createRestReducer(endpointName, config = {}, actionTypes
         return state.update('pagination', pagination => setPageSize(pagination, action.perPage))
 
       case actionTypes.sortChange:
-        let dir = state.sort.dir === true
-        if (state.sort.by === action.sortField) dir = !dir
-        return state.update('sort', () => new Sort({ dir, by: action.sortField }))
+        let newSort
+        if (state.sort.by !== action.sortField) {
+          newSort = new Sort({ dir: true, by: action.sortField })
+        } else {
+          if (state.sort.dir === false) newSort = new Sort()
+          else newSort = new Sort({ dir: !state.sort.dir, by: action.sortField })
+        }
+        return state.update('sort', () => newSort)
 
       case actionTypes.filterChange:
         return state.update('filters', filters => {

@@ -2,7 +2,7 @@
 import { Record } from 'immutable'
 
 export const Sort = Record({
-  dir: false,
+  dir: true,
   by: '',
 })
 

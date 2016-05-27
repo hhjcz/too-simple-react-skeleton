@@ -54,7 +54,7 @@ describe('createRestReducer', () => {
     it('should handle SORT_CHANGE', () => {
       const nextState = reducer(initialState, { type: actionTypes.sortChange, sortField: 'someColumn' })
       expect(nextState.sort.by).to.equal('someColumn')
-      expect(nextState.sort.dir).to.equal(false)
+      expect(nextState.sort.dir).to.equal(true)
 
       // assert immutability
       expect(initialState).to.equal(reducer({
@@ -64,14 +64,17 @@ describe('createRestReducer', () => {
       }))
     })
 
-    it('should reverse sort direction', () => {
+    it('should reverse sort direction, then clear sort field', () => {
       const state = reducer(initialState, { type: actionTypes.sortChange, sortField: 'someColumn' })
       expect(state.sort.by).to.equal('someColumn')
-      expect(state.sort.dir).to.equal(false)
+      expect(state.sort.dir).to.equal(true)
+
       const nextState = reducer(state, { type: actionTypes.sortChange, sortField: 'someColumn' })
       expect(nextState.sort.by).to.equal('someColumn')
-      expect(nextState.sort.dir).to.equal(true)
+      expect(nextState.sort.dir).to.equal(false)
 
+      const finalState = reducer(nextState, { type: actionTypes.sortChange, sortField: 'someColumn' })
+      expect(finalState.sort.by).to.equal('')
     })
   })
 })
