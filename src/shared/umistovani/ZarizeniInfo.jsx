@@ -55,7 +55,9 @@ export default class ZarizeniInfo extends React.Component {
                 <Link to={`/lokalita/${zarizeni.umisteni.lokalita.ixlok}`}>
                   <MarkedLokalita lokalita={zarizeni.umisteni.lokalita} />
                 </Link>
-                <IconButton tooltip="Zrušit umístění" primary onTouchTap={zrusitUmisteni}><MyIcon color={colors.red200}>delete</MyIcon></IconButton>
+                <IconButton tooltip="Zrušit umístění" primary onTouchTap={zrusitUmisteni}>
+                  <MyIcon color={colors.red200}>delete</MyIcon>
+                </IconButton>
               </div>
             ) : null
           }

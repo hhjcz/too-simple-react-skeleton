@@ -125,6 +125,7 @@ export default function createRestReducer(endpointName, config = {}, actionTypes
           if (state.sort.dir === false) newSort = new Sort()
           else newSort = new Sort({ dir: !state.sort.dir, by: action.sortField })
         }
+
         return state.update('sort', () => newSort)
 
       case actionTypes.filterChange:
