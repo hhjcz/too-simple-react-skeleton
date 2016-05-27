@@ -1,5 +1,4 @@
 /** Created by hhj on 1/20/16. */
-/* eslint-disable no-nested-ternary */
 import React, { PropTypes } from 'react'
 import HeaderFilter from './HeaderFilter'
 import HeaderSort from './HeaderSort'
