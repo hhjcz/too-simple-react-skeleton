@@ -1,4 +1,5 @@
 /** Created by hhj on 12/30/15. */
+/* eslint-disable no-nested-ternary */
 import React, { PropTypes } from 'react'
 import Panel from 'react-bootstrap/lib/Panel'
 import IconButton from 'material-ui/IconButton'
@@ -40,7 +41,13 @@ export default class LokalitaDetail extends React.Component {
 
 
         <div style={{ display: 'flex', alignItems: 'center' }}>
-          {lokalita.umistenaZarizeniCount} umístěných zařízení
+          {
+            !(lokalita.umistenaZarizeniCount > 0) ? (
+              'žádná umístěná zařízení'
+            ) : self.state.zarizeniExpanded ? (
+              `${zarizeni.count()} zařízení`
+            ) : 'umístěná zařízení'
+          }
           <IconButton
             tooltip={this.state.zarizeniExpanded ? 'sbalit' : 'rozbalit'}
             onTouchTap={function() {
@@ -59,7 +66,13 @@ export default class LokalitaDetail extends React.Component {
         </Panel>
 
         <div style={{ display: 'flex', alignItems: 'center' }}>
-          {lokalita.nepiOpyCount} obchodních případů
+          {
+            lokalita.nepiOpyCount === 0 ? (
+              'žádný obchodní případ'
+            ) : self.state.nepiOpyExpanded ? (
+              `${nepiOpy.count()} obchodní případ(y)`
+            ) : 'obchodní případy'
+          }
           <IconButton
             tooltip={this.state.nepiOpyExpanded ? 'sbalit' : 'rozbalit'}
             onTouchTap={function() {

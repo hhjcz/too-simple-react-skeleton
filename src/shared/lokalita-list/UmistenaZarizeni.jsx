@@ -13,11 +13,11 @@ export default class UmistenaZarizeni extends React.Component {
 
   render() {
     const { umistenaZarizeni } = this.props
-    const count = umistenaZarizeni.count()
+    // const count = umistenaZarizeni.count()
 
     return (
       <div className="row">
-        <div className="col col-xs-1">{count}</div>
+        {/* <div className="col col-xs-1">{count}</div> */}
         <div className="col col-xs-11">
           {
             umistenaZarizeni.map(zarizeni =>
