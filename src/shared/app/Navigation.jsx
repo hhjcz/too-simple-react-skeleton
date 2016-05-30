@@ -43,6 +43,11 @@ export default class Navigation extends React.Component {
                 <ColoredIcon>place</ColoredIcon>
               </NavItem>
             </LinkContainer>
+            <LinkContainer to="/udalost">
+              <NavItem title="Události">
+                <ColoredIcon>history</ColoredIcon>
+              </NavItem>
+            </LinkContainer>
             <LinkContainer to="/hriste">
               <NavItem title="Hřiště">
                 <ColoredIcon>golf_course</ColoredIcon>

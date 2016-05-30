@@ -6,6 +6,7 @@ import { ZarizeniFactory } from './models/Zarizeni'
 import { UmisteniFactory } from './models/Umisteni'
 import { Lokalita } from './models/Lokalita'
 import { NepiOp } from './models/NepiOp'
+import { Udalost } from './models/Udalost'
 import { Sort } from './models/Sort'
 import { Pagination } from './models/Pagination'
 
@@ -66,6 +67,10 @@ const rest = myRest({
     extraParams: { fields: 'akrlok,obec', 'akrlok-not': null, sort: 'obec' },
     defaultState: { pagination: new Pagination({ perPage: 10000000 }) },
     idField: 'akrlok'
+  },
+  udalost: {
+    url: '/udalost/:id',
+    itemTransformer: item => new Udalost(item),
   },
   testEndpoint: {
     url: '/test/:id'
