@@ -5,11 +5,11 @@ import { List } from 'immutable'
 import createMapStateToProps from '../lib/createMapStateToProps'
 import createMapDispatchToProps from '../lib/createMapDispatchToProps'
 import { getItems } from '../lib/rest'
-import * as actions from './actions'
-import Tabulka from './Tabulka'
+import Tabulka from '../lib/tabulka/Tabulka'
+import ColumnsControl from '../lib/tabulka/ColumnsControl'
 import Paginator from '../lib/tabulka/Paginator'
 import PredefinedViews from './PredefinedViews'
-import ColumnsControl from '../lib/tabulka/ColumnsControl'
+import * as actions from './actions'
 
 export class Container extends React.Component {
 
@@ -71,7 +71,7 @@ export class Container extends React.Component {
     const {
       columns,
       fetching,
-      items: seznamZarizeni,
+      items,
       pagination,
       sort,
       filters,
@@ -103,7 +103,7 @@ export class Container extends React.Component {
         </div>
         <Tabulka
           columns={columnsList}
-          seznamZarizeni={seznamZarizeni} sort={sort}
+          items={items} sort={sort}
           fetching={fetching} filters={filters} pagination={pagination}
           onSortChange={self.onSortChange} onFilterChange={self.onFilterChange}
         />
