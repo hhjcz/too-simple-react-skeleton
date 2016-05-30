@@ -1,6 +1,6 @@
 {
   "name": "dohlestr-frontend",
-  "version": "1.0.28",
+  "version": "1.0.29",
   "dependencies": {
     "abbrev": {
       "version": "1.0.7",
