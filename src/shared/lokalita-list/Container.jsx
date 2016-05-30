@@ -34,10 +34,10 @@ export class Container extends React.Component {
 
   // server and client side fetch actions (see render.jsx & componentDidMount):
   static get fetchActions() {
-    return [Container.fetchZarizeni]
+    return [Container.fetchItems]
   }
 
-  static fetchZarizeni({ params }) {
+  static fetchItems({ params }) {
     return actions.fetchCollection({ params })
   }
 
