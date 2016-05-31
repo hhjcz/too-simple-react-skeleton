@@ -1916,9 +1916,9 @@
       "resolved": "https://registry.npmjs.org/escope/-/escope-3.6.0.tgz"
     },
     "eslint": {
-      "version": "2.11.0",
-      "from": "eslint@2.11.0",
-      "resolved": "https://registry.npmjs.org/eslint/-/eslint-2.11.0.tgz",
+      "version": "2.11.1",
+      "from": "eslint@2.11.1",
+      "resolved": "https://registry.npmjs.org/eslint/-/eslint-2.11.1.tgz",
       "dependencies": {
         "doctrine": {
           "version": "1.2.2",
@@ -2367,16 +2367,9 @@
       "resolved": "https://registry.npmjs.org/hawk/-/hawk-3.1.3.tgz"
     },
     "history": {
-      "version": "2.1.2",
-      "from": "history@2.1.2",
-      "resolved": "https://registry.npmjs.org/history/-/history-2.1.2.tgz",
-      "dependencies": {
-        "query-string": {
-          "version": "3.0.3",
-          "from": "query-string@>=3.0.0 <4.0.0",
-          "resolved": "https://registry.npmjs.org/query-string/-/query-string-3.0.3.tgz"
-        }
-      }
+      "version": "3.0.0",
+      "from": "history@3.0.0",
+      "resolved": "https://registry.npmjs.org/history/-/history-3.0.0.tgz"
     },
     "hoek": {
       "version": "2.16.3",
@@ -3788,9 +3781,16 @@
       "resolved": "https://registry.npmjs.org/qs/-/qs-4.0.0.tgz"
     },
     "query-string": {
-      "version": "4.1.0",
-      "from": "query-string@>=4.0.2 <5.0.0",
-      "resolved": "https://registry.npmjs.org/query-string/-/query-string-4.1.0.tgz"
+      "version": "4.2.0",
+      "from": "query-string@4.2.0",
+      "resolved": "https://registry.npmjs.org/query-string/-/query-string-4.2.0.tgz",
+      "dependencies": {
+        "object-assign": {
+          "version": "4.1.0",
+          "from": "object-assign@^4.1.0",
+          "resolved": "https://registry.npmjs.org/object-assign/-/object-assign-4.1.0.tgz"
+        }
+      }
     },
     "querystring": {
       "version": "0.2.0",
@@ -3950,7 +3950,19 @@
     "react-router": {
       "version": "2.4.1",
       "from": "react-router@2.4.1",
-      "resolved": "https://registry.npmjs.org/react-router/-/react-router-2.4.1.tgz"
+      "resolved": "https://registry.npmjs.org/react-router/-/react-router-2.4.1.tgz",
+      "dependencies": {
+        "history": {
+          "version": "2.1.2",
+          "from": "history@>=2.0.1 <3.0.0",
+          "resolved": "https://registry.npmjs.org/history/-/history-2.1.2.tgz"
+        },
+        "query-string": {
+          "version": "3.0.3",
+          "from": "query-string@>=3.0.0 <4.0.0",
+          "resolved": "https://registry.npmjs.org/query-string/-/query-string-3.0.3.tgz"
+        }
+      }
     },
     "react-router-bootstrap": {
       "version": "0.23.0",
