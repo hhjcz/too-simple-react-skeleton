@@ -8,4 +8,8 @@ describe('app rest', () => {
     expect(typeof rest.actions).to.equal('object')
   })
 
+  it('should define rest reducers', () => {
+    expect(typeof rest.reducers).to.equal('object')
+  })
+
 })
