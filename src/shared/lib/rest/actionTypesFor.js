@@ -8,7 +8,7 @@ function syncAction(resource, action, subAction = null) {
   const upperAction = snakeCase(action).toUpperCase()
   const upperSubAction = subAction ? `_${subAction.toUpperCase()}` : ''
 
-  const type = `${actionPrefix}/${upperResource}_${upperAction}${upperSubAction}`
+  const type = `${actionPrefix}/${upperResource}/${upperAction}${upperSubAction}`
   const alias = `${action}${subAction || ''}`
 
   return { type, alias }
