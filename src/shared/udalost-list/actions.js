@@ -1,22 +1,8 @@
 /** Created by hhj on 20.12.15. */
 import rest from '../app/rest'
-import defaultColumns from './defaultColumns'
-
-export const COLUMN_VISIBILITY = 'UDALOST_LIST/COLUMN_VISIBILITY'
-export const SET_COLUMN_WIDTH = 'UDALOST_LIST/SET_COLUMN_WIDTH'
-
-export const setColumnVisibility = (columnName, visible) => ({ type: COLUMN_VISIBILITY, columnName, visible })
-
-export const showColumn = columnName => setColumnVisibility(columnName, true)
-
-export const hideColumn = columnName => setColumnVisibility(columnName, false)
-
-export const setColumnWidth = (columnName, width = null) => {
-  if (!width) width = defaultColumns.get(columnName).width
-  return ({ type: SET_COLUMN_WIDTH, columnName, width })
-}
+import createTableActions from '../lib/tabulka/actionCreatorsFor'
 
 module.exports = {
-  ...module.exports,
+  ...createTableActions('UDALOST_LIST'),
   ...rest.actions,
 }
