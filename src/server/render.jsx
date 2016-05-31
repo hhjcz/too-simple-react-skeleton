@@ -1,6 +1,6 @@
 /** Created by hhj on 1/8/16. */
 
-import createLocation from 'history/lib/createLocation'
+import { createLocation } from 'history/lib/LocationUtils'
 import React from 'react'
 import { renderToString } from 'react-dom/server'
 import { RouterContext, match } from 'react-router'
