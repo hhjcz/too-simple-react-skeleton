@@ -102,7 +102,7 @@ export class Container extends React.Component {
     const akrloks = getItems(akrloksResource)
 
     return (
-      <div id="zarizeni-list">
+      <div id="umistovani">
         <div className="row">
           <div className="col col-xs-6">
             <Pagination
