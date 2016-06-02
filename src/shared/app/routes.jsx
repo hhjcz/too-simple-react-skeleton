@@ -5,8 +5,9 @@ import { Route, IndexRoute } from 'react-router'
 
 import ZarizeniList from '../zarizeni-list/Container'
 import Zarizeni from '../zarizeni/Container'
-import NetvisionZarizeni from '../zarizeni/NetvisionZarizeni'
-import Umistovani from '../umistovani/Container'
+import ZarizeniInfo from '../zarizeni/info/Container'
+import Umistovani from '../zarizeni/umistovani/Container'
+import NetvisionZarizeni from '../zarizeni/info/NetvisionZarizeni'
 import PortyZarizeni from '../port/PortyZarizeni'
 import PortZarizeni from '../port/PortZarizeni'
 import LokalitaList from '../lokalita-list/Container'
@@ -19,8 +20,10 @@ export default (
   <Route name="app" component={App} path="/">
     <Route path="zarizeni">
       <IndexRoute component={ZarizeniList} />
-      <Route path=":id">
-        <IndexRoute component={Zarizeni} />
+      <Route path=":id" component={Zarizeni}>
+        <IndexRoute component={ZarizeniInfo} />
+        <Route path="info" component={ZarizeniInfo} />
+        <Route path="umistovani" component={Umistovani} />
         <Route component={NetvisionZarizeni} path="netvision" />
         <Route path="ports">
           <IndexRoute component={PortyZarizeni} />

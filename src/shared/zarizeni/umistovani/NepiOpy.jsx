@@ -4,7 +4,7 @@ import React, { PropTypes } from 'react'
 import { List } from 'immutable'
 import uniqBy from 'lodash/uniqBy'
 import Avatar from 'material-ui/Avatar'
-import colors from '../app/colors'
+import colors from '../../app/colors'
 import { markPotencialniNepiop } from './markUtils'
 
 export default class NepiOpy extends React.Component {

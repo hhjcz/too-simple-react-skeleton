@@ -2,12 +2,12 @@
 import React, { PropTypes } from 'react'
 import { Link } from 'react-router'
 import IconButton from 'material-ui/IconButton'
-import MyIcon from '../lib/MyIcon'
-import colors from '../app/colors'
+import MyIcon from '../../lib/MyIcon'
+import colors from '../../app/colors'
 import MarkedLokalita from './MarkedLokalita'
-import MyDraggable from '../lib/MyDraggable'
+import MyDraggable from '../../lib/MyDraggable'
 import { markPotencialniNepiop } from './markUtils'
-import '../lib/Tabulka.styl'
+import '../../lib/Tabulka.styl'
 
 export default class ZarizeniInfo extends React.Component {
   static propTypes = {

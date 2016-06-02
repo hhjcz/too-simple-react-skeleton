@@ -3,7 +3,7 @@ import { expect } from 'chai'
 import React from 'react'
 import sd from 'skin-deep'
 import NepiOpy from '../NepiOpy'
-import { NepiOpyFactory } from '../../app/models/NepiOpy'
+import { NepiOpyFactory } from '../../../app/models/NepiOpy'
 
 describe('umistovani NepiOpy component', () => {
   let vdom

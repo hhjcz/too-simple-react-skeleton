@@ -6,9 +6,9 @@ import IconButton from 'material-ui/IconButton'
 import MyIcon from '../lib/MyIcon'
 import colors from '../app/colors'
 import { Lokalita } from '../app/models/Lokalita'
-import NepiOpy from '../umistovani/NepiOpy'
+import NepiOpy from '../zarizeni/umistovani/NepiOpy'
 import UmistenaZarizeni from '../lokalita-list/UmistenaZarizeni'
-import MarkedLokalita from '../umistovani/MarkedLokalita'
+import MarkedLokalita from '../zarizeni/umistovani/MarkedLokalita'
 
 export default class LokalitaDetail extends React.Component {
   static propTypes = {

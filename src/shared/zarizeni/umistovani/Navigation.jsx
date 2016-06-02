@@ -1,8 +1,8 @@
 /** Created by hhj on 3/31/16. */
 import React, { PropTypes } from 'react'
 import IconButton from 'material-ui/IconButton'
-import MyIcon from '../lib/MyIcon'
-import colors from '../app/colors'
+import MyIcon from '../../lib/MyIcon'
+import colors from '../../app/colors'
 
 export default class Navigation extends React.Component {
   static propTypes = {

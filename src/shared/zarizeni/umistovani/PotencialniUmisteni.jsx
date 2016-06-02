@@ -1,7 +1,7 @@
 /** Created by hhj on 3/17/16. */
 /* eslint-disable max-len */
 import React, { PropTypes } from 'react'
-import colors from '../app/colors'
+import colors from '../../app/colors'
 // import FlatButton from 'material-ui/lib/flat-button'
 import IconButton from 'material-ui/IconButton'
 // import RaisedButton from 'material-ui/lib/raised-button'
@@ -11,7 +11,7 @@ import sortBy from 'lodash/sortBy'
 import { List } from 'immutable'
 import MarkedLokalita from './MarkedLokalita'
 import NepiOpy from './NepiOpy'
-import MyIcon from '../lib/MyIcon'
+import MyIcon from '../../lib/MyIcon'
 import './PotencialniUmisteni.styl'
 
 export default class PotencialniUmisteni extends React.Component {

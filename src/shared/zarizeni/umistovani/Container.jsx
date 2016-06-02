@@ -2,13 +2,13 @@
 import React, { PropTypes } from 'react'
 import { connect } from 'react-redux'
 import { Pagination } from 'react-bootstrap'
-import createMapStateToProps from '../lib/createMapStateToProps'
-import createMapDispatchToProps from '../lib/createMapDispatchToProps'
-import { getSubState as getResourceSubState, getItems, getItem } from '../app/rest'
+import createMapStateToProps from '../../lib/createMapStateToProps'
+import createMapDispatchToProps from '../../lib/createMapDispatchToProps'
+import { getSubState as getResourceSubState, getItems, getItem } from '../../app/rest'
 import actions from './actions'
 import NedavneLokality from './NedavneLokality'
 import Umistovani from './Umistovani'
-import FetchIndicator from './../lib/FetchIndicator'
+import FetchIndicator from '../../lib/FetchIndicator'
 import Navigation from './Navigation'
 
 export class Container extends React.Component {
@@ -103,6 +103,7 @@ export class Container extends React.Component {
 
     return (
       <div id="umistovani">
+        <Navigation zarizeniId={zarizeni.id} />
         <div className="row">
           <div className="col col-xs-6">
             <Pagination

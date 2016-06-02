@@ -2,7 +2,7 @@
 import { expect } from 'chai'
 import React from 'react'
 import sd from 'skin-deep'
-import createStore from '../../app/createStore'
+import createStore from '../../../app/createStore'
 import Connected, { Container } from './../Container'
 
 describe('umistovani', () => {

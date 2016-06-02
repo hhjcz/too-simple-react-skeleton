@@ -3,8 +3,8 @@ import { Map } from 'immutable'
 import React from 'react'
 import { Link } from 'react-router'
 import { Column, columntValueTypes } from '../lib/tabulka/Column'
-import MarkedLokalita from '../umistovani/MarkedLokalita'
-import NepiOpy from '../umistovani/NepiOpy'
+import MarkedLokalita from '../zarizeni/umistovani/MarkedLokalita'
+import NepiOpy from '../zarizeni/umistovani/NepiOpy'
 import UmistenaZarizeni from './UmistenaZarizeni'
 
 const defaultColumns = Map(

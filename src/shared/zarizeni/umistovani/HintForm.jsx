@@ -1,12 +1,12 @@
 /** Created by hhj on 2/18/16. */
 import React, { PropTypes } from 'react'
 import { List } from 'immutable'
-import MyIcon from '../lib/MyIcon'
-import MyDraggable from '../lib/MyDraggable'
-import MyAutoComplete from '../lib/MyAutoComplete'
+import MyIcon from '../../lib/MyIcon'
+import MyDraggable from '../../lib/MyDraggable'
+import MyAutoComplete from '../../lib/MyAutoComplete'
 import { propsHolder as helperPropsHolder, fetchSeznamAkrloks, autoCompleteFactory } from './hintFormHelper'
 import './HintForm.styl'
-import colors from '../app/colors'
+import colors from '../../app/colors'
 
 const fields = ['obec', 'ulice', 'cislo', 'akrlok', { fieldName: 'ixop_or_akronym', caption: 'op' }, 'ixlok']
 

@@ -3,8 +3,8 @@ import { expect } from 'chai'
 import React from 'react'
 import sd from 'skin-deep'
 import { List, Map } from 'immutable'
-import createStore from '../../app/createStore'
-import Connected, { Container } from './../Container'
+import createStore from '../../../app/createStore'
+import Connected, { Container } from '../Container'
 
 describe('zarizeni-detail', () => {
 
