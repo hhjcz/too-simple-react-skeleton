@@ -18,7 +18,7 @@ class ColoredIcon extends React.Component {
 
 export default class Navigation extends React.Component {
   static propTypes = {
-    zarizeniId: PropTypes.number.isRequired,
+    zarizeniId: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
   };
 
   render() {
@@ -36,6 +36,11 @@ export default class Navigation extends React.Component {
             <LinkContainer to={`/zarizeni/${zarizeniId}/umistovani`}>
               <NavItem title="Umísťování">
                 <ColoredIcon>place</ColoredIcon>
+              </NavItem>
+            </LinkContainer>
+            <LinkContainer to={`/zarizeni/${zarizeniId}/port`}>
+              <NavItem title="Porty">
+                <ColoredIcon>usb</ColoredIcon>
               </NavItem>
             </LinkContainer>
           </Nav>

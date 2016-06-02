@@ -25,7 +25,7 @@ export default (
         <Route path="info" component={ZarizeniInfo} />
         <Route path="umistovani" component={Umistovani} />
         <Route component={NetvisionZarizeni} path="netvision" />
-        <Route path="ports">
+        <Route path="port">
           <IndexRoute component={PortyZarizeni} />
           <Route component={PortZarizeni} path=":portId" />
         </Route>
