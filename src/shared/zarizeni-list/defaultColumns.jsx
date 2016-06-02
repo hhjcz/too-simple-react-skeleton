@@ -67,10 +67,10 @@ const defaultColumns = Map(
       visible: true,
       sortable: false,
       render: (zarizeni, pozice) =>
-        <Link to={`/umistovani/${pozice}`}>{
-          zarizeni.umisteni && zarizeni.umisteni.lokalita && zarizeni.umisteni.lokalita.ixlok > 0 ?
+        <Link to={`/zarizeni/${zarizeni.id}/umistovani`}>{
+          zarizeni.umisteni && zarizeni.umisteni.lokalita && zarizeni.umisteni.lokalita.ixlok > 0 ? (
             <MarkedLokalita lokalita={zarizeni.umisteni.lokalita} />
-            : 'neumistene'
+          ) : 'neumistene'
         }</Link>
     }),
     previousNetvisionName: new Column({
