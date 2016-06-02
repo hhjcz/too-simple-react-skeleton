@@ -2,7 +2,7 @@
 /* eslint-disable no-unused-expressions */
 import { expect } from 'chai'
 import { Record, Map } from 'immutable'
-import { Column, columntValueTypes } from '../Column'
+import { Column } from '../Column'
 import { actionCreatorsFor } from '../actionCreatorsFor'
 import createReducer from '../createReducer'
 

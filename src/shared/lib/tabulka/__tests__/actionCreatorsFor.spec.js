@@ -1,7 +1,7 @@
 /** Created by hhj on 5/31/16. */
 /* eslint-disable no-unused-expressions */
 import { expect } from 'chai'
-import actionCreatorsFor from '../actionCreatorsFor'
+import { actionCreatorsFor } from '../actionCreatorsFor'
 
 describe('lib tabulka actionCreatorsFor', () => {
 

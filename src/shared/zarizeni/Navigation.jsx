@@ -2,7 +2,7 @@
 /* eslint-disable react/no-multi-comp */
 import React, { PropTypes } from 'react'
 import { LinkContainer, IndexLinkContainer } from 'react-router-bootstrap'
-import { Navbar, Nav, NavItem, NavbarBrand } from 'react-bootstrap'
+import { Navbar, Nav, NavItem } from 'react-bootstrap'
 import MyIcon from '../lib/MyIcon'
 import '../lib/icons.css'
 

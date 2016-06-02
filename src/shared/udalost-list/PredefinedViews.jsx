@@ -1,7 +1,7 @@
 /** Created by hhj on 3/3/16. */
 import React, { PropTypes } from 'react'
-import Toggle from 'material-ui/Toggle'
-import { Filter } from './../app/models/Filter'
+import Toggle from 'material-ui/Toggle'   // eslint-disable-line no-unused-vars
+import { Filter } from './../app/models/Filter'   // eslint-disable-line no-unused-vars
 
 export default class PredefinedViews extends React.Component {
   static propTypes = {
@@ -32,33 +32,33 @@ export default class PredefinedViews extends React.Component {
 
   render() {
     const { onNamedFilterChange, onFilterChange, showColumn, hideColumn, setColumnWidth } = this.props // eslint-disable-line no-unused-vars
-    const toggleState = PredefinedViews.computeToggleState(this.props)
+    const toggleState = PredefinedViews.computeToggleState(this.props)   // eslint-disable-line no-unused-vars
 
     return (
       <div className="row">
         <div className="col col-xs-5">
           {/*
-          <Toggle
-            label="Jen s OP" toggled={toggleState.nepiOpToggled}
-            onToggle={function(e, toggled) {
-              onFilterChange(new Filter({
-                name: 'op',
-                value: toggled ? false : null,
-                comparator: 'empty' })
-              )
-            }}
-          />
-          <Toggle
-            label="Jen s umístěným zařízením" toggled={toggleState.umistenaZarizeniToggled}
-            onToggle={function(e, toggled) {
-              onFilterChange(new Filter({
-                name: 'zarizeni',
-                value: toggled ? false : null,
-                comparator: 'empty' })
-              )
-            }}
-          />
-          */}
+           <Toggle
+           label="Jen s OP" toggled={toggleState.nepiOpToggled}
+           onToggle={function(e, toggled) {
+           onFilterChange(new Filter({
+           name: 'op',
+           value: toggled ? false : null,
+           comparator: 'empty' })
+           )
+           }}
+           />
+           <Toggle
+           label="Jen s umístěným zařízením" toggled={toggleState.umistenaZarizeniToggled}
+           onToggle={function(e, toggled) {
+           onFilterChange(new Filter({
+           name: 'zarizeni',
+           value: toggled ? false : null,
+           comparator: 'empty' })
+           )
+           }}
+           />
+           */}
         </div>
       </div>
     )
