@@ -4,7 +4,7 @@ import React from 'react'
 import sd from 'skin-deep'
 import Navigation from '../Navigation'
 
-describe('umistovani Navigation component', () => {
+describe('zarizeni Navigation component', () => {
   let vdom
   // let instance
 
@@ -18,7 +18,7 @@ describe('umistovani Navigation component', () => {
 
   it('should render with default props', () => {
     shallowRender()
-    expect(vdom.type).to.equal('div')
+    expect(vdom.type.displayName).to.equal('Uncontrolled(Navbar)')
     // expect(vdom.props.children.type).to.equal('');
   })
 

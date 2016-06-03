@@ -24,6 +24,8 @@ export const getItem = (resource = {}, defaultValue = {}) => {
   return entities.get(`${resource.item}`) || defaultValue
 }
 
+export const getIdAtCursor = (resource = {}) => resource.ids.get(resource.pagination.cursorAt - 1)
+
 /**
  * @description For testing purposes
  *

@@ -73,6 +73,10 @@ export default function createRestAction(endpointName, config, actionCreators, f
 
   // ***** SYNC action creators ***** */
 
+  const pointCursorTo = cursorAt => ({ dispatch }) => {
+    return dispatch(actionCreators.pointCursorTo({ cursorAt }))
+  }
+
   const fetchOneAt = cursorAt => ({ dispatch, getState }) => {
     dispatch(actionCreators.pointCursorTo({ cursorAt }))
 
@@ -131,6 +135,7 @@ export default function createRestAction(endpointName, config, actionCreators, f
     create,
     update,
     destroy,
+    pointCursorTo,
     fetchOneAt,
     gotoPage,
     setPagination,

@@ -22,6 +22,13 @@ export class Container extends React.Component {
     Container.fetchActions.forEach((action) => action({ params }))
   }
 
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.params.id !== this.props.params.id) {
+      const { params } = nextProps
+      Container.fetchActions.forEach((action) => action({ params }))
+    }
+  }
+
   render() {
     const zarizeni = getItem(this.props)
     return (

@@ -10,7 +10,7 @@ import { Udalost } from './models/Udalost'
 import { Sort } from './models/Sort'
 import { Pagination } from './models/Pagination'
 
-export { getSubState, getItem, getItems } from '../lib/rest'
+export { getSubState, getItem, getItems, getIdAtCursor } from '../lib/rest'
 
 const serverBaseUrl = process.env.SERVER_BASE_URL
   || (process.env.IS_BROWSER ? window.SERVER_BASE_URL : null)
