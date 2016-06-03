@@ -46,10 +46,13 @@ export class Container extends React.Component {
 
   componentDidMount() {
     // browser fetching:
-    Container.fetchActions.forEach(action => action({
-      params: { cursorAt: this.props.zarizeniResource.pagination.cursorAt, ...this.props.params },
-      dispatch: this.props.dispatch,
-    }))
+    Container.fetchActions.forEach(action => action({ params: this.props.params }))
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.params.id !== this.props.params.id) {
+      Container.fetchActions.forEach(action => action({ params: nextProps.params }))
+    }
   }
 
   render() {
