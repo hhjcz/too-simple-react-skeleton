@@ -18,7 +18,7 @@ const defaultColumns = Map(
       visible: true,
       position: 10,
       width: 1,
-      render: zarizeni => <Link to={`/zarizeni/${zarizeni.id}`}>{zarizeni.id}</Link>
+      render: (zarizeni, pozice) => <Link to={`/zarizeni/${zarizeni.id}?cursor=${pozice}`}>{zarizeni.id}</Link>
     }),
     name: new Column({
       name: 'name',
@@ -67,7 +67,7 @@ const defaultColumns = Map(
       visible: true,
       sortable: false,
       render: (zarizeni, pozice) =>
-        <Link to={`/zarizeni/${zarizeni.id}/umistovani`}>{
+        <Link to={`/zarizeni/${zarizeni.id}/umistovani?cursor=${pozice}`}>{
           zarizeni.umisteni && zarizeni.umisteni.lokalita && zarizeni.umisteni.lokalita.ixlok > 0 ? (
             <MarkedLokalita lokalita={zarizeni.umisteni.lokalita} />
           ) : 'neumistene'
