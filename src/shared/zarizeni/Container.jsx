@@ -39,9 +39,9 @@ export class Container extends React.Component {
     if (nextCursor !== currentCursor) {
       const zarizeniId = getIdAtCursor(nextProps.zarizeniResource)
 
+      // FIXME - should redirect to /zarizeni/:id/umisteni etc. based on current path...
       // TODO - workaround, depends on url path (should at least use location.pathname ...)
-      console.log(this.props)
-      this.context.router.push({ pathname: `zarizeni/${zarizeniId}/` })
+      this.context.router.push({ pathname: `/zarizeni/${zarizeniId}/` })
     }
   }
 
