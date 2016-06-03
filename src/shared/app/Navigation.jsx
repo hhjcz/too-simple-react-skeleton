@@ -22,12 +22,14 @@ export default class Navigation extends React.Component {
   render() {
     return (
       <Navbar>
+        <Navbar.Header>
+          <NavbarBrand>
+            {/* <i className="fa fa-music text-success" style={{ fontSize: '1em' }} /> */}
+            Dohlestr ({process.env.NODE_ENV})
+          </NavbarBrand>
+        </Navbar.Header>
         <Navbar.Collapse>
-          <Nav bsStyle="pills">
-            <NavbarBrand>
-              {/* <i className="fa fa-music text-success" style={{ fontSize: '1em' }} /> */}
-              Dohlestr ({process.env.NODE_ENV})
-            </NavbarBrand>
+          <Nav bsStyle="tabs">
             <IndexLinkContainer to="/">
               <NavItem title="Domů">
                 <ColoredIcon>home</ColoredIcon>

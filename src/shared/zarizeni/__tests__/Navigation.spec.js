@@ -18,7 +18,7 @@ describe('zarizeni Navigation component', () => {
 
   it('should render with default props', () => {
     shallowRender()
-    expect(vdom.type.displayName).to.equal('Uncontrolled(Navbar)')
+    expect(vdom.type).to.equal('div')
     // expect(vdom.props.children.type).to.equal('');
   })
 

@@ -31,8 +31,8 @@ export default class Navigation extends React.Component {
     const { zarizeniId, cursorAt, total, onCursorChange, reload } = this.props
 
     return (
-      <Navbar>
-        <Navbar.Collapse>
+      <div className="row">
+        <div className="col col-xs-4">
           <Nav bsStyle="tabs">
             <IndexLinkContainer to={`/zarizeni/${zarizeniId}/info`}>
               <NavItem title="Info">
@@ -49,35 +49,41 @@ export default class Navigation extends React.Component {
                 <ColoredIcon>usb</ColoredIcon>
               </NavItem>
             </LinkContainer>
-            <IconButton
-              tooltip="previous"
-              onTouchTap={function() {
-                onCursorChange(cursorAt > 1 ? cursorAt - 1 : 1)
-              }}
-            >
-              <MyIcon color={colors.blueGrey600}>arrow_back</MyIcon>
-            </IconButton>
-
-            <IconButton tooltip="reload" onTouchTap={function() { reload() }}>
-              <MyIcon color={colors.blueGrey800}>autorenew</MyIcon>
-            </IconButton>
-
-            <IconButton
-              tooltip="next"
-              onTouchTap={function() {
-                onCursorChange(cursorAt < total ? cursorAt + 1 : cursorAt)
-              }}
-            >
-              <MyIcon color={colors.blueGrey800}>arrow_forward</MyIcon>
-            </IconButton>
-            <Pagination
-              items={total} activePage={cursorAt}
-              prev next first last ellipsis bsSize="small" maxButtons={9}
-              onSelect={function(eventKey) { onCursorChange(eventKey) }}
-            />
           </Nav>
-        </Navbar.Collapse>
-      </Navbar>
+        </div>
+        <div className="col col-xs-8">
+          <div className="row">
+            <div className="col col-xs-7">
+              <Pagination
+                items={total} activePage={cursorAt}
+                prev next first last ellipsis bsSize="small" maxButtons={6}
+                onSelect={function(eventKey) { onCursorChange(eventKey) }}
+              />
+            </div>
+            <div className="col col-xs-5">
+              <IconButton
+                tooltip="previous"
+                onTouchTap={function() {
+                  onCursorChange(cursorAt > 1 ? cursorAt - 1 : 1)
+                }}
+              >
+                <MyIcon color={colors.blueGrey600}>arrow_back</MyIcon>
+              </IconButton>
+              <IconButton tooltip="reload" onTouchTap={function() { reload() }}>
+                <MyIcon color={colors.blueGrey800}>autorenew</MyIcon>
+              </IconButton>
+              <IconButton
+                tooltip="next"
+                onTouchTap={function() {
+                  onCursorChange(cursorAt < total ? cursorAt + 1 : cursorAt)
+                }}
+              >
+                <MyIcon color={colors.blueGrey800}>arrow_forward</MyIcon>
+              </IconButton>
+            </div>
+          </div>
+        </div>
+      </div>
     )
   }
 }
