@@ -72,7 +72,7 @@ export class Container extends React.Component {
         <Umistovani
           zarizeni={zarizeni} seznamUmisteni={seznamUmisteni} seznamPortu={seznamPortu} akrloks={akrloks}
           fetching={zarizeniResource.fetching || umisteniResource.fetching}
-          actions={{ ...actions, reload: self.reload }}
+          actions={{ ...actions, reload: () => Container.fetchZarizeni({ params: { id: zarizeni.id } }) }}
         />
         <FetchIndicator fetching={zarizeniResource.fetching || umisteniResource.fetching} />
       </div>
