@@ -2,7 +2,7 @@
 import { expect } from 'chai'
 import { List } from 'immutable'
 import { revive } from '../reduceHelpers'
-import { getSubState, getItems, getItem, generateSubState } from '../utils'
+import { getSubState, getItems, getItem, generateSubState, getIdAtCursor } from '../utils'
 
 describe('rest utils', () => {
 
@@ -64,6 +64,24 @@ describe('rest utils', () => {
     it('should get items from resource', () => {
       const item = getItem(resourceState)
       expect(item).to.deep.equal({ id: 66, name: 'name66' })
+    })
+  })
+
+  describe('getIdAtCursor', () => {
+    let resourceState
+    beforeEach(() => {
+      resourceState = revive({
+        ids: [66, 77, 88, 99],
+        items: [66, 77],
+        item: 66,
+        entities: { 66: { id: 66, name: 'name66' }, 77: { id: 77, name: 'name77' } },
+        pagination: { cursorAt: 3 },
+      })
+    })
+
+    it('should get id of item at cursor', () => {
+      const id = getIdAtCursor(resourceState)
+      expect(id).to.equal(88)
     })
   })
 
