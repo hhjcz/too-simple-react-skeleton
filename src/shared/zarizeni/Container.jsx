@@ -39,9 +39,12 @@ export class Container extends React.Component {
     if (nextCursor !== currentCursor) {
       const zarizeniId = getIdAtCursor(nextProps.zarizeniResource)
 
-      // FIXME - should redirect to /zarizeni/:id/umisteni etc. based on current path...
+      // FIXME - any other way how to programmaticly set route param?
       // TODO - workaround, depends on url path (should at least use location.pathname ...)
-      this.context.router.push({ pathname: `/zarizeni/${zarizeniId}/` })
+      const { location } = this.props
+      const splitLocation = location.pathname.split('/')
+      const subView = location && location.pathname ? `/${splitLocation[splitLocation.length - 1]}` : ''
+      this.context.router.push({ pathname: `/zarizeni/${zarizeniId}${subView}` })
     }
   }
 
