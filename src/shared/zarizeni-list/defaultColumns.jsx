@@ -18,7 +18,7 @@ const defaultColumns = Map(
       visible: true,
       position: 10,
       width: 1,
-      render: (zarizeni, pozice) => <Link to={`/zarizeni/${zarizeni.id}?cursor=${pozice}`}>{zarizeni.id}</Link>
+      render: (zarizeni, pozice) => <Link to={`/zarizeni/${zarizeni.id}/info?cursor=${pozice}`}>{zarizeni.id}</Link>
     }),
     name: new Column({
       name: 'name',

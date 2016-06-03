@@ -34,7 +34,7 @@ export default class Navigation extends React.Component {
       <Navbar>
         <Navbar.Collapse>
           <Nav bsStyle="tabs">
-            <IndexLinkContainer to={`/zarizeni/${zarizeniId}`}>
+            <IndexLinkContainer to={`/zarizeni/${zarizeniId}/info`}>
               <NavItem title="Info">
                 <ColoredIcon>info</ColoredIcon>
               </NavItem>
