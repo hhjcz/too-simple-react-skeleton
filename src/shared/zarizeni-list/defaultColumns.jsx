@@ -27,7 +27,7 @@ const defaultColumns = Map(
       visible: true,
       position: 20,
       width: 4,
-      render: zarizeni => <Link to={`/zarizeni/${zarizeni.id}`}>{zarizeni.name}</Link>,
+      render: (zarizeni, pozice) => <Link to={`/zarizeni/${zarizeni.id}/info?cursor=${pozice}`}>{zarizeni.name}</Link>
     }),
     createdAt: new Column({
       name: 'createdAt',
