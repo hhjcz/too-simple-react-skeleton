@@ -53,7 +53,6 @@ export class Container extends React.Component {
   }
 
   render() {
-    const self = this
     const { zarizeniResource, umisteniResource, akrloksResource, portyZarizeniResource, actions } = this.props
     const zarizeni = getItem(zarizeniResource)
     const seznamUmisteni = getItems(umisteniResource)
