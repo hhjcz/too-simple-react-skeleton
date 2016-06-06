@@ -5,7 +5,7 @@ import sd from 'skin-deep'
 
 import PredefinedViews from '../PredefinedViews'
 
-describe('zarizeni-list PredefinedViews component', () => {
+describe('udalost-list PredefinedViews component', () => {
   let tree
   let vdom
   let instance   // eslint-disable-line no-unused-vars
