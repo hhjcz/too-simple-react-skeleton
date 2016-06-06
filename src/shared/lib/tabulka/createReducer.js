@@ -36,7 +36,7 @@ function createReducer(tableName, initialColumns) {
           columns.update(action.columnName, column =>
             new Column({
               ...column.toObject(),
-              width: action.width !== null ? action.width : initialColumns.get(column.name).width || 1
+              width: action.width !== null ? action.width : initialColumns.get(action.columnName).width || 1
             })
           )
         )
