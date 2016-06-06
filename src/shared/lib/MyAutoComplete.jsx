@@ -140,6 +140,7 @@ export default class MyAutoComplete extends React.Component {
           ref="autocomplete"
           value={value}
           inputProps={{ className: 'form-control', draggable }}
+          wrapperStyle={{}}
           items={autoCompleteValues}
           getItemValue={item => item.value}
           renderItem={renderItem}
