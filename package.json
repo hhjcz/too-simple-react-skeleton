@@ -52,7 +52,7 @@
     "query-string": "^4.0.2",
     "react": "^15.1.0",
     "react-addons-shallow-compare": "^15.1.0",
-    "react-autocomplete": "https://github.com/hhjcz/react-autocomplete/tarball/master",
+    "react-autocomplete": "^1.0.0-rc5",
     "react-bootstrap": "^0.29.3",
     "react-dom": "^15.1.0",
     "react-redux": "^4.4.5",
