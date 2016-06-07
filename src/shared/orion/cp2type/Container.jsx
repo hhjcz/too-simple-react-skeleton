@@ -99,7 +99,10 @@ export class Container extends React.Component {
     sortedItems = this.state.sort.dir ? sortedItems.reverse() : sortedItems
 
     const filteredItems = sortedItems.filter(item =>
-      this.state.filters.reduce((keep, filter) => keep && (filter.value === '' || `${item[filter.name]}`.indexOf(filter.value) > -1), true))
+      this.state.filters.reduce(
+        (keep, filter) => keep && (filter.value === '' || `${item[filter.name]}`.toLowerCase().indexOf(filter.value.toLowerCase()) > -1),
+        true
+      ))
 
     const pagination = new Pagination({
       page: this.state.page,
