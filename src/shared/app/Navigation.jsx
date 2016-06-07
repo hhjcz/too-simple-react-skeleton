@@ -53,7 +53,7 @@ export default class Navigation extends React.Component {
             <NavDropdown title={<ColoredIcon title="Orion">stars</ColoredIcon>} id="nav-orion">
               <LinkContainer to="/orion/cp2type">
                 <MenuItem title="Custom pollers to machine type map">
-                  CP=>Type map
+                  {'CP \u2194 Type map'}
                 </MenuItem>
               </LinkContainer>
             </NavDropdown>
