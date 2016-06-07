@@ -11,6 +11,7 @@ export default class Tabulka extends React.Component {
     columns: PropTypes.object.isRequired,
     fetching: PropTypes.bool,
     items: PropTypes.object,
+    uniqueField: PropTypes.string,
     pagination: PropTypes.object,
     sort: PropTypes.object,
     filters: PropTypes.object,
@@ -21,10 +22,11 @@ export default class Tabulka extends React.Component {
   static defaultProps = {
     columns: List(),
     pagination: {},
+    uniqueField: 'id',
   };
 
   render() {
-    const { fetching, items, pagination, sort, filters, onSortChange, onFilterChange, columns } = this.props // eslint-disable-line max-len
+    const { fetching, items, uniqueField, pagination, sort, filters, onSortChange, onFilterChange, columns } = this.props // eslint-disable-line max-len
     let offset = (pagination.page - 1) * pagination.perPage + 1
 
     return (
@@ -44,7 +46,7 @@ export default class Tabulka extends React.Component {
         {
           items.map(item =>
             <Radka
-              key={item.id} model={item} columns={columns.toList()}
+              key={item[uniqueField]} model={item} columns={columns.toList()}
               pagination={pagination} pozice={offset} highlighted={offset++ === pagination.cursorAt}
             />
           )
