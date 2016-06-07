@@ -6,6 +6,7 @@ import createMapStateToProps from '../../lib/createMapStateToProps'
 import createMapDispatchToProps from '../../lib/createMapDispatchToProps'
 import { getItems } from '../../lib/rest'
 import { Pagination } from '../../app/models/Pagination'
+import { Sort } from '../../app/models/Sort'
 import Paginator from '../../lib/tabulka/Paginator'
 import ColumnsControl from '../../lib/tabulka/ColumnsControl'
 import Tabulka from '../../lib/tabulka/Tabulka'
@@ -47,7 +48,7 @@ export class Container extends React.Component {
     this.onFilterChange = this.onFilterChange.bind(this)
     this.onSortChange = this.onSortChange.bind(this)
     this.onNamedFilterChange = this.onNamedFilterChange.bind(this)
-    this.state = { page: 1, perPage: 10 }
+    this.state = { page: 1, perPage: 10, sort: new Sort({ by: 'autoAssign', dir: false }) }
   }
 
   // browser fetching:
@@ -56,7 +57,15 @@ export class Container extends React.Component {
   }
 
   onSortChange(sortField) {
-    this.props.actions.cp2type.sortChange(sortField)
+    const state = this.state
+    let newSort
+    if (state.sort.by !== sortField) {
+      newSort = new Sort({ dir: true, by: sortField })
+    } else {
+      if (state.sort.dir === true) newSort = new Sort({ dir: false, by: sortField })
+      else newSort = new Sort()  // clear sort field (tri-state)
+    }
+    this.setState({ sort: newSort })
   }
 
   /** @param {Filter} filter */
@@ -74,7 +83,6 @@ export class Container extends React.Component {
       columns,
       fetching,
       items,
-      sort,
       filters,
       generalParams,
       actions
@@ -90,6 +98,12 @@ export class Container extends React.Component {
       total: items.count(),
       totalPages: Math.ceil(items.count() / this.state.perPage),
     })
+
+    let sortedItems = items.sortBy(item => item[this.state.sort.by])
+    sortedItems = this.state.sort.dir ? sortedItems.reverse() : sortedItems
+
+    const paginatedItems = sortedItems
+      .slice((pagination.page - 1) * pagination.perPage, (pagination.page - 1) * pagination.perPage + pagination.perPage)
 
     return (
       <div id="cp2type-list">
@@ -110,8 +124,8 @@ export class Container extends React.Component {
           </div>
         </div>
         <Tabulka
-          columns={columnsList} items={items.slice((pagination.page - 1) * pagination.perPage, (pagination.page - 1) * pagination.perPage + pagination.perPage)}
-          sort={sort} fetching={fetching} filters={filters} pagination={pagination}
+          columns={columnsList} items={paginatedItems}
+          sort={self.state.sort} fetching={fetching} filters={filters} pagination={pagination}
           onSortChange={self.onSortChange} onFilterChange={self.onFilterChange}
         />
         <Paginator
