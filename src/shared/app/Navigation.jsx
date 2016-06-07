@@ -2,7 +2,7 @@
 /* eslint-disable react/no-multi-comp */
 import React, { PropTypes } from 'react'
 import { LinkContainer, IndexLinkContainer } from 'react-router-bootstrap'
-import { Navbar, Nav, NavItem, NavbarBrand } from 'react-bootstrap'
+import { Navbar, Nav, NavItem, NavDropdown, MenuItem, NavbarBrand } from 'react-bootstrap'
 import MyIcon from '../lib/MyIcon'
 import '../lib/icons.css'
 
@@ -12,7 +12,7 @@ class ColoredIcon extends React.Component {
   };
 
   render() {
-    return <MyIcon color="grey">{this.props.children}</MyIcon>
+    return <MyIcon color="grey" {...this.props}>{this.props.children}</MyIcon>
   }
 }
 
@@ -50,11 +50,13 @@ export default class Navigation extends React.Component {
                 <ColoredIcon>history</ColoredIcon>
               </NavItem>
             </LinkContainer>
-            <LinkContainer to="/orion/cp2type">
-              <NavItem title="Custom pollers to machine type map">
-                <ColoredIcon>stars</ColoredIcon>
-              </NavItem>
-            </LinkContainer>
+            <NavDropdown title={<ColoredIcon title="Orion">stars</ColoredIcon>} id="nav-orion">
+              <LinkContainer to="/orion/cp2type">
+                <MenuItem title="Custom pollers to machine type map">
+                  CP=>Type map
+                </MenuItem>
+              </LinkContainer>
+            </NavDropdown>
             <LinkContainer to="/hriste">
               <NavItem title="Hřiště">
                 <ColoredIcon>golf_course</ColoredIcon>

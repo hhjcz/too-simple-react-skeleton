@@ -45,8 +45,8 @@ export default (
     <Route path="udalost">
       <IndexRoute component={UdalostList} />
     </Route>
-    <Route path="orion/cp2type">
-      <IndexRoute component={Cp2TypeList} />
+    <Route path="orion">
+      <Route path="cp2type" component={Cp2TypeList} />
     </Route>
     <Route path="hriste" component={Hriste} />
   </Route>
