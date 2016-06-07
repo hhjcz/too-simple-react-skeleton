@@ -3786,9 +3786,9 @@
       "resolved": "https://registry.npmjs.org/qs/-/qs-4.0.0.tgz"
     },
     "query-string": {
-      "version": "4.2.0",
-      "from": "query-string@4.2.0",
-      "resolved": "https://registry.npmjs.org/query-string/-/query-string-4.2.0.tgz",
+      "version": "4.2.1",
+      "from": "query-string@4.2.1",
+      "resolved": "https://registry.npmjs.org/query-string/-/query-string-4.2.1.tgz",
       "dependencies": {
         "object-assign": {
           "version": "4.1.0",
@@ -3855,9 +3855,9 @@
       "resolved": "https://registry.npmjs.org/react-addons-update/-/react-addons-update-15.0.2.tgz"
     },
     "react-autocomplete": {
-      "version": "1.0.0-rc5",
-      "from": "react-autocomplete@1.0.0-rc5",
-      "resolved": "https://registry.npmjs.org/react-autocomplete/-/react-autocomplete-1.0.0-rc5.tgz"
+      "version": "1.0.0-rc6",
+      "from": "react-autocomplete@1.0.0-rc6",
+      "resolved": "https://registry.npmjs.org/react-autocomplete/-/react-autocomplete-1.0.0-rc6.tgz"
     },
     "react-bootstrap": {
       "version": "0.29.4",
