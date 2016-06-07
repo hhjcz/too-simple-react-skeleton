@@ -1,7 +1,7 @@
 /** Created by hhj on 12/28/15. */
 import React, { PropTypes } from 'react'
 import { connect } from 'react-redux'
-import { List } from 'immutable'
+import { List, Map } from 'immutable'
 import createMapStateToProps from '../../lib/createMapStateToProps'
 import createMapDispatchToProps from '../../lib/createMapDispatchToProps'
 import { getItems } from '../../lib/rest'
@@ -48,7 +48,7 @@ export class Container extends React.Component {
     this.onFilterChange = this.onFilterChange.bind(this)
     this.onSortChange = this.onSortChange.bind(this)
     this.onNamedFilterChange = this.onNamedFilterChange.bind(this)
-    this.state = { page: 1, perPage: 10, sort: new Sort({ by: 'autoAssign', dir: false }) }
+    this.state = { page: 1, perPage: 10, sort: new Sort({ by: 'autoAssign', dir: false }), filters: new Map() }
   }
 
   // browser fetching:
@@ -70,11 +70,14 @@ export class Container extends React.Component {
 
   /** @param {Filter} filter */
   onFilterChange(filter) {
-    this.props.actions.cp2type.filterChange(filter)
+    if (filter.value === '' || filter.value === null) {
+      this.setState({ filters: this.state.filters.delete(filter.name) })
+    }
+    this.setState({ filters: this.state.filters.set(filter.name, filter) })
   }
 
   onNamedFilterChange(filterName) {
-    this.props.actions.cp2type.generalParamChange({ name: 'filter', value: filterName })
+    // this.props.actions.cp2type.generalParamChange({ name: 'filter', value: filterName })
   }
 
   render() {
@@ -92,17 +95,20 @@ export class Container extends React.Component {
       .filter(column => !column.disabled)
       .sortBy(column => column.position)
 
-    const pagination = new Pagination({
-      page: this.state.page,
-      perPage: this.state.perPage,
-      total: items.count(),
-      totalPages: Math.ceil(items.count() / this.state.perPage),
-    })
-
     let sortedItems = items.sortBy(item => item[this.state.sort.by])
     sortedItems = this.state.sort.dir ? sortedItems.reverse() : sortedItems
 
-    const paginatedItems = sortedItems
+    const filteredItems = sortedItems.filter(item =>
+      this.state.filters.reduce((keep, filter) => keep && (filter.value === '' || `${item[filter.name]}`.indexOf(filter.value) > -1), true))
+
+    const pagination = new Pagination({
+      page: this.state.page,
+      perPage: this.state.perPage,
+      total: filteredItems.count(),
+      totalPages: Math.ceil(filteredItems.count() / this.state.perPage),
+    })
+
+    const paginatedItems = filteredItems
       .slice((pagination.page - 1) * pagination.perPage, (pagination.page - 1) * pagination.perPage + pagination.perPage)
 
     return (
@@ -125,7 +131,7 @@ export class Container extends React.Component {
         </div>
         <Tabulka
           columns={columnsList} items={paginatedItems}
-          sort={self.state.sort} fetching={fetching} filters={filters} pagination={pagination}
+          sort={self.state.sort} fetching={fetching} filters={this.state.filters} pagination={pagination}
           onSortChange={self.onSortChange} onFilterChange={self.onFilterChange}
         />
         <Paginator
