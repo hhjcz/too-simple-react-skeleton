@@ -3,6 +3,7 @@ import { combineReducers } from 'redux'
 import zarizeniList from '../zarizeni-list/reducer'
 import lokalitaList from '../lokalita-list/reducer'
 import udalostList from '../udalost-list/reducer'
+import cp2typeList from '../orion/cp2type/reducer'
 import { reducer as toastr } from 'react-redux-toastr'
 import rest from './rest'
 
@@ -13,6 +14,7 @@ const combinedReducer = combineReducers({
   zarizeniList,
   lokalitaList,
   udalostList,
+  cp2typeList,
   toastr,
 })
 

@@ -73,6 +73,9 @@ const rest = myRest({
     itemTransformer: item => new Udalost(item),
     extraParams: { group: 'data' },
   },
+  cp2type: {
+    url: '/orion/cp2type/:id',
+  },
   testEndpoint: {
     url: '/test/:id'
   }

@@ -13,6 +13,7 @@ import PortZarizeni from '../port/PortZarizeni'
 import LokalitaList from '../lokalita-list/Container'
 import Lokalita from '../lokalita-detail/Container'
 import UdalostList from '../udalost-list/Container'
+import Cp2TypeList from '../orion/cp2type/Container'
 import Hriste from './Hriste'
 import App from './index'
 
@@ -43,6 +44,9 @@ export default (
     </Route>
     <Route path="udalost">
       <IndexRoute component={UdalostList} />
+    </Route>
+    <Route path="orion/cp2type">
+      <IndexRoute component={Cp2TypeList} />
     </Route>
     <Route path="hriste" component={Hriste} />
   </Route>
