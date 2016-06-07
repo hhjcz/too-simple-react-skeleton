@@ -16,6 +16,7 @@ export default class PredefinedViews extends React.Component {
 
   static defaultProps = {
     namedFilter: null,
+    onNamedFilterChange: () => {},
   };
 
   static computeToggleState(props) {

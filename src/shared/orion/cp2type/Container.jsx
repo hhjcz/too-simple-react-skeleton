@@ -47,7 +47,6 @@ export class Container extends React.Component {
     super(props)
     this.onFilterChange = this.onFilterChange.bind(this)
     this.onSortChange = this.onSortChange.bind(this)
-    this.onNamedFilterChange = this.onNamedFilterChange.bind(this)
     this.state = { page: 1, perPage: 10, sort: new Sort({ by: 'autoAssign', dir: false }), filters: new Map() }
   }
 
@@ -76,10 +75,6 @@ export class Container extends React.Component {
     this.setState({ filters: this.state.filters.set(filter.name, filter) })
   }
 
-  onNamedFilterChange(filterName) {
-    // this.props.actions.cp2type.generalParamChange({ name: 'filter', value: filterName })
-  }
-
   render() {
     const self = this
     const {
@@ -99,10 +94,11 @@ export class Container extends React.Component {
     sortedItems = this.state.sort.dir ? sortedItems.reverse() : sortedItems
 
     const filteredItems = sortedItems.filter(item =>
-      this.state.filters.reduce(
-        (keep, filter) => keep && (filter.value === '' || `${item[filter.name]}`.toLowerCase().indexOf(filter.value.toLowerCase()) > -1),
+      this.state.filters.reduce((keep, filter) =>
+        keep && (filter.value === '' || `${item[filter.name]}`.toLowerCase().indexOf(filter.value.toLowerCase()) > -1),
         true
-      ))
+      )
+    )
 
     const pagination = new Pagination({
       page: this.state.page,
@@ -112,14 +108,16 @@ export class Container extends React.Component {
     })
 
     const paginatedItems = filteredItems
-      .slice((pagination.page - 1) * pagination.perPage, (pagination.page - 1) * pagination.perPage + pagination.perPage)
+      .slice(
+        (pagination.page - 1) * pagination.perPage,
+        (pagination.page - 1) * pagination.perPage + pagination.perPage
+      )
 
     return (
       <div id="cp2type-list">
         <div className="row">
           <div className="col col-xs-8">
             <PredefinedViews
-              onNamedFilterChange={self.onNamedFilterChange}
               namedFilter={generalParams.get('filter')}
               onFilterChange={self.onFilterChange}
               filters={filters}

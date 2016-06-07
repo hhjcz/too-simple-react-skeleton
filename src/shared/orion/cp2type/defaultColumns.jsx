@@ -1,8 +1,6 @@
 /** Created by hhj on 2/26/16. */
 /* eslint-disable no-nested-ternary */
 import { Map } from 'immutable'
-import React from 'react'
-import { Link } from 'react-router'
 import { Column, columntValueTypes } from '../../lib/tabulka/Column'
 
 const defaultColumns = Map(
