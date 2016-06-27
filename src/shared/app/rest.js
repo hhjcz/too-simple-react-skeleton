@@ -7,6 +7,7 @@ import { UmisteniFactory } from './models/Umisteni'
 import { Lokalita } from './models/Lokalita'
 import { NepiOp } from './models/NepiOp'
 import { Udalost } from './models/Udalost'
+import { Cp2Type } from './models/Cp2Type'
 import { Sort } from './models/Sort'
 import { Pagination } from './models/Pagination'
 
@@ -75,6 +76,7 @@ const rest = myRest({
   },
   cp2type: {
     url: '/orion/cp2type/:id',
+    itemTransformer: item => new Cp2Type(item),
   },
   testEndpoint: {
     url: '/test/:id'
