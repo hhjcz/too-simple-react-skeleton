@@ -1,7 +1,9 @@
 /** Created by hhj on 2/26/16. */
 /* eslint-disable no-nested-ternary */
 import { Map } from 'immutable'
+import React from 'react'
 import { Column, columntValueTypes } from '../../lib/tabulka/Column'
+import ActionButtons from './ActionButtons'
 
 const defaultColumns = Map(
   {
@@ -95,6 +97,21 @@ const defaultColumns = Map(
           'Ignore'
         ) : 'Unrecognized value'
       )
+    }),
+    actions: new Column({
+      name: 'actions',
+      caption: 'Actions',
+      visible: true,
+      sortable: false,
+      position: 100,
+      render: cp2type => <ActionButtons cp2type={cp2type} />
+    }),
+    updatedAt: new Column({
+      name: 'updatedAt',
+      caption: 'Updated at',
+      valueType: columntValueTypes.date,
+      visible: true,
+      position: 110,
     }),
   }
 )

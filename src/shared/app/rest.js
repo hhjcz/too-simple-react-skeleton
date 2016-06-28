@@ -75,7 +75,7 @@ const rest = myRest({
     extraParams: { group: 'data' },
   },
   cp2type: {
-    url: '/orion/cp2type/:id',
+    url: '/orion/cp2type/:custom_poller_id/:sys_object_id',
     itemTransformer: item => new Cp2Type(item),
   },
   testEndpoint: {
