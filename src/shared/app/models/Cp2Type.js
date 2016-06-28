@@ -6,13 +6,14 @@ import { ZarizeniFactory } from './Zarizeni'
 export class Cp2Type extends Record({
   id: 0,
   customPollerID: '',
-  pollerName: '',
   sysObjectID: '',
+  pollerName: '',
   machineType: '',
   faulty: 0,
   functional: 0,
   total: 0,
-  autoAssign: 0
+  autoAssign: 0,
+  updatedAt: ''
 }) {
   constructor(args = {}) {
     if (args.total) args.total = parseInt(args.total)
