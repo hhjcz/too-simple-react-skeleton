@@ -4268,9 +4268,31 @@
       }
     },
     "sass-loader": {
-      "version": "3.2.3",
-      "from": "sass-loader@3.2.3",
-      "resolved": "https://registry.npmjs.org/sass-loader/-/sass-loader-3.2.3.tgz"
+      "version": "4.0.0",
+      "from": "sass-loader@4.0.0",
+      "resolved": "https://registry.npmjs.org/sass-loader/-/sass-loader-4.0.0.tgz",
+      "dependencies": {
+        "emojis-list": {
+          "version": "2.0.1",
+          "from": "emojis-list@>=2.0.0 <3.0.0",
+          "resolved": "https://registry.npmjs.org/emojis-list/-/emojis-list-2.0.1.tgz"
+        },
+        "json5": {
+          "version": "0.5.0",
+          "from": "json5@>=0.5.0 <0.6.0",
+          "resolved": "https://registry.npmjs.org/json5/-/json5-0.5.0.tgz"
+        },
+        "loader-utils": {
+          "version": "0.2.15",
+          "from": "loader-utils@>=0.2.15 <0.3.0",
+          "resolved": "https://registry.npmjs.org/loader-utils/-/loader-utils-0.2.15.tgz"
+        },
+        "object-assign": {
+          "version": "4.1.0",
+          "from": "object-assign@>=4.1.0 <5.0.0",
+          "resolved": "https://registry.npmjs.org/object-assign/-/object-assign-4.1.0.tgz"
+        }
+      }
     },
     "sax": {
       "version": "1.2.1",
@@ -4818,9 +4840,9 @@
       "resolved": "https://registry.npmjs.org/webpack-dev-middleware/-/webpack-dev-middleware-1.6.1.tgz"
     },
     "webpack-hot-middleware": {
-      "version": "2.11.0",
-      "from": "webpack-hot-middleware@2.11.0",
-      "resolved": "https://registry.npmjs.org/webpack-hot-middleware/-/webpack-hot-middleware-2.11.0.tgz"
+      "version": "2.12.0",
+      "from": "webpack-hot-middleware@2.12.0",
+      "resolved": "https://registry.npmjs.org/webpack-hot-middleware/-/webpack-hot-middleware-2.12.0.tgz"
     },
     "webpack-isomorphic-tools": {
       "version": "2.3.2",
