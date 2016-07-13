@@ -25,7 +25,7 @@ if (process.env.IS_BROWSER) {
 
 const reducer = (state = {}, action) => {
   // initial state is received from server (see client/index.js) and hydrated in combined (sub) reducers,
-  // then the state is replaced by local storage persisted state if it exists:
+  // then the state is overlapped by local storage persisted state if it exists:
   if (process.env.IS_BROWSER && action.type === reduxStorageActions.INIT) {
     const persistedState = action.payload || {}
     state = { ...state, ...persistedState }
