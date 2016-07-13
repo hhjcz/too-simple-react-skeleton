@@ -4,6 +4,7 @@ import handleError from '../myErrorHandler'
 import createResource from './createResource'
 import { getSubState } from './utils'
 import queryGenerators from './queryGenerators'
+import * as authActions from './authActions'
 
 export default function createRestAction(endpointName, config, actionCreators, fnHolder) {
   const getThisSubState = getSubState(endpointName)
@@ -38,10 +39,17 @@ export default function createRestAction(endpointName, config, actionCreators, f
 
         return executeFetch()
           .then(response => {
+            if (response.status === 401 || response.status === 403) {
+              console.log('Potreba autentizace')
+              dispatch(authActions.authenticationRequired())
+              dispatch(subActionCreators.error({ errorMessage: 'Autentizace potreba' }))
+              return response
+            }
             dispatch(subActionCreators.success(response))
             return response
           })
           .catch(error => {
+            console.log(error)
             const errorMessage = `${error.message}`
             dispatch(subActionCreators.error({ errorMessage }))
             handleError(errorMessage)

@@ -1,12 +1,15 @@
 /** Created by hhj on 12/23/15. */
 import React, { PropTypes } from 'react'
-import Navigation from './Navigation'
+import { connect } from 'react-redux'
 import getMuiTheme from 'material-ui/styles/getMuiTheme'
+import Navigation from './Navigation'
+import LoginForm from './LoginForm'
 
-export default class App extends React.Component {
+export class App extends React.Component {
 
   static propTypes = {
-    children: PropTypes.object
+    children: PropTypes.object,
+    isAuthenticationRequired: PropTypes.bool,
   };
 
   static contextTypes = {
@@ -34,19 +37,24 @@ export default class App extends React.Component {
       devTools = <DevTools />
     }
 
+    const content = this.props.isAuthenticationRequired ? <LoginForm /> : this.props.children
+
     return (
       <div id="app-view" className="container-fluid">
         <Navigation />
 
-        {this.props.children}
+        {content}
 
         <hr />
 
         <div>hhj 2016</div>
-        {
-          devTools
-        }
+
+        {devTools}
       </div>
     )
   }
 }
+
+export default connect(
+  state => ({ isAuthenticationRequired: state.resources.auth.isAuthenticationRequired })
+)(App)

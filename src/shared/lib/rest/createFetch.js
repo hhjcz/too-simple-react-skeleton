@@ -8,6 +8,8 @@ export default function createFetch(serverBaseUrl) {
   return (url, options = {}) => fetch(serverBaseUrl + url, options)
     .then(
       response => {
+        if (response.status === 204 || response.status === 401 || response.status === 403) return response
+
         if (!response.ok) {
           try {
             return response.json().then(body => {
@@ -17,7 +19,7 @@ export default function createFetch(serverBaseUrl) {
             throw new Error(`${response.status} ${response.statusText}`)
           }
         }
-        if (response.status === 204) return response
+        // if (response.status === 204) return response
         return response.json()  // parse json to object
       })
 }

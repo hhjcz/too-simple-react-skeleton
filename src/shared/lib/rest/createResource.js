@@ -31,6 +31,7 @@ export default function createResource(resourceName, _config, fetchHolder) {
         .then(response => {
           const normalizedResponse = responseTransformer(response)
           normalizedResponse.meta.lastFetchSignature = url
+          normalizedResponse.status = response.status
           return normalizedResponse
         })
         .catch(error => {
