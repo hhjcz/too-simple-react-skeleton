@@ -5,10 +5,11 @@ import { LinkContainer, IndexLinkContainer } from 'react-router-bootstrap'
 import { Navbar, Nav, NavItem, NavDropdown, MenuItem, NavbarBrand } from 'react-bootstrap'
 import MyIcon from '../lib/MyIcon'
 import '../lib/icons.css'
+import Logout from './Logout'
 
 class ColoredIcon extends React.Component {
   static propTypes = {
-    children: PropTypes.any
+    children: PropTypes.any,
   };
 
   render() {
@@ -17,7 +18,9 @@ class ColoredIcon extends React.Component {
 }
 
 export default class Navigation extends React.Component {
-  static propTypes = {};
+  static propTypes = {
+    logout: PropTypes.func.isRequired,
+  };
 
   render() {
     return (
@@ -62,6 +65,11 @@ export default class Navigation extends React.Component {
                 <ColoredIcon>golf_course</ColoredIcon>
               </NavItem>
             </LinkContainer>
+            <NavItem title="Logout">
+              <Logout logout={this.props.logout}>
+                <ColoredIcon>exit_to_app</ColoredIcon>
+              </Logout>
+            </NavItem>
           </Nav>
         </Navbar.Collapse>
       </Navbar>

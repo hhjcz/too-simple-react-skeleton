@@ -1,15 +1,19 @@
 /** Created by hhj on 12/23/15. */
 import React, { PropTypes } from 'react'
+import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import getMuiTheme from 'material-ui/styles/getMuiTheme'
 import Navigation from './Navigation'
 import LoginForm from './LoginForm'
+import rest from './rest'
 
 export class App extends React.Component {
 
   static propTypes = {
     children: PropTypes.object,
     isAuthenticationRequired: PropTypes.bool,
+    login: PropTypes.func.isRequired,
+    logout: PropTypes.func.isRequired,
   };
 
   static contextTypes = {
@@ -37,11 +41,11 @@ export class App extends React.Component {
       devTools = <DevTools />
     }
 
-    const content = this.props.isAuthenticationRequired ? <LoginForm /> : this.props.children
+    const content = this.props.isAuthenticationRequired ? <LoginForm login={this.props.login} /> : this.props.children
 
     return (
       <div id="app-view" className="container-fluid">
-        <Navigation />
+        <Navigation logout={this.props.logout} />
 
         {content}
 
@@ -56,5 +60,6 @@ export class App extends React.Component {
 }
 
 export default connect(
-  state => ({ isAuthenticationRequired: state.resources.auth.isAuthenticationRequired })
+  state => ({ isAuthenticationRequired: state.resources.auth.isAuthenticationRequired }),
+  dispatch => bindActionCreators(rest.actions.auth, dispatch)
 )(App)

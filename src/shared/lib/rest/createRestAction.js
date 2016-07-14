@@ -41,8 +41,6 @@ export default function createRestAction(endpointName, config, actionCreators, d
           .then(response => {
             if (response.status === 401 || response.status === 403) {
               dispatch(actionCreators.authenticationRequired())
-              // FIXME: no hard wired creds:
-              dispatch(actionCreators.login('hhj@centrum.cz', 'popopo'))
               dispatch(subActionCreators.error({ errorMessage: 'Error: unauthorized' }))
               return response
             }

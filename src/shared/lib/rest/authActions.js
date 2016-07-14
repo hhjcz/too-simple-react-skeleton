@@ -3,6 +3,7 @@
 export const AUTHENTICATION_REQUIRED = 'AUTHENTICATION_REQUIRED'
 export const LOGIN_SUCCESS = 'LOGIN_SUCCESS'
 export const LOGIN_ERROR = 'LOGIN_ERROR'
+export const LOGOUT_SUCCESS = 'LOGOUT_SUCCESS'
 
 export function createAuthActions(depsContainer) {
 
@@ -30,7 +31,7 @@ export function createAuthActions(depsContainer) {
       })
   }
 
-  const logout = () => {}
+  const logout = () => ({ type: LOGOUT_SUCCESS })
 
   return {
     authenticationRequired,

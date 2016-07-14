@@ -2,9 +2,31 @@
 import React, { PropTypes } from 'react'
 
 export default class LoginForm extends React.Component {
-  static propTypes = {};
+  static propTypes = {
+    login: PropTypes.func.isRequired
+  };
 
   static defaultProps = {};
+
+  constructor(props) {
+    super(props)
+    this.onEmailChange = this.onEmailChange.bind(this)
+    this.onPasswordChange = this.onPasswordChange.bind(this)
+    this.handleLogin = this.handleLogin.bind(this)
+    this.state = { email: '', password: '' }
+  }
+
+  onEmailChange(e) {
+    this.setState({ email: e.target.value })
+  }
+
+  onPasswordChange(e) {
+    this.setState({ password: e.target.value })
+  }
+
+  handleLogin() {
+    this.props.login(this.state.email, this.state.password)
+  }
 
   render() {
     return (
@@ -21,7 +43,7 @@ export default class LoginForm extends React.Component {
                     <label className="col-md-4 control-label">E-Mail Address</label>
 
                     <div className="col-md-6">
-                      <input type="email" className="form-control" name="email" ng-model="email" />
+                      <input type="email" className="form-control" value={this.state.email} onChange={this.onEmailChange} />
                     </div>
                   </div>
 
@@ -29,13 +51,13 @@ export default class LoginForm extends React.Component {
                     <label className="col-md-4 control-label">Password</label>
 
                     <div className="col-md-6">
-                      <input type="password" className="form-control" name="password" ng-model="password" />
+                      <input type="password" className="form-control" value={this.state.password} onChange={this.onPasswordChange} />
                     </div>
                   </div>
 
                   <div className="form-group">
                     <div className="col-md-6 col-md-offset-4">
-                      <span className="btn btn-primary" style={{ marginRight: '15px' }} ng-click="login()">
+                      <span className="btn btn-primary" style={{ marginRight: '15px' }} onClick={this.handleLogin}>
                         Login
                       </span>
 
