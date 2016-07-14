@@ -3,7 +3,7 @@
 import { expect } from 'chai'
 import { createAuthActions, AUTHENTICATION_REQUIRED } from '../authActions'
 
-describe.only('rest lib authActions', () => {
+describe('rest lib authActions', () => {
   let passedUrl
   let passedOptions
 
