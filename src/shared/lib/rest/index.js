@@ -9,7 +9,7 @@ export const collectionTypes = { static: 'static', dynamic: 'dynamic' }
 
 export default function createMyRest(config = {}, fetch = () => ({}), dispatch = null) {
   const myRest = { actions: {}, reducers: {}, entityReducers: {} }
-  const fnHolder = { fetch, dispatch }
+  const depsContainer = { fetch, dispatch }
 
   Object.keys(config).forEach(endpointName => {
     const actionTypes = actionTypesFor(endpointName)
@@ -18,7 +18,7 @@ export default function createMyRest(config = {}, fetch = () => ({}), dispatch =
       endpointName,
       config[endpointName],
       actionCreators,
-      fnHolder
+      depsContainer
     )
     myRest.actions[endpointName] = actions
     myRest[endpointName] = { actions }
@@ -32,8 +32,12 @@ export default function createMyRest(config = {}, fetch = () => ({}), dispatch =
   })
 
   myRest.use = (key, value) => {
-    fnHolder[key] = value
+    depsContainer[key] = value
     return myRest
+  }
+
+  myRest.login = (creds) => {
+    depsContainer.fetch()
   }
 
   return myRest

@@ -5,10 +5,10 @@ import createResource from './createResource'
 import { getSubState } from './utils'
 import queryGenerators from './queryGenerators'
 
-export default function createRestAction(endpointName, config, actionCreators, fnHolder) {
+export default function createRestAction(endpointName, config, actionCreators, depsContainer) {
   const getThisSubState = getSubState(endpointName)
 
-  const resource = createResource(endpointName, config, fnHolder)
+  const resource = createResource(endpointName, config, depsContainer)
   const extraParams = decamelizeKeys(config.extraParams)
   const isStaticCollection = config.isStaticCollection || false
 
@@ -28,7 +28,7 @@ export default function createRestAction(endpointName, config, actionCreators, f
     /* eslint-disable arrow-body-style */
     return ({ params, body } = {}) => {
 
-      return fnHolder.dispatch(({ dispatch, getState }) => {
+      return depsContainer.dispatch(({ dispatch, getState }) => {
 
         const state = getThisSubState(getState)
         const queryParams = { ...queryGenerator(state), ...extraParams, ...decamelizeKeys(params), ...methodExtraParams } // eslint-disable-line max-len
@@ -125,7 +125,7 @@ export default function createRestAction(endpointName, config, actionCreators, f
     return updateCollection()
   }
 
-  const clearEntities = () => fnHolder.dispatch(actionCreators.clearEntities())
+  const clearEntities = () => depsContainer.dispatch(actionCreators.clearEntities())
 
   return {
     fetchIds,
