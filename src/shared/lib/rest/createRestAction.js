@@ -33,7 +33,7 @@ export default function createRestAction(endpointName, config, actionCreators, d
         const state = getThisSubState(getState)
         const authState = getAuthSubState(getState)
         const queryParams = { ...queryGenerator(state), ...extraParams, ...decamelizeKeys(params), ...methodExtraParams } // eslint-disable-line max-len
-        const { executeFetch } = resource[fetchMethod](queryParams, body, authState.token)
+        const { executeFetch } = resource[fetchMethod](queryParams, body, authState ? authState.token : '')
 
         dispatch(subActionCreators.requested())
 
