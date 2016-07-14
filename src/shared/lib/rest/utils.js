@@ -8,6 +8,11 @@ export const getSubState = endpointName => getState => {
   return subState
 }
 
+export const getAuthSubState = getState => {
+  const state = (typeof getState === 'function') ? getState() : getState
+  return state.resources.auth
+}
+
 export const getItems = (resource = {}) => {
   const entities = resource.entities || Map()
   const items = (resource.items || List())

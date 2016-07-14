@@ -4,7 +4,7 @@ import createRestAction from './createRestAction'
 import { actionTypesFor } from './actionTypesFor'
 import { actionCreatorsFor } from './actionCreatorsFor'
 import authReducer from './authReducer'
-import * as authActions from './authActions'
+import { createAuthActions } from './authActions'
 
 export { getSubState, getItems, getItem, getIdAtCursor } from './utils'
 export const collectionTypes = { static: 'static', dynamic: 'dynamic' }
@@ -13,13 +13,19 @@ export default function createMyRest(config = {}, fetch = () => ({}), dispatch =
   const myRest = { actions: {}, reducers: {}, entityReducers: {} }
   const depsContainer = { fetch, dispatch }
 
+  // authentication reducer and actions:
+  const authActions = createAuthActions(depsContainer)
+  myRest.reducers.auth = authReducer
+  myRest.actions.auth = authActions
+  myRest.auth = { reducer: authReducer, actions: authActions }
+
   Object.keys(config).forEach(endpointName => {
     const actionTypes = actionTypesFor(endpointName)
     const actionCreators = actionCreatorsFor(actionTypes)
     const actions = createRestAction(
       endpointName,
       config[endpointName],
-      actionCreators,
+      { ...actionCreators, ...authActions },
       depsContainer
     )
     myRest.actions[endpointName] = actions
@@ -33,10 +39,6 @@ export default function createMyRest(config = {}, fetch = () => ({}), dispatch =
     myRest[endpointName].reducer = reducer
   })
 
-  // authentication reducer and actions:
-  myRest.reducers.auth = authReducer
-  myRest.actions.auth = authActions
-  myRest.auth = { reducer: authReducer, actions: authActions }
 
   myRest.use = (key, value) => {
     depsContainer[key] = value

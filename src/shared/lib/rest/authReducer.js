@@ -3,7 +3,8 @@ import { Record } from 'immutable'
 import * as actions from './authActions'
 
 const InitialState = Record({
-  isAuthenticationRequired: false
+  isAuthenticationRequired: false,
+  token: null,
 })
 
 const reducer = (state = {}, action) => {
@@ -12,10 +13,12 @@ const reducer = (state = {}, action) => {
   switch (action.type) {
     case actions.AUTHENTICATION_REQUIRED:
       return state.set('isAuthenticationRequired', true)
+    case actions.LOGIN_SUCCESS:
+      return state.set('token', action.response.token)
+        .set('isAuthenticationRequired', false)
     default:
+      return state
   }
-
-  return state
 }
 
 export default reducer

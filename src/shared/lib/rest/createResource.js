@@ -13,7 +13,7 @@ export default function createResource(resourceName, _config, fetchHolder) {
   const createMethod = (methodName, method = 'GET') => {
     const responseTransformer = config.responseTransformers[methodName]
 
-    const fetchMethod = (params = {}, body = {}) => {
+    const fetchMethod = (params = {}, body = {}, authToken = '') => {
       const url = serializeParamsToUrl(config.url, params)
       const bodyObj = ['GET', 'HEAD'].indexOf(method) === -1 ? { body: JSON.stringify(body) } : {}
 
@@ -24,6 +24,7 @@ export default function createResource(resourceName, _config, fetchHolder) {
             'Content-Type': 'application/json',
             // 'Content-Type': 'application/x-www-form-url-encoded',
             'Accept': 'application/json',
+            'Authorization': `Bearer ${authToken}`,
           },
           // mode: 'opaque',
           ...bodyObj

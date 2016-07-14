@@ -2,9 +2,8 @@
 import { decamelizeKeys } from 'humps'
 import handleError from '../myErrorHandler'
 import createResource from './createResource'
-import { getSubState } from './utils'
+import { getSubState, getAuthSubState } from './utils'
 import queryGenerators from './queryGenerators'
-import * as authActions from './authActions'
 
 export default function createRestAction(endpointName, config, actionCreators, depsContainer) {
   const getThisSubState = getSubState(endpointName)
@@ -32,17 +31,19 @@ export default function createRestAction(endpointName, config, actionCreators, d
       return depsContainer.dispatch(({ dispatch, getState }) => {
 
         const state = getThisSubState(getState)
+        const authState = getAuthSubState(getState)
         const queryParams = { ...queryGenerator(state), ...extraParams, ...decamelizeKeys(params), ...methodExtraParams } // eslint-disable-line max-len
-        const { executeFetch } = resource[fetchMethod](queryParams, body)
+        const { executeFetch } = resource[fetchMethod](queryParams, body, authState.token)
 
         dispatch(subActionCreators.requested())
 
         return executeFetch()
           .then(response => {
             if (response.status === 401 || response.status === 403) {
-              console.log('Potreba autentizace')
-              dispatch(authActions.authenticationRequired())
-              dispatch(subActionCreators.error({ errorMessage: 'Autentizace potreba' }))
+              dispatch(actionCreators.authenticationRequired())
+              // FIXME: no hard wired creds:
+              dispatch(actionCreators.login('hhj@centrum.cz', 'popopo'))
+              dispatch(subActionCreators.error({ errorMessage: 'Error: unauthorized' }))
               return response
             }
             dispatch(subActionCreators.success(response))
