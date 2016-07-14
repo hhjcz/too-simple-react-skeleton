@@ -28,9 +28,9 @@ describe('rest lib createRestAction', () => {
     fetchBuffer.args = args
     return Promise.resolve(url)
   }
-  const fnHolder = { fetch, dispatch }
+  const depsContainer = { fetch, dispatch }
 
-  const actions = createRestAction(endpointName, config, actionCreators, fnHolder)
+  const actions = createRestAction(endpointName, config, actionCreators, depsContainer)
 
   it('should create rest actions', () => {
     expect(typeof actions.fetchIds).to.equal('function')
