@@ -45,9 +45,5 @@ export default function createMyRest(config = {}, fetch = () => ({}), dispatch =
     return myRest
   }
 
-  myRest.login = (creds) => {
-    depsContainer.fetch()
-  }
-
   return myRest
 }

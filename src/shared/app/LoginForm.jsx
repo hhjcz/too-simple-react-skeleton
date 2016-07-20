@@ -43,7 +43,11 @@ export default class LoginForm extends React.Component {
                     <label className="col-md-4 control-label">E-Mail Address</label>
 
                     <div className="col-md-6">
-                      <input type="email" className="form-control" value={this.state.email} onChange={this.onEmailChange} />
+                      <input
+                        type="email" className="form-control"
+                        value={this.state.email}
+                        onChange={this.onEmailChange}
+                      />
                     </div>
                   </div>
 
@@ -51,7 +55,11 @@ export default class LoginForm extends React.Component {
                     <label className="col-md-4 control-label">Password</label>
 
                     <div className="col-md-6">
-                      <input type="password" className="form-control" value={this.state.password} onChange={this.onPasswordChange} />
+                      <input
+                        type="password" className="form-control"
+                        value={this.state.password}
+                        onChange={this.onPasswordChange}
+                      />
                     </div>
                   </div>
 

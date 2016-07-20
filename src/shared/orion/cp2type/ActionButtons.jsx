@@ -17,11 +17,27 @@ export default class ActionButtons extends React.Component {
   render() {
     const { cp2type } = this.props
 
+    const updateCp2Type = value => actions.updateCp2Type(cp2type.customPollerID, cp2type.sysObjectID, value)
+
     return (
       <div>
-        <IconButton tooltip="Assign" primary onTouchTap={() => actions.updateCp2Type(cp2type.customPollerID, cp2type.sysObjectID, 1)}><MyIcon color={colors.green300}>assignment_turned_in</MyIcon></IconButton>
-        <IconButton tooltip="UnAssign" primary onTouchTap={() => actions.updateCp2Type(cp2type.customPollerID, cp2type.sysObjectID, 2)}><MyIcon color={colors.red300}>assignment_late</MyIcon></IconButton>
-        <IconButton tooltip="Ignore" primary onTouchTap={() => actions.updateCp2Type(cp2type.customPollerID, cp2type.sysObjectID, 3)}><MyIcon color={colors.grey500}>not_interested</MyIcon></IconButton>
+        <IconButton tooltip="Assign" primary onTouchTap={updateCp2Type(1)}>
+          <MyIcon color={colors.green300}>
+            assignment_turned_in
+          </MyIcon>
+        </IconButton>
+
+        <IconButton tooltip="UnAssign" primary onTouchTap={updateCp2Type(2)}>
+          <MyIcon color={colors.red300}>
+            assignment_late
+          </MyIcon>
+        </IconButton>
+
+        <IconButton tooltip="Ignore" primary onTouchTap={updateCp2Type(3)}>
+          <MyIcon color={colors.grey500}>
+            not_interested
+          </MyIcon>
+        </IconButton>
       </div>
     )
   }

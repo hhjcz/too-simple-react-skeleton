@@ -1,7 +1,5 @@
 /** Created by hhj on 2/16/16. */
-import { Record, List } from 'immutable'
-import { NepiOpyFactory } from './NepiOpy'
-import { ZarizeniFactory } from './Zarizeni'
+import { Record } from 'immutable'
 
 export class Cp2Type extends Record({
   id: 0,

@@ -23,7 +23,7 @@ describe('rest lib authActions', () => {
 
   it('should send login correst request', () => {
     const authActions = createAuthActions(depsContainer)
-    const loginResponse = authActions.login('someEmail', 'somePassword')({ dispatch: x => x })
+    authActions.login('someEmail', 'somePassword')({ dispatch: x => x })
     expect(passedUrl).to.equal('/auth/login')
     expect(passedOptions.body).to.deep.equal(JSON.stringify({ email: 'someEmail', password: 'somePassword' }))
     expect(passedOptions.method).to.equal('POST')
