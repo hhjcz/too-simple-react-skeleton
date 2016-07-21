@@ -21,19 +21,19 @@ export default class ActionButtons extends React.Component {
 
     return (
       <div>
-        <IconButton tooltip="Assign" primary onTouchTap={updateCp2Type(1)}>
+        <IconButton tooltip="Assign" primary onTouchTap={() => updateCp2Type(1)}>
           <MyIcon color={colors.green300}>
             assignment_turned_in
           </MyIcon>
         </IconButton>
 
-        <IconButton tooltip="UnAssign" primary onTouchTap={updateCp2Type(2)}>
+        <IconButton tooltip="UnAssign" primary onTouchTap={() => updateCp2Type(2)}>
           <MyIcon color={colors.red300}>
             assignment_late
           </MyIcon>
         </IconButton>
 
-        <IconButton tooltip="Ignore" primary onTouchTap={updateCp2Type(3)}>
+        <IconButton tooltip="Ignore" primary onTouchTap={() => updateCp2Type(3)}>
           <MyIcon color={colors.grey500}>
             not_interested
           </MyIcon>
