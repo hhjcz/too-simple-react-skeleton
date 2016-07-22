@@ -2,7 +2,7 @@
 import { expect } from 'chai'
 import React from 'react'
 import sd from 'skin-deep'
-
+import { ZarizeniFactory } from '../../../app/models/Zarizeni'
 import ZarizeniDetail from '../ZarizeniDetail'
 
 describe('zarizeni ZarizeniDetail component', () => {
@@ -11,7 +11,8 @@ describe('zarizeni ZarizeniDetail component', () => {
   let instance   // eslint-disable-line no-unused-vars
 
   beforeEach(() => {
-    tree = sd.shallowRender(React.createElement(ZarizeniDetail, { zarizeni: { id: 666 } }))
+    const zarizeni = ZarizeniFactory({ id: 666 })
+    tree = sd.shallowRender(React.createElement(ZarizeniDetail, { zarizeni }))
 
     instance = tree.getMountedInstance()
     vdom = tree.getRenderOutput()

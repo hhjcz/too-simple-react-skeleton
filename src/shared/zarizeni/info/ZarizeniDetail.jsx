@@ -14,6 +14,13 @@ export default class ZarizeniDetail extends React.Component {
         <div>id: {zarizeni.id}</div>
         <div>name: {zarizeni.name}</div>
         <div>info name: {zarizeni.infoName}</div>
+        <div>
+          orion id:
+          <a href={`http://orion.cesta/Orion/NetPerfMon/NodeDetails.aspx?NetObject=N:${zarizeni.orionZarizeni.id}`}>
+            {zarizeni.orionZarizeni.id}
+          </a>
+        </div>
+        <div>nv id: {zarizeni.netvisionZarizeni.id}</div>
         <div>created at: {zarizeni.createdAt}</div>
         <div>updated at: {zarizeni.updatedAt}</div>
         <div>deleted at: {zarizeni.deletedAt}</div>
