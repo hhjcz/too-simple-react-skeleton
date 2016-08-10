@@ -4,7 +4,7 @@ import createFetch from '../createFetch'
 
 describe('myRest library createFetch', () => {
 
-  it('should create fetch', (done) => {
+  it('should create fetch', () => {
     const fetch = createFetch('someBaseUrl')
     expect(typeof fetch).to.equal('function')
 
@@ -12,7 +12,6 @@ describe('myRest library createFetch', () => {
     return promise
       .catch(error => {
         expect(error).to.be.instanceOf(Error)
-        done()
       })
   })
 
