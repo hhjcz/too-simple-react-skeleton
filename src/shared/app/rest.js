@@ -72,7 +72,7 @@ const rest = myRest({
   udalost: {
     url: '/udalost/:id',
     itemTransformer: item => new Udalost(item),
-    extraParams: { group: 'data' },
+    // extraParams: { group: 'data' },
   },
   cp2type: {
     url: '/orion/cp2type/:custom_poller_id/:sys_object_id',

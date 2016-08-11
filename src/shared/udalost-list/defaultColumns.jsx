@@ -34,7 +34,14 @@ const defaultColumns = Map(
       sortable: true,
       position: 30,
       width: 8,
-      render: udalost => JSON.stringify(udalost.data).substring(0, 120),
+      render: udalost => {
+        // JSON.stringify(udalost.data).substring(0, 120)
+        return (
+          <span>
+            <Link to={`/zarizeni/orion/${udalost.data.alreadyInOrionId}`}>{udalost.data.alreadyInOrionId}</Link>
+          </span>
+        )
+      },
     }),
     stav: new Column({
       name: 'stav',
