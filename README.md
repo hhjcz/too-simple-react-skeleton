@@ -7,7 +7,8 @@ Yet another react-redux universal (isomorphic) application skeleton. Still under
 
 - [react](https://facebook.github.io/react/index.html)
 - [redux](https://github.com/rackt/redux)
-- webpack with hot reload
-- eS6
-- immutable
-- ...
+- Es6, functional programming
+- [Immutable](https://facebook.github.io/immutable-js/)
+- Babel
+- Webpack
+- mocha testing, eslint
