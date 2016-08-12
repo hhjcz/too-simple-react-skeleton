@@ -18,9 +18,13 @@ export default function debounce(fn, delay, __context) {
   let timeout
   const _context = __context || this
 
-  const debounced = function(...args) {
+  const debounced = function (...args) {
     const context = _context || this
     clearTimeout(timeout)
+
+    // immediate call (bounded to desired context):
+    if (delay === 0) return fn.apply(context, args)
+
     return new Promise(resolve => {
       timeout = setTimeout(() => {
         resolve(fn.apply(context, args))
@@ -28,7 +32,7 @@ export default function debounce(fn, delay, __context) {
     })
   }
 
-  debounced.cancel = function() {
+  debounced.cancel = function () {
     clearTimeout(timeout)
     timeout = null
   }
