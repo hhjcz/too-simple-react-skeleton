@@ -1,11 +1,8 @@
 /** Created by hhj on 5/13/16. */
 import React, { PropTypes } from 'react'
 import { Map } from 'immutable'
-import Panel from 'react-bootstrap/lib/Panel'
-import Checkbox from 'material-ui/Checkbox'
-import IconButton from 'material-ui/IconButton'
-import MyIcon from '../MyIcon'
-import colors from '../../app/colors'
+import Button from 'react-bootstrap/lib/Button'
+import Label from 'react-bootstrap/lib/Label'
 
 export default class ColumnsControl extends React.Component {
   static propTypes = {
@@ -19,41 +16,30 @@ export default class ColumnsControl extends React.Component {
 
   constructor(props) {
     super(props)
+    this.toggleVisibility = this.toggleVisibility.bind(this)
     this.state = {
       open: false
     }
   }
 
+  toggleVisibility(column) {
+    this.props.setColumnVisibility(column.name, !column.visible)
+  }
+
   render() {
     const self = this
-    const { columns, setColumnVisibility } = this.props
+    const { columns } = this.props
 
     return (
-      <div>
-        <div
-          style={{ display: 'flex', alignItems: 'center', cursor: 'pointer' }}
-          onClick={function() { self.setState({ open: !self.state.open }) }}
-        >
-          <IconButton tooltip={this.state.open ? 'sbalit' : 'rozbalit'}>
-            <MyIcon color={colors.green100}>{this.state.open ? 'expand_less' : 'expand_more'}</MyIcon>
-          </IconButton>
-          <MyIcon color={colors.green100} tooltip="zobrazené sloupce">view_column</MyIcon>
-        </div>
-        <Panel collapsible expanded={this.state.open} style={{ border: '0px' }}>
-          {
-            columns.map(column =>
-              <Checkbox
-                key={column.name}
-                label={column.caption}
-                labelPosition="left"
-                checked={column.visible}
-                onCheck={function(e, isChecked) {
-                  setColumnVisibility(column.name, isChecked)
-                }}
-              />
-            )
-          }
-        </Panel>
+      <div style={{ display: 'flex', justifyContent: 'flex-end', alignItems: 'center' }}>
+        <span className="text-info">Columns:</span>
+        {
+          columns.map(column =>
+            <Button className="btn-default btn-sm" onClick={() => self.toggleVisibility(column)} active={column.visible}>
+              {column.caption}
+            </Button>
+          )
+        }
       </div>
     )
   }

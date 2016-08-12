@@ -4,6 +4,7 @@ import { List } from 'immutable'
 import '../Tabulka.styl'
 import HeaderCell from './HeaderCell'
 import Radka from './Radka'
+import Footer from './Footer'
 
 export default class Tabulka extends React.Component {
 
@@ -15,8 +16,10 @@ export default class Tabulka extends React.Component {
     pagination: PropTypes.object,
     sort: PropTypes.object,
     filters: PropTypes.object,
+    onRowCountChange: PropTypes.func.isRequired,
     onSortChange: PropTypes.func.isRequired,
     onFilterChange: PropTypes.func.isRequired,
+    setColumnVisibility: PropTypes.func.isRequired,
   };
 
   static defaultProps = {
@@ -26,11 +29,11 @@ export default class Tabulka extends React.Component {
   };
 
   render() {
-    const { fetching, items, uniqueField, pagination, sort, filters, onSortChange, onFilterChange, columns } = this.props // eslint-disable-line max-len
+    const { fetching, items, uniqueField, pagination, sort, filters, onSortChange, onFilterChange, columns, setColumnVisibility, onRowCountChange } = this.props // eslint-disable-line max-len
     let offset = (pagination.page - 1) * pagination.perPage + 1
 
     return (
-      <div className={`myTable${(fetching ? ' fetching' : '')}`}>
+      <div className={`myTable ${(fetching ? 'fetching' : '')}`}>
         {/* header */}
         <div className="myTableRow">
           {
@@ -52,6 +55,7 @@ export default class Tabulka extends React.Component {
           )
         }
         {fetching ? <div className="fetchIndicator glyphicon visible" /> : ''}
+        <Footer columns={columns} setColumnVisibility={setColumnVisibility} rowCount={pagination.perPage} total={pagination.total} onRowCountChange={onRowCountChange} />
       </div>
     )
   }

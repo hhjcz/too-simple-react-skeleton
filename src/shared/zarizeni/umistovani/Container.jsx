@@ -65,11 +65,9 @@ export class Container extends React.Component {
     return (
       <div id="umistovani">
         <div className="row">
-          <div className="col col-xs-6">
-          </div>
-          <div className="col col-xs-6">
-            <NedavneLokality />
-          </div>
+          {/*<div className="col col-xs-6">*/}
+          {/*<NedavneLokality />*/}
+          {/*</div>*/}
         </div>
         <Umistovani
           zarizeni={zarizeni} seznamUmisteni={seznamUmisteni} seznamPortu={seznamPortu} akrloks={akrloks}

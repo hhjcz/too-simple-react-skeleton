@@ -116,7 +116,7 @@ export class Container extends React.Component {
     return (
       <div id="cp2type-list">
         <div className="row">
-          <div className="col col-xs-8">
+          <div className="col col-md-6">
             <PredefinedViews
               namedFilter={generalParams.get('filter')}
               onFilterChange={self.onFilterChange}
@@ -126,19 +126,19 @@ export class Container extends React.Component {
               setColumnWidth={actions.setColumnWidth}
             />
           </div>
-          <div className="col col-xs-3 col-xs-offset-1">
-            <ColumnsControl columns={columnsList} setColumnVisibility={actions.setColumnVisibility} />
+          <div className="col col-md-6">
+            <Paginator
+              pagination={pagination}
+              onPageChange={function(page) { self.setState({ page }) }}
+            />
           </div>
         </div>
         <Tabulka
           columns={columnsList} items={paginatedItems}
           sort={self.state.sort} fetching={fetching} filters={this.state.filters} pagination={pagination}
+          onRowCountChange={function(perPage) { self.setState({ perPage }) }}
           onSortChange={self.onSortChange} onFilterChange={self.onFilterChange}
-        />
-        <Paginator
-          pagination={pagination}
-          onPageChange={function(page) { self.setState({ page }) }}
-          onPerPageChange={function(perPage) { self.setState({ perPage }) }}
+          setColumnVisibility={actions.setColumnVisibility}
         />
       </div>
     )

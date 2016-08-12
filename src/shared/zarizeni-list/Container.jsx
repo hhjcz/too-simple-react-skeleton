@@ -8,7 +8,6 @@ import { getItems } from '../lib/rest'
 import Tabulka from '../lib/tabulka/Tabulka'
 import Paginator from '../lib/tabulka/Paginator'
 import PredefinedViews from './PredefinedViews'
-import ColumnsControl from '../lib/tabulka/ColumnsControl'
 import * as actions from './actions'
 
 export class Container extends React.Component {
@@ -92,7 +91,7 @@ export class Container extends React.Component {
     return (
       <div id="zarizeni-list">
         <div className="row">
-          <div className="col col-xs-8">
+          <div className="col col-md-6">
             <PredefinedViews
               onNamedFilterChange={self.onNamedFilterChange}
               namedFilter={generalParams.get('filter')}
@@ -103,20 +102,21 @@ export class Container extends React.Component {
               setColumnWidth={actions.setColumnWidth}
             />
           </div>
-          <div className="col col-xs-3 col-xs-offset-1">
-            <ColumnsControl columns={columnsList} setColumnVisibility={actions.setColumnVisibility} />
+          <div className="col col-md-6">
+            <Paginator
+              pagination={pagination}
+              onPageChange={actions.gotoPage}
+              maxButtons={6}
+            />
           </div>
         </div>
         <Tabulka
           columns={columnsList}
           items={items} sort={sort}
           fetching={fetching} filters={filters} pagination={pagination}
+          onRowCountChange={actions.setPageSize}
           onSortChange={self.onSortChange} onFilterChange={self.onFilterChange}
-        />
-        <Paginator
-          pagination={pagination}
-          onPageChange={actions.gotoPage}
-          onPerPageChange={actions.setPageSize}
+          setColumnVisibility={actions.setColumnVisibility}
         />
       </div>
     )

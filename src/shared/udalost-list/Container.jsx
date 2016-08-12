@@ -6,7 +6,6 @@ import createMapStateToProps from '../lib/createMapStateToProps'
 import createMapDispatchToProps from '../lib/createMapDispatchToProps'
 import { getItems } from '../lib/rest'
 import Paginator from '../lib/tabulka/Paginator'
-import ColumnsControl from '../lib/tabulka/ColumnsControl'
 import Tabulka from '../lib/tabulka/Tabulka'
 import PredefinedViews from './PredefinedViews'
 import * as actions from './actions'
@@ -86,7 +85,7 @@ export class Container extends React.Component {
     return (
       <div id="udalost-list">
         <div className="row">
-          <div className="col col-xs-8">
+          <div className="col col-md-6">
             <PredefinedViews
               onNamedFilterChange={self.onNamedFilterChange}
               namedFilter={generalParams.get('filter')}
@@ -97,19 +96,19 @@ export class Container extends React.Component {
               setColumnWidth={actions.setColumnWidth}
             />
           </div>
-          <div className="col col-xs-3 col-xs-offset-1">
-            <ColumnsControl columns={columnsList} setColumnVisibility={actions.setColumnVisibility} />
+          <div className="col col-md-6">
+            <Paginator
+              pagination={pagination}
+              onPageChange={actions.udalost.gotoPage}
+            />
           </div>
         </div>
         <Tabulka
           columns={columnsList} items={items}
           sort={sort} fetching={fetching} filters={filters} pagination={pagination}
+          onRowCountChange={actions.udalost.setPageSize}
           onSortChange={self.onSortChange} onFilterChange={self.onFilterChange}
-        />
-        <Paginator
-          pagination={pagination}
-          onPageChange={actions.udalost.gotoPage}
-          onPerPageChange={actions.udalost.setPageSize}
+          setColumnVisibility={actions.setColumnVisibility}
         />
       </div>
     )

@@ -30,30 +30,13 @@ describe('lib tabulka Paginator component (testing using shallow render)', () =>
     expect(vdom.type).to.equal('div')
   })
 
-  it('should handle change of perPage input', () => {
-    const perPageInput = vdom.props.children.props.children[2].props.children.props.children.props.children[1]
-    perPageInput.props.onChange({ target: { value: '66' } })
-    expect(spyChange).to.be.called.once.with(66)
-  })
-
-  it('should call perPage change handler', () => {
-    tree.fillField('#perPageInput', '77')
-    expect(spyChange).to.be.called.once.with(77)
-  })
-
-  it('should set input style to error', () => {
-    tree = sd.shallowRender(React.createElement(Paginator, { pagination: { perPage: 'abc' } }))
-    const perPageFormGroup = tree.getRenderOutput().props.children.props.children[2].props.children
-    expect(perPageFormGroup.props.validationState).to.equal('error')
-  })
-
 })
 
 describe('lib tabulka Paginator component (testing using real DOM)', () => {
   beforeEach(() => {
     this.component = TestUtils.renderIntoDocument(
       <Paginator
-        pagination={new Pagination}
+        pagination={new Pagination()}
         onPageChange={function(page) { console.log('page: ', page) }}
         onPerPageChange={function(perPage) { console.log(perPage) }}
       />
