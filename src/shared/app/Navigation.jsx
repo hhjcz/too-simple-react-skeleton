@@ -3,7 +3,7 @@
 import React, { PropTypes } from 'react'
 import { LinkContainer, IndexLinkContainer } from 'react-router-bootstrap'
 import { Navbar, Nav, NavItem, NavDropdown, MenuItem, NavbarBrand } from 'react-bootstrap'
-import MyIcon from '../lib/MyIcon'
+import MyIcon from '../lib/components/MyIcon'
 import '../lib/icons.css'
 import Logout from './Logout'
 

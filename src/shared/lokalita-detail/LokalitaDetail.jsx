@@ -3,7 +3,7 @@
 import React, { PropTypes } from 'react'
 import Panel from 'react-bootstrap/lib/Panel'
 import IconButton from 'material-ui/IconButton'
-import MyIcon from '../lib/MyIcon'
+import MyIcon from '../lib/components/MyIcon'
 import colors from '../app/colors'
 import { Lokalita } from '../app/models/Lokalita'
 import NepiOpy from '../zarizeni/umistovani/NepiOpy'

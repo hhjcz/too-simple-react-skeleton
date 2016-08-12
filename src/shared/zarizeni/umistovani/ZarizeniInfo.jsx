@@ -2,10 +2,10 @@
 import React, { PropTypes } from 'react'
 import { Link } from 'react-router'
 import IconButton from 'material-ui/IconButton'
-import MyIcon from '../../lib/MyIcon'
+import MyIcon from '../../lib/components/MyIcon'
 import colors from '../../app/colors'
 import MarkedLokalita from './MarkedLokalita'
-import MyDraggable from '../../lib/MyDraggable'
+import MyDraggable from '../../lib/components/MyDraggable'
 import { markPotencialniNepiop } from './markUtils'
 import '../../lib/Tabulka.styl'
 
