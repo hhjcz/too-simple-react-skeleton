@@ -66,6 +66,7 @@ export default function render(req, res, next) {
   <html>
     <head>
       <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
       <title>Dohlestr using react/redux from scratch by hhj</title>
       ${mainCssLink}
       <!--<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">-->
