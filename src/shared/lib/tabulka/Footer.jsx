@@ -1,6 +1,6 @@
 /** Created by hhj on 12/29/15. */
 import React, { PropTypes } from 'react'
-import { Pagination, FormGroup, FormControl, InputGroup } from 'react-bootstrap'
+import { FormGroup, FormControl, InputGroup } from 'react-bootstrap'
 import debounce from '../debounce'
 import ColumnsControl from './ColumnsControl'
 
@@ -34,9 +34,8 @@ export default class Footer extends React.Component {
     this.state = {
       rowCount: this.props.rowCount
     }
-    if (this.props.debounce > 0) {
-      this.onRowCountChange = debounce(this.onRowCountChange, this.props.debounce, this)
-    }
+    this.onRowCountChange = this.onRowCountChange.bind(this)
+    this.debouncedRowCountChange = debounce(this.debouncedRowCountChange, this.props.debounce, this)
   }
 
   componentWillReceiveProps(nextProps) {
@@ -45,16 +44,19 @@ export default class Footer extends React.Component {
     }
   }
 
-  onRowCountChange(rowCount) {
-    console.log('PreValidated')
+  onRowCountChange(event) {
+    const rowCount = event.target.value
+    this.setState({ rowCount })
+    return this.debouncedRowCountChange(rowCount)
+  }
+
+  debouncedRowCountChange(rowCount) {
     if (Footer.validatePageSize(rowCount)) {
-      console.log('Validated', rowCount)
       this.props.onRowCountChange(Footer.parsePageSize(rowCount))
     }
   }
 
   render() {
-    const self = this
     const { columns, setColumnVisibility, total, bsSize } = this.props
     return (
       <div className="row" style={{ marginTop: '1em' }}>
@@ -68,6 +70,7 @@ export default class Footer extends React.Component {
         </div>
         <div className="col col-xs-2">
           <FormGroup
+            id="rowCountFG"
             bsSize={bsSize}
             validationState={!Footer.validatePageSize(this.state.rowCount) ? 'error' : ''}
           >
@@ -76,14 +79,7 @@ export default class Footer extends React.Component {
               <FormControl
                 type="text" id="rowCountInput"
                 value={this.state.rowCount}
-                onChange={function(event) {
-                  if (event.persist) event.persist()
-                  const rowCount = event.target.value
-                  console.log('Rowcount: ', rowCount)
-                  self.setState({ rowCount })
-                  console.log('State: ', self.state)
-                  self.onRowCountChange(rowCount)
-                }}
+                onChange={this.onRowCountChange}
               />
             </InputGroup>
           </FormGroup>
