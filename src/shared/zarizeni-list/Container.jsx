@@ -40,7 +40,6 @@ export class Container extends React.Component {
   static fetchZarizeni({ params, getState }) {
     // if on server -> initial fetch of ids
     // TODO - when on server, test whether ids is empty, then also fetch
-    console.log(params)
     const idsFetched = getState || true ? actions.fetchIds({ params }) : Promise.resolve(null)
     return idsFetched.then(() => actions.fetchCollectionByIds({ params }))
   }
@@ -54,7 +53,6 @@ export class Container extends React.Component {
 
   // browser fetching:
   componentDidMount() {
-    console.log(this.props)
     Container.fetchActions.forEach(action => action({ params: { ...this.props.params, ...this.props.location.query } }))
   }
 
