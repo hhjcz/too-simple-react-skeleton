@@ -1,5 +1,6 @@
 /** Created by hhj on 1/21/16. */
-import chai, { expect } from 'chai'
+import { expect } from 'chai'
+import sinon from 'sinon'
 import React from 'react'
 import sd from 'skin-deep'
 
@@ -13,7 +14,7 @@ describe('lib tabulka HeaderFilter component', () => {
   let spyOnChange
 
   beforeEach(() => {
-    spyOnChange = chai.spy()
+    spyOnChange = sinon.spy()
     tree = sd.shallowRender(React.createElement(HeaderFilter, {
       column: { name: 'someColumn' },
       debounce: 0,
@@ -32,7 +33,8 @@ describe('lib tabulka HeaderFilter component', () => {
 
   it('should call input onChange handler', () => {
     tree.fillField('#filterInput', 'someFilterValue')
-    expect(spyOnChange).to.be.called.once.with(new Filter({
+    expect(spyOnChange).to.have.been.calledOnce
+    expect(spyOnChange).to.have.been.calledWith(new Filter({
       name: 'someColumn', value: 'someFilterValue'
     }))
   })

@@ -1,5 +1,5 @@
 /** Created by hhj on 1/14/16. */
-import chai, { expect } from 'chai'
+import { expect } from 'chai'
 import React from 'react'
 import ReactDOM from 'react-dom'
 import TestUtils from 'react-addons-test-utils'
@@ -15,10 +15,8 @@ describe('lib tabulka Paginator component (testing using shallow render)', () =>
   let spyChange
 
   beforeEach(() => {
-    spyChange = chai.spy()
     tree = sd.shallowRender(React.createElement(Paginator, {
       pagination: { page: 66, perPage: 666 },
-      onPerPageChange: spyChange,
       debounce: 0,
     }))
 

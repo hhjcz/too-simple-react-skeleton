@@ -10,24 +10,29 @@ describe('myRest library createResource', () => {
     expect(typeof resource.fetchCollection).to.equal('function')
   })
 
-  it('should return promise', () => {
+  it('should return proper response as a promise', () => {
     const fetch = () => Promise.resolve({})
     const resource = createResource('someResource', {}, { fetch })
-    const promise = resource.fetchOne({}).executeFetch()
+    return resource.fetchOne({}).executeFetch().then(response => {
+      expect(response).to.have.property('data')
+      expect(response).to.have.property('meta')
+    })
 
-    return Promise.all([
-      promise.should.be.resolved,
-      promise.should.eventually.have.property('data'),
-      promise.should.eventually.have.property('meta'),
-    ])
+    // return Promise.all([
+    //   promise.should.be.resolved,
+    //   promise.should.eventually.have.property('data'),
+    //   promise.should.eventually.have.property('meta'),
+    // ])
   })
 
   it('should throw error', () => {
     const fetch = () => Promise.reject('Nejaka chyba api')
     const resource = createResource('someResource', {}, { fetch })
-    const promise = resource.fetchOne({}).executeFetch()
+    return resource.fetchOne({}).executeFetch().catch(error => {
+      expect(error).to.be.instanceOf(Error)
+    })
 
-    return promise.should.be.rejectedWith(Error)
+    // return promise.should.be.rejectedWith(Error)
   })
 
 })
