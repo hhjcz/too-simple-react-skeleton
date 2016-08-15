@@ -7,7 +7,7 @@ import colors from '../../app/colors'
 import MarkedLokalita from './MarkedLokalita'
 import MyDraggable from '../../lib/components/MyDraggable'
 import { markPotencialniNepiop } from './markUtils'
-import '../../lib/Tabulka.styl'
+import '../../lib/tabulka/Tabulka.styl'
 
 export default class ZarizeniInfo extends React.Component {
   static propTypes = {
