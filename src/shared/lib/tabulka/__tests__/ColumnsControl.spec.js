@@ -1,5 +1,5 @@
 /** Created by hhj on 5/13/16. */
-/* eslint-disable no-unused-expressions */
+/* eslint-disable no-unused-expressions, no-unused-vars, import/no-extraneous-dependencies */
 import { expect } from 'chai'
 import sinon from 'sinon'
 import React from 'react'

@@ -1,27 +1,17 @@
 /** Created by hhj on 3/3/16. */
+/* eslint-disable no-unused-expressions, no-unused-vars, import/no-extraneous-dependencies */
 import { expect } from 'chai'
 import React from 'react'
 import sd from 'skin-deep'
 
 import PredefinedViews from '../PredefinedViews'
 
-describe('zarizeni-list PredefinedViews component', () => {
-  let tree
-  let vdom
-  let instance   // eslint-disable-line no-unused-vars
-
-  const shallowRender = (props) => {
-    tree = sd.shallowRender(React.createElement(PredefinedViews, props))
-
-    instance = tree.getMountedInstance()
-    vdom = tree.getRenderOutput()
-    // console.log(vdom)
-  }
+describe('lokalita-list PredefinedViews component', () => {
+  const shallowRender = (props) => sd.shallowRender(React.createElement(PredefinedViews, props))
 
   it('should render with default props', () => {
-    shallowRender()
-    expect(vdom.type).to.equal('div')
-    // expect(vdom.props.children.type).to.equal('');
+    const tree = shallowRender()
+    expect(tree.type).to.equal('div')
   })
 
 })

@@ -1,4 +1,5 @@
 /** Created by hhj on 2/16/16. */
+/* eslint-disable no-unused-expressions, no-unused-vars, import/no-extraneous-dependencies */
 import { expect } from 'chai'
 import React from 'react'
 import sd from 'skin-deep'
@@ -6,19 +7,14 @@ import sd from 'skin-deep'
 import MarkedLokalita from '../MarkedLokalita'
 
 describe('umistovani MarkedLokalita component', () => {
-  let vdom
+  let tree
 
   beforeEach(() => {
-    const tree = sd.shallowRender(React.createElement(MarkedLokalita, {}))
-
-    // const instance = tree.getMountedInstance()
-    vdom = tree.getRenderOutput()
-    // console.log(vdom)
+    tree = sd.shallowRender(React.createElement(MarkedLokalita, {}))
   })
 
   it('should render', () => {
-    expect(vdom.type).to.equal('span')
-    // expect(vdom.props.children.type).to.equal('');
+    expect(tree.type).to.equal('span')
   })
 
 })

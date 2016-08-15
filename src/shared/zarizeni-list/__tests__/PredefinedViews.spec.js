@@ -6,14 +6,10 @@ import sd from 'skin-deep'
 import PredefinedViews from '../PredefinedViews'
 
 describe('zarizeni-list PredefinedViews component', () => {
-  let tree
-
-  const shallowRender = (props) => {
-    tree = sd.shallowRender(React.createElement(PredefinedViews, props))
-  }
+  const shallowRender = (props) => sd.shallowRender(React.createElement(PredefinedViews, props))
 
   it('should render with default props', () => {
-    shallowRender()
+    const tree = shallowRender()
     expect(tree.type).to.equal('div')
   })
 

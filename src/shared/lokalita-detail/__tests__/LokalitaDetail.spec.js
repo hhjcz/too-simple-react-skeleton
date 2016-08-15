@@ -1,4 +1,5 @@
 /** Created by hhj on 2/2/16. */
+/* eslint-disable no-unused-expressions, no-unused-vars, import/no-extraneous-dependencies */
 import { expect } from 'chai'
 import React from 'react'
 import sd from 'skin-deep'
@@ -6,20 +7,11 @@ import sd from 'skin-deep'
 import LokalitaDetail from '../LokalitaDetail'
 
 describe('zarizeni ZarizeniDetail component', () => {
-  let tree
-  let vdom
-  let instance   // eslint-disable-line no-unused-vars
-
-  beforeEach(() => {
-    tree = sd.shallowRender(React.createElement(LokalitaDetail, { lokalita: { id: 666 } }))
-
-    instance = tree.getMountedInstance()
-    vdom = tree.getRenderOutput()
-    // console.log(vdom)
-  })
+  const shallowRender = (props) => sd.shallowRender(React.createElement(LokalitaDetail, props))
 
   it('should render', () => {
-    expect(vdom.type).to.equal('div')
+    const tree = shallowRender({ lokalita: { id: 666 } })
+    expect(tree.type).to.equal('div')
   })
 
 })

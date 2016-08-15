@@ -18,7 +18,7 @@ describe('tabulka Footer component', () => {
   it('should handle change of rowCount input', () => {
     const spyChange = sinon.spy()
     const tree = shallowRender({ onRowCountChange: spyChange, debounce: 1 })
-    const perPageInput = tree.subTree('#rowCountInput').getRenderOutput()
+    const perPageInput = tree.subTree('#rowCountInput')
     return perPageInput.props.onChange({ target: { value: '66' } }).then(value => {
       expect(spyChange).to.have.been.calledWith(66)
     })

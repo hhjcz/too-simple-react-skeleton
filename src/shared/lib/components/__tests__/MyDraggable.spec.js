@@ -1,23 +1,17 @@
 /** Created by hhj on 3/2/16. */
+/* eslint-disable no-unused-expressions, no-unused-vars, import/no-extraneous-dependencies */
 import { expect } from 'chai'
+import sinon from 'sinon'
 import React from 'react'
 import sd from 'skin-deep'
 import MyDraggable from '../MyDraggable'
 
-describe(' MyDraggable component', () => {
-  let vdom
-
-  const shallowRender = (props) => {
-    const tree = sd.shallowRender(React.createElement(MyDraggable, props))
-    // const instance = tree.getMountedInstance()
-    vdom = tree.getRenderOutput()
-    // console.log(vdom)
-  }
+describe('lib MyDraggable component', () => {
+  const shallowRender = (props) => sd.shallowRender(React.createElement(MyDraggable, props))
 
   it('should render with default props', () => {
-    shallowRender()
-    expect(vdom.type).to.equal('span')
-    // expect(vdom.props.children.type).to.equal('');
+    const tree = shallowRender()
+    expect(tree.type).to.equal('span')
   })
 
 })

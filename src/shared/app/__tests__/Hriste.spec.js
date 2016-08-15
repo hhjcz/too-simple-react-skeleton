@@ -1,5 +1,5 @@
 /** Created by hhj on 4/15/16. */
-/* eslint-disable no-unused-expressions */
+/* eslint-disable no-unused-expressions, no-unused-vars, import/no-extraneous-dependencies */
 import { expect } from 'chai'
 import React from 'react'
 import sd from 'skin-deep'
@@ -9,42 +9,34 @@ import Connected, { Hriste } from '../Hriste'
 describe('app Hriste', () => {
 
   describe('connected component', () => {
-    let vdom
+    let tree
     // let instance
 
     const shallowRender = (props) => {
-      const tree = sd.shallowRender(React.createElement(Connected, props))
-
-      // instance = tree.getMountedInstance()
-      vdom = tree.getRenderOutput()
-      // console.log(vdom)
+      tree = sd.shallowRender(React.createElement(Connected, props))
     }
 
     it('should connect props to redux', () => {
       const store = createStore()
       shallowRender({ store })
-      expect(typeof vdom.props.store).to.equal('object')
+      expect(typeof tree.props.store).to.equal('object')
       // expect(typeof vdom.props.dispatch).to.equal('function')
       // expect(typeof vdom.props.actions).to.equal('object')
     })
   })
 
   describe('inner component', () => {
-    let vdom
+    let tree
     // let instance
 
     const shallowRender = () => {
-      const tree = sd.shallowRender(React.createElement(Hriste))
-
-      // instance = tree.getMountedInstance()
-      vdom = tree.getRenderOutput()
-      // console.log(vdom)
+      tree = sd.shallowRender(React.createElement(Hriste))
     }
 
     it('should render with default props', () => {
       createStore()
       shallowRender()
-      expect(vdom.type).to.equal('div')
+      expect(tree.type).to.equal('div')
       // expect(typeof vdom.props.dispatch).to.equal('function')
       // expect(typeof vdom.props.actions).to.equal('object')
     })

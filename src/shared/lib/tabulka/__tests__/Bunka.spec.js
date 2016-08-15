@@ -1,31 +1,22 @@
 /** Created by hhj on 5/16/16. */
-/* eslint-disable no-unused-expressions */
+/* eslint-disable no-unused-expressions, no-unused-vars, import/no-extraneous-dependencies */
 import { expect } from 'chai'
 import React from 'react'
 import sd from 'skin-deep'
 import Bunka from '../Bunka'
 
 describe('lib tabulka Bunka component', () => {
-  let vdom
-  let tree
-  // let instance
 
-  const shallowRender = (props) => {
-    tree = sd.shallowRender(React.createElement(Bunka, props))
-
-    // instance = tree.getMountedInstance()
-    vdom = tree.getRenderOutput()
-    // console.log(vdom)
-  }
+  const shallowRender = (props) => sd.shallowRender(React.createElement(Bunka, props))
 
   it('should render with default props', () => {
-    shallowRender()
-    expect(vdom.type).to.equal('div')
+    const tree = shallowRender()
+    expect(tree.type).to.equal('div')
     // expect(vdom.props.children.type).to.equal('');
   })
 
   it('should render content with column render callback', () => {
-    shallowRender({
+    const tree = shallowRender({
       column: { render: model => `Some ${model.caption} in column` },
       model: { caption: 'model-caption' }
     })

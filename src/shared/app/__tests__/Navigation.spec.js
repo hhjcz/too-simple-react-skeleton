@@ -1,25 +1,20 @@
 /** Created by hhj on 3/29/16. */
+/* eslint-disable no-unused-expressions, no-unused-vars, import/no-extraneous-dependencies */
 import { expect } from 'chai'
 import React from 'react'
 import sd from 'skin-deep'
 import Navigation from '../Navigation'
 
 describe('app Navigation component', () => {
-  let vdom
-  // let instance
+  let tree
 
   const shallowRender = (props) => {
-    const tree = sd.shallowRender(React.createElement(Navigation, props))
-
-    // instance = tree.getMountedInstance()
-    vdom = tree.getRenderOutput()
-    // console.log(vdom)
+    tree = sd.shallowRender(React.createElement(Navigation, props))
   }
 
   it('should render with default props', () => {
     shallowRender()
-    expect(vdom.type.displayName).to.equal('Uncontrolled(Navbar)')
-    // expect(vdom.props.children.type).to.equal('');
+    expect(tree.type.displayName).to.equal('Uncontrolled(Navbar)')
   })
 
 })
