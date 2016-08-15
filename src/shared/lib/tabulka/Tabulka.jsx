@@ -10,12 +10,12 @@ export default class Tabulka extends React.Component {
 
   static propTypes = {
     columns: PropTypes.object.isRequired,
-    fetching: PropTypes.bool,
     items: PropTypes.object,
     uniqueField: PropTypes.string,
     pagination: PropTypes.object,
     sort: PropTypes.object,
     filters: PropTypes.object,
+    fetching: PropTypes.bool,
     onRowCountChange: PropTypes.func.isRequired,
     onSortChange: PropTypes.func.isRequired,
     onFilterChange: PropTypes.func.isRequired,

@@ -1,4 +1,5 @@
 /** Created by hhj on 1/4/16. */
+/* eslint-disable no-unused-expressions, no-unused-vars, import/no-extraneous-dependencies */
 import { expect } from 'chai'
 import React from 'react'
 import sd from 'skin-deep'
@@ -8,45 +9,36 @@ import Connected, { Container } from './../Container'
 describe('umistovani', () => {
 
   describe('connected Container component (wrapper)', () => {
-    let vdom
+    let tree
+    const store = createStore()
 
     beforeEach(() => {
-      const store = createStore()
-      const tree = sd.shallowRender(React.createElement(Connected, { store }))
-
-      // const instance = tree.getMountedInstance()
-      vdom = tree.getRenderOutput()
+      tree = sd.shallowRender(React.createElement(Connected, { store }))
     })
 
     it('should connect props to redux', () => {
-      expect(typeof vdom.props.store).to.equal('object')
-      // expect(typeof vdom.props.dispatch).to.equal('function')
-      // expect(typeof vdom.props.actions).to.equal('object')
+      expect(tree.props.store).to.deep.equal(store)
     })
 
     it('should connect proper sub state to props', () => {
-      expect(typeof vdom.props.zarizeniResource).to.equal('object')
-      expect(typeof vdom.props.umisteniResource).to.equal('object')
-      expect(typeof vdom.props.akrloksResource).to.equal('object')
-      // expect(vdom.props.umisteni).to.be.instanceof(List)
+      expect(typeof tree.props.zarizeniResource).to.equal('object')
+      expect(typeof tree.props.umisteniResource).to.equal('object')
+      expect(typeof tree.props.akrloksResource).to.equal('object')
     })
 
   })
 
   describe('Container component', () => {
-    let vdom
+    let tree
+    const store = createStore()
 
     beforeEach(() => {
-      const store = createStore()
       const location = { query: {} }
-      const tree = sd.shallowRender(React.createElement(Container, { store, location }))
-
-      // const instance = tree.getMountedInstance()
-      vdom = tree.getRenderOutput()
+      tree = sd.shallowRender(React.createElement(Container, { store, location }))
     })
 
     it('should render', () => {
-      expect(vdom.type).to.equal('div')
+      expect(tree.type).to.equal('div')
     })
 
   })

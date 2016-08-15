@@ -1,4 +1,5 @@
 /** Created by hhj on 1/4/16. */
+/* eslint-disable no-unused-expressions, no-unused-vars, import/no-extraneous-dependencies */
 import { expect } from 'chai'
 import React from 'react'
 import sd from 'skin-deep'
@@ -9,53 +10,40 @@ import { Pagination } from '../../app/models/Pagination'
 
 describe('lokalita-list', () => {
   describe('connected Container component (wrapper)', () => {
-    let vdom
-    // let instance  // eslint-disable-line no-unused-vars
+    let tree
+    const store = createStore()
 
     beforeEach(() => {
-      const store = createStore()
       const pagination = new Pagination()
-      const tree = sd.shallowRender(React.createElement(Connected, { store, pagination }))
-
-      // instance = tree.getMountedInstance()
-      vdom = tree.getRenderOutput()
-      // console.log(vdom.props.children)
+      tree = sd.shallowRender(React.createElement(Connected, { store, pagination }))
     })
 
     it('should connect props to redux', () => {
-      expect(typeof vdom.props.store).to.equal('object')
-      expect(typeof vdom.props.dispatch).to.equal('function')
-      expect(typeof vdom.props.actions).to.equal('object')
-      expect(typeof vdom.props.actions.gotoPage).to.equal('function')
+      expect(tree.props.store).to.equal(store)
+      expect(typeof tree.props.dispatch).to.equal('function')
+      expect(typeof tree.props.actions).to.equal('object')
+      expect(typeof tree.props.actions.gotoPage).to.equal('function')
     })
 
     it('should connect proper sub state to props', () => {
-      expect(typeof vdom.props.items).to.equal('object')
-      expect(vdom.props.items).to.be.instanceof(List)
-      expect(vdom.props.pagination).to.be.instanceof(Pagination)
-      expect(vdom.props.generalParams).to.be.instanceof(Map)
-      expect(vdom.props.columns).to.be.instanceof(Map)
+      expect(typeof tree.props.items).to.equal('object')
+      expect(tree.props.items).to.be.instanceof(List)
+      expect(tree.props.pagination).to.be.instanceof(Pagination)
+      expect(tree.props.generalParams).to.be.instanceof(Map)
+      expect(tree.props.columns).to.be.instanceof(Map)
     })
 
   })
 
   describe('Container component', () => {
-    let vdom
-    // let instance  // eslint-disable-line no-unused-vars
+    let tree
 
     beforeEach(() => {
-      // const store = createStore()
-      const tree = sd.shallowRender(
-        React.createElement(Container, { columns: Map() })
-      )
-
-      // instance = tree.getMountedInstance()
-      vdom = tree.getRenderOutput()
-      // console.log(vdom.props.children)
+      tree = sd.shallowRender(React.createElement(Container, { columns: Map() }))
     })
 
     it('should render', () => {
-      expect(vdom.type).to.equal('div')
+      expect(tree.type).to.equal('div')
     })
 
   })
