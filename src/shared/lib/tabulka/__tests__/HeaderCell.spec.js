@@ -9,22 +9,12 @@ import { Sort } from '../../../app/models/Sort'
 import columns from '../../../zarizeni-list/defaultColumns'
 
 describe('lib tabulka HeaderCell component', () => {
-  let vdom
-  let instance   // eslint-disable-line no-unused-vars
 
-  beforeEach(() => {
-    const tree = sd.shallowRender(
-      React.createElement(HeaderCell, { column: columns.get('id'), sort: new Sort() })
-    )
-
-    instance = tree.getMountedInstance()
-    vdom = tree.getRenderOutput()
-    // console.log(vdom)
-  })
+  const shallowRender = props => sd.shallowRender(React.createElement(HeaderCell, props))
 
   it('should render', () => {
-    expect(vdom.type).to.equal('div')
-    // expect(vdom.props.children.type).to.equal('');
+    const tree = shallowRender({ column: columns.get('id'), sort: new Sort() })
+    expect(tree.type).to.equal('div')
   })
 
 })

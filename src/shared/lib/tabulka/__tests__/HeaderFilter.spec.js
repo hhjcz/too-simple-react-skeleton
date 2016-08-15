@@ -1,4 +1,5 @@
 /** Created by hhj on 1/21/16. */
+/* eslint-disable no-unused-expressions */
 import { expect } from 'chai'
 import sinon from 'sinon'
 import React from 'react'
@@ -9,29 +10,22 @@ import HeaderFilter from '../HeaderFilter'
 
 describe('lib tabulka HeaderFilter component', () => {
   let tree
-  let vdom
-  let instance   // eslint-disable-line no-unused-vars
   let spyOnChange
 
   beforeEach(() => {
     spyOnChange = sinon.spy()
     tree = sd.shallowRender(React.createElement(HeaderFilter, {
       column: { name: 'someColumn' },
-      debounce: 0,
-      onFilterChange: spyOnChange
+      onFilterChange: spyOnChange,
+      debounce: 0
     }))
-
-    instance = tree.getMountedInstance()
-    vdom = tree.getRenderOutput()
-    // console.log(vdom.props.children[1].props.children)
   })
 
   it('should render', () => {
-    expect(vdom.type).to.equal('div')
-    expect(vdom.props.children[0].type).to.equal('div');
+    expect(tree.type).to.equal('div')
   })
 
-  it('should call input onChange handler', () => {
+  it('should call filter change callback', () => {
     tree.fillField('#filterInput', 'someFilterValue')
     expect(spyOnChange).to.have.been.calledOnce
     expect(spyOnChange).to.have.been.calledWith(new Filter({

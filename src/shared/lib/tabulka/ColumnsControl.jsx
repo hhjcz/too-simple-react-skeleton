@@ -35,8 +35,8 @@ export default class ColumnsControl extends React.Component {
         <span className="text-info">Columns:</span>
         {
           columns.map(column =>
-            <Button className="btn-default btn-sm" onClick={() => self.toggleVisibility(column)} active={column.visible}>
-              {column.caption}
+            <Button className="btn-default btn-sm" onClick={() => self.toggleVisibility(column)} active={column.visible} key={column.name}>
+              {column.caption || column.name}
             </Button>
           )
         }

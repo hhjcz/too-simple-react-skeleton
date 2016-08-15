@@ -19,7 +19,7 @@ describe('lib tabulka Column', () => {
     expect(column.render(model)).to.equal('someValue')
   })
 
-  it('should render with custom render function', () => {
+  it('should accept custom render function', () => {
     const column = new Column({
       name: 'someField',
       render: (model, pozice) => `rendered ${model.someField} at ${pozice}`

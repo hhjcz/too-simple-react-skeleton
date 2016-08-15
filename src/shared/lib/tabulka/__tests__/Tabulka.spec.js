@@ -3,26 +3,15 @@ import { expect } from 'chai'
 import React from 'react'
 import { List, Map } from 'immutable'
 import sd from 'skin-deep'
-
 import Tabulka from '../Tabulka.jsx'
 
 describe('lib tabulka Tabulka component', () => {
-  let vdom
-  let instance   // eslint-disable-line no-unused-vars
 
-  beforeEach(() => {
-    const tree = sd.shallowRender(
-      React.createElement(Tabulka, { items: List(), filters: Map() })
-    )
-
-    instance = tree.getMountedInstance()
-    vdom = tree.getRenderOutput()
-    // console.log(vdom)
-  })
+  const shallowRender = props => sd.shallowRender(React.createElement(Tabulka, props))
 
   it('should render', () => {
-    expect(vdom.type).to.equal('div')
-    // expect(vdom.props.children.type).to.equal('ul');
+    const tree = shallowRender({ items: List(), filters: Map() })
+    expect(tree.type).to.equal('div')
   })
 
 })

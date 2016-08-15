@@ -2,31 +2,32 @@
 import { expect } from 'chai'
 import React from 'react'
 import sd from 'skin-deep'
-
-// TODO - remove dependency on zarizeni
-import { ZarizeniFactory } from '../../../app/models/Zarizeni'
-// TODO - remove dependency on zarizeni-list
-import columns from '../../../zarizeni-list/defaultColumns'
+import { Map, Record } from 'immutable'
 import Radka from '../Radka'
 
 describe('lib tabulka Radka component', () => {
-  let vdom
-  let instance // eslint-disable-line no-unused-vars
 
-  beforeEach(() => {
-    const zarizeni = ZarizeniFactory({ id: 666 })
-    const tree = sd.shallowRender(
-      React.createElement(Radka, { model: zarizeni, columns: columns.toList() })
-    )
+  const shallowRender = props => sd.shallowRender(React.createElement(Radka, props))
 
-    instance = tree.getMountedInstance()
-    vdom = tree.getRenderOutput()
-    // console.log(vdom.props.children[0])
+  it('should render with default props', () => {
+    const tree = shallowRender()
+    expect(tree.type).to.equal('div')
+    expect(tree.props.title).to.equal('')
   })
 
-  it('should render ', () => {
-    expect(vdom.type).to.equal('div')
-    // expect(vdom.props.children[0].type).to.equal('div');
+  it('should render child elements', () => {
+    const columns = Map({
+      prvni: { name: 'prvni', visible: true },
+      druhy: { name: 'druhy', visible: true },
+    })
+    const model = new Record({})({})
+
+    const tree = shallowRender({ model, columns, pozice: 66 })
+
+    const children = tree.everySubTree('Bunka')
+    expect(children.length).to.equal(2)
+    expect(children[0].props.model).to.deep.equal(model)
+    expect(children[0].props.pozice).to.deep.equal(66)
   })
 
 })
