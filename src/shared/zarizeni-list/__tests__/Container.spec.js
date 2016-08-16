@@ -1,6 +1,9 @@
 /** Created by hhj on 1/4/16. */
+/* eslint-disable no-unused-expressions, no-unused-vars, import/no-extraneous-dependencies */
 import { expect } from 'chai'
+import sinon from 'sinon'
 import React from 'react'
+import { Provider } from 'react-redux'
 import sd from 'skin-deep'
 import { List, Map } from 'immutable'
 import createStore from '../../app/createStore'
@@ -14,7 +17,7 @@ describe('zarizeni-list', () => {
 
     beforeEach(() => {
       const pagination = new Pagination()
-      tree = sd.shallowRender(React.createElement(Connected, { store, pagination }))
+      tree = sd.shallowRender(React.createElement(Connected, { store }))
     })
 
     it('should connect props to redux', () => {
@@ -22,6 +25,7 @@ describe('zarizeni-list', () => {
       expect(typeof tree.props.dispatch).to.equal('function')
       expect(typeof tree.props.actions).to.equal('object')
       expect(typeof tree.props.actions.gotoPage).to.equal('function')
+      expect(typeof tree.props.actions.hideColumn).to.equal('function')
     })
 
     it('should connect proper sub state to props', () => {
@@ -34,16 +38,15 @@ describe('zarizeni-list', () => {
 
   })
 
+
   describe('Container component', () => {
-    let tree
 
-    beforeEach(() => {
-      tree = sd.shallowRender(
-        React.createElement(Container, { columns: Map() })
-      )
-    })
+    const shallowRender = (props) => sd.shallowRender(
+      React.createElement(Container, props)
+    )
 
-    it('should render', () => {
+    it('should render with default props', () => {
+      const tree = shallowRender()
       expect(tree.type).to.equal('div')
     })
 

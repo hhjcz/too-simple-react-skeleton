@@ -9,7 +9,7 @@ import { Sort } from '../../../app/models/Sort'
 
 describe('createRestReducer', () => {
 
-  it('should create reducer', () => {
+  it('should return the initial state', () => {
     const reducer = createRestReducer('someEndpoint', { url: 'someUrl' })
     const initialState = reducer({})
     expect(initialState).to.be.instanceOf(InitialState)

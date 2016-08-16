@@ -1,7 +1,7 @@
 /** Created by hhj on 12/28/15. */
 import React, { PropTypes } from 'react'
 import { connect } from 'react-redux'
-import { List } from 'immutable'
+import { List, Map } from 'immutable'
 import createMapStateToProps from '../lib/createMapStateToProps'
 import createMapDispatchToProps from '../lib/createMapDispatchToProps'
 import { getItems } from '../lib/rest'
@@ -27,7 +27,7 @@ export class Container extends React.Component {
   };
 
   static defaultProps = {
-    columns: {},
+    columns: Map(),
     actions: {},
     generalParams: List()
   };
@@ -91,10 +91,10 @@ export class Container extends React.Component {
         <div className="row">
           <div className="col col-md-6">
             <PredefinedViews
-              onNamedFilterChange={self.onNamedFilterChange}
-              namedFilter={generalParams.get('filter')}
-              onFilterChange={self.onFilterChange}
               filters={filters}
+              onFilterChange={self.onFilterChange}
+              namedFilter={generalParams.get('filter')}
+              onNamedFilterChange={self.onNamedFilterChange}
               hideColumn={actions.hideColumn}
               showColumn={actions.showColumn}
               setColumnWidth={actions.setColumnWidth}
