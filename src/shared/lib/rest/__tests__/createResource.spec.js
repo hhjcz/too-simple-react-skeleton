@@ -1,5 +1,8 @@
 /** Created by hhj on 2/11/16. */
+/* eslint-disable no-unused-expressions, no-unused-vars, import/no-extraneous-dependencies */
 import { expect } from 'chai'
+import nock from 'nock'
+import createFetch from '../createFetch'
 import createResource from '../createResource'
 
 describe('myRest library createResource', () => {
@@ -17,12 +20,6 @@ describe('myRest library createResource', () => {
       expect(response).to.have.property('data')
       expect(response).to.have.property('meta')
     })
-
-    // return Promise.all([
-    //   promise.should.be.resolved,
-    //   promise.should.eventually.have.property('data'),
-    //   promise.should.eventually.have.property('meta'),
-    // ])
   })
 
   it('should throw error', () => {
@@ -31,8 +28,35 @@ describe('myRest library createResource', () => {
     return resource.fetchOne({}).executeFetch().catch(error => {
       expect(error).to.be.instanceOf(Error)
     })
-
-    // return promise.should.be.rejectedWith(Error)
   })
 
+  it('should handle real response', () => {
+    const serverBaseUrl = 'http://example.com'
+    const endPoint = '/someEndpoint'
+    const fetch = createFetch(serverBaseUrl)
+    const expectedResponse = { meta: { page: 66 }, data: ['first'] }
+    nock(serverBaseUrl).get(endPoint).reply(200, expectedResponse)
+
+    const resource = createResource('someResource', { url: endPoint }, { fetch })
+
+    return resource.fetchCollection({}).executeFetch().then(response => {
+      expect(response).to.have.property('data')
+      expect(response.data).to.deep.equal(expectedResponse.data)
+      expect(response).to.have.property('meta')
+      expect(response.meta.page).to.equal(expectedResponse.meta.page)
+    })
+  })
+
+  it('should handle real error', () => {
+    const serverBaseUrl = 'http://example.com'
+    const endPoint = '/someEndpoint'
+    const fetch = createFetch(serverBaseUrl)
+    nock(serverBaseUrl).get(endPoint).reply(404, { message: 'Not found' })
+
+    const resource = createResource('someResource', { url: endPoint }, { fetch })
+
+    return resource.fetchCollection({}).executeFetch().catch(error => {
+      expect(error.message).to.equal('Ajejej, fetch error: Not found (status 404), url: /someEndpoint')
+    })
+  })
 })

@@ -1,12 +1,18 @@
 /** Created by hhj on 4/19/16. */
-/* eslint-disable no-unused-expressions */
+/* eslint-disable no-unused-expressions, no-unused-vars, import/no-extraneous-dependencies */
 import { expect } from 'chai'
 import createStore, { getStore } from '../createStore'
 
 describe('app createStore', () => {
 
-  it('should create store', () => {
+  it('should create default store', () => {
     const store = createStore()
+    expect(typeof store.dispatch).to.equal('function')
+    expect(typeof store.getState).to.equal('function')
+  })
+
+  it('should create store with initial state', () => {
+    const store = createStore({}, null)
     expect(typeof store.dispatch).to.equal('function')
     expect(typeof store.getState).to.equal('function')
   })
