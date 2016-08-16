@@ -5,6 +5,9 @@ import nock from 'nock'
 import createFetch from '../createFetch'
 
 describe('myRest library createFetch', () => {
+  afterEach(() => {
+    nock.cleanAll()
+  })
 
   const baseUrl = 'http://example.com'
   const expectedResponse = { body: { something: 'new' } }

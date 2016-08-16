@@ -6,6 +6,9 @@ import createFetch from '../createFetch'
 import createResource from '../createResource'
 
 describe('myRest library createResource', () => {
+  afterEach(() => {
+    nock.cleanAll()
+  })
 
   it('should create resource', () => {
     const resource = createResource('someResource')
