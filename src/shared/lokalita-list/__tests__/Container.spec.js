@@ -6,7 +6,7 @@ import sd from 'skin-deep'
 import { List, Map } from 'immutable'
 import createStore from '../../app/createStore'
 import Connected, { Container } from './../Container'
-import { Pagination } from '../../app/models/Pagination'
+import { Pagination } from '../../lib/Pagination'
 
 describe('lokalita-list', () => {
   describe('connected Container component (wrapper)', () => {

@@ -8,8 +8,8 @@ import { Lokalita } from './models/Lokalita'
 import { NepiOp } from './models/NepiOp'
 import { Udalost } from './models/Udalost'
 import { Cp2Type } from './models/Cp2Type'
-import { Sort } from './models/Sort'
-import { Pagination } from './models/Pagination'
+import { Sort } from '../lib/Sort'
+import { Pagination } from '../lib/Pagination'
 
 export { getSubState, getItem, getItems, getIdAtCursor } from '../lib/rest'
 
