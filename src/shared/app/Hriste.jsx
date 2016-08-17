@@ -5,7 +5,7 @@ import FontIcon from 'material-ui/FontIcon'
 import IconButton from 'material-ui/IconButton'
 import { connect } from 'react-redux'
 import './fonts.css'
-import MyIcon from '../lib/components/MyIcon'
+import MyIcon from 'react-lib/lib/components/MyIcon'
 import rest from '../app/rest'
 
 export class Hriste extends React.Component {

@@ -1,7 +1,7 @@
 /** Created by hhj on 6/27/16. */
 import React, { PropTypes } from 'react'
 import IconButton from 'material-ui/IconButton'
-import MyIcon from '../../lib/components/MyIcon'
+import MyIcon from 'react-lib/lib/components/MyIcon'
 import colors from '../../app/colors'
 import * as actions from './actions'
 

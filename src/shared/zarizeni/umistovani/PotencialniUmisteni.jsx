@@ -11,7 +11,7 @@ import sortBy from 'lodash/sortBy'
 import { List } from 'immutable'
 import MarkedLokalita from './MarkedLokalita'
 import NepiOpy from './NepiOpy'
-import MyIcon from '../../lib/components/MyIcon'
+import MyIcon from 'react-lib/lib/components/MyIcon'
 import './PotencialniUmisteni.styl'
 
 export default class PotencialniUmisteni extends React.Component {

@@ -1,9 +1,9 @@
 /** Created by hhj on 12/28/15. */
 import React, { PropTypes } from 'react'
 import { connect } from 'react-redux'
-import createMapStateToProps from '../lib/createMapStateToProps'
-import createMapDispatchToProps from '../lib/createMapDispatchToProps'
-import { getItem, getItems } from '../lib/rest'
+import createMapStateToProps from 'react-lib/lib/createMapStateToProps'
+import createMapDispatchToProps from 'react-lib/lib/createMapDispatchToProps'
+import { getItem, getItems } from 'react-lib/lib/rest'
 import * as actions from './actions'
 import LokalitaDetail from './LokalitaDetail'
 

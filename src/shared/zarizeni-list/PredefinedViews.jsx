@@ -1,7 +1,7 @@
 /** Created by hhj on 3/3/16. */
 import React, { PropTypes } from 'react'
 import Toggle from 'material-ui/Toggle'
-import { Filter } from './../app/models/Filter'
+import { Filter } from 'react-lib/lib/Filter'
 
 export default class PredefinedViews extends React.Component {
   static propTypes = {

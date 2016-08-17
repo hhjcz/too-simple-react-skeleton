@@ -2,7 +2,7 @@
 import { Map } from 'immutable'
 import React from 'react'
 import { Link } from 'react-router'
-import { Column, columntValueTypes } from '../lib/tabulka/Column'
+import { Column, columntValueTypes } from 'react-lib/lib/tabulka/Column'
 
 const defaultColumns = Map(
   {

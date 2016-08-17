@@ -1,6 +1,6 @@
 /** Created by hhj on 4/22/16. */
 import React from 'react'
-import MyDraggable from '../../lib/components/MyDraggable'
+import MyDraggable from 'react-lib/lib/components/MyDraggable'
 import colors from '../../app/colors'
 
 const style = { background: colors.deepOrange100 }

@@ -1,5 +1,5 @@
 /** Created by hhj on 2/16/16. */
-import longestSubstring from '../../lib/longestSubstring'
+import longestSubstring from 'react-lib/lib/longestSubstring'
 import { stringifyLokalita } from './stringifyLokalita'
 
 const markCssClass = 'text-warning'

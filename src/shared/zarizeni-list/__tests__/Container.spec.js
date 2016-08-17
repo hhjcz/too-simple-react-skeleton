@@ -8,7 +8,7 @@ import sd from 'skin-deep'
 import { List, Map } from 'immutable'
 import createStore from '../../app/createStore'
 import Connected, { Container } from './../Container'
-import { Pagination } from '../../lib/Pagination'
+import { Pagination } from 'react-lib/lib/Pagination'
 
 describe('zarizeni-list', () => {
   describe('connected Container component (wrapper)', () => {

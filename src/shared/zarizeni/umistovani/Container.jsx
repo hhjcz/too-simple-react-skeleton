@@ -1,13 +1,13 @@
 /** Created by hhj on 12/28/15. */
 import React, { PropTypes } from 'react'
 import { connect } from 'react-redux'
-import createMapStateToProps from '../../lib/createMapStateToProps'
-import createMapDispatchToProps from '../../lib/createMapDispatchToProps'
+import createMapStateToProps from 'react-lib/lib/createMapStateToProps'
+import createMapDispatchToProps from 'react-lib/lib/createMapDispatchToProps'
 import { getItems, getItem } from '../../app/rest'
 import actions from './actions'
 import NedavneLokality from './NedavneLokality'
 import Umistovani from './Umistovani'
-import FetchIndicator from '../../lib/FetchIndicator'
+import FetchIndicator from 'react-lib/lib/FetchIndicator'
 
 export class Container extends React.Component {
 
