@@ -1,6 +1,6 @@
 /** Created by hhj on 2/16/16. */
-import markLokalita from './markLokalita'
 import React, { PropTypes } from 'react'
+import markLokalita from './markLokalita'
 
 export default class MarkedLokalita extends React.Component {
   static propTypes = {

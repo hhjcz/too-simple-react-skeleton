@@ -40,10 +40,11 @@ export default class LoginForm extends React.Component {
                   <input type="hidden" name="_token" value="{{ csrf_token() }}" />
 
                   <div className="form-group">
-                    <label className="col-md-4 control-label">E-Mail Address</label>
+                    <label htmlFor="emailInput" className="col-md-4 control-label">E-Mail Address</label>
 
                     <div className="col-md-6">
                       <input
+                        id="emailInput"
                         type="email" className="form-control"
                         value={this.state.email}
                         onChange={this.onEmailChange}
@@ -52,10 +53,11 @@ export default class LoginForm extends React.Component {
                   </div>
 
                   <div className="form-group">
-                    <label className="col-md-4 control-label">Password</label>
+                    <label htmlFor="passwordInput" className="col-md-4 control-label">Password</label>
 
                     <div className="col-md-6">
                       <input
+                        id="passwordInput"
                         type="password" className="form-control"
                         value={this.state.password}
                         onChange={this.onPasswordChange}

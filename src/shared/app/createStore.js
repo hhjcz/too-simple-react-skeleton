@@ -32,12 +32,14 @@ export default function createStore(initialState = {}, history = null) {
   let devToolsInstrument = x => x
   if (process.env.NODE_ENV !== 'production') {
     const DevTools = require('./DevTools').default
+
     devToolsInstrument = DevTools.instrument()
   }
 
   let persistStateEnhancer = x => x
   if (process.env.IS_BROWSER) {
     const persistState = require('redux-localstorage').default
+
     const storage = compose(
       storageDebounce(1000)
     )(adapter(window.sessionStorage))
@@ -54,8 +56,8 @@ export default function createStore(initialState = {}, history = null) {
   if (module.hot) {
     module.hot.accept('./reducer', () => {
       console.log('Replacing store reducer')
-
       const nextReducer = require('./reducer').default
+
       store.replaceReducer(nextReducer)
     })
   }

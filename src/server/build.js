@@ -3,7 +3,7 @@ require('babel-register')({})
 require('./loadEnv').default()
 
 const webpack = require('webpack')
-const config = require('./webpack.prod.js')
+const config = require('./webpack.prod')
 
 const compiler = webpack(config)
 

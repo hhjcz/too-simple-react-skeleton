@@ -6,9 +6,9 @@ import React from 'react'
 import { Provider } from 'react-redux'
 import sd from 'skin-deep'
 import { List, Map } from 'immutable'
+import { Pagination } from 'react-lib/lib/Pagination'
 import createStore from '../../app/createStore'
 import Connected, { Container } from './../Container'
-import { Pagination } from 'react-lib/lib/Pagination'
 
 describe('zarizeni-list', () => {
   describe('connected Container component (wrapper)', () => {

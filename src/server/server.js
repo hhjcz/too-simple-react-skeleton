@@ -12,7 +12,7 @@ app.use(compression());
 
 // add dev middleware to express in dev mode
 if (process.env.NODE_ENV !== 'production') {
-  require('./webpack.dev.js').default(app);
+  require('./webpack.dev').default(app);
 }
 
 app.use('/', express.static('dist', { maxAge: '200d' }));

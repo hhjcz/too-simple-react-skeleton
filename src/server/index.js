@@ -3,7 +3,7 @@ require('babel-register')({})
 require('./loadEnv').default()
 
 const WebpackIsomorphicTools = require('webpack-isomorphic-tools');
-const webpackIsomorphicConfig = require('./webpack-isomorphic-tools.config.js');
+const webpackIsomorphicConfig = require('./webpack-isomorphic-tools.config');
 const rootDir = require('path').resolve(__dirname, '..', '..')
 
 global.webpackIsomorphicTools = new WebpackIsomorphicTools(webpackIsomorphicConfig)

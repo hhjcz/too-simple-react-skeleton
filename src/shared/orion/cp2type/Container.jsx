@@ -60,9 +60,10 @@ export class Container extends React.Component {
     let newSort
     if (state.sort.by !== sortField) {
       newSort = new Sort({ dir: true, by: sortField })
+    } else if (state.sort.dir === true) {
+      newSort = new Sort({ dir: false, by: sortField })
     } else {
-      if (state.sort.dir === true) newSort = new Sort({ dir: false, by: sortField })
-      else newSort = new Sort()  // clear sort field (tri-state)
+      newSort = new Sort()
     }
     this.setState({ sort: newSort })
   }
@@ -110,7 +111,7 @@ export class Container extends React.Component {
     const paginatedItems = filteredItems
       .slice(
         (pagination.page - 1) * pagination.perPage,
-        (pagination.page - 1) * pagination.perPage + pagination.perPage
+        ((pagination.page - 1) * pagination.perPage) + pagination.perPage
       )
 
     return (

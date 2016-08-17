@@ -4,7 +4,7 @@ const webpack = require('webpack');
 const autoprefixer = require('autoprefixer')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
 const IsomorphicToolsPlugin = require('webpack-isomorphic-tools/plugin')
-const isomorphicToolsConfig = require('./webpack-isomorphic-tools.config.js')
+const isomorphicToolsConfig = require('./webpack-isomorphic-tools.config')
 
 const isomorphicToolsPlugin = new IsomorphicToolsPlugin(isomorphicToolsConfig)
 const prefixLoaders = 'css-loader!postcss-loader'

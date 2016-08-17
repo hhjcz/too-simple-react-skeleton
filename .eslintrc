@@ -41,7 +41,9 @@
         "react/prefer-stateless-function": 0,
         "func-names": 0, // hhj
         "no-underscore-dangle": 0, // hhj
-        "global-require": 0  // hhj
+        "global-require": 0,  // hhj
+        "import/no-extraneous-dependencies": 1, // hhj
+        "import/prefer-default-export": 1 // hhj
     },
     "settings": {
         "import/parser": "babel-eslint",

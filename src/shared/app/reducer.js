@@ -1,10 +1,10 @@
 /** Created by hhj on 12/28/15. */
 import { combineReducers } from 'redux'
+import { reducer as toastr } from 'react-redux-toastr'
 import zarizeniList from '../zarizeni-list/reducer'
 import lokalitaList from '../lokalita-list/reducer'
 import udalostList from '../udalost-list/reducer'
 import cp2typeList from '../orion/cp2type/reducer'
-import { reducer as toastr } from 'react-redux-toastr'
 import rest from './rest'
 
 const combinedReducer = combineReducers({

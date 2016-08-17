@@ -34,7 +34,7 @@ export default class NepiOpy extends React.Component {
       </div>
     )
 
-    const divHeight = Math.max(Math.ceil(slicedNepiOpy.length / 2 * 1.6), 2)
+    const divHeight = Math.max(Math.ceil((slicedNepiOpy.length / 2) * 1.6), 2)
 
     return listItems.length > 0 ?
       <div style={{ display: 'flex', alignItems: 'center', paddingLeft: '2em' }}>

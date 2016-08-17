@@ -3,11 +3,11 @@ import React, { PropTypes } from 'react'
 import { connect } from 'react-redux'
 import createMapStateToProps from 'react-lib/lib/createMapStateToProps'
 import createMapDispatchToProps from 'react-lib/lib/createMapDispatchToProps'
+import FetchIndicator from 'react-lib/lib/FetchIndicator'
 import { getItems, getItem } from '../../app/rest'
 import actions from './actions'
 import NedavneLokality from './NedavneLokality'
 import Umistovani from './Umistovani'
-import FetchIndicator from 'react-lib/lib/FetchIndicator'
 
 export class Container extends React.Component {
 
@@ -65,9 +65,9 @@ export class Container extends React.Component {
     return (
       <div id="umistovani">
         <div className="row">
-          {/*<div className="col col-xs-6">*/}
-          {/*<NedavneLokality />*/}
-          {/*</div>*/}
+          {/* <div className="col col-xs-6"> */}
+          {/* <NedavneLokality /> */}
+          {/* </div> */}
         </div>
         <Umistovani
           zarizeni={zarizeni} seznamUmisteni={seznamUmisteni} seznamPortu={seznamPortu} akrloks={akrloks}
