@@ -4786,9 +4786,9 @@
       }
     },
     "stylus-loader": {
-      "version": "2.2.0",
-      "from": "stylus-loader@2.2.0",
-      "resolved": "https://registry.npmjs.org/stylus-loader/-/stylus-loader-2.2.0.tgz"
+      "version": "2.3.1",
+      "from": "stylus-loader@2.3.1",
+      "resolved": "https://registry.npmjs.org/stylus-loader/-/stylus-loader-2.3.1.tgz"
     },
     "supports-color": {
       "version": "3.1.2",
