@@ -47,7 +47,7 @@ export default function(app) {
             loader: 'babel',
             // babel hot reload; rest of babel config taken from .babelrc
             query: {
-              // absolute path requried when using modules outside of project root, hhj:
+              // absolute path required when using modules outside of project root, hhj:
               presets: [path.join(constants.NODE_MODULES_DIR, 'babel-preset-react-hmre')]
             }
           },
