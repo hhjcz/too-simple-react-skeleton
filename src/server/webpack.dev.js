@@ -23,7 +23,7 @@ export default function(app) {
   Object.keys(resolveAliases)
     .filter(alias => fs.existsSync(resolveAliases[alias]))
     .forEach(alias => { validAliases[alias] = resolveAliases[alias] })
-  console.log(validAliases)
+  console.log('Webpack resolve aliases: ', validAliases)
 
   const config = {
     ...prodCfg,
