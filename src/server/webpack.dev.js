@@ -1,11 +1,12 @@
 /** Created by hhj on 12/23/15. */
-
+import path from 'path';
 import webpack from 'webpack';
 import webpackDevMiddleware from 'webpack-dev-middleware';
 import webpackHotMiddleware from 'webpack-hot-middleware';
 import prodCfg from './webpack.prod.js';
 import IsomorphicToolsPlugin from '../../node_modules/webpack-isomorphic-tools/plugin';
 import isomorphicToolsConfig from './webpack-isomorphic-tools.config.js';
+import constants from './constants'
 
 const isomorphicToolsPlugin = new IsomorphicToolsPlugin(isomorphicToolsConfig)
 
@@ -31,7 +32,8 @@ export default function(app) {
             loader: 'babel',
             // babel hot reload; rest of babel config taken from .babelrc
             query: {
-              presets: ['react-hmre']
+              // absolute path requried when using modules outside of project root, hhj:
+              presets: [path.join(constants.NODE_MODULES_DIR, 'babel-preset-react-hmre')]
             }
           },
           {

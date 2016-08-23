@@ -27,6 +27,7 @@ module.exports = {
   },
   resolveLoader: { // required when using modules outside of root dir:
     root: [constants.NODE_MODULES_DIR],
+    fallback: [constants.NODE_MODULES_DIR],
     modulesDirectories: ['node_modules'],
   },
   output: {
