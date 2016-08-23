@@ -9,28 +9,6 @@ import isomorphicToolsConfig from './webpack-isomorphic-tools.config.js';
 
 const isomorphicToolsPlugin = new IsomorphicToolsPlugin(isomorphicToolsConfig)
 
-// add hot reload feature in dev mode (using babel-plugin-react-transform & react-transform-hmr),
-// rest of babel config taken from .babelrc
-const BABEL_QUERY = {
-  plugins: [
-    [
-      'react-transform',
-      {
-        transforms: [
-          {
-            transform: 'react-transform-hmr',
-            imports: ['react'],
-            locals: ['module']
-          },
-          // {
-          //   transform: 'react-transform-render-visualizer'
-          // }
-        ]
-      }
-    ]
-  ]
-}
-
 const prefixLoaders = 'style-loader!css-loader!postcss-loader'
 
 // consumed in src/server.js
@@ -51,7 +29,10 @@ export default function(app) {
             test: /\.jsx?$/,
             exclude: /node_modules/,
             loader: 'babel',
-            query: BABEL_QUERY
+            // babel hot reload; rest of babel config taken from .babelrc
+            query: {
+              presets: ['react-hmre']
+            }
           },
           {
             loader: 'url-loader?limit=100000',
