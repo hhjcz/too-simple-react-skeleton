@@ -3,9 +3,9 @@
   "version": "1.0.31",
   "dependencies": {
     "@hhjcz/react-lib": {
-      "version": "1.0.12",
-      "from": "@hhjcz/react-lib@1.0.12",
-      "resolved": "https://registry.npmjs.org/@hhjcz/react-lib/-/react-lib-1.0.12.tgz"
+      "version": "1.0.13",
+      "from": "@hhjcz/react-lib@1.0.13",
+      "resolved": "https://registry.npmjs.org/@hhjcz/react-lib/-/react-lib-1.0.13.tgz"
     },
     "abbrev": {
       "version": "1.0.7",
@@ -4472,11 +4472,6 @@
       "version": "0.1.0",
       "from": "run-async@0.1.0",
       "resolved": "https://registry.npmjs.org/run-async/-/run-async-0.1.0.tgz"
-    },
-    "rupture": {
-      "version": "0.6.1",
-      "from": "rupture@>=0.6.1 <0.7.0",
-      "resolved": "https://registry.npmjs.org/rupture/-/rupture-0.6.1.tgz"
     },
     "rx-lite": {
       "version": "3.1.2",
