@@ -1,5 +1,6 @@
 /** Created by hhj on 12/23/15. */
 import path from 'path';
+import fs from 'fs';
 import webpack from 'webpack';
 import webpackDevMiddleware from 'webpack-dev-middleware';
 import webpackHotMiddleware from 'webpack-hot-middleware';
@@ -14,6 +15,16 @@ const prefixLoaders = 'style-loader!css-loader!postcss-loader'
 
 // consumed in src/server.js
 export default function(app) {
+
+  const resolveAliases = {
+    '@hhjcz/react-lib/lib': path.resolve('..', 'react-lib/src'),
+  }
+  const validAliases = {}
+  Object.keys(resolveAliases)
+    .filter(alias => fs.existsSync(resolveAliases[alias]))
+    .forEach(alias => { validAliases[alias] = resolveAliases[alias] })
+  console.log(validAliases)
+
   const config = {
     ...prodCfg,
     ...{
@@ -23,6 +34,10 @@ export default function(app) {
           'webpack-hot-middleware/client',
           './src/client'
         ]
+      },
+      resolve: {
+        ...prodCfg.resolve,
+        alias: validAliases
       },
       module: {
         loaders: [
