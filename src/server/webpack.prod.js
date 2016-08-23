@@ -59,7 +59,7 @@ module.exports = {
     ]
   },
   stylus: {
-    use: [require('rupture')()],
+    // use: [require('rupture')()],
     // import: ['~rupture/rupture/index.styl']
   },
   module: {
