@@ -5,22 +5,29 @@ const autoprefixer = require('autoprefixer')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
 const IsomorphicToolsPlugin = require('webpack-isomorphic-tools/plugin')
 const isomorphicToolsConfig = require('./webpack-isomorphic-tools.config')
+const constants = require('./constants')
 
 const isomorphicToolsPlugin = new IsomorphicToolsPlugin(isomorphicToolsConfig)
 const prefixLoaders = 'css-loader!postcss-loader'
 
 module.exports = {
+  debug: true,
   entry: {
     main: [
       './src/client'
     ]
   },
   resolve: {
-    modulesDirectories: ['node_modules', 'src/shared'],
+    root: [constants.BASE_DIR],
+    modulesDirectories: ['node_modules', 'src'],
     extensions: ['', '.js', '.jsx', '.scss', '.sass'],
     alias: {
-      'react-lib/lib': '@hhjcz/react-lib/lib',
-    }
+      '@hhjcz/react-lib/lib': path.resolve('..', 'react-lib/lib'),
+    },
+  },
+  resolveLoader: { // required when using modules outside of root dir:
+    root: [constants.NODE_MODULES_DIR],
+    modulesDirectories: ['node_modules'],
   },
   output: {
     path: path.join(__dirname, '../../dist'),
