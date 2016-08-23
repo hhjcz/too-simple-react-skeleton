@@ -1,9 +1,9 @@
 /** Created by hhj on 1/29/16. */
 import uniqBy from 'lodash/uniqBy'
-import myRest from 'react-lib/lib/rest/index'
-import createFetch from 'react-lib/lib/rest/createFetch'
-import { Sort } from 'react-lib/lib/Sort'
-import { Pagination } from 'react-lib/lib/Pagination'
+import myRest from '@hhjcz/react-lib/lib/rest/index'
+import createFetch from '@hhjcz/react-lib/lib/rest/createFetch'
+import { Sort } from '@hhjcz/react-lib/lib/Sort'
+import { Pagination } from '@hhjcz/react-lib/lib/Pagination'
 import { ZarizeniFactory } from './models/Zarizeni'
 import { UmisteniFactory } from './models/Umisteni'
 import { Lokalita } from './models/Lokalita'
@@ -11,7 +11,7 @@ import { NepiOp } from './models/NepiOp'
 import { Udalost } from './models/Udalost'
 import { Cp2Type } from './models/Cp2Type'
 
-export { getSubState, getItem, getItems, getIdAtCursor } from 'react-lib/lib/rest'
+export { getSubState, getItem, getItems, getIdAtCursor } from '@hhjcz/react-lib/lib/rest'
 
 const serverBaseUrl = process.env.SERVER_BASE_URL
   || (process.env.IS_BROWSER ? window.SERVER_BASE_URL : null)

@@ -1,5 +1,5 @@
 /** Created by hhj on 4/6/16. */
-import debounce from 'react-lib/lib/debounce'
+import debounce from '@hhjcz/react-lib/lib/debounce'
 
 export const propsHolder = { actions: {} }
 

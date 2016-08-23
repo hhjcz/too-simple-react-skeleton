@@ -17,7 +17,10 @@ module.exports = {
   },
   resolve: {
     modulesDirectories: ['node_modules', 'src/shared'],
-    extensions: ['', '.js', '.jsx', '.scss', '.sass']
+    extensions: ['', '.js', '.jsx', '.scss', '.sass'],
+    alias: {
+      'react-lib/lib': '@hhjcz/react-lib/lib',
+    }
   },
   output: {
     path: path.join(__dirname, '../../dist'),

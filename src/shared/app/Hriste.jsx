@@ -4,7 +4,7 @@ import { Image } from 'react-bootstrap'
 import FontIcon from 'material-ui/FontIcon'
 import IconButton from 'material-ui/IconButton'
 import { connect } from 'react-redux'
-import MyIcon from 'react-lib/lib/components/MyIcon'
+import MyIcon from '@hhjcz/react-lib/lib/components/MyIcon'
 import './fonts.css'
 import rest from './rest'
 

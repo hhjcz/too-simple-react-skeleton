@@ -2,7 +2,7 @@
 import { Map } from 'immutable'
 import React from 'react'
 import { Link } from 'react-router'
-import { Column, columntValueTypes } from 'react-lib/lib/tabulka/Column'
+import { Column, columntValueTypes } from '@hhjcz/react-lib/lib/tabulka/Column'
 import MarkedLokalita from '../zarizeni/umistovani/MarkedLokalita'
 import NepiOpy from '../zarizeni/umistovani/NepiOpy'
 import UmistenaZarizeni from './UmistenaZarizeni'

@@ -1,9 +1,9 @@
 /** Created by hhj on 12/28/15. */
 import React, { PropTypes } from 'react'
 import { connect } from 'react-redux'
-import createMapStateToProps from 'react-lib/lib/createMapStateToProps'
-import createMapDispatchToProps from 'react-lib/lib/createMapDispatchToProps'
-import FetchIndicator from 'react-lib/lib/FetchIndicator'
+import createMapStateToProps from '@hhjcz/react-lib/lib/createMapStateToProps'
+import createMapDispatchToProps from '@hhjcz/react-lib/lib/createMapDispatchToProps'
+import FetchIndicator from '@hhjcz/react-lib/lib/FetchIndicator'
 import { getItems, getItem } from '../../app/rest'
 import actions from './actions'
 import NedavneLokality from './NedavneLokality'
