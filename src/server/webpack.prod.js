@@ -21,8 +21,9 @@ module.exports = {
     root: [constants.BASE_DIR],
     modulesDirectories: ['node_modules', 'src'],
     extensions: ['', '.js', '.jsx', '.scss', '.sass'],
+    // TODO - do only in development and when the path exists, otherwise don't alias it
     alias: {
-      '@hhjcz/react-lib/lib': path.resolve('..', 'react-lib/lib'),
+      '@hhjcz/react-lib/lib': path.resolve('..', 'react-lib/src'),
     },
   },
   resolveLoader: { // required when using modules outside of root dir:
