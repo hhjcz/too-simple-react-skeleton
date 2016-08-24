@@ -3,6 +3,15 @@ import React, { PropTypes } from 'react'
 import Toggle from 'material-ui/Toggle'
 import { Filter } from '@hhjcz/react-lib/lib/Filter'
 
+const styles = {
+  toggle: {
+    alignSelf: 'center'
+  },
+  label: {
+    whiteSpace: 'nowrap'
+  }
+}
+
 export default class PredefinedViews extends React.Component {
   static propTypes = {
     onNamedFilterChange: PropTypes.func.isRequired,
@@ -39,21 +48,25 @@ export default class PredefinedViews extends React.Component {
 
     return (
       <div className="row">
-        <div className="col col-xs-5">
+        <div className="col col-md-6">
           <Toggle
             label="Neumístěná" toggled={toggleState.neumistenaToggled}
             onToggle={
-            function(e, toggled) {
-              onNamedFilterChange(toggled ? 'neumistena' : null)
-              if (toggled) setColumnWidth('umisteni', 1)
-              else setColumnWidth('umisteni')
-            }}
+              function(e, toggled) {
+                onNamedFilterChange(toggled ? 'neumistena' : null)
+                if (toggled) setColumnWidth('umisteni', 1)
+                else setColumnWidth('umisteni')
+              }}
+            iconStyle={styles.toggle}
+            labelStyle={styles.label}
           />
           <Toggle
             label="Umístěná na lokalitě bez OP" toggled={toggleState.umistenaBezOpToggled}
             onToggle={function(e, toggled) {
               onNamedFilterChange(toggled ? 'umistenaBezOp' : null)
             }}
+            iconStyle={styles.toggle}
+            labelStyle={styles.label}
           />
           <Toggle
             label="Změněná identita" toggled={toggleState.zmenenaToggled}
@@ -68,22 +81,27 @@ export default class PredefinedViews extends React.Component {
               onFilterChange(new Filter({
                 name: 'previousNetvisionName',
                 value: toggled ? false : null,
-                comparator: 'empty' })
-            ) }}
+                comparator: 'empty'
+              }))
+            }}
+            iconStyle={styles.toggle}
+            labelStyle={styles.label}
           />
         </div>
-        <div className="col col-xs-4 col-xs-offset-1">
+        <div className="col col-md-6 col-md-offset-0">
           <Toggle
             label="I smazaná" toggled={toggleState.smazanaToggled}
             onToggle={function(e, toggled) {
               onFilterChange(new Filter({
                 name: 'deletedAt',
                 value: toggled ? null : true,
-                comparator: 'empty' })
-              )
+                comparator: 'empty'
+              }))
               if (toggled) showColumn('deletedAt')
               else hideColumn('deletedAt')
             }}
+            iconStyle={styles.toggle}
+            labelStyle={styles.label}
           />
           <Toggle
             label="I bez IP adresy" toggled={toggleState.bezIpToggled}
@@ -91,11 +109,13 @@ export default class PredefinedViews extends React.Component {
               onFilterChange(new Filter({
                 name: 'ipAddress',
                 value: toggled ? null : false,
-                comparator: 'empty' })
-              )
+                comparator: 'empty'
+              }))
               if (toggled) showColumn('ipAddress')
               else hideColumn('ipAddress')
             }}
+            iconStyle={styles.toggle}
+            labelStyle={styles.label}
           />
         </div>
       </div>
