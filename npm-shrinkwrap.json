@@ -3,9 +3,9 @@
   "version": "1.0.31",
   "dependencies": {
     "@hhjcz/react-lib": {
-      "version": "1.0.13",
-      "from": "@hhjcz/react-lib@1.0.13",
-      "resolved": "https://registry.npmjs.org/@hhjcz/react-lib/-/react-lib-1.0.13.tgz"
+      "version": "1.0.15",
+      "from": "@hhjcz/react-lib@1.0.15",
+      "resolved": "https://registry.npmjs.org/@hhjcz/react-lib/-/react-lib-1.0.15.tgz"
     },
     "abbrev": {
       "version": "1.0.7",
