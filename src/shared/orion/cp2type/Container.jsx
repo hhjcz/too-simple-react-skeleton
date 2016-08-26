@@ -5,7 +5,6 @@ import { List, Map } from 'immutable'
 import { reduxUtils } from '@hhjcz/js-lib'
 import { getItems, Pagination, Sort } from '@hhjcz/redux-rest'
 import Tabulka, { Paginator } from '@hhjcz/react-lib/lib/tabulka'
-import PredefinedViews from './PredefinedViews'
 import * as actions from './actions'
 
 export class Container extends React.Component {
@@ -112,16 +111,6 @@ export class Container extends React.Component {
     return (
       <div id="cp2type-list">
         <div className="row">
-          <div className="col col-md-6">
-            <PredefinedViews
-              namedFilter={generalParams.get('filter')}
-              onFilterChange={self.onFilterChange}
-              filters={filters}
-              hideColumn={actions.hideColumn}
-              showColumn={actions.showColumn}
-              setColumnWidth={actions.setColumnWidth}
-            />
-          </div>
           <div className="col col-md-6">
             <Paginator
               pagination={pagination}

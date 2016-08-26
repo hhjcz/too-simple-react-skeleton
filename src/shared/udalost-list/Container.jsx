@@ -5,7 +5,6 @@ import { List } from 'immutable'
 import { reduxUtils } from '@hhjcz/js-lib'
 import { getItems } from '@hhjcz/redux-rest'
 import Tabulka, { Paginator } from '@hhjcz/react-lib/lib/tabulka'
-import PredefinedViews from './PredefinedViews'
 import * as actions from './actions'
 
 export class Container extends React.Component {
@@ -84,15 +83,6 @@ export class Container extends React.Component {
       <div id="udalost-list">
         <div className="row">
           <div className="col col-md-6">
-            <PredefinedViews
-              onNamedFilterChange={self.onNamedFilterChange}
-              namedFilter={generalParams.get('filter')}
-              onFilterChange={self.onFilterChange}
-              filters={filters}
-              hideColumn={actions.hideColumn}
-              showColumn={actions.showColumn}
-              setColumnWidth={actions.setColumnWidth}
-            />
           </div>
           <div className="col col-md-6">
             <Paginator
