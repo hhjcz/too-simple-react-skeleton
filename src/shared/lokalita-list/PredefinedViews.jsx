@@ -1,6 +1,6 @@
 /** Created by hhj on 3/3/16. */
 import React, { PropTypes } from 'react'
-import Toggle from 'material-ui/Toggle'
+import { MyToggle as Toggle } from '@hhjcz/react-lib'
 
 export default class PredefinedViews extends React.Component {
   static propTypes = {

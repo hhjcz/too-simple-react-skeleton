@@ -1,15 +1,6 @@
 /** Created by hhj on 3/3/16. */
 import React, { PropTypes } from 'react'
-import Toggle from 'material-ui/Toggle'
-
-const styles = {
-  toggle: {
-    alignSelf: 'center'
-  },
-  label: {
-    whiteSpace: 'nowrap'
-  }
-}
+import { MyToggle as Toggle } from '@hhjcz/react-lib'
 
 export default class PredefinedViews extends React.Component {
   static propTypes = {
@@ -56,16 +47,12 @@ export default class PredefinedViews extends React.Component {
                 if (toggled) setColumnWidth('umisteni', 1)
                 else setColumnWidth('umisteni')
               }}
-            iconStyle={styles.toggle}
-            labelStyle={styles.label}
           />
           <Toggle
             label="Umístěná na lokalitě bez OP" toggled={toggleState.umistenaBezOpToggled}
             onToggle={function(e, toggled) {
               onNamedFilterChange(toggled ? 'umistenaBezOp' : null)
             }}
-            iconStyle={styles.toggle}
-            labelStyle={styles.label}
           />
           <Toggle
             label="Změněná identita" toggled={toggleState.zmenenaToggled}
@@ -83,8 +70,6 @@ export default class PredefinedViews extends React.Component {
                 comparator: 'empty'
               })
             }}
-            iconStyle={styles.toggle}
-            labelStyle={styles.label}
           />
         </div>
         <div className="col col-md-6 col-md-offset-0">
@@ -99,8 +84,6 @@ export default class PredefinedViews extends React.Component {
               if (toggled) showColumn('deletedAt')
               else hideColumn('deletedAt')
             }}
-            iconStyle={styles.toggle}
-            labelStyle={styles.label}
           />
           <Toggle
             label="I bez IP adresy" toggled={toggleState.bezIpToggled}
@@ -113,8 +96,6 @@ export default class PredefinedViews extends React.Component {
               if (toggled) showColumn('ipAddress')
               else hideColumn('ipAddress')
             }}
-            iconStyle={styles.toggle}
-            labelStyle={styles.label}
           />
         </div>
       </div>
