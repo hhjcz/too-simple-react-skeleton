@@ -4,7 +4,6 @@ import { expect } from 'chai'
 import React from 'react'
 import sd from 'skin-deep'
 import { List, Map } from 'immutable'
-import { Pagination } from '@hhjcz/redux-rest/lib/Pagination'
 import createStore from '../../app/createStore'
 import Connected, { Container } from './../Container'
 
@@ -14,8 +13,7 @@ describe('lokalita-list', () => {
     const store = createStore()
 
     beforeEach(() => {
-      const pagination = new Pagination()
-      tree = sd.shallowRender(React.createElement(Connected, { store, pagination }))
+      tree = sd.shallowRender(React.createElement(Connected, { store }))
     })
 
     it('should connect props to redux', () => {
@@ -28,7 +26,7 @@ describe('lokalita-list', () => {
     it('should connect proper sub state to props', () => {
       expect(typeof tree.props.items).to.equal('object')
       expect(tree.props.items).to.be.instanceof(List)
-      expect(tree.props.pagination).to.be.instanceof(Pagination)
+      expect(tree.props.pagination.page).to.equal(1)
       expect(tree.props.generalParams).to.be.instanceof(Map)
       expect(tree.props.columns).to.be.instanceof(Map)
     })

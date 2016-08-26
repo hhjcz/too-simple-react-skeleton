@@ -1,9 +1,6 @@
 /** Created by hhj on 1/29/16. */
 import uniqBy from 'lodash/uniqBy'
-import myRest from '@hhjcz/redux-rest/lib/rest'
-import createFetch from '@hhjcz/redux-rest/lib/rest/createFetch'
-import { Sort } from '@hhjcz/redux-rest/lib/Sort'
-import { Pagination } from '@hhjcz/redux-rest/lib/Pagination'
+import createRest, { createFetch, Pagination, Sort } from '@hhjcz/redux-rest'
 import { ZarizeniFactory } from './models/Zarizeni'
 import { UmisteniFactory } from './models/Umisteni'
 import { Lokalita } from './models/Lokalita'
@@ -12,13 +9,13 @@ import { Udalost } from './models/Udalost'
 import { Cp2Type } from './models/Cp2Type'
 import errorHandler from '../lib/myErrorHandler'
 
-export { getSubState, getItem, getItems, getIdAtCursor } from '@hhjcz/redux-rest/lib/rest'
+export { getSubState, getItem, getItems, getIdAtCursor } from '@hhjcz/redux-rest'
 
 const serverBaseUrl = process.env.SERVER_BASE_URL
   || (process.env.IS_BROWSER ? window.SERVER_BASE_URL : null)
   || 'http://localhost:8089/api'
 
-const rest = myRest({
+const rest = createRest({
   zarizeni: {
     url: '/zarizeni/:id/:nested',
     extraParams: { include: 'umisteni.lokalita' },
