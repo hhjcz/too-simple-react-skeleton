@@ -19,7 +19,7 @@ module.exports = {
   },
   resolve: {
     root: [constants.BASE_DIR],
-    modulesDirectories: ['node_modules', 'src'],
+    modulesDirectories: ['node_modules'],
     extensions: ['', '.js', '.jsx'],
   },
   resolveLoader: { // required when using modules outside of root dir:

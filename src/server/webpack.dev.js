@@ -38,6 +38,7 @@ export default function(app) {
     },
     resolve: {
       ...prodCfg.resolve,
+      modulesDirectories: ['my_libs', 'node_modules'],
       alias: validAliases
     },
     module: {
