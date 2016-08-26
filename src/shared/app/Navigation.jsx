@@ -3,8 +3,8 @@
 import React, { PropTypes } from 'react'
 import { LinkContainer, IndexLinkContainer } from 'react-router-bootstrap'
 import { Navbar, Nav, NavItem, NavDropdown, MenuItem, NavbarBrand } from 'react-bootstrap'
-import MyIcon from '@hhjcz/react-lib/lib/components/MyIcon'
-import '@hhjcz/react-lib/lib/components/icons.css'
+import MyIcon from '@hhjcz/react-lib/lib/MyIcon'
+import '@hhjcz/react-lib/lib/icons.css'
 import Logout from './Logout'
 
 class ColoredIcon extends React.Component {

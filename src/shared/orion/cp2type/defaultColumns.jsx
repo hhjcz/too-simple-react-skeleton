@@ -2,7 +2,7 @@
 /* eslint-disable no-nested-ternary */
 import { Map } from 'immutable'
 import React from 'react'
-import { Column, columntValueTypes } from '@hhjcz/react-lib/lib/tabulka/Column'
+import { Column, columntValueTypes } from '@hhjcz/react-lib/lib/tabulka'
 import ActionButtons from './ActionButtons'
 
 const defaultColumns = Map(

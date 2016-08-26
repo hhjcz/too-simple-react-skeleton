@@ -4,8 +4,8 @@ import React, { PropTypes } from 'react'
 import { LinkContainer, IndexLinkContainer } from 'react-router-bootstrap'
 import { Nav, NavItem, Pagination } from 'react-bootstrap'
 import IconButton from 'material-ui/IconButton'
-import MyIcon from '@hhjcz/react-lib/lib/components/MyIcon'
-import '@hhjcz/react-lib/lib/components/icons.css'
+import MyIcon from '@hhjcz/react-lib/lib/MyIcon'
+import '@hhjcz/react-lib/lib/icons.css'
 import colors from '../app/colors'
 
 class ColoredIcon extends React.Component {

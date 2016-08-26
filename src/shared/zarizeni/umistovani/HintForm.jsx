@@ -1,9 +1,9 @@
 /** Created by hhj on 2/18/16. */
 import React, { PropTypes } from 'react'
 import { List } from 'immutable'
-import MyIcon from '@hhjcz/react-lib/lib/components/MyIcon'
-import MyDraggable from '@hhjcz/react-lib/lib/components/MyDraggable'
-import MyAutoComplete from '@hhjcz/react-lib/lib/components/MyAutoComplete'
+import MyIcon from '@hhjcz/react-lib/lib/MyIcon'
+import MyDraggable from '@hhjcz/react-lib/lib/MyDraggable'
+import MyAutoComplete from '@hhjcz/react-lib/lib/MyAutoComplete'
 import { propsHolder as helperPropsHolder, fetchSeznamAkrloks, autoCompleteFactory } from './hintFormHelper'
 import './HintForm.styl'
 import colors from '../../app/colors'

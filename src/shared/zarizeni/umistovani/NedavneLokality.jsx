@@ -2,7 +2,7 @@
 import React, { PropTypes } from 'react'
 import Panel from 'react-bootstrap/lib/Panel'
 import IconButton from 'material-ui/IconButton'
-import MyIcon from '@hhjcz/react-lib/lib/components/MyIcon'
+import MyIcon from '@hhjcz/react-lib/lib/MyIcon'
 import colors from '../../app/colors'
 
 export default class NedavneLokality extends React.Component {
