@@ -6,7 +6,7 @@ import React from 'react'
 import { Provider } from 'react-redux'
 import sd from 'skin-deep'
 import { List, Map } from 'immutable'
-import { Pagination } from '@hhjcz/react-lib/lib/Pagination'
+import { Pagination } from '@hhjcz/redux-rest/lib/Pagination'
 import createStore from '../../app/createStore'
 import Connected, { Container } from './../Container'
 

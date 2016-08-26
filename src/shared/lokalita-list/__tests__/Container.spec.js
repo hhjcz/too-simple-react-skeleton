@@ -4,7 +4,7 @@ import { expect } from 'chai'
 import React from 'react'
 import sd from 'skin-deep'
 import { List, Map } from 'immutable'
-import { Pagination } from '@hhjcz/react-lib/lib/Pagination'
+import { Pagination } from '@hhjcz/redux-rest/lib/Pagination'
 import createStore from '../../app/createStore'
 import Connected, { Container } from './../Container'
 

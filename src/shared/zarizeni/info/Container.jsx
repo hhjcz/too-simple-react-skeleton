@@ -1,9 +1,8 @@
 /** Created by hhj on 12/28/15. */
 import React, { PropTypes } from 'react'
 import { connect } from 'react-redux'
-import createMapStateToProps from '@hhjcz/react-lib/lib/createMapStateToProps'
-import createMapDispatchToProps from '@hhjcz/react-lib/lib/createMapDispatchToProps'
-import { getItem } from '@hhjcz/react-lib/lib/rest'
+import { reduxUtils } from '@hhjcz/js-lib'
+import { getItem } from '@hhjcz/redux-rest'
 import * as actions from '../../zarizeni-list/actions'
 import ZarizeniDetail from './ZarizeniDetail'
 
@@ -40,6 +39,6 @@ export class Container extends React.Component {
 }
 
 export default connect(
-  createMapStateToProps(state => state.resources.zarizeni),
-  createMapDispatchToProps(actions)
+  reduxUtils.createMapStateToProps(state => state.resources.zarizeni),
+  reduxUtils.createMapDispatchToProps(actions)
 )(Container)

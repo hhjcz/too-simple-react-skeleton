@@ -1,17 +1,18 @@
 /** Created by hhj on 1/29/16. */
 import uniqBy from 'lodash/uniqBy'
-import myRest from '@hhjcz/react-lib/lib/rest/index'
-import createFetch from '@hhjcz/react-lib/lib/rest/createFetch'
-import { Sort } from '@hhjcz/react-lib/lib/Sort'
-import { Pagination } from '@hhjcz/react-lib/lib/Pagination'
+import myRest from '@hhjcz/redux-rest/lib/rest'
+import createFetch from '@hhjcz/redux-rest/lib/rest/createFetch'
+import { Sort } from '@hhjcz/redux-rest/lib/Sort'
+import { Pagination } from '@hhjcz/redux-rest/lib/Pagination'
 import { ZarizeniFactory } from './models/Zarizeni'
 import { UmisteniFactory } from './models/Umisteni'
 import { Lokalita } from './models/Lokalita'
 import { NepiOp } from './models/NepiOp'
 import { Udalost } from './models/Udalost'
 import { Cp2Type } from './models/Cp2Type'
+import errorHandler from '../lib/myErrorHandler'
 
-export { getSubState, getItem, getItems, getIdAtCursor } from '@hhjcz/react-lib/lib/rest'
+export { getSubState, getItem, getItems, getIdAtCursor } from '@hhjcz/redux-rest/lib/rest'
 
 const serverBaseUrl = process.env.SERVER_BASE_URL
   || (process.env.IS_BROWSER ? window.SERVER_BASE_URL : null)
@@ -82,6 +83,7 @@ const rest = myRest({
     url: '/test/:id'
   }
 }).use('fetch', createFetch(serverBaseUrl))
+  .use('errorHandler', errorHandler)
 
 export default rest
 

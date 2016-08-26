@@ -1,7 +1,6 @@
 /** Created by hhj on 3/3/16. */
 import React, { PropTypes } from 'react'
 import Toggle from 'material-ui/Toggle'
-import { Filter } from '@hhjcz/react-lib/lib/Filter'
 
 export default class PredefinedViews extends React.Component {
   static propTypes = {
@@ -40,21 +39,21 @@ export default class PredefinedViews extends React.Component {
           <Toggle
             label="Jen s OP" toggled={toggleState.nepiOpToggled}
             onToggle={function(e, toggled) {
-              onFilterChange(new Filter({
+              onFilterChange({
                 name: 'op',
                 value: toggled ? false : null,
-                comparator: 'empty' })
-              )
+                comparator: 'empty'
+              })
             }}
           />
           <Toggle
             label="Jen s umístěným zařízením" toggled={toggleState.umistenaZarizeniToggled}
             onToggle={function(e, toggled) {
-              onFilterChange(new Filter({
+              onFilterChange({
                 name: 'zarizeni',
                 value: toggled ? false : null,
-                comparator: 'empty' })
-              )
+                comparator: 'empty'
+              })
             }}
           />
         </div>

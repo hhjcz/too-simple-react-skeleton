@@ -2,11 +2,10 @@
 import React, { PropTypes } from 'react'
 import { connect } from 'react-redux'
 import { List, Map } from 'immutable'
-import createMapStateToProps from '@hhjcz/react-lib/lib/createMapStateToProps'
-import createMapDispatchToProps from '@hhjcz/react-lib/lib/createMapDispatchToProps'
-import { getItems } from '@hhjcz/react-lib/lib/rest'
-import { Pagination } from '@hhjcz/react-lib/lib/Pagination'
-import { Sort } from '@hhjcz/react-lib/lib/Sort'
+import { reduxUtils } from '@hhjcz/js-lib'
+import { getItems } from '@hhjcz/redux-rest'
+import { Pagination } from '@hhjcz/redux-rest/lib/Pagination'
+import { Sort } from '@hhjcz/redux-rest/lib/Sort'
 import Paginator from '@hhjcz/react-lib/lib/tabulka/Paginator'
 import ColumnsControl from '@hhjcz/react-lib/lib/tabulka/ColumnsControl'
 import Tabulka from '@hhjcz/react-lib/lib/tabulka/Tabulka'
@@ -147,9 +146,9 @@ export class Container extends React.Component {
 }
 
 export default connect(
-  createMapStateToProps(state => ({
+  reduxUtils.createMapStateToProps(state => ({
     ...(state.resources.cp2type.set('items', getItems(state.resources.cp2type)).toObject()),
     ...(state.cp2typeList.toObject())
   })),
-  createMapDispatchToProps(actions)
+  reduxUtils.createMapDispatchToProps(actions)
 )(Container)

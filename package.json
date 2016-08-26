@@ -23,7 +23,9 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@hhjcz/js-lib": "^1.0.3",
     "@hhjcz/react-lib": "^1.0.1",
+    "@hhjcz/redux-rest": "^1.0.0",
     "autoprefixer": "^6.2.3",
     "babel-core": "^6.6.4",
     "babel-loader": "^6.2.0",
@@ -42,7 +44,6 @@
     "history": "^3.0.0",
     "humps": "^1.0.0",
     "immutable": "^3.7.6",
-    "isomorphic-fetch": "^2.2.0",
     "less": "^2.5.3",
     "less-loader": "^2.2.2",
     "lodash": "^4.2.0",

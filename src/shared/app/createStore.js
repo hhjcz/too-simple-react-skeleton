@@ -3,8 +3,7 @@ import { createStore as _createStore, applyMiddleware, compose } from 'redux'
 import createLogger from 'redux-logger'
 import adapter from 'redux-localstorage/lib/adapters/sessionStorage'
 import storageDebounce from 'redux-localstorage-debounce'
-
-import myMiddleware from '@hhjcz/react-lib/lib/myMiddleware'
+import { myMiddleware } from '@hhjcz/js-lib/lib/reduxUtils'
 import reducer from './reducer'
 
 // defined in webpack configuration or node runtime environment

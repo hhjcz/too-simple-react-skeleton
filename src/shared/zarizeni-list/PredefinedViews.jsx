@@ -1,7 +1,6 @@
 /** Created by hhj on 3/3/16. */
 import React, { PropTypes } from 'react'
 import Toggle from 'material-ui/Toggle'
-import { Filter } from '@hhjcz/react-lib/lib/Filter'
 
 const styles = {
   toggle: {
@@ -78,11 +77,11 @@ export default class PredefinedViews extends React.Component {
                 hideColumn('previousNetvisionName')
                 showColumn('name')
               }
-              onFilterChange(new Filter({
+              onFilterChange({
                 name: 'previousNetvisionName',
                 value: toggled ? false : null,
                 comparator: 'empty'
-              }))
+              })
             }}
             iconStyle={styles.toggle}
             labelStyle={styles.label}
@@ -92,11 +91,11 @@ export default class PredefinedViews extends React.Component {
           <Toggle
             label="I smazaná" toggled={toggleState.smazanaToggled}
             onToggle={function(e, toggled) {
-              onFilterChange(new Filter({
+              onFilterChange({
                 name: 'deletedAt',
                 value: toggled ? null : true,
                 comparator: 'empty'
-              }))
+              })
               if (toggled) showColumn('deletedAt')
               else hideColumn('deletedAt')
             }}
@@ -106,11 +105,11 @@ export default class PredefinedViews extends React.Component {
           <Toggle
             label="I bez IP adresy" toggled={toggleState.bezIpToggled}
             onToggle={function(e, toggled) {
-              onFilterChange(new Filter({
+              onFilterChange({
                 name: 'ipAddress',
                 value: toggled ? null : false,
                 comparator: 'empty'
-              }))
+              })
               if (toggled) showColumn('ipAddress')
               else hideColumn('ipAddress')
             }}

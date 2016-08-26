@@ -1,8 +1,7 @@
 /** Created by hhj on 12/28/15. */
 import React, { PropTypes } from 'react'
 import { connect } from 'react-redux'
-import createMapStateToProps from '@hhjcz/react-lib/lib/createMapStateToProps'
-import createMapDispatchToProps from '@hhjcz/react-lib/lib/createMapDispatchToProps'
+import { reduxUtils } from '@hhjcz/js-lib'
 import FetchIndicator from '@hhjcz/react-lib/lib/FetchIndicator'
 import { getItems, getItem } from '../../app/rest'
 import actions from './actions'
@@ -81,11 +80,11 @@ export class Container extends React.Component {
 }
 
 export default connect(
-  createMapStateToProps(state => ({
+  reduxUtils.createMapStateToProps(state => ({
     zarizeniResource: state.resources.zarizeni,
     portyZarizeniResource: state.resources.portyZarizeni,
     umisteniResource: state.resources.umisteni,
     akrloksResource: state.resources.akrloks
   })),
-  createMapDispatchToProps(actions)
+  reduxUtils.createMapDispatchToProps(actions)
 )(Container)

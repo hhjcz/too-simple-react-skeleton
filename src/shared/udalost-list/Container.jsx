@@ -2,9 +2,8 @@
 import React, { PropTypes } from 'react'
 import { connect } from 'react-redux'
 import { List } from 'immutable'
-import createMapStateToProps from '@hhjcz/react-lib/lib/createMapStateToProps'
-import createMapDispatchToProps from '@hhjcz/react-lib/lib/createMapDispatchToProps'
-import { getItems } from '@hhjcz/react-lib/lib/rest'
+import { reduxUtils } from '@hhjcz/js-lib'
+import { getItems } from '@hhjcz/redux-rest'
 import Paginator from '@hhjcz/react-lib/lib/tabulka/Paginator'
 import Tabulka from '@hhjcz/react-lib/lib/tabulka/Tabulka'
 import PredefinedViews from './PredefinedViews'
@@ -116,9 +115,9 @@ export class Container extends React.Component {
 }
 
 export default connect(
-  createMapStateToProps(state => ({
+  reduxUtils.createMapStateToProps(state => ({
     ...(state.resources.udalost.set('items', getItems(state.resources.udalost)).toObject()),
     ...(state.udalostList.toObject())
   })),
-  createMapDispatchToProps(actions)
+  reduxUtils.createMapDispatchToProps(actions)
 )(Container)
