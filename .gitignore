@@ -1,6 +1,6 @@
 .idea
 node_modules
-node_libs
+my_libs
 dist
 npm-debug.log
 webpack-assets.json
