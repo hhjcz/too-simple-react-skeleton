@@ -10,12 +10,12 @@ import PredefinedViews from '../PredefinedViews'
 describe('zarizeni-list PredefinedViews component', () => {
   const shallowRender = (props) => sd.shallowRender(React.createElement(PredefinedViews, props))
 
-  it('should render with default props', () => {
+  it('renders with default props', () => {
     const tree = shallowRender()
     expect(tree.type).to.equal('div')
   })
 
-  it('should handle events', () => {
+  it('handles events', () => {
     const spyFilterChange = sinon.spy()
     const spyNamedFilterChange = sinon.spy()
     const spySetColumnWidth = sinon.spy()
@@ -29,7 +29,8 @@ describe('zarizeni-list PredefinedViews component', () => {
       hideColumn: spyHideColumn,
       showColumn: spyShowColumn,
     })
-    tree.everySubTree('Toggle').forEach(toggle => {
+
+    tree.everySubTree('MyToggle').forEach(toggle => {
       toggle.props.onToggle()
     })
 
