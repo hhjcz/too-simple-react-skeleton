@@ -16,11 +16,10 @@ const prefixLoaders = 'style-loader!css-loader!postcss-loader'
 // consumed in src/server.js
 export default function(app) {
 
-  // obsolete - using resolve path for my_libs now, hhj
   const resolveAliases = {
-    // '@hhjcz/js-lib/lib': path.resolve('..', 'js-lib/src'),
-    // '@hhjcz/react-lib/lib': path.resolve('..', 'react-lib/src'),
-    // '@hhjcz/redux-rest/lib': path.resolve('..', 'redux-rest/src'),
+    '@hhjcz/js-lib/lib': path.resolve('..', 'js-lib/src'),
+    '@hhjcz/react-lib/lib': path.resolve('./my_libs', 'react-lib'),
+    '@hhjcz/redux-rest/lib': path.resolve('..', 'redux-rest/src'),
   }
   const validAliases = {}
   Object.keys(resolveAliases)
@@ -39,7 +38,7 @@ export default function(app) {
     },
     resolve: {
       ...prodCfg.resolve,
-      modulesDirectories: ['my_libs', 'node_modules'],
+      modulesDirectories: ['node_modules'],
       alias: validAliases
     },
     module: {
