@@ -16,6 +16,7 @@ const prefixLoaders = 'style-loader!css-loader!postcss-loader'
 // consumed in src/server.js
 export default function(app) {
 
+  // obsolete - using resolve path for my_libs now, hhj
   const resolveAliases = {
     // '@hhjcz/js-lib/lib': path.resolve('..', 'js-lib/src'),
     // '@hhjcz/react-lib/lib': path.resolve('..', 'react-lib/src'),
