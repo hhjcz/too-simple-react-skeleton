@@ -11,7 +11,7 @@ console.info(`Building webpack bundle... (NODE_ENV=${process.env.NODE_ENV})`)
 
 function handleError(error) {
   console.error('Webpack build error: ', error)
-  return error
+  throw error
 }
 
 function handleWarning(warning) {
