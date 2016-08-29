@@ -17,9 +17,9 @@ const prefixLoaders = 'style-loader!css-loader!postcss-loader'
 export default function(app) {
 
   const resolveAliases = {
-    '@hhjcz/js-lib/lib': path.resolve('..', 'js-lib/src'),
-    '@hhjcz/react-lib/lib': path.resolve('./my_libs', 'react-lib'),
-    '@hhjcz/redux-rest/lib': path.resolve('..', 'redux-rest/src'),
+    '@hhjcz/js-lib/lib': path.resolve('./my_libs', 'js-lib/src'),
+    '@hhjcz/react-lib/lib': path.resolve('../my_libs', 'react-lib'),
+    '@hhjcz/redux-rest/lib': path.resolve('../my_libs', 'redux-rest/src'),
   }
   const validAliases = {}
   Object.keys(resolveAliases)
