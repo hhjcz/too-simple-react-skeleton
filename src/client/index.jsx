@@ -19,7 +19,8 @@ import createStore from '../shared/app/createStore'
 
 // server has put the state here (see server.js):
 // (initial state is then also hydrated from local storage,
-//  which replaces the state received from server - see authReducer.js)
+//  which replaces the state received from server - see reducer.js)
+// TODO - simplify deserialization directly in createStore using https://github.com/glenjamin/transit-immutable-js
 const initialState = window.__INITIAL_STATE__
 
 // react tap event for material ui (http://www.material-ui.com/#/get-started/installation):
