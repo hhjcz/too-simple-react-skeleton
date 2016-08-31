@@ -3,6 +3,7 @@ import React, { PropTypes } from 'react'
 import { connect } from 'react-redux'
 import { reduxUtils } from '@hhjcz/js-lib'
 import { getResourceWithItems, getItem, getItems } from '@hhjcz/redux-rest'
+import rest from '../app/rest'
 import * as actions from './actions'
 import LokalitaDetail from './LokalitaDetail'
 
@@ -67,8 +68,7 @@ export class Container extends React.Component {
   }
 }
 
-// TODO - get function from rest runtime
-const getResource = getResourceWithItems(state => state.resources)
+const getResource = getResourceWithItems(rest.getRootTree)
 
 export default connect(
   (state) => ({

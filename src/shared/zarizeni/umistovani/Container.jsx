@@ -4,6 +4,7 @@ import { connect } from 'react-redux'
 import { reduxUtils } from '@hhjcz/js-lib'
 import FetchIndicator from '@hhjcz/react-lib/lib/FetchIndicator'
 import { getResourceWithItems, getItems, getItem } from '@hhjcz/redux-rest'
+import rest from '../../app/rest'
 import actions from './actions'
 import NedavneLokality from './NedavneLokality'
 import Umistovani from './Umistovani'
@@ -79,7 +80,7 @@ export class Container extends React.Component {
   }
 }
 
-const getResource = getResourceWithItems(state => state.resources)
+const getResource = getResourceWithItems(rest.getRootTree)
 
 export default connect(
   state => ({

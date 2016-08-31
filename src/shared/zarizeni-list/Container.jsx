@@ -6,6 +6,7 @@ import { reduxUtils } from '@hhjcz/js-lib'
 import { getResourceWithItems } from '@hhjcz/redux-rest'
 import Tabulka, { Paginator } from '@hhjcz/react-lib/lib/tabulka'
 import PredefinedViews from './PredefinedViews'
+import rest from '../app/rest'
 import * as actions from './actions'
 
 export class Container extends React.Component {
@@ -119,8 +120,7 @@ export class Container extends React.Component {
   }
 }
 
-// TODO - get function from rest runtime
-const getResource = getResourceWithItems(state => state.resources)
+const getResource = getResourceWithItems(rest.getRootTree)
 
 export default connect(
   (state) => ({

@@ -72,8 +72,7 @@ export class Container extends React.Component {
   }
 }
 
-// TODO - get function from rest runtime
-const getResource = getResourceWithItems(state => state.resources)
+const getResource = getResourceWithItems(rest.getRootTree)
 
 export default connect(
   state => ({
