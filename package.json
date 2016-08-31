@@ -26,7 +26,7 @@
   "dependencies": {
     "@hhjcz/js-lib": "^1.0.3",
     "@hhjcz/react-lib": "^1.0.1",
-    "@hhjcz/redux-rest": "^1.1.0-alpha",
+    "@hhjcz/redux-rest": "^1.1.0-alpha.4",
     "autoprefixer": "^6.2.3",
     "babel-core": "^6.6.4",
     "babel-loader": "^6.2.0",
