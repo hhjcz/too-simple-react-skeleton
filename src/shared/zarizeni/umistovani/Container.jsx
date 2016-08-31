@@ -80,11 +80,11 @@ export class Container extends React.Component {
 }
 
 export default connect(
-  reduxUtils.createMapStateToProps(state => ({
+  state => ({
     zarizeniResource: state.resources.zarizeni,
     portyZarizeniResource: state.resources.portyZarizeni,
     umisteniResource: state.resources.umisteni,
     akrloksResource: state.resources.akrloks
-  })),
+  }),
   reduxUtils.createMapDispatchToProps(actions)
 )(Container)

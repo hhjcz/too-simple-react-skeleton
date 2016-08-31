@@ -2,7 +2,8 @@
 import React, { PropTypes } from 'react'
 import { connect } from 'react-redux'
 import { reduxUtils } from '@hhjcz/js-lib'
-import rest, { getIdAtCursor } from '../app/rest'
+import { getIdAtCursor, getResourceWithItems } from '@hhjcz/redux-rest'
+import rest from '../app/rest'
 import Navigation from './Navigation'
 
 export class Container extends React.Component {
@@ -72,9 +73,9 @@ export class Container extends React.Component {
 }
 
 export default connect(
-  reduxUtils.createMapStateToProps(state => ({
-    zarizeniResource: state.resources.zarizeni,
-  })),
+  state => ({
+    zarizeniResource: getResourceWithItems('zarizeni')(state.resources),
+  }),
   reduxUtils.createMapDispatchToProps(rest.actions)
 )(Container)
 

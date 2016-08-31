@@ -47,7 +47,7 @@ export default function createStore(initialState = {}, history = null) {
 
   store = compose(
     applyMiddleware(...middleware),
-    persistStateEnhancer,
+    // persistStateEnhancer,
     devToolsInstrument
   )(_createStore)(reducer, initialState)
 

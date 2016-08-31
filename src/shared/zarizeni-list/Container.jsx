@@ -3,7 +3,7 @@ import React, { PropTypes } from 'react'
 import { connect } from 'react-redux'
 import { List, Map } from 'immutable'
 import { reduxUtils } from '@hhjcz/js-lib'
-import { getItems } from '@hhjcz/redux-rest'
+import { getResourceWithItems } from '@hhjcz/redux-rest'
 import Tabulka, { Paginator } from '@hhjcz/react-lib/lib/tabulka'
 import PredefinedViews from './PredefinedViews'
 import * as actions from './actions'
@@ -119,10 +119,12 @@ export class Container extends React.Component {
   }
 }
 
+const getZarizeniResource = getResourceWithItems('zarizeni')
+
 export default connect(
-  reduxUtils.createMapStateToProps(state => ({
-    ...(state.resources.zarizeni.set('items', getItems(state.resources.zarizeni)).toObject()),
+  (state) => ({
+    ...(getZarizeniResource(state.resources)),
     ...(state.zarizeniList.toObject())
-  })),
+  }),
   reduxUtils.createMapDispatchToProps(actions)
 )(Container)
