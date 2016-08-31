@@ -3,7 +3,7 @@ import React, { PropTypes } from 'react'
 import { connect } from 'react-redux'
 import { List } from 'immutable'
 import { reduxUtils } from '@hhjcz/js-lib'
-import { getItems } from '@hhjcz/redux-rest'
+import { getItems, getResourceWithItems } from '@hhjcz/redux-rest'
 import Tabulka, { Paginator } from '@hhjcz/react-lib/lib/tabulka'
 import * as actions from './actions'
 
@@ -104,9 +104,9 @@ export class Container extends React.Component {
 }
 
 export default connect(
-  reduxUtils.createMapStateToProps(state => ({
-    ...(state.resources.udalost.set('items', getItems(state.resources.udalost)).toObject()),
-    ...(state.udalostList.toObject())
-  })),
+  (state) => ({
+    ...(getResourceWithItems('udalost')(state.resources)),
+    ...(state.udalostList.toObject()),
+  }),
   reduxUtils.createMapDispatchToProps(actions)
 )(Container)

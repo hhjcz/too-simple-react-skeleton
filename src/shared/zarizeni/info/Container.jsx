@@ -2,7 +2,7 @@
 import React, { PropTypes } from 'react'
 import { connect } from 'react-redux'
 import { reduxUtils } from '@hhjcz/js-lib'
-import { getItem } from '@hhjcz/redux-rest'
+import { getItem, getResourceWithItems } from '@hhjcz/redux-rest'
 import * as actions from '../../zarizeni-list/actions'
 import ZarizeniDetail from './ZarizeniDetail'
 
@@ -39,6 +39,6 @@ export class Container extends React.Component {
 }
 
 export default connect(
-  reduxUtils.createMapStateToProps(state => state.resources.zarizeni),
+  (state) => getResourceWithItems('zarizeni')(state.resources),
   reduxUtils.createMapDispatchToProps(actions)
 )(Container)

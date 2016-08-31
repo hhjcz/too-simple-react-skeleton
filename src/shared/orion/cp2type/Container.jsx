@@ -3,7 +3,7 @@ import React, { PropTypes } from 'react'
 import { connect } from 'react-redux'
 import { List, Map } from 'immutable'
 import { reduxUtils } from '@hhjcz/js-lib'
-import { getItems, Pagination, Sort } from '@hhjcz/redux-rest'
+import { getResourceWithItems, getItems, Pagination, Sort } from '@hhjcz/redux-rest'
 import Tabulka, { Paginator } from '@hhjcz/react-lib/lib/tabulka'
 import * as actions from './actions'
 
@@ -131,9 +131,9 @@ export class Container extends React.Component {
 }
 
 export default connect(
-  reduxUtils.createMapStateToProps(state => ({
-    ...(state.resources.cp2type.set('items', getItems(state.resources.cp2type)).toObject()),
+  (state) => ({
+    ...(getResourceWithItems('cp2type')(state.resources)),
     ...(state.cp2typeList.toObject())
-  })),
+  }),
   reduxUtils.createMapDispatchToProps(actions)
 )(Container)

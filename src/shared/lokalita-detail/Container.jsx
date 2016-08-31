@@ -2,7 +2,7 @@
 import React, { PropTypes } from 'react'
 import { connect } from 'react-redux'
 import { reduxUtils } from '@hhjcz/js-lib'
-import { getItem, getItems } from '@hhjcz/redux-rest'
+import { getResourceWithItems, getItem, getItems } from '@hhjcz/redux-rest'
 import * as actions from './actions'
 import LokalitaDetail from './LokalitaDetail'
 
@@ -68,10 +68,10 @@ export class Container extends React.Component {
 }
 
 export default connect(
-  reduxUtils.createMapStateToProps(state => ({
-    lokalitaResource: state.resources.lokalita,
-    zarizeniNaLokaliteResource: state.resources.zarizeniNaLokalite,
-    nepiOpyNaLokaliteResource: state.resources.nepiOpyNaLokalite,
-  })),
+  (state) => ({
+    lokalitaResource: getResourceWithItems('lokalita')(state.resources),
+    zarizeniNaLokalitaResource: getResourceWithItems('zarizeniNaLokalite')(state.resources),
+    nepiOpyNaLokaliteResource: getResourceWithItems('nepiOpyNaLokalite')(state.resources),
+  }),
   reduxUtils.createMapDispatchToProps(actions)
 )(Container)

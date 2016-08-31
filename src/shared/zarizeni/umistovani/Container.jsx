@@ -3,7 +3,7 @@ import React, { PropTypes } from 'react'
 import { connect } from 'react-redux'
 import { reduxUtils } from '@hhjcz/js-lib'
 import FetchIndicator from '@hhjcz/react-lib/lib/FetchIndicator'
-import { getItems, getItem } from '../../app/rest'
+import { getResourceWithItems, getItems, getItem } from '@hhjcz/redux-rest'
 import actions from './actions'
 import NedavneLokality from './NedavneLokality'
 import Umistovani from './Umistovani'
@@ -81,10 +81,10 @@ export class Container extends React.Component {
 
 export default connect(
   state => ({
-    zarizeniResource: state.resources.zarizeni,
-    portyZarizeniResource: state.resources.portyZarizeni,
-    umisteniResource: state.resources.umisteni,
-    akrloksResource: state.resources.akrloks
+    zarizeniResource: getResourceWithItems('zarizeni')(state.resources),
+    portyZarizeniResource: getResourceWithItems('portyZarizeni')(state.resources),
+    umisteniResource: getResourceWithItems('umisteni')(state.resources),
+    akrloksResource: getResourceWithItems('akrloks')(state.resources),
   }),
   reduxUtils.createMapDispatchToProps(actions)
 )(Container)
