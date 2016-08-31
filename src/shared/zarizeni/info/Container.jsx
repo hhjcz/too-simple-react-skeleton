@@ -1,13 +1,11 @@
 /** Created by hhj on 12/28/15. */
 import React, { PropTypes } from 'react'
-import { connect } from 'react-redux'
 import { reduxUtils } from '@hhjcz/js-lib'
-import { getItem, getResourceWithItems } from '@hhjcz/redux-rest'
-import rest from '../../app/rest'
+import { getItem } from '@hhjcz/redux-rest'
 import * as actions from '../../zarizeni-list/actions'
 import ZarizeniDetail from './ZarizeniDetail'
 
-export class Container extends React.Component {
+export default class Container extends React.Component {
 
   static propTypes = {
     params: PropTypes.object,
@@ -39,9 +37,3 @@ export class Container extends React.Component {
   }
 }
 
-const getResource = getResourceWithItems(rest.getRootTree)
-
-export default connect(
-  (state) => getResource('zarizeni')(state),
-  reduxUtils.createMapDispatchToProps(actions)
-)(Container)

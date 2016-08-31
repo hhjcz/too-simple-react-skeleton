@@ -1,0 +1,15 @@
+/** Created by hhj on 12/28/15. */
+import React, { PropTypes } from 'react'
+import { connect } from 'react-redux'
+import { reduxUtils } from '@hhjcz/js-lib'
+import { getResourceWithItems } from '@hhjcz/redux-rest'
+import rest from '../../app/rest'
+import * as actions from '../../zarizeni-list/actions'
+import Container from './Container'
+
+const getResource = getResourceWithItems(rest.getRootTree)
+
+export default connect(
+  (state) => getResource('zarizeni')(state),
+  reduxUtils.createMapDispatchToProps(actions)
+)(Container)

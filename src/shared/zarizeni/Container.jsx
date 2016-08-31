@@ -1,12 +1,10 @@
 /** Created by hhj on 12/28/15. */
 import React, { PropTypes } from 'react'
-import { connect } from 'react-redux'
-import { reduxUtils } from '@hhjcz/js-lib'
-import { getIdAtCursor, getResourceWithItems } from '@hhjcz/redux-rest'
+import { getIdAtCursor } from '@hhjcz/redux-rest'
 import rest from '../app/rest'
 import Navigation from './Navigation'
 
-export class Container extends React.Component {
+export default class Container extends React.Component {
 
   static propTypes = {
     params: PropTypes.object,
@@ -71,13 +69,4 @@ export class Container extends React.Component {
     )
   }
 }
-
-const getResource = getResourceWithItems(rest.getRootTree)
-
-export default connect(
-  state => ({
-    zarizeniResource: getResource('zarizeni')(state),
-  }),
-  reduxUtils.createMapDispatchToProps(rest.actions)
-)(Container)
 

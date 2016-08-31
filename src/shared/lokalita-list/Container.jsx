@@ -1,15 +1,11 @@
 /** Created by hhj on 12/28/15. */
 import React, { PropTypes } from 'react'
-import { connect } from 'react-redux'
 import { List } from 'immutable'
-import { reduxUtils } from '@hhjcz/js-lib'
-import { getResourceWithItems, getItems } from '@hhjcz/redux-rest'
 import Tabulka, { Paginator } from '@hhjcz/react-lib/lib/tabulka'
 import PredefinedViews from './PredefinedViews'
-import rest from '../app/rest'
 import * as actions from './actions'
 
-export class Container extends React.Component {
+export default class Container extends React.Component {
 
   static propTypes = {
     columns: PropTypes.object.isRequired,
@@ -115,12 +111,3 @@ export class Container extends React.Component {
   }
 }
 
-const getResource = getResourceWithItems(rest.getRootTree)
-
-export default connect(
-  reduxUtils.createMapStateToProps(state => ({
-    ...(getResource('lokalita')(state)),
-    ...(state.lokalitaList.toObject())
-  })),
-  reduxUtils.createMapDispatchToProps(actions)
-)(Container)

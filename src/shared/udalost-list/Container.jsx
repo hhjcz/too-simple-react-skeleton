@@ -1,14 +1,10 @@
 /** Created by hhj on 12/28/15. */
 import React, { PropTypes } from 'react'
-import { connect } from 'react-redux'
 import { List } from 'immutable'
-import { reduxUtils } from '@hhjcz/js-lib'
-import { getItems, getResourceWithItems } from '@hhjcz/redux-rest'
 import Tabulka, { Paginator } from '@hhjcz/react-lib/lib/tabulka'
-import rest from '../app/rest'
 import * as actions from './actions'
 
-export class Container extends React.Component {
+export default class Container extends React.Component {
 
   static propTypes = {
     columns: PropTypes.object.isRequired,
@@ -83,8 +79,8 @@ export class Container extends React.Component {
     return (
       <div id="udalost-list">
         <div className="row">
-          <div className="col col-md-6">
-          </div>
+          {/* <div className="col col-md-6"> */}
+          {/* </div> */}
           <div className="col col-md-6">
             <Paginator
               pagination={pagination}
@@ -103,13 +99,3 @@ export class Container extends React.Component {
     )
   }
 }
-
-const getResource = getResourceWithItems(rest.getRootTree)
-
-export default connect(
-  (state) => ({
-    ...(getResource('udalost')(state)),
-    ...(state.udalostList.toObject()),
-  }),
-  reduxUtils.createMapDispatchToProps(actions)
-)(Container)

@@ -1,14 +1,11 @@
 /** Created by hhj on 12/28/15. */
 import React, { PropTypes } from 'react'
-import { connect } from 'react-redux'
 import { List, Map } from 'immutable'
-import { reduxUtils } from '@hhjcz/js-lib'
-import { getResourceWithItems, getItems, Pagination, Sort } from '@hhjcz/redux-rest'
+import { Pagination, Sort } from '@hhjcz/redux-rest'
 import Tabulka, { Paginator } from '@hhjcz/react-lib/lib/tabulka'
-import rest from '../../app/rest'
 import * as actions from './actions'
 
-export class Container extends React.Component {
+export default class Container extends React.Component {
 
   static propTypes = {
     columns: PropTypes.object.isRequired,
@@ -131,12 +128,3 @@ export class Container extends React.Component {
   }
 }
 
-const getResource = getResourceWithItems(rest.getRootTree)
-
-export default connect(
-  (state) => ({
-    ...(getResource('cp2type')(state)),
-    ...(state.cp2typeList.toObject())
-  }),
-  reduxUtils.createMapDispatchToProps(actions)
-)(Container)
