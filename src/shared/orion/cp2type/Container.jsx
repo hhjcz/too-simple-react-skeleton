@@ -130,9 +130,12 @@ export class Container extends React.Component {
   }
 }
 
+// TODO - get function from rest runtime
+const getResource = getResourceWithItems(state => state.resources)
+
 export default connect(
   (state) => ({
-    ...(getResourceWithItems('cp2type')(state.resources)),
+    ...(getResource('cp2type')(state)),
     ...(state.cp2typeList.toObject())
   }),
   reduxUtils.createMapDispatchToProps(actions)

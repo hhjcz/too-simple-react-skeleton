@@ -119,11 +119,12 @@ export class Container extends React.Component {
   }
 }
 
-const getZarizeniResource = getResourceWithItems('zarizeni')
+// TODO - get function from rest runtime
+const getResource = getResourceWithItems(state => state.resources)
 
 export default connect(
   (state) => ({
-    ...(getZarizeniResource(state.resources)),
+    ...(getResource('zarizeni')(state)),
     ...(state.zarizeniList.toObject())
   }),
   reduxUtils.createMapDispatchToProps(actions)

@@ -79,12 +79,14 @@ export class Container extends React.Component {
   }
 }
 
+const getResource = getResourceWithItems(state => state.resources)
+
 export default connect(
   state => ({
-    zarizeniResource: getResourceWithItems('zarizeni')(state.resources),
-    portyZarizeniResource: getResourceWithItems('portyZarizeni')(state.resources),
-    umisteniResource: getResourceWithItems('umisteni')(state.resources),
-    akrloksResource: getResourceWithItems('akrloks')(state.resources),
+    zarizeniResource: getResource('zarizeni')(state),
+    portyZarizeniResource: getResource('portyZarizeni')(state),
+    umisteniResource: getResource('umisteni')(state),
+    akrloksResource: getResource('akrloks')(state),
   }),
   reduxUtils.createMapDispatchToProps(actions)
 )(Container)

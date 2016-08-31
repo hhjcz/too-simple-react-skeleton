@@ -72,9 +72,12 @@ export class Container extends React.Component {
   }
 }
 
+// TODO - get function from rest runtime
+const getResource = getResourceWithItems(state => state.resources)
+
 export default connect(
   state => ({
-    zarizeniResource: getResourceWithItems('zarizeni')(state.resources),
+    zarizeniResource: getResource('zarizeni')(state),
   }),
   reduxUtils.createMapDispatchToProps(rest.actions)
 )(Container)

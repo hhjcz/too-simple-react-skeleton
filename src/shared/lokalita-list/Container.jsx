@@ -114,9 +114,12 @@ export class Container extends React.Component {
   }
 }
 
+// TODO - get function from rest runtime
+const getResource = getResourceWithItems(state => state.resources)
+
 export default connect(
   reduxUtils.createMapStateToProps(state => ({
-    ...(getResourceWithItems('lokalita')(state.resources)),
+    ...(getResource('lokalita')(state)),
     ...(state.lokalitaList.toObject())
   })),
   reduxUtils.createMapDispatchToProps(actions)
