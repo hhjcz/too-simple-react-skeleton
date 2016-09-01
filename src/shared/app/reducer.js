@@ -8,9 +8,7 @@ import cp2typeList from '../orion/cp2type/reducer'
 import rest, { RESOURCES_ROOT_TREE } from './rest'
 
 const combinedReducer = combineReducers({
-  [RESOURCES_ROOT_TREE]: combineReducers({
-    ...rest.reducers,
-  }),
+  [RESOURCES_ROOT_TREE]: rest.reducer,
   zarizeniList,
   lokalitaList,
   udalostList,

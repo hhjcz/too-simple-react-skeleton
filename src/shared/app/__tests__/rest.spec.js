@@ -4,12 +4,20 @@ import rest from '../rest'
 
 describe('app rest', () => {
 
-  it('should define rest actions', () => {
+  it('returns rest actions', () => {
     expect(typeof rest.actions).to.equal('object')
   })
 
-  it('should define rest reducers', () => {
-    expect(typeof rest.reducers).to.equal('object')
+  it('returns rest reducers', () => {
+    expect(typeof rest.reducer).to.equal('function')
+  })
+
+  it('returns selectResourcesRoot selector', () => {
+    expect(typeof rest.selectResourcesRoot).to.equal('function')
+  })
+
+  it('returns selectResource selector', () => {
+    expect(typeof rest.selectResource).to.equal('function')
   })
 
 })
