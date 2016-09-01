@@ -20,7 +20,7 @@ let store = {}
 export default function createStore(initialState = {}, history = null) {
 
   // inject dependencies for actions (history in client only)
-  const middleware = [perfLogger, myMiddleware({ history })]
+  const middleware = [myMiddleware({ history })]
   if (BROWSER_DEVELOPMENT) {
     middleware.push(createLogger({
       collapsed: true,
@@ -30,6 +30,11 @@ export default function createStore(initialState = {}, history = null) {
 
     // middleware.push(perfLogger)
   }
+
+  // performance measuring middleware
+  // if (BROWSER_DEVELOPMENT) {
+  //   middleware.unshift(perfLogger)
+  // }
 
   let devToolsInstrument = x => x
   if (process.env.NODE_ENV !== 'production') {
