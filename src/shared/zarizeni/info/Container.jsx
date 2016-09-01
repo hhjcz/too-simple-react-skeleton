@@ -1,7 +1,7 @@
 /** Created by hhj on 12/28/15. */
 import React, { PropTypes } from 'react'
 import { reduxUtils } from '@hhjcz/js-lib'
-import { getItem } from '@hhjcz/redux-rest'
+import { selectItem } from '@hhjcz/redux-rest'
 import * as actions from '../../zarizeni-list/actions'
 import ZarizeniDetail from './ZarizeniDetail'
 
@@ -28,7 +28,7 @@ export default class Container extends React.Component {
   }
 
   render() {
-    const zarizeni = getItem(this.props)
+    const zarizeni = selectItem(this.props)
     return (
       <div id="zarizeni">
         <ZarizeniDetail zarizeni={zarizeni} />

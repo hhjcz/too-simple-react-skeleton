@@ -2,12 +2,12 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { reduxUtils } from '@hhjcz/js-lib'
-import { getResourceWithItems, getItems } from '@hhjcz/redux-rest'
+import { selectResource, selectItems } from '@hhjcz/redux-rest'
 import rest from '../app/rest'
 import * as actions from './actions'
 import Container from './Container'
 
-const getResource = getResourceWithItems(rest.getRootTree)
+const getResource = selectResource(rest.getRootTree)
 
 export default connect(
   reduxUtils.createMapStateToProps(state => ({
