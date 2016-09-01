@@ -2,19 +2,16 @@
 import React, { PropTypes } from 'react'
 import { connect } from 'react-redux'
 import { reduxUtils } from '@hhjcz/js-lib'
-import { selectors } from '@hhjcz/redux-rest'
 import rest from '../../app/rest'
 import actions from './actions'
 import Container from './Container'
 
-const getResource = selectors.selectResource(rest.getRootTree)
-
 export default connect(
   state => ({
-    zarizeniResource: getResource('zarizeni')(state),
-    portyZarizeniResource: getResource('portyZarizeni')(state),
-    umisteniResource: getResource('umisteni')(state),
-    akrloksResource: getResource('akrloks')(state),
+    zarizeniResource: rest.selectResource('zarizeni')(state),
+    portyZarizeniResource: rest.selectResource('portyZarizeni')(state),
+    umisteniResource: rest.selectResource('umisteni')(state),
+    akrloksResource: rest.selectResource('akrloks')(state),
   }),
   reduxUtils.createMapDispatchToProps(actions)
 )(Container)

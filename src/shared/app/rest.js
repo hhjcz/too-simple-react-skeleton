@@ -22,7 +22,7 @@ const depsContainer = {
 
 const rest = createRest(
   {
-    getRootTree: (state) => state[RESOURCES_ROOT_TREE],
+    selectResourcesRoot: (state) => state[RESOURCES_ROOT_TREE],
     resources: {
       zarizeni: {
         url: '/zarizeni/:id/:nested',

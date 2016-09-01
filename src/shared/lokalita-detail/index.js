@@ -2,18 +2,15 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { reduxUtils } from '@hhjcz/js-lib'
-import { selectors } from '@hhjcz/redux-rest'
 import rest from '../app/rest'
 import * as actions from './actions'
 import Container from './Container'
 
-const getResource = selectors.selectResource(rest.getRootTree)
-
 export default connect(
   (state) => ({
-    lokalitaResource: getResource('lokalita')(state),
-    zarizeniNaLokalitaResource: getResource('zarizeniNaLokalite')(state),
-    nepiOpyNaLokaliteResource: getResource('nepiOpyNaLokalite')(state),
+    lokalitaResource: rest.selectResource('lokalita')(state),
+    zarizeniNaLokalitaResource: rest.selectResource('zarizeniNaLokalite')(state),
+    nepiOpyNaLokaliteResource: rest.selectResource('nepiOpyNaLokalite')(state),
   }),
   reduxUtils.createMapDispatchToProps(actions)
 )(Container)

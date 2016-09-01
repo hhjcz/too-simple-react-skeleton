@@ -7,11 +7,9 @@ import rest from '../app/rest'
 import * as actions from './actions'
 import Container from './Container'
 
-const getResource = selectors.selectResource(rest.getRootTree)
-
 export default connect(
   reduxUtils.createMapStateToProps(state => ({
-    ...(getResource('lokalita')(state)),
+    ...(rest.selectResource('lokalita')(state)),
     ...(state.lokalitaList.toObject())
   })),
   reduxUtils.createMapDispatchToProps(actions)

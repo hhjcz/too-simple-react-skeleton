@@ -2,16 +2,13 @@
 import React, { PropTypes } from 'react'
 import { connect } from 'react-redux'
 import { reduxUtils } from '@hhjcz/js-lib'
-import { selectors } from '@hhjcz/redux-rest'
 import rest from '../../app/rest'
 import * as actions from './actions'
 import Container from './Container'
 
-const getResource = selectors.selectResource(rest.getRootTree)
-
 export default connect(
   (state) => ({
-    ...(getResource('cp2type')(state)),
+    ...(rest.selectResource('cp2type')(state)),
     ...(state.cp2typeList.toObject())
   }),
   reduxUtils.createMapDispatchToProps(actions)
