@@ -1,6 +1,6 @@
 /** Created by hhj on 12/28/15. */
 import React, { PropTypes } from 'react'
-import { selectItem, selectItems } from '@hhjcz/redux-rest'
+import { selectors } from '@hhjcz/redux-rest'
 import * as actions from './actions'
 import LokalitaDetail from './LokalitaDetail'
 
@@ -49,9 +49,9 @@ export default class Container extends React.Component {
   }
 
   render() {
-    const lokalita = selectItem(this.props.lokalitaResource)
-    const zarizeni = selectItems(this.props.zarizeniNaLokaliteResource)
-    const nepiOpy = selectItems(this.props.nepiOpyNaLokaliteResource)
+    const lokalita = selectors.selectItem(this.props.lokalitaResource)
+    const zarizeni = selectors.selectItems(this.props.zarizeniNaLokaliteResource)
+    const nepiOpy = selectors.selectItems(this.props.nepiOpyNaLokaliteResource)
 
     return (
       <div id="lokalita-detail">

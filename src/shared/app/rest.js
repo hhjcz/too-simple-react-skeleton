@@ -11,8 +11,6 @@ import errorHandler from '../lib/myErrorHandler'
 
 export const RESOURCES_ROOT_TREE = 'resources'
 
-export { selectItem, selectItems, selectIdAtCursor, selectResource } from '@hhjcz/redux-rest'
-
 const serverBaseUrl = process.env.SERVER_BASE_URL
   || (process.env.IS_BROWSER ? window.SERVER_BASE_URL : null)
   || 'http://localhost:8089/api'

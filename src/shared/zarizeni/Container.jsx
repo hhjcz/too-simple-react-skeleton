@@ -1,6 +1,6 @@
 /** Created by hhj on 12/28/15. */
 import React, { PropTypes } from 'react'
-import { selectIdAtCursor } from '@hhjcz/redux-rest'
+import { selectors } from '@hhjcz/redux-rest'
 import rest from '../app/rest'
 import Navigation from './Navigation'
 
@@ -35,7 +35,7 @@ export default class Container extends React.Component {
     const nextCursor = nextProps.zarizeniResource.pagination.cursorAt
 
     if (nextCursor !== currentCursor) {
-      const zarizeniId = selectIdAtCursor(nextProps.zarizeniResource)
+      const zarizeniId = selectors.selectIdAtCursor(nextProps.zarizeniResource)
 
       // FIXME - any other way how to programmaticly set route param?
       // TODO - workaround, depends on url path (should at least use location.pathname ...)

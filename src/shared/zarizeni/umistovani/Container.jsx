@@ -1,7 +1,7 @@
 /** Created by hhj on 12/28/15. */
 import React, { PropTypes } from 'react'
 import FetchIndicator from '@hhjcz/react-lib/lib/FetchIndicator'
-import { selectItems, selectItem } from '@hhjcz/redux-rest'
+import { selectors } from '@hhjcz/redux-rest'
 import actions from './actions'
 import Umistovani from './Umistovani'
 
@@ -53,10 +53,10 @@ export default class Container extends React.Component {
 
   render() {
     const { zarizeniResource, umisteniResource, akrloksResource, portyZarizeniResource, actions } = this.props
-    const zarizeni = selectItem(zarizeniResource)
-    const seznamUmisteni = selectItems(umisteniResource)
-    const seznamPortu = selectItems(portyZarizeniResource)
-    const akrloks = selectItems(akrloksResource)
+    const zarizeni = selectors.selectItem(zarizeniResource)
+    const seznamUmisteni = selectors.selectItems(umisteniResource)
+    const seznamPortu = selectors.selectItems(portyZarizeniResource)
+    const akrloks = selectors.selectItems(akrloksResource)
 
     return (
       <div id="umistovani">
