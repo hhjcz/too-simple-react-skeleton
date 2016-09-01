@@ -3,6 +3,7 @@ import { createStore as _createStore, applyMiddleware, compose } from 'redux'
 import createLogger from 'redux-logger'
 import adapter from 'redux-localstorage/lib/adapters/sessionStorage'
 import storageDebounce from 'redux-localstorage-debounce'
+import perfLogger from 'redux-perf-middleware'
 import { myMiddleware } from '@hhjcz/js-lib/lib/reduxUtils'
 import reducer from './reducer'
 
@@ -19,13 +20,15 @@ let store = {}
 export default function createStore(initialState = {}, history = null) {
 
   // inject dependencies for actions (history in client only)
-  const middleware = [myMiddleware({ history })]
+  const middleware = [perfLogger, myMiddleware({ history })]
   if (BROWSER_DEVELOPMENT) {
     middleware.push(createLogger({
       collapsed: true,
       // convert immutable => json => object
       stateTransformer: (state) => JSON.parse(JSON.stringify(state)),
     }))
+
+    // middleware.push(perfLogger)
   }
 
   let devToolsInstrument = x => x
