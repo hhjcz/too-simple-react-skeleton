@@ -21,6 +21,7 @@ export default function(app) {
     '@hhjcz/js-lib': path.resolve('./my_libs', 'js-lib'),
     '@hhjcz/react-lib/lib': path.resolve('./my_libs', 'react-lib'),
     '@hhjcz/react-lib': path.resolve('./my_libs', 'react-lib'),
+    '@hhjcz/redux-rest/lib': path.resolve('./my_libs', 'redux-rest'),
     '@hhjcz/redux-rest': path.resolve('./my_libs', 'redux-rest'),
   }
   const validAliases = {}
