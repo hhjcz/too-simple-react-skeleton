@@ -32,7 +32,10 @@ export default function(app) {
 
   const config = {
     ...prodCfg,
-    devtool: 'cheap-eval-source-map',
+    // faster:
+    // devtool: 'cheap-eval-source-map',
+    // works with phpstorm javascript debugging (inc chrome)
+    devtool: 'eval-source-map',
     entry: {
       main: [
         'webpack-hot-middleware/client',
