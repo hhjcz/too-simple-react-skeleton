@@ -7,6 +7,11 @@ const config = require('./webpack.prod')
 
 const compiler = webpack(config)
 
+if (process.env.NODE_ENV === 'development') {
+  console.info(`Skipping webpack build in development mode... (NODE_ENV=${process.env.NODE_ENV})`)
+  return
+}
+
 console.info(`Building webpack bundle... (NODE_ENV=${process.env.NODE_ENV})`)
 
 function handleError(error) {
