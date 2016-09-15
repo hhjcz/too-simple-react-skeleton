@@ -1,3 +1,3 @@
 [submodule "laradock"]
 	path = docker
-	url = git@github.com:hhjcz/laradock.git
+	url = https://github.com/hhjcz/laradock.git
