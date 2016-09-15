@@ -1,12 +1,12 @@
 /** Created by hhj on 12/23/15. */
-import path from 'path';
-import fs from 'fs';
-import webpack from 'webpack';
-import webpackDevMiddleware from 'webpack-dev-middleware';
-import webpackHotMiddleware from 'webpack-hot-middleware';
-import prodCfg from './webpack.prod.js';
-import IsomorphicToolsPlugin from '../../node_modules/webpack-isomorphic-tools/plugin';
-import isomorphicToolsConfig from './webpack-isomorphic-tools.config.js';
+import path from 'path'
+import fs from 'fs'
+import webpack from 'webpack'
+import webpackDevMiddleware from 'webpack-dev-middleware'
+import webpackHotMiddleware from 'webpack-hot-middleware'
+import prodCfg from './webpack.prod.js'
+import IsomorphicToolsPlugin from '../../node_modules/webpack-isomorphic-tools/plugin'
+import isomorphicToolsConfig from './webpack-isomorphic-tools.config.js'
 import constants from './constants'
 
 const isomorphicToolsPlugin = new IsomorphicToolsPlugin(isomorphicToolsConfig)
@@ -33,9 +33,9 @@ export default function(app) {
   const config = {
     ...prodCfg,
     // faster:
-    // devtool: 'cheap-eval-source-map',
-    // works with phpstorm javascript debugging (inc chrome)
-    devtool: 'eval-source-map',
+    devtool: 'cheap-eval-source-map',
+    // works with phpstorm javascript debugging (inc chrome):
+    // devtool: 'eval-source-map',
     entry: {
       main: [
         'webpack-hot-middleware/client',
