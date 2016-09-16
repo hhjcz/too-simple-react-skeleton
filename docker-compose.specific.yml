@@ -33,6 +33,8 @@ services:
         extends: workspace_node_prod
         environment:
           - NODE_ENV=staging
+          - SERVER_BASE_URL=http://netvision-test:8089/api
+          - NO_SERVER_REACT=true
         networks:
           default:
             ipv4_address: 172.20.0.182
