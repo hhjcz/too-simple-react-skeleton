@@ -14,6 +14,7 @@ services:
         environment:
           - NODE_ENV=development
           - SERVER_BASE_URL=http://netvision-test:8089/api
+#          - SERVER_BASE_URL=http://dohlestr-b-dev/api
           - NO_SERVER_REACT=true
         networks:
           default:
