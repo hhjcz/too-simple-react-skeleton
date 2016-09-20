@@ -16,7 +16,7 @@
     "dev:stop": "npm run dev stop",
     "dev:down": "npm run dev down",
     "dev:status": "npm run dev status",
-    "dev:logs": "npm run dev logs",
+    "dev:logs": "npm run dev -- logs -f",
     "dev:local": "NODE_ENV=development npm start",
 
     "pretest": "true || npm run eslint # (auto hook runs with npm run test)",
