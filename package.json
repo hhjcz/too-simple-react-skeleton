@@ -14,6 +14,7 @@
     "dev": "docker/compose-wrapper.sh",
     "dev:up": "npm run dev up sshd workspace_node_dev",
     "dev:stop": "npm run dev stop",
+    "dev:restart": "npm run dev restart",
     "dev:down": "npm run dev down",
     "dev:status": "npm run dev status",
     "dev:logs": "npm run dev -- logs -f",
