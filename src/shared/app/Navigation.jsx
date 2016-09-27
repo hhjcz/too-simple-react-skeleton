@@ -55,7 +55,7 @@ export default class Navigation extends React.Component {
             </LinkContainer>
             <LinkContainer to="/udrzba/zarizeni_ke_slouceni">
               <NavItem title="Zařízení ke sloučení">
-                <ColoredIcon>merge</ColoredIcon>
+                <ColoredIcon>call_merge</ColoredIcon>
               </NavItem>
             </LinkContainer>
             <NavDropdown title={<ColoredIcon title="Orion">stars</ColoredIcon>} id="nav-orion">
