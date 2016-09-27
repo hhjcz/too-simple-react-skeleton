@@ -11,18 +11,34 @@ const defaultColumns = Map(
       caption: 'First ID',
       valueType: columntValueTypes.number,
       position: 10,
+      width: 1,
     }),
     secondId: new Column({
       name: 'secondId',
       caption: 'Second ID',
       valueType: columntValueTypes.number,
       position: 20,
+      width: 1,
     }),
     firstIpAddress: new Column({
       name: 'firstIpAddress',
       caption: 'IP address',
       valueType: columntValueTypes.ipAddress,
       position: 30,
+    }),
+    firstName: new Column({
+      name: 'firstName',
+      caption: 'First name',
+      valueType: columntValueTypes.string,
+      position: 40,
+      width: 4,
+    }),
+    secondName: new Column({
+      name: 'secondName',
+      caption: 'Second name',
+      valueType: columntValueTypes.string,
+      position: 50,
+      width: 4,
     }),
   }
 )
