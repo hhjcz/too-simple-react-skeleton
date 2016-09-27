@@ -35,9 +35,12 @@ const defaultColumns = Map(
       position: 30,
       width: 8,
       render: udalost => (
-        <span>
-          <Link to={`/zarizeni/orion/${udalost.data.alreadyInOrionId}`}>{udalost.data.alreadyInOrionId}</Link>
-        </span>
+        <div>
+          <div><Link to={`/zarizeni/orion/${udalost.data.alreadyInOrionId}`}>{udalost.data.alreadyInOrionId}</Link></div>
+          <div><Link to={`/zarizeni?ip=${udalost.data.alreadyInOrionIp}`}>{udalost.data.alreadyInOrionIp}</Link></div>
+          <div>{udalost.data.alreadyInOrionName}</div>
+          <div>{udalost.data.duplicatedZarizeniName}</div>
+        </div>
       ),
     }),
     stav: new Column({
