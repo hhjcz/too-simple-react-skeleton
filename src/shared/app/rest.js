@@ -84,6 +84,10 @@ const rest = createRest(
         url: '/orion/cp2type/:custom_poller_id/:sys_object_id',
         itemTransformer: item => new Cp2Type(item),
       },
+      zarizeniKeSlouceni: {
+        url: '/udrzba/zarizeni_ke_slouceni',
+        idField: 'firstId'
+      },
       testEndpoint: {
         url: '/test/:id'
       }

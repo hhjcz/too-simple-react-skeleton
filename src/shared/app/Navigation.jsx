@@ -53,6 +53,11 @@ export default class Navigation extends React.Component {
                 <ColoredIcon>history</ColoredIcon>
               </NavItem>
             </LinkContainer>
+            <LinkContainer to="/udrzba/zarizeni_ke_slouceni">
+              <NavItem title="Zařízení ke sloučení">
+                <ColoredIcon>merge</ColoredIcon>
+              </NavItem>
+            </LinkContainer>
             <NavDropdown title={<ColoredIcon title="Orion">stars</ColoredIcon>} id="nav-orion">
               <LinkContainer to="/orion/cp2type">
                 <MenuItem title="Custom pollers to machine type map">

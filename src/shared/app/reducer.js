@@ -5,6 +5,7 @@ import zarizeniList from '../zarizeni-list/reducer'
 import lokalitaList from '../lokalita-list/reducer'
 import udalostList from '../udalost-list/reducer'
 import cp2typeList from '../orion/cp2type/reducer'
+import zarizeniKeSlouceni from '../zarizeni-ke-slouceni/reducer'
 import rest, { RESOURCES_ROOT_TREE } from './rest'
 
 const combinedReducer = combineReducers({
@@ -13,6 +14,7 @@ const combinedReducer = combineReducers({
   lokalitaList,
   udalostList,
   cp2typeList,
+  zarizeniKeSlouceni,
   toastr,
 })
 
