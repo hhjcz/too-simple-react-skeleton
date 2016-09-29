@@ -20,7 +20,7 @@ describe('cp2type-list connected Container component (wrapper)', () => {
     expect(tree.props.store).to.deep.equal(store)
     expect(typeof tree.props.dispatch).to.equal('function')
     expect(typeof tree.props.actions).to.equal('object')
-    expect(typeof tree.props.actions.cp2type.gotoPage).to.equal('function')
+    expect(typeof tree.props.actions.gotoPage).to.equal('function')
   })
 
   it('should connect proper sub state to props', () => {

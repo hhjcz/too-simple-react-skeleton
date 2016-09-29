@@ -10,6 +10,10 @@ export default class Container extends React.Component {
     params: PropTypes.object,
   };
 
+  static defaultProps = {
+    params: {},
+  }
+
   // server and client side fetch actions (see render.jsx & componentDidMount):
   static fetchActions = [actions.fetchOne];
 
