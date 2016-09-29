@@ -14,6 +14,7 @@ import Lokalita from '../lokalita-detail'
 import UdalostList from '../udalost-list'
 import Cp2TypeList from '../orion/cp2type'
 import ZarizeniKeSlouceni from '../zarizeni-ke-slouceni'
+import Slucovani from '../zarizeni-ke-slouceni/Slucovani'
 import Hriste from './Hriste'
 import App from './index'
 
@@ -49,7 +50,10 @@ export default (
       <Route path="cp2type" component={Cp2TypeList} />
     </Route>
     <Route path="udrzba">
-      <Route path="zarizeni_ke_slouceni" component={ZarizeniKeSlouceni} />
+      <Route path="zarizeni_ke_slouceni">
+        <IndexRoute component={ZarizeniKeSlouceni} />
+        <Route path=":firstId/:secondId" component={Slucovani} />
+      </Route>
     </Route>
     <Route path="hriste" component={Hriste} />
   </Route>
