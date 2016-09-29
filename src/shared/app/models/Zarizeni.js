@@ -37,10 +37,17 @@ export const Zarizeni = Record({
 export default Zarizeni
 
 export function ZarizeniFactory(zarizeniObj = {}) {
-  const netvisionInfoName = zarizeniObj.netvisionZarizeni ? zarizeniObj.netvisionZarizeni.infoName : '' // eslint-disable-line max-len
+  const netvisionZarizeni = zarizeniObj.netvisionZarizeni || {}
+  const orionZarizeni = zarizeniObj.orionZarizeni || {}
+  const name = netvisionZarizeni.name || orionZarizeni.name || ''
+  const infoName = netvisionZarizeni.infoName || orionZarizeni.infoName || ''
+
   return new Zarizeni({
     ...(zarizeniObj.toObject ? zarizeniObj.toObject() : zarizeniObj),
-    infoName: zarizeniObj.infoName || netvisionInfoName,
+    name: zarizeniObj.name || name,
+    infoName: zarizeniObj.infoName || infoName,
+    netvisionZarizeni,
+    orionZarizeni,
     defaultmap: zarizeniObj.netvisionZarizeni ? zarizeniObj.netvisionZarizeni.defaultmap : '',
     umisteni: UmisteniFactory(zarizeniObj.umisteni)
   })
