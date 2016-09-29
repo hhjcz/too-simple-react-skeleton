@@ -23,7 +23,7 @@ const defaultColumns = Map(
       visible: false,
       sortable: true,
       position: 20,
-      width: 1,
+      width: 3,
       render: udalost => udalost.druh.nazev,
     }),
     data: new Column({
@@ -33,7 +33,7 @@ const defaultColumns = Map(
       visible: true,
       sortable: true,
       position: 30,
-      width: 8,
+      width: 6,
       render: udalost => (
         <div>
           <div><Link to={`/zarizeni/orion/${udalost.data.alreadyInOrionId}`}>{udalost.data.alreadyInOrionId}</Link></div>
