@@ -1,6 +1,5 @@
 /** Created by hhj on 12/28/15. */
 import React, { PropTypes } from 'react'
-import { reduxUtils } from '@hhjcz/js-lib'
 import { selectors } from '@hhjcz/redux-rest'
 import * as actions from '../../zarizeni-list/actions'
 import ZarizeniDetail from './ZarizeniDetail'
@@ -16,19 +15,17 @@ export default class Container extends React.Component {
 
   // browser fetching:
   componentDidMount() {
-    const { params } = this.props
-    Container.fetchActions.forEach((action) => action({ params }))
+    Container.fetchActions.forEach((action) => action({ params: this.props.params }))
   }
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.params.id !== this.props.params.id) {
-      const { params } = nextProps
-      Container.fetchActions.forEach((action) => action({ params }))
+      Container.fetchActions.forEach((action) => action({ params: nextProps.params }))
     }
   }
 
   render() {
-    const zarizeni = selectors.selectItem(this.props)
+    const zarizeni = selectors.selectItem(this.props, {}, this.props.params.id)
     return (
       <div id="zarizeni">
         <ZarizeniDetail zarizeni={zarizeni} />

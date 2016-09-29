@@ -7,8 +7,13 @@ export default class ZarizeniDetail extends React.Component {
     zarizeni: PropTypes.instanceOf(Zarizeni).isRequired,
   };
 
+  static defaultProps = {
+    zarizeni: { netvisionZarizeni: {}, orionZarizeni: {} },
+  };
+
   render() {
     const { zarizeni } = this.props
+
     return (
       <div>
         <div>id: {zarizeni.id}</div>
@@ -20,7 +25,8 @@ export default class ZarizeniDetail extends React.Component {
             {zarizeni.orionZarizeni.id}
           </a>
         </div>
-        <div>nv id: {zarizeni.netvisionZarizeni.id}</div>
+        <div>nv id: {zarizeni.netvisionZarizeni.id}
+        </div>
         <div>created at: {zarizeni.createdAt}</div>
         <div>updated at: {zarizeni.updatedAt}</div>
         <div>deleted at: {zarizeni.deletedAt}</div>
