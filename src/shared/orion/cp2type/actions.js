@@ -5,7 +5,7 @@ import rest from '../../app/rest'
 module.exports = {
   ...module.exports,
   ...createTableActions('CP2TYPE_LIST'),
-  ...rest.actions,
+  ...rest.actions.cp2type,
 }
 
 export function updateCp2Type(customPollerId, sysObjectId, autoAssign = 1) {

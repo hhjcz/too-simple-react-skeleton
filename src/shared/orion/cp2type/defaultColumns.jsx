@@ -87,13 +87,13 @@ const defaultColumns = Map(
       sortable: true,
       position: 90,
       width: 1,
-      render: cp2type => (cp2type.autoAssign === '0' ? (
+      render: cp2type => (cp2type.autoAssign === 0 ? (
           'NA'
-        ) : cp2type.autoAssign === '1' ? (
+        ) : cp2type.autoAssign === 1 ? (
           'Assign'
-        ) : cp2type.autoAssign === '2' ? (
+        ) : cp2type.autoAssign === 2 ? (
           'Unassign'
-        ) : cp2type.autoAssign === '3' ? (
+        ) : cp2type.autoAssign === 3 ? (
           'Ignore'
         ) : 'Unrecognized value'
       )
