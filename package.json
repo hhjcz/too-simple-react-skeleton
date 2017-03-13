@@ -82,7 +82,7 @@
     "webpack": "^1.12.9",
     "webpack-dev-middleware": "^1.4.0",
     "webpack-hot-middleware": "^2.6.0",
-    "webpack-isomorphic-tools": "^2.2.50"
+    "webpack-isomorphic-tools": "^3.0.2"
   },
   "devDependencies": {
     "babel-eslint": "^7.0.0",
