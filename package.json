@@ -103,6 +103,6 @@
     "redux-devtools-log-monitor": "^1.0.10",
     "sinon": "^1.17.5",
     "sinon-chai": "^2.8.0",
-    "skin-deep": "^0.16.0"
+    "skin-deep": "^1.0.0"
   }
 }
