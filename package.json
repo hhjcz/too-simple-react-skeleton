@@ -99,7 +99,7 @@
     "nock": "^8.0.0",
     "react-addons-test-utils": "^15.1.0",
     "redux-devtools": "^3.0.1",
-    "redux-devtools-dock-monitor": "^1.0.1",
+    "redux-devtools-dock-monitor": "^1.1.2",
     "redux-devtools-log-monitor": "^1.0.10",
     "sinon": "^1.17.5",
     "sinon-chai": "^2.8.0",
